@@ -1,5 +1,6 @@
 
 # Chilkat PHP Extension
+#### Current Version: 9.5.0.55
 
 This repo provides a means for building the Chilkat PHP Extension to match your PHP version and configuration exactly.  At this time, only the files for the 64-bit Linux build are provided.  
 
