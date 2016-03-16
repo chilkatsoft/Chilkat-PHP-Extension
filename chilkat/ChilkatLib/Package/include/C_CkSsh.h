@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkSsh_H
 #define _C_CkSsh_H
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkSsh_setAbortCheck(HCkSsh cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkSsh_setPercentDone(HCkSsh cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkSsh_setProgressInfo(HCkSsh cHandle, void (*fnProgressInfo)(const char *name, const char *value));
+CK_VISIBLE_PUBLIC void CkSsh_setTaskCompleted(HCkSsh cHandle, void (*fnTaskCompleted)(HCkTask hTask));
 
 CK_VISIBLE_PUBLIC HCkSsh CkSsh_Create(void);
 CK_VISIBLE_PUBLIC void CkSsh_Dispose(HCkSsh handle);
@@ -27,6 +33,8 @@ CK_VISIBLE_PUBLIC const char *CkSsh_debugLogFilePath(HCkSsh cHandle);
 CK_VISIBLE_PUBLIC int CkSsh_getDisconnectCode(HCkSsh cHandle);
 CK_VISIBLE_PUBLIC void CkSsh_getDisconnectReason(HCkSsh cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const char *CkSsh_disconnectReason(HCkSsh cHandle);
+CK_VISIBLE_PUBLIC BOOL CkSsh_getEnableCompression(HCkSsh cHandle);
+CK_VISIBLE_PUBLIC void CkSsh_putEnableCompression(HCkSsh cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkSsh_getForceCipher(HCkSsh cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkSsh_putForceCipher(HCkSsh cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkSsh_forceCipher(HCkSsh cHandle);

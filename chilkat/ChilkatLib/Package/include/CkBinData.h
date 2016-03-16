@@ -24,7 +24,6 @@
 class CK_VISIBLE_PUBLIC CkBinData  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkBinData(const CkBinData &);

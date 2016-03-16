@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkTask;
 class CkByteData;
@@ -24,10 +24,9 @@ class CkTarProgress;
  
 
 // CLASS: CkTar
-class CK_VISIBLE_PUBLIC CkTar  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkTar  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkTar(const CkTar &);

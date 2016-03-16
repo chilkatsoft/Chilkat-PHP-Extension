@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkFtp2_H
 #define _C_CkFtp2_H
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkFtp2_setAbortCheck(HCkFtp2 cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkFtp2_setPercentDone(HCkFtp2 cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkFtp2_setProgressInfo(HCkFtp2 cHandle, void (*fnProgressInfo)(const char *name, const char *value));
+CK_VISIBLE_PUBLIC void CkFtp2_setTaskCompleted(HCkFtp2 cHandle, void (*fnTaskCompleted)(HCkTask hTask));
 
 CK_VISIBLE_PUBLIC HCkFtp2 CkFtp2_Create(void);
 CK_VISIBLE_PUBLIC void CkFtp2_Dispose(HCkFtp2 handle);
@@ -260,8 +266,10 @@ CK_VISIBLE_PUBLIC HCkTask CkFtp2_DeleteRemoteFileAsync(HCkFtp2 cHandle, const ch
 CK_VISIBLE_PUBLIC BOOL CkFtp2_DeleteTree(HCkFtp2 cHandle);
 CK_VISIBLE_PUBLIC HCkTask CkFtp2_DeleteTreeAsync(HCkFtp2 cHandle);
 CK_VISIBLE_PUBLIC int CkFtp2_DetermineProxyMethod(HCkFtp2 cHandle);
+CK_VISIBLE_PUBLIC HCkTask CkFtp2_DetermineProxyMethodAsync(HCkFtp2 cHandle);
 CK_VISIBLE_PUBLIC BOOL CkFtp2_DetermineSettings(HCkFtp2 cHandle, HCkString outXmlReport);
 CK_VISIBLE_PUBLIC const char *CkFtp2_determineSettings(HCkFtp2 cHandle);
+CK_VISIBLE_PUBLIC HCkTask CkFtp2_DetermineSettingsAsync(HCkFtp2 cHandle);
 CK_VISIBLE_PUBLIC BOOL CkFtp2_DirTreeXml(HCkFtp2 cHandle, HCkString outStrXml);
 CK_VISIBLE_PUBLIC const char *CkFtp2_dirTreeXml(HCkFtp2 cHandle);
 CK_VISIBLE_PUBLIC HCkTask CkFtp2_DirTreeXmlAsync(HCkFtp2 cHandle);

@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkTask;
 class CkByteData;
@@ -24,10 +24,9 @@ class CkBaseProgress;
  
 
 // CLASS: CkUnixCompress
-class CK_VISIBLE_PUBLIC CkUnixCompress  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkUnixCompress  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkUnixCompress(const CkUnixCompress &);

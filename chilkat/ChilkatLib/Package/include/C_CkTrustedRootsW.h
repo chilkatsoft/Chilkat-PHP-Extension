@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkTrustedRootsWH
 #define _C_CkTrustedRootsWH
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkTrustedRootsW_setAbortCheck(HCkTrustedRootsW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkTrustedRootsW_setPercentDone(HCkTrustedRootsW cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkTrustedRootsW_setProgressInfo(HCkTrustedRootsW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
+CK_VISIBLE_PUBLIC void CkTrustedRootsW_setTaskCompleted(HCkTrustedRootsW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
 
 CK_VISIBLE_PUBLIC HCkTrustedRootsW CkTrustedRootsW_Create(void);
 CK_VISIBLE_PUBLIC HCkTrustedRootsW CkTrustedRootsW_Create2(BOOL bCallbackOwned);

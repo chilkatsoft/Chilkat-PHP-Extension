@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkByteData;
 class CkTask;
@@ -24,10 +24,9 @@ class CkBaseProgress;
  
 
 // CLASS: CkDkim
-class CK_VISIBLE_PUBLIC CkDkim  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkDkim  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkDkim(const CkDkim &);

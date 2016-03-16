@@ -26,7 +26,6 @@ class CkTrustedRoots;
 class CK_VISIBLE_PUBLIC CkCertChain  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkCertChain(const CkCertChain &);

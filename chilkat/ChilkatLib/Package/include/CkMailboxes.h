@@ -25,7 +25,6 @@ class CkTask;
 class CK_VISIBLE_PUBLIC CkMailboxes  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkMailboxes(const CkMailboxes &);
@@ -108,7 +107,13 @@ class CK_VISIBLE_PUBLIC CkMailboxes  : public CkMultiByteBase
 	bool HasFlag(int index, const char *flagName);
 
 
-	// Returns true if the Nth mailbox has inferiors (i.e. sub-mailboxes)
+	// Returns true if the Nth mailbox has inferiors (i.e. sub-mailboxes), or if it
+	// is possible to create child mailboxes in the future.
+	// 
+	// Note: the HasNoChildren attribute/flag should not be confused with the IMAP4
+	// [RFC-2060] defined attribute Noinferiors which indicates that no child mailboxes
+	// exist now AND none can be created in the future.
+	// 
 	bool HasInferiors(int index);
 
 

@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkWideCharBase.h"
+#include "CkClassWithCallbacksW.h"
 
 class CkByteData;
 class CkTaskW;
@@ -34,11 +34,10 @@ class CkMailManProgressW;
  
 
 // CLASS: CkMailManW
-class CK_VISIBLE_PUBLIC CkMailManW  : public CkWideCharBase
+class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 {
     private:
 	bool m_cbOwned;
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkMailManW(const CkMailManW &);
@@ -230,6 +229,41 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkWideCharBase
 	// names, such as "165.164.55.124".
 	// 
 	void put_ClientIpAddress(const wchar_t *newVal);
+
+	// This property will be set to the status of the last HTTP connection made (or
+	// failed to be made) by any HTTP method.
+	// 
+	// Possible values are:
+	// 0 = success
+	// 
+	// Normal (non-TLS) sockets:
+	// 1 = empty hostname
+	// 2 = DNS lookup failed
+	// 3 = DNS timeout
+	// 4 = Aborted by application.
+	// 5 = Internal failure.
+	// 6 = Connect Timed Out
+	// 7 = Connect Rejected (or failed for some other reason)
+	// 
+	// SSL/TLS:
+	// 100 = TLS internal error.
+	// 101 = Failed to send client hello.
+	// 102 = Unexpected handshake message.
+	// 103 = Failed to read server hello.
+	// 104 = No server certificate.
+	// 105 = Unexpected TLS protocol version.
+	// 106 = Server certificate verify failed (the server certificate is expired or the cert's signature verification failed).
+	// 107 = Unacceptable TLS protocol version.
+	// 109 = Failed to read handshake messages.
+	// 110 = Failed to send client certificate handshake message.
+	// 111 = Failed to send client key exchange handshake message.
+	// 112 = Client certificate's private key not accessible.
+	// 113 = Failed to send client cert verify handshake message.
+	// 114 = Failed to send change cipher spec handshake message.
+	// 115 = Failed to send finished handshake message.
+	// 116 = Server's Finished message is invalid.
+	// 
+	int get_ConnectFailReason(void);
 
 	// The time (in seconds) to wait before while trying to connect to a mail server
 	// (POP3 or SMTP). The default value is 30.
@@ -1466,24 +1500,6 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkWideCharBase
 	// TLS_DHE_RSA_WITH_AES_256_CBC_SHA256.
 	const wchar_t *tlsCipherSuite(void);
 
-	// Contains the current or last negotiated TLS protocol version. If no TLS
-	// connection has yet to be established, or if a connection as attempted and
-	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
-	// 1.1", and "TLS 1.2".
-	void get_TlsVersion(CkString &str);
-	// Contains the current or last negotiated TLS protocol version. If no TLS
-	// connection has yet to be established, or if a connection as attempted and
-	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
-	// 1.1", and "TLS 1.2".
-	const wchar_t *tlsVersion(void);
-
-	// If true, will automatically use APOP authentication if the POP3 server
-	// supports it. The default value of this property is false.
-	bool get_UseApop(void);
-	// If true, will automatically use APOP authentication if the POP3 server
-	// supports it. The default value of this property is false.
-	void put_UseApop(bool newVal);
-
 	// Specifies a set of pins for Public Key Pinning for TLS connections. This
 	// property lists the expected SPKI fingerprints for the server certificates. If
 	// the server's certificate (sent during the TLS handshake) does not match any of
@@ -1538,6 +1554,24 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkWideCharBase
 	// indicated in the link below.
 	// 
 	void put_TlsPinSet(const wchar_t *newVal);
+
+	// Contains the current or last negotiated TLS protocol version. If no TLS
+	// connection has yet to be established, or if a connection as attempted and
+	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
+	// 1.1", and "TLS 1.2".
+	void get_TlsVersion(CkString &str);
+	// Contains the current or last negotiated TLS protocol version. If no TLS
+	// connection has yet to be established, or if a connection as attempted and
+	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
+	// 1.1", and "TLS 1.2".
+	const wchar_t *tlsVersion(void);
+
+	// If true, will automatically use APOP authentication if the POP3 server
+	// supports it. The default value of this property is false.
+	bool get_UseApop(void);
+	// If true, will automatically use APOP authentication if the POP3 server
+	// supports it. The default value of this property is false.
+	void put_UseApop(bool newVal);
 
 
 
@@ -2099,6 +2133,24 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkWideCharBase
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *OpenSmtpConnectionAsync(void);
 
+	// Authenticates with the POP3 server using the property settings such as
+	// PopUsername, PopPassword, etc. This method should only be called after a
+	// successful call to Pop3Connect.
+	// 
+	// Note 1: The Pop3BeginSession method both connects and authenticates. It is the
+	// equivalent of calling Pop3Connect followed by Pop3Authenticate.
+	// 
+	// Note 2: All methods that communicate with the POP3 server, such as FetchEmail,
+	// will automatically connect and authenticate if not already connected and
+	// authenticated.
+	// 
+	bool Pop3Authenticate(void);
+
+	// Creates an asynchronous task to call the Pop3Authenticate method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *Pop3AuthenticateAsync(void);
+
 	// Call to explicitly begin a POP3 session. It is not necessary to call this method
 	// because any method requiring an established POP3 session will automatically
 	// connect and login if a session is not already open.
@@ -2117,6 +2169,33 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkWideCharBase
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *Pop3BeginSessionAsync(void);
+
+	// Explicitly establishes a connection to the POP3 server, which includes
+	// establishing a secure TLS channel if required, and receives the initial
+	// greeting. This method stops short of authenticating. The Pop3Authenticate method
+	// should be called after a successful call to this method.
+	// 
+	// Note 1: The Pop3BeginSession method both connects and authenticates. It is the
+	// equivalent of calling Pop3Connect followed by Pop3Authenticate.
+	// 
+	// Note 2: All methods that communicate with the POP3 server, such as FetchEmail,
+	// will automatically connect and authenticate if not already connected and
+	// authenticated.
+	// 
+	// Important: All TCP-based Internet communications, regardless of the protocol
+	// (such as HTTP, FTP, SSH, IMAP, POP3, SMTP, etc.), and regardless of SSL/TLS,
+	// begin with establishing a TCP connection to a remote host:port. External
+	// security-related infrastructure such as software firewalls (Windows Firewall),
+	// hardware firewalls, anti-virus, at either source or destination (or both) can
+	// block the connection. If the connection fails, make sure to check all potential
+	// external causes of blockage.
+	// 
+	bool Pop3Connect(void);
+
+	// Creates an asynchronous task to call the Pop3Connect method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *Pop3ConnectAsync(void);
 
 	// Call to explicitly end a POP3 session. If the ImmediateDelete property is set to
 	// false, and emails marked for deletion will be deleted at this time.
@@ -2417,7 +2496,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkWideCharBase
 
 	// Explicitly establishes a connection to the SMTP server, which includes
 	// establishing a secure TLS channel if required, and receives the initial
-	// greeting. This method stop short of authenticating. The SmtpAuthenticate method
+	// greeting. This method stops short of authenticating. The SmtpAuthenticate method
 	// should be called after a successful call to this method.
 	// 
 	// Note 1: The OpenSmtpConnection method both connects and authenticates. It is the

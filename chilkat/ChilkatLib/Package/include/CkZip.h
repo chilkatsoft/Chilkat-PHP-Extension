@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkZipEntry;
 class CkByteData;
@@ -26,10 +26,9 @@ class CkZipProgress;
  
 
 // CLASS: CkZip
-class CK_VISIBLE_PUBLIC CkZip  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkZip  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkZip(const CkZip &);

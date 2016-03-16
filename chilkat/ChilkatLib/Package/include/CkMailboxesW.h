@@ -102,7 +102,13 @@ class CK_VISIBLE_PUBLIC CkMailboxesW  : public CkWideCharBase
 	// "\Flagged". The ARG1 is the index of the Nth mailbox.
 	bool HasFlag(int index, const wchar_t *flagName);
 
-	// Returns true if the Nth mailbox has inferiors (i.e. sub-mailboxes)
+	// Returns true if the Nth mailbox has inferiors (i.e. sub-mailboxes), or if it
+	// is possible to create child mailboxes in the future.
+	// 
+	// Note: the HasNoChildren attribute/flag should not be confused with the IMAP4
+	// [RFC-2060] defined attribute Noinferiors which indicates that no child mailboxes
+	// exist now AND none can be created in the future.
+	// 
 	bool HasInferiors(int index);
 
 	// Returns true if the Nth mailbox is marked.

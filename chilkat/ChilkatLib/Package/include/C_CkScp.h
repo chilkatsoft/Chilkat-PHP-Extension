@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkScp_H
 #define _C_CkScp_H
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkScp_setAbortCheck(HCkScp cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkScp_setPercentDone(HCkScp cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkScp_setProgressInfo(HCkScp cHandle, void (*fnProgressInfo)(const char *name, const char *value));
+CK_VISIBLE_PUBLIC void CkScp_setTaskCompleted(HCkScp cHandle, void (*fnTaskCompleted)(HCkTask hTask));
 
 CK_VISIBLE_PUBLIC HCkScp CkScp_Create(void);
 CK_VISIBLE_PUBLIC void CkScp_Dispose(HCkScp handle);

@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkByteData;
 class CkCert;
@@ -19,6 +19,7 @@ class CkCertChain;
 class CkCsp;
 class CkPrivateKey;
 class CkXmlCertVault;
+class CkStream;
 class CkBaseProgress;
 
 
@@ -29,10 +30,9 @@ class CkBaseProgress;
  
 
 // CLASS: CkCrypt2
-class CK_VISIBLE_PUBLIC CkCrypt2  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkCrypt2(const CkCrypt2 &);
@@ -425,13 +425,18 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkMultiByteBase
 	// 
 	void put_Charset(const char *newVal);
 
-	// Controls the cipher mode for block encryption algorithms (AES, Blowfish,
-	// TwoFish, DES, 3DES, RC2). Possible values are "CBC" (the default) , "ECB",
-	// "CTR", and "CFB".
+	// Controls the cipher mode for block encryption algorithms (AES, Blowfish,TwoFish,
+	// DES, 3DES, RC2). Possible values are "CBC" (the default) , "ECB", "CTR", "OFB",
+	// "GCM", and "CFB". These acronyms have the following meanings:
 	// 
-	// CBC is an acronym for Cipher Block Chaining, ECB is an acronym for Electronic
-	// CookBook, CTR is for Counter, and CFB is for Cipher Feedback (see
-	// http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation )
+	//     CBC: Cipher Block Chaining,
+	//     ECB: Electronic CookBook
+	//     CTR: Counter Mode
+	//     CFB: Cipher Feedback
+	//     OFB: Output Feedback
+	//     GCM: Galois/Counter Mode
+	// 
+	// (see http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation )
 	// 
 	// Note: Prior to Chilkat v9.5.0.55, the CFB mode is only implemented for AES,
 	// Blowfish, and DES/3DES, and the CTR mode is only implemented for AES.
@@ -443,13 +448,18 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkMultiByteBase
 	// PaddingScheme property is unused because no padding occurs.
 	// 
 	void get_CipherMode(CkString &str);
-	// Controls the cipher mode for block encryption algorithms (AES, Blowfish,
-	// TwoFish, DES, 3DES, RC2). Possible values are "CBC" (the default) , "ECB",
-	// "CTR", and "CFB".
+	// Controls the cipher mode for block encryption algorithms (AES, Blowfish,TwoFish,
+	// DES, 3DES, RC2). Possible values are "CBC" (the default) , "ECB", "CTR", "OFB",
+	// "GCM", and "CFB". These acronyms have the following meanings:
 	// 
-	// CBC is an acronym for Cipher Block Chaining, ECB is an acronym for Electronic
-	// CookBook, CTR is for Counter, and CFB is for Cipher Feedback (see
-	// http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation )
+	//     CBC: Cipher Block Chaining,
+	//     ECB: Electronic CookBook
+	//     CTR: Counter Mode
+	//     CFB: Cipher Feedback
+	//     OFB: Output Feedback
+	//     GCM: Galois/Counter Mode
+	// 
+	// (see http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation )
 	// 
 	// Note: Prior to Chilkat v9.5.0.55, the CFB mode is only implemented for AES,
 	// Blowfish, and DES/3DES, and the CTR mode is only implemented for AES.
@@ -461,13 +471,18 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkMultiByteBase
 	// PaddingScheme property is unused because no padding occurs.
 	// 
 	const char *cipherMode(void);
-	// Controls the cipher mode for block encryption algorithms (AES, Blowfish,
-	// TwoFish, DES, 3DES, RC2). Possible values are "CBC" (the default) , "ECB",
-	// "CTR", and "CFB".
+	// Controls the cipher mode for block encryption algorithms (AES, Blowfish,TwoFish,
+	// DES, 3DES, RC2). Possible values are "CBC" (the default) , "ECB", "CTR", "OFB",
+	// "GCM", and "CFB". These acronyms have the following meanings:
 	// 
-	// CBC is an acronym for Cipher Block Chaining, ECB is an acronym for Electronic
-	// CookBook, CTR is for Counter, and CFB is for Cipher Feedback (see
-	// http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation )
+	//     CBC: Cipher Block Chaining,
+	//     ECB: Electronic CookBook
+	//     CTR: Counter Mode
+	//     CFB: Cipher Feedback
+	//     OFB: Output Feedback
+	//     GCM: Galois/Counter Mode
+	// 
+	// (see http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation )
 	// 
 	// Note: Prior to Chilkat v9.5.0.55, the CFB mode is only implemented for AES,
 	// Blowfish, and DES/3DES, and the CTR mode is only implemented for AES.
@@ -2509,6 +2524,32 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkMultiByteBase
 
 	// Convenience method to write an entire byte array to a file.
 	bool WriteFile(const char *filename, CkByteData &fileData);
+
+
+	// Encrypts a stream. Internally, the ARG1's source is read, encrypted, and the
+	// encrypted data written to the ARG1's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be encrypted with stable ungrowing
+	// memory usage.
+	bool EncryptStream(CkStream &strm);
+
+	// Encrypts a stream. Internally, the ARG1's source is read, encrypted, and the
+	// encrypted data written to the ARG1's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be encrypted with stable ungrowing
+	// memory usage.
+	CkTask *EncryptStreamAsync(CkStream &strm);
+
+
+	// Decrypts a stream. Internally, the ARG1's source is read, decrypted, and the
+	// decrypted data written to the ARG1's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be decrypted with stable ungrowing
+	// memory usage.
+	bool DecryptStream(CkStream &strm);
+
+	// Decrypts a stream. Internally, the ARG1's source is read, decrypted, and the
+	// decrypted data written to the ARG1's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be decrypted with stable ungrowing
+	// memory usage.
+	CkTask *DecryptStreamAsync(CkStream &strm);
 
 
 

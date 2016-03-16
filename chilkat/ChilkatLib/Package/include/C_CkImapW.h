@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkImapWH
 #define _C_CkImapWH
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkImapW_setAbortCheck(HCkImapW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkImapW_setPercentDone(HCkImapW cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkImapW_setProgressInfo(HCkImapW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
+CK_VISIBLE_PUBLIC void CkImapW_setTaskCompleted(HCkImapW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
 
 CK_VISIBLE_PUBLIC HCkImapW CkImapW_Create(void);
 CK_VISIBLE_PUBLIC HCkImapW CkImapW_Create2(BOOL bCallbackOwned);
@@ -221,7 +227,6 @@ CK_VISIBLE_PUBLIC BOOL CkImapW_GetMailAttachFilename(HCkImapW cHandle, HCkEmailW
 CK_VISIBLE_PUBLIC const wchar_t *CkImapW_getMailAttachFilename(HCkImapW cHandle, HCkEmailW email, int attachIndex);
 CK_VISIBLE_PUBLIC int CkImapW_GetMailAttachSize(HCkImapW cHandle, HCkEmailW email, int attachIndex);
 CK_VISIBLE_PUBLIC int CkImapW_GetMailFlag(HCkImapW cHandle, HCkEmailW email, const wchar_t *flagName);
-CK_VISIBLE_PUBLIC HCkTaskW CkImapW_GetMailFlagAsync(HCkImapW cHandle, HCkEmailW email, const wchar_t *flagName);
 CK_VISIBLE_PUBLIC int CkImapW_GetMailNumAttach(HCkImapW cHandle, HCkEmailW email);
 CK_VISIBLE_PUBLIC int CkImapW_GetMailSize(HCkImapW cHandle, HCkEmailW email);
 CK_VISIBLE_PUBLIC BOOL CkImapW_GetMailboxStatus(HCkImapW cHandle, const wchar_t *mailbox, HCkString outStr);

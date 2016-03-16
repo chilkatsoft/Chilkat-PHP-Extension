@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkCrypt2WH
 #define _C_CkCrypt2WH
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkCrypt2W_setAbortCheck(HCkCrypt2W cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkCrypt2W_setPercentDone(HCkCrypt2W cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkCrypt2W_setProgressInfo(HCkCrypt2W cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
+CK_VISIBLE_PUBLIC void CkCrypt2W_setTaskCompleted(HCkCrypt2W cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
 
 CK_VISIBLE_PUBLIC HCkCrypt2W CkCrypt2W_Create(void);
 CK_VISIBLE_PUBLIC HCkCrypt2W CkCrypt2W_Create2(BOOL bCallbackOwned);
@@ -128,6 +134,8 @@ CK_VISIBLE_PUBLIC BOOL CkCrypt2W_DecryptBytes(HCkCrypt2W cHandle, HCkByteData da
 CK_VISIBLE_PUBLIC BOOL CkCrypt2W_DecryptBytesENC(HCkCrypt2W cHandle, const wchar_t *str, HCkByteData outData);
 CK_VISIBLE_PUBLIC BOOL CkCrypt2W_DecryptEncoded(HCkCrypt2W cHandle, const wchar_t *encodedEncryptedData, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkCrypt2W_decryptEncoded(HCkCrypt2W cHandle, const wchar_t *encodedEncryptedData);
+CK_VISIBLE_PUBLIC BOOL CkCrypt2W_DecryptStream(HCkCrypt2W cHandle, HCkStreamW strm);
+CK_VISIBLE_PUBLIC HCkTaskW CkCrypt2W_DecryptStreamAsync(HCkCrypt2W cHandle, HCkStreamW strm);
 CK_VISIBLE_PUBLIC BOOL CkCrypt2W_DecryptString(HCkCrypt2W cHandle, HCkByteData data, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkCrypt2W_decryptString(HCkCrypt2W cHandle, HCkByteData data);
 CK_VISIBLE_PUBLIC BOOL CkCrypt2W_DecryptStringENC(HCkCrypt2W cHandle, const wchar_t *str, HCkString outStr);
@@ -143,6 +151,8 @@ CK_VISIBLE_PUBLIC BOOL CkCrypt2W_EncryptBytesENC(HCkCrypt2W cHandle, HCkByteData
 CK_VISIBLE_PUBLIC const wchar_t *CkCrypt2W_encryptBytesENC(HCkCrypt2W cHandle, HCkByteData data);
 CK_VISIBLE_PUBLIC BOOL CkCrypt2W_EncryptEncoded(HCkCrypt2W cHandle, const wchar_t *str, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkCrypt2W_encryptEncoded(HCkCrypt2W cHandle, const wchar_t *str);
+CK_VISIBLE_PUBLIC BOOL CkCrypt2W_EncryptStream(HCkCrypt2W cHandle, HCkStreamW strm);
+CK_VISIBLE_PUBLIC HCkTaskW CkCrypt2W_EncryptStreamAsync(HCkCrypt2W cHandle, HCkStreamW strm);
 CK_VISIBLE_PUBLIC BOOL CkCrypt2W_EncryptString(HCkCrypt2W cHandle, const wchar_t *str, HCkByteData outData);
 CK_VISIBLE_PUBLIC BOOL CkCrypt2W_EncryptStringENC(HCkCrypt2W cHandle, const wchar_t *str, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkCrypt2W_encryptStringENC(HCkCrypt2W cHandle, const wchar_t *str);

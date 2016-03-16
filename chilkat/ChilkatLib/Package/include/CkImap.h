@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkByteData;
 class CkTask;
@@ -36,10 +36,9 @@ class CkBaseProgress;
  
 
 // CLASS: CkImap
-class CK_VISIBLE_PUBLIC CkImap  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkImap  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkImap(const CkImap &);
@@ -942,31 +941,6 @@ class CK_VISIBLE_PUBLIC CkImap  : public CkMultiByteBase
 	// TLS_DHE_RSA_WITH_AES_256_CBC_SHA256.
 	const char *tlsCipherSuite(void);
 
-	// Contains the current or last negotiated TLS protocol version. If no TLS
-	// connection has yet to be established, or if a connection as attempted and
-	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
-	// 1.1", and "TLS 1.2".
-	void get_TlsVersion(CkString &str);
-	// Contains the current or last negotiated TLS protocol version. If no TLS
-	// connection has yet to be established, or if a connection as attempted and
-	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
-	// 1.1", and "TLS 1.2".
-	const char *tlsVersion(void);
-
-	// A positive integer value containing the UIDNEXT of the currently selected
-	// folder, or 0 if it's not available or no folder is selected.
-	int get_UidNext(void);
-
-	// An integer value containing the UIDVALIDITY of the currently selected mailbox,
-	// or 0 if no mailbox is selected.
-	// 
-	// A client can save the UidValidity value for a mailbox and then compare it with
-	// the UidValidity on a subsequent session. If the new value is larger, the IMAP
-	// server is not keeping UID's unchanged between sessions. Most IMAP servers
-	// maintain UID's between sessions.
-	// 
-	int get_UidValidity(void);
-
 	// Specifies a set of pins for Public Key Pinning for TLS connections. This
 	// property lists the expected SPKI fingerprints for the server certificates. If
 	// the server's certificate (sent during the TLS handshake) does not match any of
@@ -1021,6 +995,31 @@ class CK_VISIBLE_PUBLIC CkImap  : public CkMultiByteBase
 	// indicated in the link below.
 	// 
 	void put_TlsPinSet(const char *newVal);
+
+	// Contains the current or last negotiated TLS protocol version. If no TLS
+	// connection has yet to be established, or if a connection as attempted and
+	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
+	// 1.1", and "TLS 1.2".
+	void get_TlsVersion(CkString &str);
+	// Contains the current or last negotiated TLS protocol version. If no TLS
+	// connection has yet to be established, or if a connection as attempted and
+	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
+	// 1.1", and "TLS 1.2".
+	const char *tlsVersion(void);
+
+	// A positive integer value containing the UIDNEXT of the currently selected
+	// folder, or 0 if it's not available or no folder is selected.
+	int get_UidNext(void);
+
+	// An integer value containing the UIDVALIDITY of the currently selected mailbox,
+	// or 0 if no mailbox is selected.
+	// 
+	// A client can save the UidValidity value for a mailbox and then compare it with
+	// the UidValidity on a subsequent session. If the new value is larger, the IMAP
+	// server is not keeping UID's unchanged between sessions. Most IMAP servers
+	// maintain UID's between sessions.
+	// 
+	int get_UidValidity(void);
 
 
 
@@ -1434,11 +1433,25 @@ class CK_VISIBLE_PUBLIC CkImap  : public CkMultiByteBase
 
 	// Same as FetchSequence, but only the email headers are returned. The email
 	// objects within the bundle will be lacking bodies and attachments.
+	// 
+	// Note: For any method call using sequence numbers, an application must make sure
+	// the sequence numbers are within the valid range. When a mailbox is selected, the
+	// NumMessages property will have been set, and the valid range of sequence numbers
+	// is from 1 to NumMessages. An attempt to fetch sequence numbers outside this
+	// range will result in an error.
+	// 
 	// The caller is responsible for deleting the object returned by this method.
 	CkEmailBundle *FetchSequenceHeaders(int startSeqNum, int numMessages);
 
 	// Same as FetchSequence, but only the email headers are returned. The email
 	// objects within the bundle will be lacking bodies and attachments.
+	// 
+	// Note: For any method call using sequence numbers, an application must make sure
+	// the sequence numbers are within the valid range. When a mailbox is selected, the
+	// NumMessages property will have been set, and the valid range of sequence numbers
+	// is from 1 to NumMessages. An attempt to fetch sequence numbers outside this
+	// range will result in an error.
+	// 
 	CkTask *FetchSequenceHeadersAsync(int startSeqNum, int numMessages);
 
 
@@ -1528,13 +1541,6 @@ class CK_VISIBLE_PUBLIC CkImap  : public CkMultiByteBase
 	// "\Deleted", and "\Answered". Custom flags can be anything, such as "NonJunk",
 	// "$label1", "$MailFlagBit1", etc. .
 	int GetMailFlag(CkEmail &email, const char *flagName);
-
-	// Returns the value of a flag (1 = yes, 0 = no) for an email. Both standard system
-	// flags as well as custom flags may be set. Standard system flags typically begin
-	// with a backslash character, such as "\Seen", "\Answered", "\Flagged", "\Draft",
-	// "\Deleted", and "\Answered". Custom flags can be anything, such as "NonJunk",
-	// "$label1", "$MailFlagBit1", etc. .
-	CkTask *GetMailFlagAsync(CkEmail &email, const char *flagName);
 
 
 	// Returns the number of email attachments.

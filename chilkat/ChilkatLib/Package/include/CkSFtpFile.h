@@ -25,7 +25,6 @@ class CkDateTime;
 class CK_VISIBLE_PUBLIC CkSFtpFile  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkSFtpFile(const CkSFtpFile &);

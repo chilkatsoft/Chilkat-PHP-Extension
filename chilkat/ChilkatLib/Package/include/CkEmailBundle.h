@@ -27,7 +27,6 @@ class CkTask;
 class CK_VISIBLE_PUBLIC CkEmailBundle  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkEmailBundle(const CkEmailBundle &);

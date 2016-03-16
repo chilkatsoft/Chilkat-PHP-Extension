@@ -28,7 +28,6 @@ class CkPfx;
 class CK_VISIBLE_PUBLIC CkXmlCertVault  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkXmlCertVault(const CkXmlCertVault &);

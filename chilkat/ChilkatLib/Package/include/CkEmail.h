@@ -33,7 +33,6 @@ class CkXmlCertVault;
 class CK_VISIBLE_PUBLIC CkEmail  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkEmail(const CkEmail &);
@@ -411,7 +410,9 @@ class CK_VISIBLE_PUBLIC CkEmail  : public CkMultiByteBase
 	// an error condition.)
 	int get_NumDaysOld(void);
 
-	// The number of header fields.
+	// The number of header fields. When accessing a header field by index, the 1st
+	// header field is at index 0, and the last is at NumHeaderFields-1. (Chilkat
+	// indexing is always 0-based.)
 	int get_NumHeaderFields(void);
 
 	// The number of related items present in this email. Related items are typically
@@ -551,11 +552,11 @@ class CK_VISIBLE_PUBLIC CkEmail  : public CkMultiByteBase
 	// false.
 	bool get_ReceivedSigned(void);
 
-	// The email address to be used when a recipient replies.
+	// Sets the "Reply-To" header field to the specified email address.
 	void get_ReplyTo(CkString &str);
-	// The email address to be used when a recipient replies.
+	// Sets the "Reply-To" header field to the specified email address.
 	const char *replyTo(void);
-	// The email address to be used when a recipient replies.
+	// Sets the "Reply-To" header field to the specified email address.
 	void put_ReplyTo(const char *newVal);
 
 	// Set to true if you want the email to request a return-receipt when received by
@@ -986,12 +987,12 @@ class CK_VISIBLE_PUBLIC CkEmail  : public CkMultiByteBase
 
 
 	// Encrypts the email body, all alternative bodies, all message sub-parts and
-	// attachments using 128-bit AES (Rijndael, CBC mode) encryption. To decrypt, you
-	// must use the AesDecrypt method with the same password. The AesEncrypt/Decrypt
-	// methods use symmetric password-based greatly simplify sending and receiving
-	// encrypted emails because certificates and public/private key issues do not have
-	// to be dealt with. However, the sending and receiving applications must both be
-	// using Chilkat Email .NET or ActiveX components.
+	// attachments using 128-bit AES CBC encryption. Decrypting is achieved by calling
+	// AesDecrypt with the same password. The AesEncrypt/Decrypt methods use symmetric
+	// password-based AES encryption and greatly simplify sending and receiving
+	// encrypted emails because certificates and private keys are not used. However,
+	// the sending and receiving applications must both use Chilkat, and the password
+	// must be pre-known on both ends.
 	bool AesEncrypt(const char *password);
 
 
@@ -1496,27 +1497,48 @@ class CK_VISIBLE_PUBLIC CkEmail  : public CkMultiByteBase
 	// Return the name of the Nth header field. The NumHeaderFields() method can be
 	// used to get the number of header fields. The GetHeaderField() method can be used
 	// to get the value of the field given the field name.
+	// 
+	// The 1st header field is at index 0. (All Chilkat indexing is 0-based.)
+	// 
 	bool GetHeaderFieldName(int index, CkString &outStrFieldName);
 
 	// Return the name of the Nth header field. The NumHeaderFields() method can be
 	// used to get the number of header fields. The GetHeaderField() method can be used
 	// to get the value of the field given the field name.
+	// 
+	// The 1st header field is at index 0. (All Chilkat indexing is 0-based.)
+	// 
 	const char *getHeaderFieldName(int index);
 	// Return the name of the Nth header field. The NumHeaderFields() method can be
 	// used to get the number of header fields. The GetHeaderField() method can be used
 	// to get the value of the field given the field name.
+	// 
+	// The 1st header field is at index 0. (All Chilkat indexing is 0-based.)
+	// 
 	const char *headerFieldName(int index);
 
 
 	// Returns the value of the Nth header field. (Indexing begins at 0) The number of
 	// header fields can be obtained from the NumHeaderFields property.
+	// 
+	// The 1st header field is at index 0, the last header field is at index
+	// NumHeaderFields-1. (All Chilkat indexing is 0-based.)
+	// 
 	bool GetHeaderFieldValue(int index, CkString &outStrFieldValue);
 
 	// Returns the value of the Nth header field. (Indexing begins at 0) The number of
 	// header fields can be obtained from the NumHeaderFields property.
+	// 
+	// The 1st header field is at index 0, the last header field is at index
+	// NumHeaderFields-1. (All Chilkat indexing is 0-based.)
+	// 
 	const char *getHeaderFieldValue(int index);
 	// Returns the value of the Nth header field. (Indexing begins at 0) The number of
 	// header fields can be obtained from the NumHeaderFields property.
+	// 
+	// The 1st header field is at index 0, the last header field is at index
+	// NumHeaderFields-1. (All Chilkat indexing is 0-based.)
+	// 
 	const char *headerFieldValue(int index);
 
 
@@ -1558,6 +1580,9 @@ class CK_VISIBLE_PUBLIC CkEmail  : public CkMultiByteBase
 	// Returns a header field's data in a byte array. If the field was Q or B encoded,
 	// this is automatically decoded, and the raw bytes of the field are returned. Call
 	// GetHeaderField to retrieve the header field as a Unicode string.
+	// 
+	// The 1st header field is at index 0. (All Chilkat indexing is 0-based.)
+	// 
 	bool GetMbHeaderField(const char *fieldName, const char *charset, CkByteData &outBytes);
 
 

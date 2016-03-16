@@ -26,7 +26,6 @@ class CkTask;
 class CK_VISIBLE_PUBLIC CkSFtpDir  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkSFtpDir(const CkSFtpDir &);

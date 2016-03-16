@@ -27,7 +27,6 @@ class CkByteData;
 class CK_VISIBLE_PUBLIC CkXmp  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkXmp(const CkXmp &);

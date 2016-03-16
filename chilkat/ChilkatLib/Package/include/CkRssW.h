@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkWideCharBase.h"
+#include "CkClassWithCallbacksW.h"
 
 class CkTaskW;
 class CkBaseProgressW;
@@ -23,11 +23,10 @@ class CkBaseProgressW;
  
 
 // CLASS: CkRssW
-class CK_VISIBLE_PUBLIC CkRssW  : public CkWideCharBase
+class CK_VISIBLE_PUBLIC CkRssW  : public CkClassWithCallbacksW
 {
     private:
 	bool m_cbOwned;
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkRssW(const CkRssW &);

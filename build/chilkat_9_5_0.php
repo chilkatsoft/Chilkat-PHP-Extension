@@ -4037,6 +4037,20 @@ class CkCompression {
 		return $r;
 	}
 
+	function CompressStream($strm) {
+		return CkCompression_CompressStream($this->_cPtr,$strm);
+	}
+
+	function CompressStreamAsync($strm) {
+		$r=CkCompression_CompressStreamAsync($this->_cPtr,$strm);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
 	function CompressString($str,$outData) {
 		return CkCompression_CompressString($this->_cPtr,$str,$outData);
 	}
@@ -4099,6 +4113,20 @@ class CkCompression {
 
 	function DecompressFileAsync($srcPath,$destPath) {
 		$r=CkCompression_DecompressFileAsync($this->_cPtr,$srcPath,$destPath);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function DecompressStream($strm) {
+		return CkCompression_DecompressStream($this->_cPtr,$strm);
+	}
+
+	function DecompressStreamAsync($strm) {
+		$r=CkCompression_DecompressStreamAsync($this->_cPtr,$strm);
 		if (is_resource($r)) {
 			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
 			if (class_exists($c)) return new $c($r);
@@ -4885,6 +4913,20 @@ class CkCrypt2 {
 		return CkCrypt2_decryptEncoded($this->_cPtr,$str);
 	}
 
+	function DecryptStream($strm) {
+		return CkCrypt2_DecryptStream($this->_cPtr,$strm);
+	}
+
+	function DecryptStreamAsync($strm) {
+		$r=CkCrypt2_DecryptStreamAsync($this->_cPtr,$strm);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
 	function decryptString($data) {
 		return CkCrypt2_decryptString($this->_cPtr,$data);
 	}
@@ -4911,6 +4953,20 @@ class CkCrypt2 {
 
 	function encryptEncoded($str) {
 		return CkCrypt2_encryptEncoded($this->_cPtr,$str);
+	}
+
+	function EncryptStream($strm) {
+		return CkCrypt2_EncryptStream($this->_cPtr,$strm);
+	}
+
+	function EncryptStreamAsync($strm) {
+		$r=CkCrypt2_EncryptStreamAsync($this->_cPtr,$strm);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
 	}
 
 	function EncryptString($str,$outData) {
@@ -9355,6 +9411,18 @@ class CkFtp2 {
 		return CkFtp2_tlsCipherSuite($this->_cPtr);
 	}
 
+	function get_TlsPinSet($str) {
+		CkFtp2_get_TlsPinSet($this->_cPtr,$str);
+	}
+
+	function tlsPinSet() {
+		return CkFtp2_tlsPinSet($this->_cPtr);
+	}
+
+	function put_TlsPinSet($newVal) {
+		CkFtp2_put_TlsPinSet($this->_cPtr,$newVal);
+	}
+
 	function get_TlsVersion($str) {
 		CkFtp2_get_TlsVersion($this->_cPtr,$str);
 	}
@@ -9385,18 +9453,6 @@ class CkFtp2 {
 
 	function put_Username($newVal) {
 		CkFtp2_put_Username($this->_cPtr,$newVal);
-	}
-
-	function get_TlsPinSet($str) {
-		CkFtp2_get_TlsPinSet($this->_cPtr,$str);
-	}
-
-	function tlsPinSet() {
-		return CkFtp2_tlsPinSet($this->_cPtr);
-	}
-
-	function put_TlsPinSet($newVal) {
-		CkFtp2_put_TlsPinSet($this->_cPtr,$newVal);
 	}
 
 	function AppendFile($localFilename,$remoteFilename) {
@@ -9623,8 +9679,28 @@ class CkFtp2 {
 		return CkFtp2_DetermineProxyMethod($this->_cPtr);
 	}
 
+	function DetermineProxyMethodAsync() {
+		$r=CkFtp2_DetermineProxyMethodAsync($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
 	function determineSettings() {
 		return CkFtp2_determineSettings($this->_cPtr);
+	}
+
+	function DetermineSettingsAsync() {
+		$r=CkFtp2_DetermineSettingsAsync($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
 	}
 
 	function dirTreeXml() {
@@ -11891,6 +11967,18 @@ class CkHttp {
 		CkHttp_put_AwsEndpoint($this->_cPtr,$newVal);
 	}
 
+	function get_AwsRegion($str) {
+		CkHttp_get_AwsRegion($this->_cPtr,$str);
+	}
+
+	function awsRegion() {
+		return CkHttp_awsRegion($this->_cPtr);
+	}
+
+	function put_AwsRegion($newVal) {
+		CkHttp_put_AwsRegion($this->_cPtr,$newVal);
+	}
+
 	function get_AwsSecretKey($str) {
 		CkHttp_get_AwsSecretKey($this->_cPtr,$str);
 	}
@@ -11901,6 +11989,14 @@ class CkHttp {
 
 	function put_AwsSecretKey($newVal) {
 		CkHttp_put_AwsSecretKey($this->_cPtr,$newVal);
+	}
+
+	function get_AwsSignatureVersion() {
+		return CkHttp_get_AwsSignatureVersion($this->_cPtr);
+	}
+
+	function put_AwsSignatureVersion($newVal) {
+		CkHttp_put_AwsSignatureVersion($this->_cPtr,$newVal);
 	}
 
 	function get_AwsSubResources($str) {
@@ -11989,6 +12085,10 @@ class CkHttp {
 
 	function put_ClientIpAddress($newVal) {
 		CkHttp_put_ClientIpAddress($this->_cPtr,$newVal);
+	}
+
+	function get_ConnectFailReason() {
+		return CkHttp_get_ConnectFailReason($this->_cPtr);
 	}
 
 	function get_ConnectTimeout() {
@@ -14717,6 +14817,18 @@ class CkImap {
 		return CkImap_tlsCipherSuite($this->_cPtr);
 	}
 
+	function get_TlsPinSet($str) {
+		CkImap_get_TlsPinSet($this->_cPtr,$str);
+	}
+
+	function tlsPinSet() {
+		return CkImap_tlsPinSet($this->_cPtr);
+	}
+
+	function put_TlsPinSet($newVal) {
+		CkImap_put_TlsPinSet($this->_cPtr,$newVal);
+	}
+
 	function get_TlsVersion($str) {
 		CkImap_get_TlsVersion($this->_cPtr,$str);
 	}
@@ -14731,18 +14843,6 @@ class CkImap {
 
 	function get_UidValidity() {
 		return CkImap_get_UidValidity($this->_cPtr);
-	}
-
-	function get_TlsPinSet($str) {
-		CkImap_get_TlsPinSet($this->_cPtr,$str);
-	}
-
-	function tlsPinSet() {
-		return CkImap_tlsPinSet($this->_cPtr);
-	}
-
-	function put_TlsPinSet($newVal) {
-		CkImap_put_TlsPinSet($this->_cPtr,$newVal);
 	}
 
 	function AddPfxSourceData($pfxData,$password) {
@@ -15307,16 +15407,6 @@ class CkImap {
 
 	function GetMailFlag($email,$flagName) {
 		return CkImap_GetMailFlag($this->_cPtr,$email,$flagName);
-	}
-
-	function GetMailFlagAsync($email,$flagName) {
-		$r=CkImap_GetMailFlagAsync($this->_cPtr,$email,$flagName);
-		if (is_resource($r)) {
-			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
-			if (class_exists($c)) return new $c($r);
-			return new CkTask($r);
-		}
-		return $r;
 	}
 
 	function GetMailNumAttach($email) {
@@ -16447,6 +16537,10 @@ class CkMailMan {
 		CkMailMan_put_ClientIpAddress($this->_cPtr,$newVal);
 	}
 
+	function get_ConnectFailReason() {
+		return CkMailMan_get_ConnectFailReason($this->_cPtr);
+	}
+
 	function get_ConnectTimeout() {
 		return CkMailMan_get_ConnectTimeout($this->_cPtr);
 	}
@@ -17095,6 +17189,18 @@ class CkMailMan {
 		return CkMailMan_tlsCipherSuite($this->_cPtr);
 	}
 
+	function get_TlsPinSet($str) {
+		CkMailMan_get_TlsPinSet($this->_cPtr,$str);
+	}
+
+	function tlsPinSet() {
+		return CkMailMan_tlsPinSet($this->_cPtr);
+	}
+
+	function put_TlsPinSet($newVal) {
+		CkMailMan_put_TlsPinSet($this->_cPtr,$newVal);
+	}
+
 	function get_TlsVersion($str) {
 		CkMailMan_get_TlsVersion($this->_cPtr,$str);
 	}
@@ -17109,18 +17215,6 @@ class CkMailMan {
 
 	function put_UseApop($newVal) {
 		CkMailMan_put_UseApop($this->_cPtr,$newVal);
-	}
-
-	function get_TlsPinSet($str) {
-		CkMailMan_get_TlsPinSet($this->_cPtr,$str);
-	}
-
-	function tlsPinSet() {
-		return CkMailMan_tlsPinSet($this->_cPtr);
-	}
-
-	function put_TlsPinSet($newVal) {
-		CkMailMan_put_TlsPinSet($this->_cPtr,$newVal);
 	}
 
 	function AddPfxSourceData($pfxData,$password) {
@@ -17725,12 +17819,40 @@ class CkMailMan {
 		return $r;
 	}
 
+	function Pop3Authenticate() {
+		return CkMailMan_Pop3Authenticate($this->_cPtr);
+	}
+
+	function Pop3AuthenticateAsync() {
+		$r=CkMailMan_Pop3AuthenticateAsync($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
 	function Pop3BeginSession() {
 		return CkMailMan_Pop3BeginSession($this->_cPtr);
 	}
 
 	function Pop3BeginSessionAsync() {
 		$r=CkMailMan_Pop3BeginSessionAsync($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function Pop3Connect() {
+		return CkMailMan_Pop3Connect($this->_cPtr);
+	}
+
+	function Pop3ConnectAsync() {
+		$r=CkMailMan_Pop3ConnectAsync($this->_cPtr);
 		if (is_resource($r)) {
 			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
 			if (class_exists($c)) return new $c($r);
@@ -22207,6 +22329,14 @@ class CkSFtp {
 		CkSFtp_put_EnableCache($this->_cPtr,$newVal);
 	}
 
+	function get_EnableCompression() {
+		return CkSFtp_get_EnableCompression($this->_cPtr);
+	}
+
+	function put_EnableCompression($newVal) {
+		CkSFtp_put_EnableCompression($this->_cPtr,$newVal);
+	}
+
 	function get_FilenameCharset($str) {
 		CkSFtp_get_FilenameCharset($this->_cPtr,$str);
 	}
@@ -22981,12 +23111,12 @@ class CkSFtp {
 		return $r;
 	}
 
-	function openFile($filename,$access,$createDisp) {
-		return CkSFtp_openFile($this->_cPtr,$filename,$access,$createDisp);
+	function openFile($remoteFilePath,$access,$createDisp) {
+		return CkSFtp_openFile($this->_cPtr,$remoteFilePath,$access,$createDisp);
 	}
 
-	function OpenFileAsync($filename,$access,$createDisp) {
-		$r=CkSFtp_OpenFileAsync($this->_cPtr,$filename,$access,$createDisp);
+	function OpenFileAsync($remoteFilePath,$access,$createDisp) {
+		$r=CkSFtp_OpenFileAsync($this->_cPtr,$remoteFilePath,$access,$createDisp);
 		if (is_resource($r)) {
 			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
 			if (class_exists($c)) return new $c($r);
@@ -23307,12 +23437,12 @@ class CkSFtp {
 		return CkSFtp_UnlockComponent($this->_cPtr,$unlockCode);
 	}
 
-	function UploadFile($handle,$fromFilename) {
-		return CkSFtp_UploadFile($this->_cPtr,$handle,$fromFilename);
+	function UploadFile($handle,$localFilePath) {
+		return CkSFtp_UploadFile($this->_cPtr,$handle,$localFilePath);
 	}
 
-	function UploadFileAsync($handle,$fromFilename) {
-		$r=CkSFtp_UploadFileAsync($this->_cPtr,$handle,$fromFilename);
+	function UploadFileAsync($handle,$localFilePath) {
+		$r=CkSFtp_UploadFileAsync($this->_cPtr,$handle,$localFilePath);
 		if (is_resource($r)) {
 			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
 			if (class_exists($c)) return new $c($r);
@@ -26049,6 +26179,14 @@ class CkSsh {
 		CkSsh_put_UserAuthBanner($this->_cPtr,$newVal);
 	}
 
+	function get_EnableCompression() {
+		return CkSsh_get_EnableCompression($this->_cPtr);
+	}
+
+	function put_EnableCompression($newVal) {
+		CkSsh_put_EnableCompression($this->_cPtr,$newVal);
+	}
+
 	function AuthenticatePk($username,$privateKey) {
 		return CkSsh_AuthenticatePk($this->_cPtr,$username,$privateKey);
 	}
@@ -27225,6 +27363,14 @@ class CkSshTunnel {
 
 	function put_TunnelLogPath($newVal) {
 		CkSshTunnel_put_TunnelLogPath($this->_cPtr,$newVal);
+	}
+
+	function get_HostKeyFingerprint($str) {
+		CkSshTunnel_get_HostKeyFingerprint($this->_cPtr,$str);
+	}
+
+	function hostKeyFingerprint() {
+		return CkSshTunnel_hostKeyFingerprint($this->_cPtr);
 	}
 
 	function AuthenticatePk($username,$privateKey) {
@@ -32247,6 +32393,924 @@ class CkOAuth1 {
 
 	function GenTimestamp() {
 		return CkOAuth1_GenTimestamp($this->_cPtr);
+	}
+}
+
+class CkJsonObject {
+	public $_cPtr=null;
+	protected $_pData=array();
+
+	function __set($var,$value) {
+		if ($var === 'thisown') return swig_chilkat_9_5_0_alter_newobject($this->_cPtr,$value);
+		$this->_pData[$var] = $value;
+	}
+
+	function __get($var) {
+		if ($var === 'thisown') return swig_chilkat_9_5_0_get_newobject($this->_cPtr);
+		return $this->_pData[$var];
+	}
+
+	function __isset($var) {
+		if ($var === 'thisown') return true;
+		return array_key_exists($var, $this->_pData);
+	}
+
+	function __construct($res=null) {
+		if (is_resource($res) && get_resource_type($res) === '_p_CkJsonObject') {
+			$this->_cPtr=$res;
+			return;
+		}
+		$this->_cPtr=new_CkJsonObject();
+	}
+
+	function get_Utf8() {
+		return CkJsonObject_get_Utf8($this->_cPtr);
+	}
+
+	function put_Utf8($b) {
+		CkJsonObject_put_Utf8($this->_cPtr,$b);
+	}
+
+	function get_LastErrorHtml($str) {
+		CkJsonObject_get_LastErrorHtml($this->_cPtr,$str);
+	}
+
+	function lastErrorHtml() {
+		return CkJsonObject_lastErrorHtml($this->_cPtr);
+	}
+
+	function get_LastErrorText($str) {
+		CkJsonObject_get_LastErrorText($this->_cPtr,$str);
+	}
+
+	function lastErrorText() {
+		return CkJsonObject_lastErrorText($this->_cPtr);
+	}
+
+	function get_LastErrorXml($str) {
+		CkJsonObject_get_LastErrorXml($this->_cPtr,$str);
+	}
+
+	function lastErrorXml() {
+		return CkJsonObject_lastErrorXml($this->_cPtr);
+	}
+
+	function get_Version($str) {
+		CkJsonObject_get_Version($this->_cPtr,$str);
+	}
+
+	function version() {
+		return CkJsonObject_version($this->_cPtr);
+	}
+
+	function get_DebugLogFilePath($str) {
+		CkJsonObject_get_DebugLogFilePath($this->_cPtr,$str);
+	}
+
+	function debugLogFilePath() {
+		return CkJsonObject_debugLogFilePath($this->_cPtr);
+	}
+
+	function put_DebugLogFilePath($newVal) {
+		CkJsonObject_put_DebugLogFilePath($this->_cPtr,$newVal);
+	}
+
+	function get_VerboseLogging() {
+		return CkJsonObject_get_VerboseLogging($this->_cPtr);
+	}
+
+	function put_VerboseLogging($newVal) {
+		CkJsonObject_put_VerboseLogging($this->_cPtr,$newVal);
+	}
+
+	function get_LastMethodSuccess() {
+		return CkJsonObject_get_LastMethodSuccess($this->_cPtr);
+	}
+
+	function put_LastMethodSuccess($newVal) {
+		CkJsonObject_put_LastMethodSuccess($this->_cPtr,$newVal);
+	}
+
+	function SaveLastError($path) {
+		return CkJsonObject_SaveLastError($this->_cPtr,$path);
+	}
+
+	function get_EmitCompact() {
+		return CkJsonObject_get_EmitCompact($this->_cPtr);
+	}
+
+	function put_EmitCompact($newVal) {
+		CkJsonObject_put_EmitCompact($this->_cPtr,$newVal);
+	}
+
+	function get_EmitCrLf() {
+		return CkJsonObject_get_EmitCrLf($this->_cPtr);
+	}
+
+	function put_EmitCrLf($newVal) {
+		CkJsonObject_put_EmitCrLf($this->_cPtr,$newVal);
+	}
+
+	function get_I() {
+		return CkJsonObject_get_I($this->_cPtr);
+	}
+
+	function put_I($newVal) {
+		CkJsonObject_put_I($this->_cPtr,$newVal);
+	}
+
+	function get_J() {
+		return CkJsonObject_get_J($this->_cPtr);
+	}
+
+	function put_J($newVal) {
+		CkJsonObject_put_J($this->_cPtr,$newVal);
+	}
+
+	function get_K() {
+		return CkJsonObject_get_K($this->_cPtr);
+	}
+
+	function put_K($newVal) {
+		CkJsonObject_put_K($this->_cPtr,$newVal);
+	}
+
+	function get_Size() {
+		return CkJsonObject_get_Size($this->_cPtr);
+	}
+
+	function AddArrayAt($index,$name) {
+		return CkJsonObject_AddArrayAt($this->_cPtr,$index,$name);
+	}
+
+	function AddBoolAt($index,$name,$value) {
+		return CkJsonObject_AddBoolAt($this->_cPtr,$index,$name,$value);
+	}
+
+	function AddIntAt($index,$name,$value) {
+		return CkJsonObject_AddIntAt($this->_cPtr,$index,$name,$value);
+	}
+
+	function AddNullAt($index,$name) {
+		return CkJsonObject_AddNullAt($this->_cPtr,$index,$name);
+	}
+
+	function AddNumberAt($index,$name,$numericStr) {
+		return CkJsonObject_AddNumberAt($this->_cPtr,$index,$name,$numericStr);
+	}
+
+	function AddObjectAt($index,$name) {
+		return CkJsonObject_AddObjectAt($this->_cPtr,$index,$name);
+	}
+
+	function AddStringAt($index,$name,$value) {
+		return CkJsonObject_AddStringAt($this->_cPtr,$index,$name,$value);
+	}
+
+	function ArrayAt($index) {
+		$r=CkJsonObject_ArrayAt($this->_cPtr,$index);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkJsonArray($r);
+		}
+		return $r;
+	}
+
+	function ArrayOf($jsonPath) {
+		$r=CkJsonObject_ArrayOf($this->_cPtr,$jsonPath);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkJsonArray($r);
+		}
+		return $r;
+	}
+
+	function BoolAt($index) {
+		return CkJsonObject_BoolAt($this->_cPtr,$index);
+	}
+
+	function BoolOf($jsonPath) {
+		return CkJsonObject_BoolOf($this->_cPtr,$jsonPath);
+	}
+
+	function Delete($name) {
+		return CkJsonObject_Delete($this->_cPtr,$name);
+	}
+
+	function DeleteAt($index) {
+		return CkJsonObject_DeleteAt($this->_cPtr,$index);
+	}
+
+	function emit() {
+		return CkJsonObject_emit($this->_cPtr);
+	}
+
+	function GetDocRoot() {
+		$r=CkJsonObject_GetDocRoot($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkJsonObject($r);
+		}
+		return $r;
+	}
+
+	function IndexOf($name) {
+		return CkJsonObject_IndexOf($this->_cPtr,$name);
+	}
+
+	function IntAt($index) {
+		return CkJsonObject_IntAt($this->_cPtr,$index);
+	}
+
+	function IntOf($jsonPath) {
+		return CkJsonObject_IntOf($this->_cPtr,$jsonPath);
+	}
+
+	function IsNullAt($index) {
+		return CkJsonObject_IsNullAt($this->_cPtr,$index);
+	}
+
+	function IsNullOf($jsonPath) {
+		return CkJsonObject_IsNullOf($this->_cPtr,$jsonPath);
+	}
+
+	function Load($json) {
+		return CkJsonObject_Load($this->_cPtr,$json);
+	}
+
+	function LoadFile($path) {
+		return CkJsonObject_LoadFile($this->_cPtr,$path);
+	}
+
+	function nameAt($index) {
+		return CkJsonObject_nameAt($this->_cPtr,$index);
+	}
+
+	function ObjectAt($index) {
+		$r=CkJsonObject_ObjectAt($this->_cPtr,$index);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkJsonObject($r);
+		}
+		return $r;
+	}
+
+	function ObjectOf($jsonPath) {
+		$r=CkJsonObject_ObjectOf($this->_cPtr,$jsonPath);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkJsonObject($r);
+		}
+		return $r;
+	}
+
+	function Rename($oldName,$newName) {
+		return CkJsonObject_Rename($this->_cPtr,$oldName,$newName);
+	}
+
+	function RenameAt($index,$name) {
+		return CkJsonObject_RenameAt($this->_cPtr,$index,$name);
+	}
+
+	function SetBoolAt($index,$value) {
+		return CkJsonObject_SetBoolAt($this->_cPtr,$index,$value);
+	}
+
+	function SetBoolOf($jsonPath,$value) {
+		return CkJsonObject_SetBoolOf($this->_cPtr,$jsonPath,$value);
+	}
+
+	function SetIntAt($index,$value) {
+		return CkJsonObject_SetIntAt($this->_cPtr,$index,$value);
+	}
+
+	function SetIntOf($jsonPath,$value) {
+		return CkJsonObject_SetIntOf($this->_cPtr,$jsonPath,$value);
+	}
+
+	function SetNullAt($index) {
+		return CkJsonObject_SetNullAt($this->_cPtr,$index);
+	}
+
+	function SetNullOf($jsonPath) {
+		return CkJsonObject_SetNullOf($this->_cPtr,$jsonPath);
+	}
+
+	function SetNumberAt($index,$value) {
+		return CkJsonObject_SetNumberAt($this->_cPtr,$index,$value);
+	}
+
+	function SetNumberOf($jsonPath,$value) {
+		return CkJsonObject_SetNumberOf($this->_cPtr,$jsonPath,$value);
+	}
+
+	function SetStringAt($index,$value) {
+		return CkJsonObject_SetStringAt($this->_cPtr,$index,$value);
+	}
+
+	function SetStringOf($jsonPath,$value) {
+		return CkJsonObject_SetStringOf($this->_cPtr,$jsonPath,$value);
+	}
+
+	function SizeOfArray($jsonPath) {
+		return CkJsonObject_SizeOfArray($this->_cPtr,$jsonPath);
+	}
+
+	function stringAt($index) {
+		return CkJsonObject_stringAt($this->_cPtr,$index);
+	}
+
+	function stringOf($jsonPath) {
+		return CkJsonObject_stringOf($this->_cPtr,$jsonPath);
+	}
+}
+
+class CkJsonArray {
+	public $_cPtr=null;
+	protected $_pData=array();
+
+	function __set($var,$value) {
+		if ($var === 'thisown') return swig_chilkat_9_5_0_alter_newobject($this->_cPtr,$value);
+		$this->_pData[$var] = $value;
+	}
+
+	function __get($var) {
+		if ($var === 'thisown') return swig_chilkat_9_5_0_get_newobject($this->_cPtr);
+		return $this->_pData[$var];
+	}
+
+	function __isset($var) {
+		if ($var === 'thisown') return true;
+		return array_key_exists($var, $this->_pData);
+	}
+
+	function __construct($res=null) {
+		if (is_resource($res) && get_resource_type($res) === '_p_CkJsonArray') {
+			$this->_cPtr=$res;
+			return;
+		}
+		$this->_cPtr=new_CkJsonArray();
+	}
+
+	function get_Utf8() {
+		return CkJsonArray_get_Utf8($this->_cPtr);
+	}
+
+	function put_Utf8($b) {
+		CkJsonArray_put_Utf8($this->_cPtr,$b);
+	}
+
+	function get_LastErrorHtml($str) {
+		CkJsonArray_get_LastErrorHtml($this->_cPtr,$str);
+	}
+
+	function lastErrorHtml() {
+		return CkJsonArray_lastErrorHtml($this->_cPtr);
+	}
+
+	function get_LastErrorText($str) {
+		CkJsonArray_get_LastErrorText($this->_cPtr,$str);
+	}
+
+	function lastErrorText() {
+		return CkJsonArray_lastErrorText($this->_cPtr);
+	}
+
+	function get_LastErrorXml($str) {
+		CkJsonArray_get_LastErrorXml($this->_cPtr,$str);
+	}
+
+	function lastErrorXml() {
+		return CkJsonArray_lastErrorXml($this->_cPtr);
+	}
+
+	function get_Version($str) {
+		CkJsonArray_get_Version($this->_cPtr,$str);
+	}
+
+	function version() {
+		return CkJsonArray_version($this->_cPtr);
+	}
+
+	function get_DebugLogFilePath($str) {
+		CkJsonArray_get_DebugLogFilePath($this->_cPtr,$str);
+	}
+
+	function debugLogFilePath() {
+		return CkJsonArray_debugLogFilePath($this->_cPtr);
+	}
+
+	function put_DebugLogFilePath($newVal) {
+		CkJsonArray_put_DebugLogFilePath($this->_cPtr,$newVal);
+	}
+
+	function get_VerboseLogging() {
+		return CkJsonArray_get_VerboseLogging($this->_cPtr);
+	}
+
+	function put_VerboseLogging($newVal) {
+		CkJsonArray_put_VerboseLogging($this->_cPtr,$newVal);
+	}
+
+	function get_LastMethodSuccess() {
+		return CkJsonArray_get_LastMethodSuccess($this->_cPtr);
+	}
+
+	function put_LastMethodSuccess($newVal) {
+		CkJsonArray_put_LastMethodSuccess($this->_cPtr,$newVal);
+	}
+
+	function SaveLastError($path) {
+		return CkJsonArray_SaveLastError($this->_cPtr,$path);
+	}
+
+	function get_Size() {
+		return CkJsonArray_get_Size($this->_cPtr);
+	}
+
+	function AddArrayAt($index) {
+		return CkJsonArray_AddArrayAt($this->_cPtr,$index);
+	}
+
+	function AddBoolAt($index,$value) {
+		return CkJsonArray_AddBoolAt($this->_cPtr,$index,$value);
+	}
+
+	function AddIntAt($index,$value) {
+		return CkJsonArray_AddIntAt($this->_cPtr,$index,$value);
+	}
+
+	function AddNullAt($index) {
+		return CkJsonArray_AddNullAt($this->_cPtr,$index);
+	}
+
+	function AddNumberAt($index,$numericStr) {
+		return CkJsonArray_AddNumberAt($this->_cPtr,$index,$numericStr);
+	}
+
+	function AddObjectAt($index) {
+		return CkJsonArray_AddObjectAt($this->_cPtr,$index);
+	}
+
+	function AddStringAt($index,$value) {
+		return CkJsonArray_AddStringAt($this->_cPtr,$index,$value);
+	}
+
+	function ArrayAt($index) {
+		$r=CkJsonArray_ArrayAt($this->_cPtr,$index);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkJsonArray($r);
+		}
+		return $r;
+	}
+
+	function BoolAt($index) {
+		return CkJsonArray_BoolAt($this->_cPtr,$index);
+	}
+
+	function DeleteAt($index) {
+		return CkJsonArray_DeleteAt($this->_cPtr,$index);
+	}
+
+	function IntAt($index) {
+		return CkJsonArray_IntAt($this->_cPtr,$index);
+	}
+
+	function IsNullAt($index) {
+		return CkJsonArray_IsNullAt($this->_cPtr,$index);
+	}
+
+	function ObjectAt($index) {
+		$r=CkJsonArray_ObjectAt($this->_cPtr,$index);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkJsonObject($r);
+		}
+		return $r;
+	}
+
+	function SetBoolAt($index,$value) {
+		return CkJsonArray_SetBoolAt($this->_cPtr,$index,$value);
+	}
+
+	function SetIntAt($index,$value) {
+		return CkJsonArray_SetIntAt($this->_cPtr,$index,$value);
+	}
+
+	function SetNullAt($index) {
+		return CkJsonArray_SetNullAt($this->_cPtr,$index);
+	}
+
+	function SetNumberAt($index,$value) {
+		return CkJsonArray_SetNumberAt($this->_cPtr,$index,$value);
+	}
+
+	function SetStringAt($index,$value) {
+		return CkJsonArray_SetStringAt($this->_cPtr,$index,$value);
+	}
+
+	function stringAt($index) {
+		return CkJsonArray_stringAt($this->_cPtr,$index);
+	}
+}
+
+class CkStream {
+	public $_cPtr=null;
+	protected $_pData=array();
+
+	function __set($var,$value) {
+		if ($var === 'thisown') return swig_chilkat_9_5_0_alter_newobject($this->_cPtr,$value);
+		$this->_pData[$var] = $value;
+	}
+
+	function __get($var) {
+		if ($var === 'thisown') return swig_chilkat_9_5_0_get_newobject($this->_cPtr);
+		return $this->_pData[$var];
+	}
+
+	function __isset($var) {
+		if ($var === 'thisown') return true;
+		return array_key_exists($var, $this->_pData);
+	}
+
+	function __construct($res=null) {
+		if (is_resource($res) && get_resource_type($res) === '_p_CkStream') {
+			$this->_cPtr=$res;
+			return;
+		}
+		$this->_cPtr=new_CkStream();
+	}
+
+	function get_Utf8() {
+		return CkStream_get_Utf8($this->_cPtr);
+	}
+
+	function put_Utf8($b) {
+		CkStream_put_Utf8($this->_cPtr,$b);
+	}
+
+	function put_EventCallbackObject($progress) {
+		CkStream_put_EventCallbackObject($this->_cPtr,$progress);
+	}
+
+	function get_LastErrorHtml($str) {
+		CkStream_get_LastErrorHtml($this->_cPtr,$str);
+	}
+
+	function lastErrorHtml() {
+		return CkStream_lastErrorHtml($this->_cPtr);
+	}
+
+	function get_LastErrorText($str) {
+		CkStream_get_LastErrorText($this->_cPtr,$str);
+	}
+
+	function lastErrorText() {
+		return CkStream_lastErrorText($this->_cPtr);
+	}
+
+	function get_LastErrorXml($str) {
+		CkStream_get_LastErrorXml($this->_cPtr,$str);
+	}
+
+	function lastErrorXml() {
+		return CkStream_lastErrorXml($this->_cPtr);
+	}
+
+	function get_Version($str) {
+		CkStream_get_Version($this->_cPtr,$str);
+	}
+
+	function version() {
+		return CkStream_version($this->_cPtr);
+	}
+
+	function get_DebugLogFilePath($str) {
+		CkStream_get_DebugLogFilePath($this->_cPtr,$str);
+	}
+
+	function debugLogFilePath() {
+		return CkStream_debugLogFilePath($this->_cPtr);
+	}
+
+	function put_DebugLogFilePath($newVal) {
+		CkStream_put_DebugLogFilePath($this->_cPtr,$newVal);
+	}
+
+	function get_VerboseLogging() {
+		return CkStream_get_VerboseLogging($this->_cPtr);
+	}
+
+	function put_VerboseLogging($newVal) {
+		CkStream_put_VerboseLogging($this->_cPtr,$newVal);
+	}
+
+	function get_LastMethodSuccess() {
+		return CkStream_get_LastMethodSuccess($this->_cPtr);
+	}
+
+	function put_LastMethodSuccess($newVal) {
+		CkStream_put_LastMethodSuccess($this->_cPtr,$newVal);
+	}
+
+	function SaveLastError($path) {
+		return CkStream_SaveLastError($this->_cPtr,$path);
+	}
+
+	function get_DefaultChunkSize() {
+		return CkStream_get_DefaultChunkSize($this->_cPtr);
+	}
+
+	function put_DefaultChunkSize($newVal) {
+		CkStream_put_DefaultChunkSize($this->_cPtr,$newVal);
+	}
+
+	function get_EndOfStream() {
+		return CkStream_get_EndOfStream($this->_cPtr);
+	}
+
+	function get_IsWriteClosed() {
+		return CkStream_get_IsWriteClosed($this->_cPtr);
+	}
+
+	function get_ReadFailReason() {
+		return CkStream_get_ReadFailReason($this->_cPtr);
+	}
+
+	function get_ReadTimeoutMs() {
+		return CkStream_get_ReadTimeoutMs($this->_cPtr);
+	}
+
+	function put_ReadTimeoutMs($newVal) {
+		CkStream_put_ReadTimeoutMs($this->_cPtr,$newVal);
+	}
+
+	function get_SinkFile($str) {
+		CkStream_get_SinkFile($this->_cPtr,$str);
+	}
+
+	function sinkFile() {
+		return CkStream_sinkFile($this->_cPtr);
+	}
+
+	function put_SinkFile($newVal) {
+		CkStream_put_SinkFile($this->_cPtr,$newVal);
+	}
+
+	function get_SourceFile($str) {
+		CkStream_get_SourceFile($this->_cPtr,$str);
+	}
+
+	function sourceFile() {
+		return CkStream_sourceFile($this->_cPtr);
+	}
+
+	function put_SourceFile($newVal) {
+		CkStream_put_SourceFile($this->_cPtr,$newVal);
+	}
+
+	function get_StringBom() {
+		return CkStream_get_StringBom($this->_cPtr);
+	}
+
+	function put_StringBom($newVal) {
+		CkStream_put_StringBom($this->_cPtr,$newVal);
+	}
+
+	function get_StringCharset($str) {
+		CkStream_get_StringCharset($this->_cPtr,$str);
+	}
+
+	function stringCharset() {
+		return CkStream_stringCharset($this->_cPtr);
+	}
+
+	function put_StringCharset($newVal) {
+		CkStream_put_StringCharset($this->_cPtr,$newVal);
+	}
+
+	function get_WriteFailReason() {
+		return CkStream_get_WriteFailReason($this->_cPtr);
+	}
+
+	function get_WriteTimeoutMs() {
+		return CkStream_get_WriteTimeoutMs($this->_cPtr);
+	}
+
+	function put_WriteTimeoutMs($newVal) {
+		CkStream_put_WriteTimeoutMs($this->_cPtr,$newVal);
+	}
+
+	function get_CanRead() {
+		return CkStream_get_CanRead($this->_cPtr);
+	}
+
+	function get_CanWrite() {
+		return CkStream_get_CanWrite($this->_cPtr);
+	}
+
+	function get_DataAvailable() {
+		return CkStream_get_DataAvailable($this->_cPtr);
+	}
+
+	function ReadBytes($outBytes) {
+		return CkStream_ReadBytes($this->_cPtr,$outBytes);
+	}
+
+	function ReadBytesAsync() {
+		$r=CkStream_ReadBytesAsync($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function readBytesENC($encoding) {
+		return CkStream_readBytesENC($this->_cPtr,$encoding);
+	}
+
+	function ReadBytesENCAsync($encoding) {
+		$r=CkStream_ReadBytesENCAsync($this->_cPtr,$encoding);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function ReadNBytes($numBytes,$outBytes) {
+		return CkStream_ReadNBytes($this->_cPtr,$numBytes,$outBytes);
+	}
+
+	function ReadNBytesAsync($numBytes) {
+		$r=CkStream_ReadNBytesAsync($this->_cPtr,$numBytes);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function readNBytesENC($numBytes,$encoding) {
+		return CkStream_readNBytesENC($this->_cPtr,$numBytes,$encoding);
+	}
+
+	function ReadNBytesENCAsync($numBytes,$encoding) {
+		$r=CkStream_ReadNBytesENCAsync($this->_cPtr,$numBytes,$encoding);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function readString() {
+		return CkStream_readString($this->_cPtr);
+	}
+
+	function ReadStringAsync() {
+		$r=CkStream_ReadStringAsync($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function readToCRLF() {
+		return CkStream_readToCRLF($this->_cPtr);
+	}
+
+	function ReadToCRLFAsync() {
+		$r=CkStream_ReadToCRLFAsync($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function readUntilMatch($matchStr) {
+		return CkStream_readUntilMatch($this->_cPtr,$matchStr);
+	}
+
+	function ReadUntilMatchAsync($matchStr) {
+		$r=CkStream_ReadUntilMatchAsync($this->_cPtr,$matchStr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function Reset() {
+		CkStream_Reset($this->_cPtr);
+	}
+
+	function RunStream() {
+		return CkStream_RunStream($this->_cPtr);
+	}
+
+	function RunStreamAsync() {
+		$r=CkStream_RunStreamAsync($this->_cPtr);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function SetSinkStream($strm) {
+		return CkStream_SetSinkStream($this->_cPtr,$strm);
+	}
+
+	function SetSourceBytes($sourceData) {
+		return CkStream_SetSourceBytes($this->_cPtr,$sourceData);
+	}
+
+	function SetSourceStream($strm) {
+		return CkStream_SetSourceStream($this->_cPtr,$strm);
+	}
+
+	function SetSourceString($srcStr,$charset) {
+		return CkStream_SetSourceString($this->_cPtr,$srcStr,$charset);
+	}
+
+	function WriteByte($byteVal) {
+		return CkStream_WriteByte($this->_cPtr,$byteVal);
+	}
+
+	function WriteByteAsync($byteVal) {
+		$r=CkStream_WriteByteAsync($this->_cPtr,$byteVal);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function WriteBytes($byteData) {
+		return CkStream_WriteBytes($this->_cPtr,$byteData);
+	}
+
+	function WriteBytesAsync($byteData) {
+		$r=CkStream_WriteBytesAsync($this->_cPtr,$byteData);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function WriteBytesENC($byteData,$encoding) {
+		return CkStream_WriteBytesENC($this->_cPtr,$byteData,$encoding);
+	}
+
+	function WriteBytesENCAsync($byteData,$encoding) {
+		$r=CkStream_WriteBytesENCAsync($this->_cPtr,$byteData,$encoding);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function WriteString($str) {
+		return CkStream_WriteString($this->_cPtr,$str);
+	}
+
+	function WriteStringAsync($str) {
+		$r=CkStream_WriteStringAsync($this->_cPtr,$str);
+		if (is_resource($r)) {
+			$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			if (class_exists($c)) return new $c($r);
+			return new CkTask($r);
+		}
+		return $r;
+	}
+
+	function WriteClose() {
+		return CkStream_WriteClose($this->_cPtr);
 	}
 }
 

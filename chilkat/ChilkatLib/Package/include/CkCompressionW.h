@@ -10,10 +10,11 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkWideCharBase.h"
+#include "CkClassWithCallbacksW.h"
 
 class CkByteData;
 class CkTaskW;
+class CkStreamW;
 class CkBaseProgressW;
 
 
@@ -24,11 +25,10 @@ class CkBaseProgressW;
  
 
 // CLASS: CkCompressionW
-class CK_VISIBLE_PUBLIC CkCompressionW  : public CkWideCharBase
+class CK_VISIBLE_PUBLIC CkCompressionW  : public CkClassWithCallbacksW
 {
     private:
 	bool m_cbOwned;
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkCompressionW(const CkCompressionW &);
@@ -614,6 +614,28 @@ class CK_VISIBLE_PUBLIC CkCompressionW  : public CkWideCharBase
 	// unlock code is provided which should replace the temporary/arbitrary string
 	// passed to this method.
 	bool UnlockComponent(const wchar_t *unlockCode);
+
+	// Compresses a stream. Internally, the ARG1's source is read, compressed, and the
+	// compressed data written to the ARG1's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be compressed with stable ungrowing
+	// memory usage.
+	bool CompressStream(CkStreamW &strm);
+
+	// Creates an asynchronous task to call the CompressStream method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *CompressStreamAsync(CkStreamW &strm);
+
+	// Decompresses a stream. Internally, the ARG1's source is read, decompressed, and
+	// the decompressed data written to the ARG1's sink. It does this in streaming
+	// fashion. Extremely large or even infinite streams can be decompressed with
+	// stable ungrowing memory usage.
+	bool DecompressStream(CkStreamW &strm);
+
+	// Creates an asynchronous task to call the DecompressStream method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *DecompressStreamAsync(CkStreamW &strm);
 
 
 

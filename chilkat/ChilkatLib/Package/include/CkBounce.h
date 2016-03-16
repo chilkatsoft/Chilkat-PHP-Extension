@@ -25,7 +25,6 @@ class CkEmail;
 class CK_VISIBLE_PUBLIC CkBounce  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkBounce(const CkBounce &);

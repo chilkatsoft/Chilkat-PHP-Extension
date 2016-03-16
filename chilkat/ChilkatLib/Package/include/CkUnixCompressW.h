@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkWideCharBase.h"
+#include "CkClassWithCallbacksW.h"
 
 class CkTaskW;
 class CkByteData;
@@ -24,11 +24,10 @@ class CkBaseProgressW;
  
 
 // CLASS: CkUnixCompressW
-class CK_VISIBLE_PUBLIC CkUnixCompressW  : public CkWideCharBase
+class CK_VISIBLE_PUBLIC CkUnixCompressW  : public CkClassWithCallbacksW
 {
     private:
 	bool m_cbOwned;
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkUnixCompressW(const CkUnixCompressW &);

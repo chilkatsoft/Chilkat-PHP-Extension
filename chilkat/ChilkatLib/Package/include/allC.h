@@ -55,6 +55,7 @@
 #include "C_CkSsh.h"
 #include "C_CkSshKey.h"
 #include "C_CkSshTunnel.h"
+#include "C_CkStream.h"
 #include "C_CkStringArray.h"
 #include "C_CkTar.h"
 #include "C_CkUnixCompress.h"

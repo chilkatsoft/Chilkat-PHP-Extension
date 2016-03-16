@@ -24,7 +24,6 @@
 class CK_VISIBLE_PUBLIC CkOAuth1  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkOAuth1(const CkOAuth1 &);

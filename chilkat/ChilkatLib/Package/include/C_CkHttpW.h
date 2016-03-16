@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkHttpWH
 #define _C_CkHttpWH
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkHttpW_setAbortCheck(HCkHttpW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkHttpW_setPercentDone(HCkHttpW cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkHttpW_setProgressInfo(HCkHttpW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
+CK_VISIBLE_PUBLIC void CkHttpW_setTaskCompleted(HCkHttpW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
 
 CK_VISIBLE_PUBLIC HCkHttpW CkHttpW_Create(void);
 CK_VISIBLE_PUBLIC HCkHttpW CkHttpW_Create2(BOOL bCallbackOwned);
@@ -27,9 +33,14 @@ CK_VISIBLE_PUBLIC const wchar_t *CkHttpW_awsAccessKey(HCkHttpW cHandle);
 CK_VISIBLE_PUBLIC void CkHttpW_getAwsEndpoint(HCkHttpW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkHttpW_putAwsEndpoint(HCkHttpW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkHttpW_awsEndpoint(HCkHttpW cHandle);
+CK_VISIBLE_PUBLIC void CkHttpW_getAwsRegion(HCkHttpW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void CkHttpW_putAwsRegion(HCkHttpW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkHttpW_awsRegion(HCkHttpW cHandle);
 CK_VISIBLE_PUBLIC void CkHttpW_getAwsSecretKey(HCkHttpW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkHttpW_putAwsSecretKey(HCkHttpW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkHttpW_awsSecretKey(HCkHttpW cHandle);
+CK_VISIBLE_PUBLIC int CkHttpW_getAwsSignatureVersion(HCkHttpW cHandle);
+CK_VISIBLE_PUBLIC void CkHttpW_putAwsSignatureVersion(HCkHttpW cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkHttpW_getAwsSubResources(HCkHttpW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkHttpW_putAwsSubResources(HCkHttpW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkHttpW_awsSubResources(HCkHttpW cHandle);
@@ -52,6 +63,7 @@ CK_VISIBLE_PUBLIC BOOL CkHttpW_getBgTaskSuccess(HCkHttpW cHandle);
 CK_VISIBLE_PUBLIC void CkHttpW_getClientIpAddress(HCkHttpW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkHttpW_putClientIpAddress(HCkHttpW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkHttpW_clientIpAddress(HCkHttpW cHandle);
+CK_VISIBLE_PUBLIC int CkHttpW_getConnectFailReason(HCkHttpW cHandle);
 CK_VISIBLE_PUBLIC int CkHttpW_getConnectTimeout(HCkHttpW cHandle);
 CK_VISIBLE_PUBLIC void CkHttpW_putConnectTimeout(HCkHttpW cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkHttpW_getConnection(HCkHttpW cHandle, HCkString retval);

@@ -31,7 +31,6 @@ class CkXmlCertVault;
 class CK_VISIBLE_PUBLIC CkMime  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkMime(const CkMime &);

@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkWideCharBase.h"
+#include "CkClassWithCallbacksW.h"
 
 class CkByteData;
 class CkHttpResponseW;
@@ -31,11 +31,10 @@ class CkHttpProgressW;
  
 
 // CLASS: CkHttpW
-class CK_VISIBLE_PUBLIC CkHttpW  : public CkWideCharBase
+class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 {
     private:
 	bool m_cbOwned;
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkHttpW(const CkHttpW &);
@@ -149,12 +148,35 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkWideCharBase
 	// compatible services from other different providers.
 	void put_AwsEndpoint(const wchar_t *newVal);
 
+	// The AWS (S3) region, such as "us-east-1", "us-west-2", "eu-west-1",
+	// "eu-central-1", etc. This propery defaults to "us-east-1". It is only used when
+	// the AwsSignatureVersion property is set to 4. When the AwsSignatureVersion
+	// property is set to 2, then this property is unused.
+	void get_AwsRegion(CkString &str);
+	// The AWS (S3) region, such as "us-east-1", "us-west-2", "eu-west-1",
+	// "eu-central-1", etc. This propery defaults to "us-east-1". It is only used when
+	// the AwsSignatureVersion property is set to 4. When the AwsSignatureVersion
+	// property is set to 2, then this property is unused.
+	const wchar_t *awsRegion(void);
+	// The AWS (S3) region, such as "us-east-1", "us-west-2", "eu-west-1",
+	// "eu-central-1", etc. This propery defaults to "us-east-1". It is only used when
+	// the AwsSignatureVersion property is set to 4. When the AwsSignatureVersion
+	// property is set to 2, then this property is unused.
+	void put_AwsRegion(const wchar_t *newVal);
+
 	// The AWS Secret Key to be used with the Amazon S3 methods listed below.
 	void get_AwsSecretKey(CkString &str);
 	// The AWS Secret Key to be used with the Amazon S3 methods listed below.
 	const wchar_t *awsSecretKey(void);
 	// The AWS Secret Key to be used with the Amazon S3 methods listed below.
 	void put_AwsSecretKey(const wchar_t *newVal);
+
+	// Selects the AWS Signature Version algorithm. The default value is 2. May be set
+	// to 4 to select AWS Signature Version 4.
+	int get_AwsSignatureVersion(void);
+	// Selects the AWS Signature Version algorithm. The default value is 2. May be set
+	// to 4 to select AWS Signature Version 4.
+	void put_AwsSignatureVersion(int newVal);
 
 	// The AWS sub-resources to be used with the Amazon S3 methods listed below.
 	// 
@@ -379,6 +401,41 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkWideCharBase
 	// names, such as "165.164.55.124".
 	// 
 	void put_ClientIpAddress(const wchar_t *newVal);
+
+	// This property will be set to the status of the last HTTP connection made (or
+	// failed to be made) by any HTTP method.
+	// 
+	// Possible values are:
+	// 0 = success
+	// 
+	// Normal (non-TLS) sockets:
+	// 1 = empty hostname
+	// 2 = DNS lookup failed
+	// 3 = DNS timeout
+	// 4 = Aborted by application.
+	// 5 = Internal failure.
+	// 6 = Connect Timed Out
+	// 7 = Connect Rejected (or failed for some other reason)
+	// 
+	// SSL/TLS:
+	// 100 = TLS internal error.
+	// 101 = Failed to send client hello.
+	// 102 = Unexpected handshake message.
+	// 103 = Failed to read server hello.
+	// 104 = No server certificate.
+	// 105 = Unexpected TLS protocol version.
+	// 106 = Server certificate verify failed (the server certificate is expired or the cert's signature verification failed).
+	// 107 = Unacceptable TLS protocol version.
+	// 109 = Failed to read handshake messages.
+	// 110 = Failed to send client certificate handshake message.
+	// 111 = Failed to send client key exchange handshake message.
+	// 112 = Client certificate's private key not accessible.
+	// 113 = Failed to send client cert verify handshake message.
+	// 114 = Failed to send change cipher spec handshake message.
+	// 115 = Failed to send finished handshake message.
+	// 116 = Server's Finished message is invalid.
+	// 
+	int get_ConnectFailReason(void);
 
 	// The amount of time in seconds to wait before timing out when connecting to an
 	// HTTP server.

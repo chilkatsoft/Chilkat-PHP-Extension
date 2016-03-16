@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkMailManWH
 #define _C_CkMailManWH
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkMailManW_setAbortCheck(HCkMailManW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkMailManW_setPercentDone(HCkMailManW cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkMailManW_setProgressInfo(HCkMailManW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
+CK_VISIBLE_PUBLIC void CkMailManW_setTaskCompleted(HCkMailManW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
 
 CK_VISIBLE_PUBLIC HCkMailManW CkMailManW_Create(void);
 CK_VISIBLE_PUBLIC HCkMailManW CkMailManW_Create2(BOOL bCallbackOwned);
@@ -21,6 +27,7 @@ CK_VISIBLE_PUBLIC void CkMailManW_putAutoUnwrapSecurity(HCkMailManW cHandle, BOO
 CK_VISIBLE_PUBLIC void CkMailManW_getClientIpAddress(HCkMailManW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkMailManW_putClientIpAddress(HCkMailManW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkMailManW_clientIpAddress(HCkMailManW cHandle);
+CK_VISIBLE_PUBLIC int CkMailManW_getConnectFailReason(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC int CkMailManW_getConnectTimeout(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC void CkMailManW_putConnectTimeout(HCkMailManW cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkMailManW_getDebugLogFilePath(HCkMailManW cHandle, HCkString retval);
@@ -289,8 +296,12 @@ CK_VISIBLE_PUBLIC HCkStringArrayW CkMailManW_MxLookupAll(HCkMailManW cHandle, co
 #endif
 CK_VISIBLE_PUBLIC BOOL CkMailManW_OpenSmtpConnection(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_OpenSmtpConnectionAsync(HCkMailManW cHandle);
+CK_VISIBLE_PUBLIC BOOL CkMailManW_Pop3Authenticate(HCkMailManW cHandle);
+CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_Pop3AuthenticateAsync(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_Pop3BeginSession(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_Pop3BeginSessionAsync(HCkMailManW cHandle);
+CK_VISIBLE_PUBLIC BOOL CkMailManW_Pop3Connect(HCkMailManW cHandle);
+CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_Pop3ConnectAsync(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_Pop3EndSession(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_Pop3EndSessionAsync(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_Pop3EndSessionNoQuit(HCkMailManW cHandle);

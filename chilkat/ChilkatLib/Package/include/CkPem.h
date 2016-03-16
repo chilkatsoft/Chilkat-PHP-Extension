@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkCert;
 class CkPrivateKey;
@@ -30,10 +30,9 @@ class CkBaseProgress;
  
 
 // CLASS: CkPem
-class CK_VISIBLE_PUBLIC CkPem  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkPem  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkPem(const CkPem &);

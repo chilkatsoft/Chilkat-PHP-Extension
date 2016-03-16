@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkTask;
 class CkByteData;
@@ -25,10 +25,9 @@ class CkBaseProgress;
  
 
 // CLASS: CkScp
-class CK_VISIBLE_PUBLIC CkScp  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkScp  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkScp(const CkScp &);

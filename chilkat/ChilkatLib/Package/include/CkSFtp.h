@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkByteData;
 class CkTask;
@@ -28,10 +28,9 @@ class CkSFtpProgress;
  
 
 // CLASS: CkSFtp
-class CK_VISIBLE_PUBLIC CkSFtp  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkSFtp(const CkSFtp &);
@@ -197,6 +196,27 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkMultiByteBase
 	// Note: Caching only occurs when filenames are used, not handles.
 	// 
 	void put_EnableCache(bool newVal);
+
+	// Enables or disables the use of compression w/ the SSH connection. The default
+	// value is true, meaning that compression is used if the server supports it.
+	// 
+	// Some older SSH servers have been found that claim to support compression, but
+	// actually fail when compression is used. PuTTY does not enable compression by
+	// default. If trouble is encountered where the SSH server disconnects immediately
+	// after the connection is seemingly established (i.e. during authentication), then
+	// check to see if disabling compression resolves the problem.
+	// 
+	bool get_EnableCompression(void);
+	// Enables or disables the use of compression w/ the SSH connection. The default
+	// value is true, meaning that compression is used if the server supports it.
+	// 
+	// Some older SSH servers have been found that claim to support compression, but
+	// actually fail when compression is used. PuTTY does not enable compression by
+	// default. If trouble is encountered where the SSH server disconnects immediately
+	// after the connection is seemingly established (i.e. during authentication), then
+	// check to see if disabling compression resolves the problem.
+	// 
+	void put_EnableCompression(bool newVal);
 
 	// Automatically set during the InitializeSftp method if the server sends a
 	// filename-charset name-value extension. Otherwise, may be set directly to the
@@ -1432,7 +1452,8 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkMultiByteBase
 
 
 	// Opens or creates a file on the remote system. Returns a handle which may be
-	// passed to methods for reading and/or writing the file.
+	// passed to methods for reading and/or writing the file. The remotePath is the remote
+	// file path (the path to the file on the server).
 	// 
 	//  access should be one of the following strings: "readOnly", "writeOnly", or
 	// "readWrite".
@@ -1531,10 +1552,11 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkMultiByteBase
 	// responds with a "Folder not found" error, then try prepending "./" to the remotePath.
 	// For example, instead of passing "test.txt", try "./test.txt".
 	// 
-	bool OpenFile(const char *filename, const char *access, const char *createDisp, CkString &outStr);
+	bool OpenFile(const char *remoteFilePath, const char *access, const char *createDisp, CkString &outStr);
 
 	// Opens or creates a file on the remote system. Returns a handle which may be
-	// passed to methods for reading and/or writing the file.
+	// passed to methods for reading and/or writing the file. The remotePath is the remote
+	// file path (the path to the file on the server).
 	// 
 	//  access should be one of the following strings: "readOnly", "writeOnly", or
 	// "readWrite".
@@ -1633,9 +1655,10 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkMultiByteBase
 	// responds with a "Folder not found" error, then try prepending "./" to the remotePath.
 	// For example, instead of passing "test.txt", try "./test.txt".
 	// 
-	const char *openFile(const char *filename, const char *access, const char *createDisp);
+	const char *openFile(const char *remoteFilePath, const char *access, const char *createDisp);
 	// Opens or creates a file on the remote system. Returns a handle which may be
-	// passed to methods for reading and/or writing the file.
+	// passed to methods for reading and/or writing the file. The remotePath is the remote
+	// file path (the path to the file on the server).
 	// 
 	//  access should be one of the following strings: "readOnly", "writeOnly", or
 	// "readWrite".
@@ -1734,7 +1757,7 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkMultiByteBase
 	// responds with a "Folder not found" error, then try prepending "./" to the remotePath.
 	// For example, instead of passing "test.txt", try "./test.txt".
 	// 
-	CkTask *OpenFileAsync(const char *filename, const char *access, const char *createDisp);
+	CkTask *OpenFileAsync(const char *remoteFilePath, const char *access, const char *createDisp);
 
 
 	// Reads the contents of a directory and returns the directory listing (as an
@@ -2261,12 +2284,14 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkMultiByteBase
 
 
 	// Uploads a file from the local filesystem to the SFTP server. handle is a handle of
-	// a currently open file (obtained by calling the OpenFile method).
-	bool UploadFile(const char *handle, const char *fromFilename);
+	// a currently open file (obtained by calling the OpenFile method).  fromFilename is the
+	// local file path of the file to be uploaded.
+	bool UploadFile(const char *handle, const char *localFilePath);
 
 	// Uploads a file from the local filesystem to the SFTP server. handle is a handle of
-	// a currently open file (obtained by calling the OpenFile method).
-	CkTask *UploadFileAsync(const char *handle, const char *fromFilename);
+	// a currently open file (obtained by calling the OpenFile method).  fromFilename is the
+	// local file path of the file to be uploaded.
+	CkTask *UploadFileAsync(const char *handle, const char *localFilePath);
 
 
 	// Simplified method for uploading a file to the SFTP/SSH server.

@@ -24,7 +24,6 @@
 class CK_VISIBLE_PUBLIC CkNtlm  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkNtlm(const CkNtlm &);

@@ -10,10 +10,11 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkTask;
 class CkByteData;
+class CkStream;
 class CkBaseProgress;
 
 
@@ -24,10 +25,9 @@ class CkBaseProgress;
  
 
 // CLASS: CkCompression
-class CK_VISIBLE_PUBLIC CkCompression  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkCompression  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkCompression(const CkCompression &);
@@ -679,6 +679,32 @@ class CK_VISIBLE_PUBLIC CkCompression  : public CkMultiByteBase
 	// unlock code is provided which should replace the temporary/arbitrary string
 	// passed to this method.
 	bool UnlockComponent(const char *unlockCode);
+
+
+	// Compresses a stream. Internally, the ARG1's source is read, compressed, and the
+	// compressed data written to the ARG1's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be compressed with stable ungrowing
+	// memory usage.
+	bool CompressStream(CkStream &strm);
+
+	// Compresses a stream. Internally, the ARG1's source is read, compressed, and the
+	// compressed data written to the ARG1's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be compressed with stable ungrowing
+	// memory usage.
+	CkTask *CompressStreamAsync(CkStream &strm);
+
+
+	// Decompresses a stream. Internally, the ARG1's source is read, decompressed, and
+	// the decompressed data written to the ARG1's sink. It does this in streaming
+	// fashion. Extremely large or even infinite streams can be decompressed with
+	// stable ungrowing memory usage.
+	bool DecompressStream(CkStream &strm);
+
+	// Decompresses a stream. Internally, the ARG1's source is read, decompressed, and
+	// the decompressed data written to the ARG1's sink. It does this in streaming
+	// fashion. Extremely large or even infinite streams can be decompressed with
+	// stable ungrowing memory usage.
+	CkTask *DecompressStreamAsync(CkStream &strm);
 
 
 

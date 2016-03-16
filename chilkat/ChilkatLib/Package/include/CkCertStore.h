@@ -26,7 +26,6 @@ class CkByteData;
 class CK_VISIBLE_PUBLIC CkCertStore  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkCertStore(const CkCertStore &);

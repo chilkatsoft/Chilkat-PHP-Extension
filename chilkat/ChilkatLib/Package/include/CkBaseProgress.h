@@ -93,7 +93,7 @@ class CK_VISIBLE_PUBLIC CkBaseProgress : public CkObject
 	    if (abort) *abort = bAborted;
 	    }
 	// Return true if the method call should abort; return false for no abort.
-	virtual bool PercentDone(int pctDone) 
+	virtual bool PercentDone(int /*pctDone*/) 
 	    { 
 	    return false;
 	    }
@@ -103,10 +103,10 @@ class CK_VISIBLE_PUBLIC CkBaseProgress : public CkObject
 	// To see what information is provided in ProgressInfo callbacks for any particular method,
 	// if any, create a callback handler to log the callbacks for testing purposes.
 	// Virtually all ProgressInfo callbacks should be self-explanatory.
-	virtual void ProgressInfo(const char *name, const char *value) { }
+	virtual void ProgressInfo(const char * /*name*/, const char * /*value*/) { }
 
 	// Called when an asynchronous task completes, is aborted, canceled, etc.
-	virtual void TaskCompleted(CkTask &task) { }
+	virtual void TaskCompleted(CkTask & /*task*/) { }
 };
 #if !defined(__sun__) && !defined(__sun)
 #pragma pack (pop)

@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkWideCharBase.h"
+#include "CkClassWithCallbacksW.h"
 
 class CkTaskW;
 class CkByteData;
@@ -24,11 +24,10 @@ class CkTarProgressW;
  
 
 // CLASS: CkTarW
-class CK_VISIBLE_PUBLIC CkTarW  : public CkWideCharBase
+class CK_VISIBLE_PUBLIC CkTarW  : public CkClassWithCallbacksW
 {
     private:
 	bool m_cbOwned;
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkTarW(const CkTarW &);

@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkSshTunnel_H
 #define _C_CkSshTunnel_H
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkSshTunnel_setAbortCheck(HCkSshTunnel cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkSshTunnel_setPercentDone(HCkSshTunnel cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkSshTunnel_setProgressInfo(HCkSshTunnel cHandle, void (*fnProgressInfo)(const char *name, const char *value));
+CK_VISIBLE_PUBLIC void CkSshTunnel_setTaskCompleted(HCkSshTunnel cHandle, void (*fnTaskCompleted)(HCkTask hTask));
 
 CK_VISIBLE_PUBLIC HCkSshTunnel CkSshTunnel_Create(void);
 CK_VISIBLE_PUBLIC void CkSshTunnel_Dispose(HCkSshTunnel handle);
@@ -25,6 +31,8 @@ CK_VISIBLE_PUBLIC int CkSshTunnel_getDestPort(HCkSshTunnel cHandle);
 CK_VISIBLE_PUBLIC void CkSshTunnel_putDestPort(HCkSshTunnel cHandle, int newVal);
 CK_VISIBLE_PUBLIC BOOL CkSshTunnel_getDynamicPortForwarding(HCkSshTunnel cHandle);
 CK_VISIBLE_PUBLIC void CkSshTunnel_putDynamicPortForwarding(HCkSshTunnel cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC void CkSshTunnel_getHostKeyFingerprint(HCkSshTunnel cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC const char *CkSshTunnel_hostKeyFingerprint(HCkSshTunnel cHandle);
 CK_VISIBLE_PUBLIC void CkSshTunnel_getHttpProxyAuthMethod(HCkSshTunnel cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkSshTunnel_putHttpProxyAuthMethod(HCkSshTunnel cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkSshTunnel_httpProxyAuthMethod(HCkSshTunnel cHandle);

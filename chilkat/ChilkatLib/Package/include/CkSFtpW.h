@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkWideCharBase.h"
+#include "CkClassWithCallbacksW.h"
 
 class CkByteData;
 class CkTaskW;
@@ -28,11 +28,10 @@ class CkSFtpProgressW;
  
 
 // CLASS: CkSFtpW
-class CK_VISIBLE_PUBLIC CkSFtpW  : public CkWideCharBase
+class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 {
     private:
 	bool m_cbOwned;
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkSFtpW(const CkSFtpW &);
@@ -204,6 +203,27 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkWideCharBase
 	// Note: Caching only occurs when filenames are used, not handles.
 	// 
 	void put_EnableCache(bool newVal);
+
+	// Enables or disables the use of compression w/ the SSH connection. The default
+	// value is true, meaning that compression is used if the server supports it.
+	// 
+	// Some older SSH servers have been found that claim to support compression, but
+	// actually fail when compression is used. PuTTY does not enable compression by
+	// default. If trouble is encountered where the SSH server disconnects immediately
+	// after the connection is seemingly established (i.e. during authentication), then
+	// check to see if disabling compression resolves the problem.
+	// 
+	bool get_EnableCompression(void);
+	// Enables or disables the use of compression w/ the SSH connection. The default
+	// value is true, meaning that compression is used if the server supports it.
+	// 
+	// Some older SSH servers have been found that claim to support compression, but
+	// actually fail when compression is used. PuTTY does not enable compression by
+	// default. If trouble is encountered where the SSH server disconnects immediately
+	// after the connection is seemingly established (i.e. during authentication), then
+	// check to see if disabling compression resolves the problem.
+	// 
+	void put_EnableCompression(bool newVal);
 
 	// Automatically set during the InitializeSftp method if the server sends a
 	// filename-charset name-value extension. Otherwise, may be set directly to the
@@ -1273,7 +1293,8 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkWideCharBase
 	CkTaskW *OpenDirAsync(const wchar_t *path);
 
 	// Opens or creates a file on the remote system. Returns a handle which may be
-	// passed to methods for reading and/or writing the file.
+	// passed to methods for reading and/or writing the file. The remotePath is the remote
+	// file path (the path to the file on the server).
 	// 
 	//  access should be one of the following strings: "readOnly", "writeOnly", or
 	// "readWrite".
@@ -1372,9 +1393,10 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkWideCharBase
 	// responds with a "Folder not found" error, then try prepending "./" to the remotePath.
 	// For example, instead of passing "test.txt", try "./test.txt".
 	// 
-	bool OpenFile(const wchar_t *filename, const wchar_t *access, const wchar_t *createDisp, CkString &outStr);
+	bool OpenFile(const wchar_t *remoteFilePath, const wchar_t *access, const wchar_t *createDisp, CkString &outStr);
 	// Opens or creates a file on the remote system. Returns a handle which may be
-	// passed to methods for reading and/or writing the file.
+	// passed to methods for reading and/or writing the file. The remotePath is the remote
+	// file path (the path to the file on the server).
 	// 
 	//  access should be one of the following strings: "readOnly", "writeOnly", or
 	// "readWrite".
@@ -1473,12 +1495,12 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkWideCharBase
 	// responds with a "Folder not found" error, then try prepending "./" to the remotePath.
 	// For example, instead of passing "test.txt", try "./test.txt".
 	// 
-	const wchar_t *openFile(const wchar_t *filename, const wchar_t *access, const wchar_t *createDisp);
+	const wchar_t *openFile(const wchar_t *remoteFilePath, const wchar_t *access, const wchar_t *createDisp);
 
 	// Creates an asynchronous task to call the OpenFile method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *OpenFileAsync(const wchar_t *filename, const wchar_t *access, const wchar_t *createDisp);
+	CkTaskW *OpenFileAsync(const wchar_t *remoteFilePath, const wchar_t *access, const wchar_t *createDisp);
 
 	// Reads the contents of a directory and returns the directory listing (as an
 	// object). The handle returned by OpenDir should be passed to this method.
@@ -1917,13 +1939,14 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkWideCharBase
 	bool UnlockComponent(const wchar_t *unlockCode);
 
 	// Uploads a file from the local filesystem to the SFTP server. handle is a handle of
-	// a currently open file (obtained by calling the OpenFile method).
-	bool UploadFile(const wchar_t *handle, const wchar_t *fromFilename);
+	// a currently open file (obtained by calling the OpenFile method).  fromFilename is the
+	// local file path of the file to be uploaded.
+	bool UploadFile(const wchar_t *handle, const wchar_t *localFilePath);
 
 	// Creates an asynchronous task to call the UploadFile method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *UploadFileAsync(const wchar_t *handle, const wchar_t *fromFilename);
+	CkTaskW *UploadFileAsync(const wchar_t *handle, const wchar_t *localFilePath);
 
 	// Simplified method for uploading a file to the SFTP/SSH server.
 	// 

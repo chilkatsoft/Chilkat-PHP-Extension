@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkMultiByteBase.h"
+#include "CkClassWithCallbacks.h"
 
 class CkTask;
 class CkByteData;
@@ -26,10 +26,9 @@ class CkFtp2Progress;
  
 
 // CLASS: CkFtp2
-class CK_VISIBLE_PUBLIC CkFtp2  : public CkMultiByteBase
+class CK_VISIBLE_PUBLIC CkFtp2  : public CkClassWithCallbacks
 {
     private:
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkFtp2(const CkFtp2 &);
@@ -1693,57 +1692,6 @@ class CK_VISIBLE_PUBLIC CkFtp2  : public CkMultiByteBase
 	// TLS_DHE_RSA_WITH_AES_256_CBC_SHA256.
 	const char *tlsCipherSuite(void);
 
-	// Contains the current or last negotiated TLS protocol version. If no TLS
-	// connection has yet to be established, or if a connection as attempted and
-	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
-	// 1.1", and "TLS 1.2".
-	void get_TlsVersion(CkString &str);
-	// Contains the current or last negotiated TLS protocol version. If no TLS
-	// connection has yet to be established, or if a connection as attempted and
-	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
-	// 1.1", and "TLS 1.2".
-	const char *tlsVersion(void);
-
-	// The average upload rate in bytes/second. This property is updated in real-time
-	// during any FTP upload (asynchronous or synchronous).
-	int get_UploadTransferRate(void);
-
-	// If true, the FTP2 component will use the EPSV command instead of PASV for
-	// passive mode data transfers. The default value of this property is false. (It
-	// is somewhat uncommon for FTP servers to support EPSV.)
-	// 
-	// Note: If the AutoFeat property is true, then the FTP server's features are
-	// automatically queried after connecting. In this case, if the AutoSetUseEpsv
-	// property is also set to true, the UseEpsv property is automatically set to
-	// true if the FTP server supports EPSV.
-	// 
-	// Important: EPSV can cause problems with some deep-inspection firewalls. If a
-	// passive data connection cannot be established, make sure to test with both the
-	// AutoSetUseEpsv and UseEpsv properties set equal to false.
-	// 
-	bool get_UseEpsv(void);
-	// If true, the FTP2 component will use the EPSV command instead of PASV for
-	// passive mode data transfers. The default value of this property is false. (It
-	// is somewhat uncommon for FTP servers to support EPSV.)
-	// 
-	// Note: If the AutoFeat property is true, then the FTP server's features are
-	// automatically queried after connecting. In this case, if the AutoSetUseEpsv
-	// property is also set to true, the UseEpsv property is automatically set to
-	// true if the FTP server supports EPSV.
-	// 
-	// Important: EPSV can cause problems with some deep-inspection firewalls. If a
-	// passive data connection cannot be established, make sure to test with both the
-	// AutoSetUseEpsv and UseEpsv properties set equal to false.
-	// 
-	void put_UseEpsv(bool newVal);
-
-	// Username for logging into the FTP server. Defaults to "anonymous".
-	void get_Username(CkString &str);
-	// Username for logging into the FTP server. Defaults to "anonymous".
-	const char *username(void);
-	// Username for logging into the FTP server. Defaults to "anonymous".
-	void put_Username(const char *newVal);
-
 	// Specifies a set of pins for Public Key Pinning for TLS connections. This
 	// property lists the expected SPKI fingerprints for the server certificates. If
 	// the server's certificate (sent during the TLS handshake) does not match any of
@@ -1798,6 +1746,57 @@ class CK_VISIBLE_PUBLIC CkFtp2  : public CkMultiByteBase
 	// indicated in the link below.
 	// 
 	void put_TlsPinSet(const char *newVal);
+
+	// Contains the current or last negotiated TLS protocol version. If no TLS
+	// connection has yet to be established, or if a connection as attempted and
+	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
+	// 1.1", and "TLS 1.2".
+	void get_TlsVersion(CkString &str);
+	// Contains the current or last negotiated TLS protocol version. If no TLS
+	// connection has yet to be established, or if a connection as attempted and
+	// failed, then this will be empty. Possible values are "SSL 3.0", "TLS 1.0", "TLS
+	// 1.1", and "TLS 1.2".
+	const char *tlsVersion(void);
+
+	// The average upload rate in bytes/second. This property is updated in real-time
+	// during any FTP upload (asynchronous or synchronous).
+	int get_UploadTransferRate(void);
+
+	// If true, the FTP2 component will use the EPSV command instead of PASV for
+	// passive mode data transfers. The default value of this property is false. (It
+	// is somewhat uncommon for FTP servers to support EPSV.)
+	// 
+	// Note: If the AutoFeat property is true, then the FTP server's features are
+	// automatically queried after connecting. In this case, if the AutoSetUseEpsv
+	// property is also set to true, the UseEpsv property is automatically set to
+	// true if the FTP server supports EPSV.
+	// 
+	// Important: EPSV can cause problems with some deep-inspection firewalls. If a
+	// passive data connection cannot be established, make sure to test with both the
+	// AutoSetUseEpsv and UseEpsv properties set equal to false.
+	// 
+	bool get_UseEpsv(void);
+	// If true, the FTP2 component will use the EPSV command instead of PASV for
+	// passive mode data transfers. The default value of this property is false. (It
+	// is somewhat uncommon for FTP servers to support EPSV.)
+	// 
+	// Note: If the AutoFeat property is true, then the FTP server's features are
+	// automatically queried after connecting. In this case, if the AutoSetUseEpsv
+	// property is also set to true, the UseEpsv property is automatically set to
+	// true if the FTP server supports EPSV.
+	// 
+	// Important: EPSV can cause problems with some deep-inspection firewalls. If a
+	// passive data connection cannot be established, make sure to test with both the
+	// AutoSetUseEpsv and UseEpsv properties set equal to false.
+	// 
+	void put_UseEpsv(bool newVal);
+
+	// Username for logging into the FTP server. Defaults to "anonymous".
+	void get_Username(CkString &str);
+	// Username for logging into the FTP server. Defaults to "anonymous".
+	const char *username(void);
+	// Username for logging into the FTP server. Defaults to "anonymous".
+	void put_Username(const char *newVal);
 
 
 
@@ -2164,6 +2163,16 @@ class CK_VISIBLE_PUBLIC CkFtp2  : public CkMultiByteBase
 	// 
 	int DetermineProxyMethod(void);
 
+	// Automatically determines the ProxyMethod that should be used with an FTP proxy
+	// server. Tries each of the five possible ProxyMethod settings and returns the
+	// value (1-5) of the ProxyMethod that succeeded.
+	// 
+	// This method may take a minute or two to complete. Returns 0 if no proxy methods
+	// were successful. Returns -1 to indicate an error (i.e. it was unable to test all
+	// proxy methods.)
+	// 
+	CkTask *DetermineProxyMethodAsync(void);
+
 
 	// Discovers which combinations of FTP2 property settings result in successful data
 	// transfers.
@@ -2204,6 +2213,26 @@ class CK_VISIBLE_PUBLIC CkFtp2  : public CkMultiByteBase
 	// email and send it to support@chilkatsoft.com.
 	// 
 	const char *determineSettings(void);
+	// Discovers which combinations of FTP2 property settings result in successful data
+	// transfers.
+	// 
+	// DetermineSettings tries 13 different combinations of these properties:
+	// Ssl
+	// AuthTls
+	// AuthSsl
+	// Port
+	// Passive
+	// PassiveUseHostAddr
+	// Within the FTP protocol, the process of fetching a directory listing is also
+	// considered a "data transfer". The DetermineSettings method works by checking to
+	// see which combinations result in a successful directory listing download. The
+	// method takes no arguments and returns a string containing an XML report of the
+	// results. It is a blocking call that may take approximately a minute to run. If
+	// you are unsure about how to interpret the results, cut-and-paste it into an
+	// email and send it to support@chilkatsoft.com.
+	// 
+	CkTask *DetermineSettingsAsync(void);
+
 
 	// Recursively downloads the structure of a complete remote directory tree. Returns
 	// an XML document with the directory structure. A zero-length string is returned

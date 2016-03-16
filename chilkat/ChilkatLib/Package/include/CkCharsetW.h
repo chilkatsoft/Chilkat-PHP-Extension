@@ -72,19 +72,13 @@ class CK_VISIBLE_PUBLIC CkCharsetW  : public CkWideCharBase
 	// converted to the target charset, the action taken is controlled by this
 	// property. The possible settings are: (0) drop the error characters, (1)
 	// substitute the data set by the SetErrorBytes or SetErrorString method, (2)
-	// convert to a hex-escaped string (&#XXXX), (3) RESERVED, (4) RESERVED, (5)
-	// RESERVED, (6) convert the error character to the AltToCharset instead, if that
-	// fails then drop the character, (7) Pass non-convertible characters to the output
-	// unchanged.
+	// convert to a hex-escaped string (
 	int get_ErrorAction(void);
 	// Controls how errors are handled. When a character in the input data cannot be
 	// converted to the target charset, the action taken is controlled by this
 	// property. The possible settings are: (0) drop the error characters, (1)
 	// substitute the data set by the SetErrorBytes or SetErrorString method, (2)
-	// convert to a hex-escaped string (&#XXXX), (3) RESERVED, (4) RESERVED, (5)
-	// RESERVED, (6) convert the error character to the AltToCharset instead, if that
-	// fails then drop the character, (7) Pass non-convertible characters to the output
-	// unchanged.
+	// convert to a hex-escaped string (
 	void put_ErrorAction(int newVal);
 
 	// Tells the charset converter the charset of the input data for a conversion.

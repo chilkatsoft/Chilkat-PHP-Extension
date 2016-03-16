@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkHttp_H
 #define _C_CkHttp_H
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkHttp_setAbortCheck(HCkHttp cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkHttp_setPercentDone(HCkHttp cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkHttp_setProgressInfo(HCkHttp cHandle, void (*fnProgressInfo)(const char *name, const char *value));
+CK_VISIBLE_PUBLIC void CkHttp_setTaskCompleted(HCkHttp cHandle, void (*fnTaskCompleted)(HCkTask hTask));
 
 CK_VISIBLE_PUBLIC HCkHttp CkHttp_Create(void);
 CK_VISIBLE_PUBLIC void CkHttp_Dispose(HCkHttp handle);
@@ -26,9 +32,14 @@ CK_VISIBLE_PUBLIC const char *CkHttp_awsAccessKey(HCkHttp cHandle);
 CK_VISIBLE_PUBLIC void CkHttp_getAwsEndpoint(HCkHttp cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkHttp_putAwsEndpoint(HCkHttp cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkHttp_awsEndpoint(HCkHttp cHandle);
+CK_VISIBLE_PUBLIC void CkHttp_getAwsRegion(HCkHttp cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void CkHttp_putAwsRegion(HCkHttp cHandle, const char *newVal);
+CK_VISIBLE_PUBLIC const char *CkHttp_awsRegion(HCkHttp cHandle);
 CK_VISIBLE_PUBLIC void CkHttp_getAwsSecretKey(HCkHttp cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkHttp_putAwsSecretKey(HCkHttp cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkHttp_awsSecretKey(HCkHttp cHandle);
+CK_VISIBLE_PUBLIC int CkHttp_getAwsSignatureVersion(HCkHttp cHandle);
+CK_VISIBLE_PUBLIC void CkHttp_putAwsSignatureVersion(HCkHttp cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkHttp_getAwsSubResources(HCkHttp cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkHttp_putAwsSubResources(HCkHttp cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkHttp_awsSubResources(HCkHttp cHandle);
@@ -51,6 +62,7 @@ CK_VISIBLE_PUBLIC BOOL CkHttp_getBgTaskSuccess(HCkHttp cHandle);
 CK_VISIBLE_PUBLIC void CkHttp_getClientIpAddress(HCkHttp cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkHttp_putClientIpAddress(HCkHttp cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkHttp_clientIpAddress(HCkHttp cHandle);
+CK_VISIBLE_PUBLIC int CkHttp_getConnectFailReason(HCkHttp cHandle);
 CK_VISIBLE_PUBLIC int CkHttp_getConnectTimeout(HCkHttp cHandle);
 CK_VISIBLE_PUBLIC void CkHttp_putConnectTimeout(HCkHttp cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkHttp_getConnection(HCkHttp cHandle, HCkString retval);

@@ -27,7 +27,6 @@ class CkPublicKey;
 class CK_VISIBLE_PUBLIC CkRsa  : public CkMultiByteBase
 {
     private:
-	
 
 	// Don't allow assignment or copying these objects.
 	CkRsa(const CkRsa &);

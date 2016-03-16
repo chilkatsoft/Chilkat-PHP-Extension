@@ -125,6 +125,9 @@ typedef void *HCkTaskChain;
 typedef void *HCkPrng;
 typedef void *HCkEcc;
 typedef void *HCkOAuth1;
+typedef void *HCkJsonObject;
+typedef void *HCkJsonArray;
+typedef void *HCkStream;
 
 
 typedef void *HCkByteDataW;
@@ -226,5 +229,8 @@ typedef void *HCkTaskChainW;
 typedef void *HCkPrngW;
 typedef void *HCkEccW;
 typedef void *HCkOAuth1W;
+typedef void *HCkJsonObjectW;
+typedef void *HCkJsonArrayW;
+typedef void *HCkStreamW;
 
 #endif

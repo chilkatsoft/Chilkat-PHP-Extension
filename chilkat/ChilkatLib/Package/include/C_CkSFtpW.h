@@ -1,9 +1,15 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkSFtpWH
 #define _C_CkSFtpWH
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
+
+CK_VISIBLE_PUBLIC void CkSFtpW_setAbortCheck(HCkSFtpW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkSFtpW_setPercentDone(HCkSFtpW cHandle, BOOL (*fnPercentDone)(int pctDone));
+CK_VISIBLE_PUBLIC void CkSFtpW_setProgressInfo(HCkSFtpW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
+CK_VISIBLE_PUBLIC void CkSFtpW_setTaskCompleted(HCkSFtpW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
 
 CK_VISIBLE_PUBLIC HCkSFtpW CkSFtpW_Create(void);
 CK_VISIBLE_PUBLIC HCkSFtpW CkSFtpW_Create2(BOOL bCallbackOwned);
@@ -30,6 +36,8 @@ CK_VISIBLE_PUBLIC void CkSFtpW_getDisconnectReason(HCkSFtpW cHandle, HCkString r
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_disconnectReason(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_getEnableCache(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void CkSFtpW_putEnableCache(HCkSFtpW cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC BOOL CkSFtpW_getEnableCompression(HCkSFtpW cHandle);
+CK_VISIBLE_PUBLIC void CkSFtpW_putEnableCompression(HCkSFtpW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkSFtpW_getFilenameCharset(HCkSFtpW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkSFtpW_putFilenameCharset(HCkSFtpW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_filenameCharset(HCkSFtpW cHandle);

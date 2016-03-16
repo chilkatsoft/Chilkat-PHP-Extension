@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.55
+// This is a generated source file for Chilkat version 9.5.0.56
 #ifndef _C_CkByteData_H
 #define _C_CkByteData_H
 #include "chilkatDefs.h"
@@ -28,7 +28,7 @@ CK_VISIBLE_PUBLIC void CkByteData_byteSwap4321(HCkByteData cHandle);
 CK_VISIBLE_PUBLIC void CkByteData_clear(HCkByteData cHandle);
 CK_VISIBLE_PUBLIC void CkByteData_encode(HCkByteData cHandle, const char *encoding, HCkString str);
 CK_VISIBLE_PUBLIC void CkByteData_encodeW(HCkByteData cHandle, const wchar_t *encoding, HCkString str);
-CK_VISIBLE_PUBLIC void CkByteData_ensureBuffer(HCkByteData cHandle, unsigned long expectedNumBytes);
+CK_VISIBLE_PUBLIC BOOL CkByteData_ensureBuffer(HCkByteData cHandle, unsigned long expectedNumBytes);
 CK_VISIBLE_PUBLIC BOOL CkByteData_equals(HCkByteData cHandle, HCkByteData compareBytes);
 CK_VISIBLE_PUBLIC BOOL CkByteData_equals2(HCkByteData cHandle, const void *pCompareBytes, unsigned long numBytes);
 CK_VISIBLE_PUBLIC int CkByteData_findBytes(HCkByteData cHandle, HCkByteData byteDataObj);

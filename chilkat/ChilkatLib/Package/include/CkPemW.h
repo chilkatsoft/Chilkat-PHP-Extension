@@ -10,7 +10,7 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkWideCharBase.h"
+#include "CkClassWithCallbacksW.h"
 
 class CkCertW;
 class CkPrivateKeyW;
@@ -30,11 +30,10 @@ class CkBaseProgressW;
  
 
 // CLASS: CkPemW
-class CK_VISIBLE_PUBLIC CkPemW  : public CkWideCharBase
+class CK_VISIBLE_PUBLIC CkPemW  : public CkClassWithCallbacksW
 {
     private:
 	bool m_cbOwned;
-	void *m_eventCallback;
 
 	// Don't allow assignment or copying these objects.
 	CkPemW(const CkPemW &);
