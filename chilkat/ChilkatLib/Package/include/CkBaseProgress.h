@@ -53,6 +53,8 @@ class CkTask;
     void AbortCheck(bool *abort);\
     void PercentDone(int pctDone, bool *abort);\
     void ProgressInfo(const char *name, const char *value);\
+    void TextData(const char *data);\
+    void BinaryData(const unsigned char *data, unsigned int numBytes);\
     void TaskCompleted(CkTask &task);
 
 class CK_VISIBLE_PUBLIC CkBaseProgress : public CkObject 
@@ -107,6 +109,10 @@ class CK_VISIBLE_PUBLIC CkBaseProgress : public CkObject
 
 	// Called when an asynchronous task completes, is aborted, canceled, etc.
 	virtual void TaskCompleted(CkTask & /*task*/) { }
+
+	virtual void TextData(const char *data) { }
+	virtual void BinaryData(const unsigned char *data, unsigned int numBytes) { }
+
 };
 #if !defined(__sun__) && !defined(__sun)
 #pragma pack (pop)

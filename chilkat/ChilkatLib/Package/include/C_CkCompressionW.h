@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkCompressionWH
 #define _C_CkCompressionWH
 #include "chilkatDefs.h"
@@ -12,22 +12,21 @@ CK_VISIBLE_PUBLIC void CkCompressionW_setProgressInfo(HCkCompressionW cHandle, v
 CK_VISIBLE_PUBLIC void CkCompressionW_setTaskCompleted(HCkCompressionW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
 
 CK_VISIBLE_PUBLIC HCkCompressionW CkCompressionW_Create(void);
-CK_VISIBLE_PUBLIC HCkCompressionW CkCompressionW_Create2(BOOL bCallbackOwned);
 CK_VISIBLE_PUBLIC void CkCompressionW_Dispose(HCkCompressionW handle);
 CK_VISIBLE_PUBLIC void CkCompressionW_getAlgorithm(HCkCompressionW cHandle, HCkString retval);
-CK_VISIBLE_PUBLIC void CkCompressionW_putAlgorithm(HCkCompressionW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC void  CkCompressionW_putAlgorithm(HCkCompressionW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_algorithm(HCkCompressionW cHandle);
 CK_VISIBLE_PUBLIC void CkCompressionW_getCharset(HCkCompressionW cHandle, HCkString retval);
-CK_VISIBLE_PUBLIC void CkCompressionW_putCharset(HCkCompressionW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC void  CkCompressionW_putCharset(HCkCompressionW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_charset(HCkCompressionW cHandle);
 CK_VISIBLE_PUBLIC void CkCompressionW_getDebugLogFilePath(HCkCompressionW cHandle, HCkString retval);
-CK_VISIBLE_PUBLIC void CkCompressionW_putDebugLogFilePath(HCkCompressionW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC void  CkCompressionW_putDebugLogFilePath(HCkCompressionW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_debugLogFilePath(HCkCompressionW cHandle);
 CK_VISIBLE_PUBLIC void CkCompressionW_getEncodingMode(HCkCompressionW cHandle, HCkString retval);
-CK_VISIBLE_PUBLIC void CkCompressionW_putEncodingMode(HCkCompressionW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC void  CkCompressionW_putEncodingMode(HCkCompressionW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_encodingMode(HCkCompressionW cHandle);
 CK_VISIBLE_PUBLIC int CkCompressionW_getHeartbeatMs(HCkCompressionW cHandle);
-CK_VISIBLE_PUBLIC void CkCompressionW_putHeartbeatMs(HCkCompressionW cHandle, int newVal);
+CK_VISIBLE_PUBLIC void  CkCompressionW_putHeartbeatMs(HCkCompressionW cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkCompressionW_getLastErrorHtml(HCkCompressionW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_lastErrorHtml(HCkCompressionW cHandle);
 CK_VISIBLE_PUBLIC void CkCompressionW_getLastErrorText(HCkCompressionW cHandle, HCkString retval);
@@ -35,9 +34,9 @@ CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_lastErrorText(HCkCompressionW cH
 CK_VISIBLE_PUBLIC void CkCompressionW_getLastErrorXml(HCkCompressionW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_lastErrorXml(HCkCompressionW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_getLastMethodSuccess(HCkCompressionW cHandle);
-CK_VISIBLE_PUBLIC void CkCompressionW_putLastMethodSuccess(HCkCompressionW cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC void  CkCompressionW_putLastMethodSuccess(HCkCompressionW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_getVerboseLogging(HCkCompressionW cHandle);
-CK_VISIBLE_PUBLIC void CkCompressionW_putVerboseLogging(HCkCompressionW cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC void  CkCompressionW_putVerboseLogging(HCkCompressionW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkCompressionW_getVersion(HCkCompressionW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_version(HCkCompressionW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_BeginCompressBytes(HCkCompressionW cHandle, HCkByteData data, HCkByteData outData);
@@ -60,6 +59,8 @@ CK_VISIBLE_PUBLIC HCkTaskW CkCompressionW_BeginDecompressStringAsync(HCkCompress
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_BeginDecompressStringENC(HCkCompressionW cHandle, const wchar_t *str, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_beginDecompressStringENC(HCkCompressionW cHandle, const wchar_t *str);
 CK_VISIBLE_PUBLIC HCkTaskW CkCompressionW_BeginDecompressStringENCAsync(HCkCompressionW cHandle, const wchar_t *str);
+CK_VISIBLE_PUBLIC BOOL CkCompressionW_CompressBd(HCkCompressionW cHandle, HCkBinDataW binData);
+CK_VISIBLE_PUBLIC HCkTaskW CkCompressionW_CompressBdAsync(HCkCompressionW cHandle, HCkBinDataW binData);
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_CompressBytes(HCkCompressionW cHandle, HCkByteData data, HCkByteData outData);
 CK_VISIBLE_PUBLIC HCkTaskW CkCompressionW_CompressBytesAsync(HCkCompressionW cHandle, HCkByteData data);
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_CompressBytesENC(HCkCompressionW cHandle, HCkByteData data, HCkString outStr);
@@ -74,6 +75,8 @@ CK_VISIBLE_PUBLIC HCkTaskW CkCompressionW_CompressStringAsync(HCkCompressionW cH
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_CompressStringENC(HCkCompressionW cHandle, const wchar_t *str, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkCompressionW_compressStringENC(HCkCompressionW cHandle, const wchar_t *str);
 CK_VISIBLE_PUBLIC HCkTaskW CkCompressionW_CompressStringENCAsync(HCkCompressionW cHandle, const wchar_t *str);
+CK_VISIBLE_PUBLIC BOOL CkCompressionW_DecompressBd(HCkCompressionW cHandle, HCkBinDataW binData);
+CK_VISIBLE_PUBLIC HCkTaskW CkCompressionW_DecompressBdAsync(HCkCompressionW cHandle, HCkBinDataW binData);
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_DecompressBytes(HCkCompressionW cHandle, HCkByteData data, HCkByteData outData);
 CK_VISIBLE_PUBLIC HCkTaskW CkCompressionW_DecompressBytesAsync(HCkCompressionW cHandle, HCkByteData data);
 CK_VISIBLE_PUBLIC BOOL CkCompressionW_DecompressBytesENC(HCkCompressionW cHandle, const wchar_t *encodedCompressedData, HCkByteData outData);

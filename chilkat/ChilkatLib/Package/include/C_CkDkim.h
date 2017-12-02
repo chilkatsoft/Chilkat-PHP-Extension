@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkDkim_H
 #define _C_CkDkim_H
 #include "chilkatDefs.h"
@@ -13,6 +13,8 @@ CK_VISIBLE_PUBLIC void CkDkim_setTaskCompleted(HCkDkim cHandle, void (*fnTaskCom
 
 CK_VISIBLE_PUBLIC HCkDkim CkDkim_Create(void);
 CK_VISIBLE_PUBLIC void CkDkim_Dispose(HCkDkim handle);
+CK_VISIBLE_PUBLIC BOOL CkDkim_getAbortCurrent(HCkDkim cHandle);
+CK_VISIBLE_PUBLIC void CkDkim_putAbortCurrent(HCkDkim cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkDkim_getDebugLogFilePath(HCkDkim cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkDkim_putDebugLogFilePath(HCkDkim cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkDkim_debugLogFilePath(HCkDkim cHandle);

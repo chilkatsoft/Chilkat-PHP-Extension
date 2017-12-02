@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkCompression_H
 #define _CkCompression_H
@@ -14,6 +14,7 @@
 
 class CkTask;
 class CkByteData;
+class CkBinData;
 class CkStream;
 class CkBaseProgress;
 
@@ -305,6 +306,13 @@ class CK_VISIBLE_PUBLIC CkCompression  : public CkClassWithCallbacks
 	CkTask *BeginDecompressStringENCAsync(const char *str);
 
 
+	// Compresses the data contained in a BinData object.
+	bool CompressBd(CkBinData &binData);
+
+	// Compresses the data contained in a BinData object.
+	CkTask *CompressBdAsync(CkBinData &binData);
+
+
 	// Compresses byte data.
 	bool CompressBytes(CkByteData &data, CkByteData &outData);
 
@@ -333,6 +341,19 @@ class CK_VISIBLE_PUBLIC CkCompression  : public CkClassWithCallbacks
 	CkTask *CompressFileAsync(const char *srcPath, const char *destPath);
 
 
+	// Compresses a stream. Internally, the strm's source is read, compressed, and the
+	// compressed data written to the strm's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be compressed with stable ungrowing
+	// memory usage.
+	bool CompressStream(CkStream &strm);
+
+	// Compresses a stream. Internally, the strm's source is read, compressed, and the
+	// compressed data written to the strm's sink. It does this in streaming fashion.
+	// Extremely large or even infinite streams can be compressed with stable ungrowing
+	// memory usage.
+	CkTask *CompressStreamAsync(CkStream &strm);
+
+
 	// Compresses a string.
 	bool CompressString(const char *str, CkByteData &outData);
 
@@ -355,6 +376,13 @@ class CK_VISIBLE_PUBLIC CkCompression  : public CkClassWithCallbacks
 	CkTask *CompressStringENCAsync(const char *str);
 
 
+	// Decompresses the data contained in a BinData object.
+	bool DecompressBd(CkBinData &binData);
+
+	// Decompresses the data contained in a BinData object.
+	CkTask *DecompressBdAsync(CkBinData &binData);
+
+
 	// The opposite of CompressBytes.
 	bool DecompressBytes(CkByteData &data, CkByteData &outData);
 
@@ -365,12 +393,12 @@ class CK_VISIBLE_PUBLIC CkCompression  : public CkClassWithCallbacks
 	// The opposite of CompressBytesENC. encodedCompressedData contains the compressed data as an
 	// encoded string (hex, base64, etc) as specified by the EncodingMode property
 	// setting.
-	bool DecompressBytesENC(const char *str, CkByteData &outData);
+	bool DecompressBytesENC(const char *encodedCompressedData, CkByteData &outData);
 
 	// The opposite of CompressBytesENC. encodedCompressedData contains the compressed data as an
 	// encoded string (hex, base64, etc) as specified by the EncodingMode property
 	// setting.
-	CkTask *DecompressBytesENCAsync(const char *str);
+	CkTask *DecompressBytesENCAsync(const char *encodedCompressedData);
 
 
 	// Performs file-to-file decompression (the opposite of CompressFile). Internally
@@ -382,6 +410,19 @@ class CK_VISIBLE_PUBLIC CkCompression  : public CkClassWithCallbacks
 	// the file is decompressed in streaming mode which allows files of any size to be
 	// decompressed.
 	CkTask *DecompressFileAsync(const char *srcPath, const char *destPath);
+
+
+	// Decompresses a stream. Internally, the strm's source is read, decompressed, and
+	// the decompressed data written to the strm's sink. It does this in streaming
+	// fashion. Extremely large or even infinite streams can be decompressed with
+	// stable ungrowing memory usage.
+	bool DecompressStream(CkStream &strm);
+
+	// Decompresses a stream. Internally, the strm's source is read, decompressed, and
+	// the decompressed data written to the strm's sink. It does this in streaming
+	// fashion. Extremely large or even infinite streams can be decompressed with
+	// stable ungrowing memory usage.
+	CkTask *DecompressStreamAsync(CkStream &strm);
 
 
 	// Takes compressed bytes, decompresses, and returns the resulting string.
@@ -396,16 +437,16 @@ class CK_VISIBLE_PUBLIC CkCompression  : public CkClassWithCallbacks
 	// The opposite of CompressStringENC. encodedCompressedData contains the compressed data as an
 	// encoded string (hex, base64, etc) as specified by the EncodingMode property
 	// setting.
-	bool DecompressStringENC(const char *str, CkString &outStr);
+	bool DecompressStringENC(const char *encodedCompressedData, CkString &outStr);
 
 	// The opposite of CompressStringENC. encodedCompressedData contains the compressed data as an
 	// encoded string (hex, base64, etc) as specified by the EncodingMode property
 	// setting.
-	const char *decompressStringENC(const char *str);
+	const char *decompressStringENC(const char *encodedCompressedData);
 	// The opposite of CompressStringENC. encodedCompressedData contains the compressed data as an
 	// encoded string (hex, base64, etc) as specified by the EncodingMode property
 	// setting.
-	CkTask *DecompressStringENCAsync(const char *str);
+	CkTask *DecompressStringENCAsync(const char *encodedCompressedData);
 
 
 	// Must be callled to finalize a compression stream. Returns any remaining
@@ -675,36 +716,10 @@ class CK_VISIBLE_PUBLIC CkCompression  : public CkClassWithCallbacks
 	// component may be used fully-functional for the 1st 30-days after download by
 	// passing an arbitrary string to this method. If for some reason you do not
 	// receive the full 30-day trial, send email to support@chilkatsoft.com for a
-	// temporary unlock code w/ an explicit expiration date. Upon purchase, a permanent
+	// temporary unlock code w/ an explicit expiration date. Upon purchase, a purchased
 	// unlock code is provided which should replace the temporary/arbitrary string
 	// passed to this method.
 	bool UnlockComponent(const char *unlockCode);
-
-
-	// Compresses a stream. Internally, the ARG1's source is read, compressed, and the
-	// compressed data written to the ARG1's sink. It does this in streaming fashion.
-	// Extremely large or even infinite streams can be compressed with stable ungrowing
-	// memory usage.
-	bool CompressStream(CkStream &strm);
-
-	// Compresses a stream. Internally, the ARG1's source is read, compressed, and the
-	// compressed data written to the ARG1's sink. It does this in streaming fashion.
-	// Extremely large or even infinite streams can be compressed with stable ungrowing
-	// memory usage.
-	CkTask *CompressStreamAsync(CkStream &strm);
-
-
-	// Decompresses a stream. Internally, the ARG1's source is read, decompressed, and
-	// the decompressed data written to the ARG1's sink. It does this in streaming
-	// fashion. Extremely large or even infinite streams can be decompressed with
-	// stable ungrowing memory usage.
-	bool DecompressStream(CkStream &strm);
-
-	// Decompresses a stream. Internally, the ARG1's source is read, decompressed, and
-	// the decompressed data written to the ARG1's sink. It does this in streaming
-	// fashion. Extremely large or even infinite streams can be decompressed with
-	// stable ungrowing memory usage.
-	CkTask *DecompressStreamAsync(CkStream &strm);
 
 
 

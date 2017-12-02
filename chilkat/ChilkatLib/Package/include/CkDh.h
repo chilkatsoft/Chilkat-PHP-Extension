@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkDh_H
 #define _CkDh_H
@@ -77,17 +77,17 @@ class CK_VISIBLE_PUBLIC CkDh  : public CkMultiByteBase
 	// The 2nd and final step in Diffie-Hellman (DH) key exchange. E is the E
 	// created by the other party. Returns the shared secret (K) as an SSH1-format
 	// bignum encoded as a hex string.
-	bool FindK(const char *e, CkString &outStr);
+	bool FindK(const char *E, CkString &outStr);
 
 	// The 2nd and final step in Diffie-Hellman (DH) key exchange. E is the E
 	// created by the other party. Returns the shared secret (K) as an SSH1-format
 	// bignum encoded as a hex string.
-	const char *findK(const char *e);
+	const char *findK(const char *E);
 
-	// Generates a large safe prime that is numBits bits in size using the generator  G.
+	// Generates a large safe prime that is numBits bits in size using the generator G.
 	// Generating a new (random) P is expensive in both time and CPU cycles. A prime
 	// should be 1024 or more bits in length.
-	bool GenPG(int numBits, int g);
+	bool GenPG(int numBits, int G);
 
 
 	// Sets explicit values for P and G. Returns true if P and G conform to the

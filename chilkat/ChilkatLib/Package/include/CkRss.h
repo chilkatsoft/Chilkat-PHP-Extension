@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkRss_H
 #define _CkRss_H
@@ -151,7 +151,7 @@ class CK_VISIBLE_PUBLIC CkRss  : public CkClassWithCallbacks
 
 
 	// Load an RSS document from a file.
-	bool LoadRssFile(const char *filename);
+	bool LoadRssFile(const char *filePath);
 
 
 	// Loads an RSS feed document from an in-memory string.
@@ -170,17 +170,17 @@ class CK_VISIBLE_PUBLIC CkRss  : public CkClassWithCallbacks
 	// MGetAttr("category",2,"domain").
 	const char *mGetAttr(const char *tag, int index, const char *attrName);
 
-	// Get the value of the Nth occurance of a sub-element. Indexing begins at 0.
+	// Get the value of the Nth occurrence of a sub-element. Indexing begins at 0.
 	bool MGetString(const char *tag, int index, CkString &outStr);
 
-	// Get the value of the Nth occurance of a sub-element. Indexing begins at 0.
+	// Get the value of the Nth occurrence of a sub-element. Indexing begins at 0.
 	const char *mGetString(const char *tag, int index);
 
-	// Set an attribute on the Nth occurance of a sub-element.
+	// Set an attribute on the Nth occurrence of a sub-element.
 	bool MSetAttr(const char *tag, int idx, const char *attrName, const char *value);
 
 
-	// Set the value of the Nth occurance of a sub-element. Indexing begins at 0.
+	// Set the value of the Nth occurrence of a sub-element. Indexing begins at 0.
 	bool MSetString(const char *tag, int idx, const char *value);
 
 

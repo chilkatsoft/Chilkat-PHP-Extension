@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkHttp_H
 #define _CkHttp_H
@@ -15,8 +15,11 @@
 class CkByteData;
 class CkHttpResponse;
 class CkTask;
+class CkBinData;
+class CkStringBuilder;
 class CkCert;
 class CkHashtable;
+class CkJsonObject;
 class CkHttpRequest;
 class CkStringArray;
 class CkDateTime;
@@ -59,6 +62,23 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// ----------------------
 	// Properties
 	// ----------------------
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	bool get_AbortCurrent(void);
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	void put_AbortCurrent(bool newVal);
+
 	// The Accept header field to be automatically included with GET requests issued by
 	// QuickGet or QuickGetStr. The default value is "*/*".
 	void get_Accept(CkString &str);
@@ -106,6 +126,23 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// content. The default value is true, which means the server, if it chooses, may
 	// send a gzipped response.
 	void put_AllowGzip(bool newVal);
+
+	// If this property is set to false, then no MIME header folding will be
+	// automatically applied to any request header. The default is true.
+	bool get_AllowHeaderFolding(void);
+	// If this property is set to false, then no MIME header folding will be
+	// automatically applied to any request header. The default is true.
+	void put_AllowHeaderFolding(bool newVal);
+
+	// If set, then automatically adds the "Authorization: Bearer " header to all
+	// requests.
+	void get_AuthToken(CkString &str);
+	// If set, then automatically adds the "Authorization: Bearer " header to all
+	// requests.
+	const char *authToken(void);
+	// If set, then automatically adds the "Authorization: Bearer " header to all
+	// requests.
+	void put_AuthToken(const char *newVal);
 
 	// If set to true, the "Host" header field will automatically be added to the
 	// request header for any QuickGet or QuickGetStr method calls. The value of the
@@ -409,6 +446,9 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// 5 = Internal failure.
 	// 6 = Connect Timed Out
 	// 7 = Connect Rejected (or failed for some other reason)
+	// 50 = HTTP proxy authentication failure.
+	// 98 = Async operation in progress.
+	// 99 = Product is not unlocked.
 	// 
 	// SSL/TLS:
 	// 100 = TLS internal error.
@@ -430,13 +470,6 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// 
 	int get_ConnectFailReason(void);
 
-	// The amount of time in seconds to wait before timing out when connecting to an
-	// HTTP server.
-	int get_ConnectTimeout(void);
-	// The amount of time in seconds to wait before timing out when connecting to an
-	// HTTP server.
-	void put_ConnectTimeout(int newVal);
-
 	// The Connection header field to be automatically included with GET requests
 	// issued by QuickGet or QuickGetStr. The default value is "Keep-Alive". To prevent
 	// the Connection header from being added to the HTTP header, set this property to
@@ -452,6 +485,27 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// the Connection header from being added to the HTTP header, set this property to
 	// the empty string.
 	void put_Connection(const char *newVal);
+
+	// The amount of time in seconds to wait before timing out when connecting to an
+	// HTTP server. The default ConnectTimeout is 30 seconds.
+	// 
+	// Note: This is the maximum number of seconds to wait for a server to accept a TCP
+	// connection. Once the connection is accepted, and bytes begin flowing
+	// back-and-forth, then it is the ReadTimeout property that applies. It is the
+	// ReadTimeout that applies when receiving data, which includes the reads that
+	// occur during a TLS handshake.
+	// 
+	int get_ConnectTimeout(void);
+	// The amount of time in seconds to wait before timing out when connecting to an
+	// HTTP server. The default ConnectTimeout is 30 seconds.
+	// 
+	// Note: This is the maximum number of seconds to wait for a server to accept a TCP
+	// connection. Once the connection is accepted, and bytes begin flowing
+	// back-and-forth, then it is the ReadTimeout property that applies. It is the
+	// ReadTimeout that applies when receiving data, which includes the reads that
+	// occur during a TLS handshake.
+	// 
+	void put_ConnectTimeout(int newVal);
 
 	// Specifies a directory where cookies are automatically persisted if the
 	// Http.SaveCookies property is turned on. Cookies are stored in XML formatted
@@ -527,11 +581,11 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// 
 	const char *finalRedirectUrl(void);
 
-	// If true, then 301 and 302 redirects are automatically followed when calling
-	// QuickGet and QuickGetStr. FollowRedirects is true by default.
+	// If true, then 301, 302, 303, and 307 redirects are automatically followed when
+	// calling QuickGet and QuickGetStr. FollowRedirects is true by default.
 	bool get_FollowRedirects(void);
-	// If true, then 301 and 302 redirects are automatically followed when calling
-	// QuickGet and QuickGetStr. FollowRedirects is true by default.
+	// If true, then 301, 302, 303, and 307 redirects are automatically followed when
+	// calling QuickGet and QuickGetStr. FollowRedirects is true by default.
 	void put_FollowRedirects(bool newVal);
 
 	// The freshness algorithm to use when determining the freshness of a cached HTTP
@@ -852,19 +906,6 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// value of this property is false.
 	void put_KeepResponseBody(bool newVal);
 
-	// An integer between 1 and 100 that indicates the percentage of time from the HTTP
-	// page's last-modified date that will be used for the freshness period. The
-	// default value is 25. For example, if a page is fetched with a last-modified date
-	// of 4 weeks ago, and the LMFactor = 25, then the page will be considered fresh in
-	// the cache for 1 week (25% of 4 weeks).
-	int get_LMFactor(void);
-	// An integer between 1 and 100 that indicates the percentage of time from the HTTP
-	// page's last-modified date that will be used for the freshness period. The
-	// default value is 25. For example, if a page is fetched with a last-modified date
-	// of 4 weeks ago, and the LMFactor = 25, then the page will be considered fresh in
-	// the cache for 1 week (25% of 4 weeks).
-	void put_LMFactor(int newVal);
-
 	// The content-type of the last HTTP response received by the HTTP component.
 	void get_LastContentType(CkString &str);
 	// The content-type of the last HTTP response received by the HTTP component.
@@ -907,6 +948,30 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// HTTP response object, such as SynchronousRequest, the status code is found in
 	// the StatusCode property of the response object.
 	int get_LastStatus(void);
+
+	// The last HTTP status text received by the HTTP component. This only applies to
+	// methods that do not return an HTTP response object. For methods that return an
+	// HTTP response object, such as SynchronousRequest, the status text is found in
+	// the StatusText property of the response object.
+	void get_LastStatusText(CkString &str);
+	// The last HTTP status text received by the HTTP component. This only applies to
+	// methods that do not return an HTTP response object. For methods that return an
+	// HTTP response object, such as SynchronousRequest, the status text is found in
+	// the StatusText property of the response object.
+	const char *lastStatusText(void);
+
+	// An integer between 1 and 100 that indicates the percentage of time from the HTTP
+	// page's last-modified date that will be used for the freshness period. The
+	// default value is 25. For example, if a page is fetched with a last-modified date
+	// of 4 weeks ago, and the LMFactor = 25, then the page will be considered fresh in
+	// the cache for 1 week (25% of 4 weeks).
+	int get_LMFactor(void);
+	// An integer between 1 and 100 that indicates the percentage of time from the HTTP
+	// page's last-modified date that will be used for the freshness period. The
+	// default value is 25. For example, if a page is fetched with a last-modified date
+	// of 4 weeks ago, and the LMFactor = 25, then the page will be considered fresh in
+	// the cache for 1 week (25% of 4 weeks).
+	void put_LMFactor(int newVal);
 
 	// The HTTP login for pages requiring a login/password. Chilkat HTTP can do Basic,
 	// Digest, and NTLM HTTP authentication. (NTLM is also known as SPA (or Windows
@@ -1115,25 +1180,25 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	void put_OAuthRealm(const char *newVal);
 
 	// The OAuth signature method, such as "HMAC-SHA1" to be used in the Authorization
-	// header. The default is "HMAC-SHA1". It is also possible to choose "RSA-SHA1" or
-	// "RSA-SHA2", in which case the RSA private key would need to be provided via the
-	// SetOAuthRsaKey method.
+	// header. The default is "HMAC-SHA1". It is also possible to choose "HMAC-SHA256",
+	// "RSA-SHA1" or "RSA-SHA2". For RSA algorithms, an RSA private key would need to
+	// be provided via the SetOAuthRsaKey method.
 	// 
 	// Note: RSA-SHA2 is supported starting in Chilkat v9.5.0.56
 	// 
 	void get_OAuthSigMethod(CkString &str);
 	// The OAuth signature method, such as "HMAC-SHA1" to be used in the Authorization
-	// header. The default is "HMAC-SHA1". It is also possible to choose "RSA-SHA1" or
-	// "RSA-SHA2", in which case the RSA private key would need to be provided via the
-	// SetOAuthRsaKey method.
+	// header. The default is "HMAC-SHA1". It is also possible to choose "HMAC-SHA256",
+	// "RSA-SHA1" or "RSA-SHA2". For RSA algorithms, an RSA private key would need to
+	// be provided via the SetOAuthRsaKey method.
 	// 
 	// Note: RSA-SHA2 is supported starting in Chilkat v9.5.0.56
 	// 
 	const char *oAuthSigMethod(void);
 	// The OAuth signature method, such as "HMAC-SHA1" to be used in the Authorization
-	// header. The default is "HMAC-SHA1". It is also possible to choose "RSA-SHA1" or
-	// "RSA-SHA2", in which case the RSA private key would need to be provided via the
-	// SetOAuthRsaKey method.
+	// header. The default is "HMAC-SHA1". It is also possible to choose "HMAC-SHA256",
+	// "RSA-SHA1" or "RSA-SHA2". For RSA algorithms, an RSA private key would need to
+	// be provided via the SetOAuthRsaKey method.
 	// 
 	// Note: RSA-SHA2 is supported starting in Chilkat v9.5.0.56
 	// 
@@ -1230,6 +1295,10 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// Digest, or Basic. Setting this property equal to "basic" prevents the 407
 	// response which is automatically handled internal to Chilkat and never seen by
 	// your application.
+	// 
+	// Note: If NTLM authentication does not succeed, set the Global.DefaultNtlmVersion
+	// property equal to 1 and then retry.
+	// 
 	void get_ProxyAuthMethod(CkString &str);
 	// Set this to "basic" if you know in advance that Basic authentication is to be
 	// used for the HTTP proxy. Otherwise leave this property unset. Note: It is not
@@ -1238,6 +1307,10 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// Digest, or Basic. Setting this property equal to "basic" prevents the 407
 	// response which is automatically handled internal to Chilkat and never seen by
 	// your application.
+	// 
+	// Note: If NTLM authentication does not succeed, set the Global.DefaultNtlmVersion
+	// property equal to 1 and then retry.
+	// 
 	const char *proxyAuthMethod(void);
 	// Set this to "basic" if you know in advance that Basic authentication is to be
 	// used for the HTTP proxy. Otherwise leave this property unset. Note: It is not
@@ -1246,6 +1319,10 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// Digest, or Basic. Setting this property equal to "basic" prevents the 407
 	// response which is automatically handled internal to Chilkat and never seen by
 	// your application.
+	// 
+	// Note: If NTLM authentication does not succeed, set the Global.DefaultNtlmVersion
+	// property equal to 1 and then retry.
+	// 
 	void put_ProxyAuthMethod(const char *newVal);
 
 	// The domain name of a proxy host if an HTTP proxy is used.
@@ -1292,12 +1369,18 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// additional data is forthcoming. During a long download, if the data stream halts
 	// for more than this amount, it will timeout. Otherwise, there is no limit on the
 	// length of time for the entire download.
+	// 
+	// The default value is 20 seconds.
+	// 
 	int get_ReadTimeout(void);
 	// The amount of time in seconds to wait before timing out when reading from an
 	// HTTP server. The ReadTimeout is the amount of time that needs to elapse while no
 	// additional data is forthcoming. During a long download, if the data stream halts
 	// for more than this amount, it will timeout. Otherwise, there is no limit on the
 	// length of time for the entire download.
+	// 
+	// The default value is 20 seconds.
+	// 
 	void put_ReadTimeout(int newVal);
 
 	// Indicates the HTTP verb, such as GET, POST, PUT, etc. to be used for a redirect
@@ -1344,15 +1427,6 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// the Referer field to be omitted from the request header.
 	void put_Referer(const char *newVal);
 
-	// If true, then the HTTP client will verify the server's SSL certificate. The
-	// certificate is expired, or if the cert's signature is invalid, the connection is
-	// not allowed. The default value of this property is false.
-	bool get_RequireSslCertVerify(void);
-	// If true, then the HTTP client will verify the server's SSL certificate. The
-	// certificate is expired, or if the cert's signature is invalid, the connection is
-	// not allowed. The default value of this property is false.
-	void put_RequireSslCertVerify(bool newVal);
-
 	// If set, then any HTTP response to any POST or GET, including downloads, will be
 	// rejected if the content-type in the response header does not match this setting.
 	// If the content-type does not match, only the header of the HTTP response is
@@ -1389,6 +1463,15 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// "image/jpeg", "application/zip", "application/msword", "application/pdf", etc.
 	// 
 	void put_RequiredContentType(const char *newVal);
+
+	// If true, then the HTTP client will verify the server's SSL certificate. The
+	// certificate is expired, or if the cert's signature is invalid, the connection is
+	// not allowed. The default value of this property is false.
+	bool get_RequireSslCertVerify(void);
+	// If true, then the HTTP client will verify the server's SSL certificate. The
+	// certificate is expired, or if the cert's signature is invalid, the connection is
+	// not allowed. The default value of this property is false.
+	void put_RequireSslCertVerify(bool newVal);
 
 	// If true, then all S3_* methods will use a secure SSL/TLS connection for
 	// communications. (If true, Chilkat uses TLS 1.2) The default value is false.
@@ -1434,58 +1517,6 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// filepath), then the exact HTTP requests and responses are logged to a file. The
 	// file is created if it does not already exist, otherwise it is appended.
 	void put_SessionLogFilename(const char *newVal);
-
-	// Sets the receive buffer size socket option. Normally, this property should be
-	// left unchanged. The default value is 0, which indicates that the receive buffer
-	// size socket option should not be explicitly set (i.e. the system default value,
-	// which may vary from system to system, should be used).
-	// 
-	// This property can be changed if download performance seems slow. It is
-	// recommended to be a multiple of 4096. To see the current system's default
-	// receive buffer size, examine the LastErrorText property after calling any method
-	// that establishes a connection. It should be reported under the heading
-	// "SO_RCVBUF". To boost performance, try setting it equal to 2, 3, or 4 times the
-	// default value.
-	// 
-	int get_SoRcvBuf(void);
-	// Sets the receive buffer size socket option. Normally, this property should be
-	// left unchanged. The default value is 0, which indicates that the receive buffer
-	// size socket option should not be explicitly set (i.e. the system default value,
-	// which may vary from system to system, should be used).
-	// 
-	// This property can be changed if download performance seems slow. It is
-	// recommended to be a multiple of 4096. To see the current system's default
-	// receive buffer size, examine the LastErrorText property after calling any method
-	// that establishes a connection. It should be reported under the heading
-	// "SO_RCVBUF". To boost performance, try setting it equal to 2, 3, or 4 times the
-	// default value.
-	// 
-	void put_SoRcvBuf(int newVal);
-
-	// Sets the send buffer size socket option. Normally, this property should be left
-	// unchanged. The default value is 0, which indicates that the send buffer size
-	// socket option should not be explicitly set (i.e. the system default value, which
-	// may vary from system to system, should be used).
-	// 
-	// This property can be changed if upload performance seems slow. It is recommended
-	// to be a multiple of 4096. To see the current system's default send buffer size,
-	// examine the LastErrorText property after calling any method that establishes a
-	// connection. It should be reported under the heading "SO_SNDBUF". To boost
-	// performance, try setting it equal to 2, 3, or 4 times the default value.
-	// 
-	int get_SoSndBuf(void);
-	// Sets the send buffer size socket option. Normally, this property should be left
-	// unchanged. The default value is 0, which indicates that the send buffer size
-	// socket option should not be explicitly set (i.e. the system default value, which
-	// may vary from system to system, should be used).
-	// 
-	// This property can be changed if upload performance seems slow. It is recommended
-	// to be a multiple of 4096. To see the current system's default send buffer size,
-	// examine the LastErrorText property after calling any method that establishes a
-	// connection. It should be reported under the heading "SO_SNDBUF". To boost
-	// performance, try setting it equal to 2, 3, or 4 times the default value.
-	// 
-	void put_SoSndBuf(int newVal);
 
 	// The SOCKS4/SOCKS5 hostname or IPv4 address (in dotted decimal notation). This
 	// property is only used if the SocksVersion property is set to 4 or 5).
@@ -1540,6 +1571,38 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// 5 - Connect via a SOCKS5 proxy.
 	// 
 	void put_SocksVersion(int newVal);
+
+	// Sets the receive buffer size socket option. Normally, this property should be
+	// left unchanged. The default value is 4194304.
+	// 
+	// This property can be increased if download performance seems slow. It is
+	// recommended to be a multiple of 4096.
+	// 
+	int get_SoRcvBuf(void);
+	// Sets the receive buffer size socket option. Normally, this property should be
+	// left unchanged. The default value is 4194304.
+	// 
+	// This property can be increased if download performance seems slow. It is
+	// recommended to be a multiple of 4096.
+	// 
+	void put_SoRcvBuf(int newVal);
+
+	// Sets the send buffer size socket option. Normally, this property should be left
+	// unchanged. The default value is 262144.
+	// 
+	// This property can be increased if upload performance seems slow. It is
+	// recommended to be a multiple of 4096. Testing with sizes such as 512K and 1MB is
+	// reasonable.
+	// 
+	int get_SoSndBuf(void);
+	// Sets the send buffer size socket option. Normally, this property should be left
+	// unchanged. The default value is 262144.
+	// 
+	// This property can be increased if upload performance seems slow. It is
+	// recommended to be a multiple of 4096. Testing with sizes such as 512K and 1MB is
+	// reasonable.
+	// 
+	void put_SoSndBuf(int newVal);
 
 	// Provides a means for setting a list of ciphers that are allowed for SSL/TLS
 	// connections. The default (empty string) indicates that all implemented ciphers
@@ -1980,19 +2043,28 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	void put_UseIEProxy(bool newVal);
 
 	// The UserAgent header field to be automatically included with GET requests issued
-	// by QuickGet or QuickGetStr. The default value is "Chilkat/1.0.0
-	// (+http://www.chilkatsoft.com/ChilkatHttpUA.asp)" which indicates that the
-	// software used to issue the HTTP request was the Chilkat HTTP component.
+	// by QuickGet or QuickGetStr. The default value is "Mozilla/5.0 (Windows NT 6.3;
+	// WOW64; rv:49.0) Gecko/20100101 Firefox/49.0". The reason for this default is to
+	// get the same server behavior for a recent version of a typical and popular
+	// browser. Some sites may respond differently depending on the User-Agent, and the
+	// goal is to avoid strange responses that are different than what a typical
+	// browser would receive.
 	void get_UserAgent(CkString &str);
 	// The UserAgent header field to be automatically included with GET requests issued
-	// by QuickGet or QuickGetStr. The default value is "Chilkat/1.0.0
-	// (+http://www.chilkatsoft.com/ChilkatHttpUA.asp)" which indicates that the
-	// software used to issue the HTTP request was the Chilkat HTTP component.
+	// by QuickGet or QuickGetStr. The default value is "Mozilla/5.0 (Windows NT 6.3;
+	// WOW64; rv:49.0) Gecko/20100101 Firefox/49.0". The reason for this default is to
+	// get the same server behavior for a recent version of a typical and popular
+	// browser. Some sites may respond differently depending on the User-Agent, and the
+	// goal is to avoid strange responses that are different than what a typical
+	// browser would receive.
 	const char *userAgent(void);
 	// The UserAgent header field to be automatically included with GET requests issued
-	// by QuickGet or QuickGetStr. The default value is "Chilkat/1.0.0
-	// (+http://www.chilkatsoft.com/ChilkatHttpUA.asp)" which indicates that the
-	// software used to issue the HTTP request was the Chilkat HTTP component.
+	// by QuickGet or QuickGetStr. The default value is "Mozilla/5.0 (Windows NT 6.3;
+	// WOW64; rv:49.0) Gecko/20100101 Firefox/49.0". The reason for this default is to
+	// get the same server behavior for a recent version of a typical and popular
+	// browser. Some sites may respond differently depending on the User-Agent, and the
+	// goal is to avoid strange responses that are different than what a typical
+	// browser would receive.
 	void put_UserAgent(const char *newVal);
 
 	// Indicates whether the last HTTP GET was redirected.
@@ -2025,7 +2097,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// method. The SetRequestHeader method should be called instead because
 	// AddQuickHeader will be removed in a future version.
 	// 
-	bool AddQuickHeader(const char *name, const char *value);
+	bool AddQuickHeader(const char *headerFieldName, const char *headerFieldValue);
 
 
 	// If a backgrounded method returns an Http response object, it may be retrieved by
@@ -2061,6 +2133,10 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// Clears all cookies cached in memory. Calling this only makes sense if the
 	// CookieDir property is set to the string "memory".
 	void ClearInMemoryCookies(void);
+
+
+	// Clears all URL variable values previously set by one or more calls to SetUrlVar.
+	void ClearUrlVars(void);
 
 
 	// Closes all connections still open from previous HTTP requests.
@@ -2100,12 +2176,12 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// Retrieves the content at a URL and saves to a file. All content is saved in
 	// streaming mode such that the memory footprint is small and steady. HTTPS is
 	// fully supported, as it is with all the methods of this class.
-	bool Download(const char *url, const char *filename);
+	bool Download(const char *url, const char *localFilePath);
 
 	// Retrieves the content at a URL and saves to a file. All content is saved in
 	// streaming mode such that the memory footprint is small and steady. HTTPS is
 	// fully supported, as it is with all the methods of this class.
-	CkTask *DownloadAsync(const char *url, const char *filename);
+	CkTask *DownloadAsync(const char *url, const char *localFilePath);
 
 
 	// Same as the Download method, but the output file is open for append.
@@ -2115,28 +2191,46 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	CkTask *DownloadAppendAsync(const char *url, const char *filename);
 
 
+	// Downloads the content at the url into a BinData object.
+	bool DownloadBd(const char *url, CkBinData &binData);
+
+	// Downloads the content at the url into a BinData object.
+	CkTask *DownloadBdAsync(const char *url, CkBinData &binData);
+
+
 	// Retrieves the content at a URL and computes and returns a hash of the content.
-	// The hash is returned as an encoded string according to the  encoding, which may be
+	// The hash is returned as an encoded string according to the encoding, which may be
 	// "Base64", "modBase64", "Base32", "UU", "QP" (for quoted-printable), "URL" (for
 	// url-encoding), "Hex", "Q", "B", "url_oath", "url_rfc1738", "url_rfc2396", and
-	// "url_rfc3986". The  hashAlgorithm may be "sha1", "sha256", "sha384", "sha512", "md2",
+	// "url_rfc3986". The hashAlgorithm may be "sha1", "sha256", "sha384", "sha512", "md2",
 	// "md5", "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320".
 	bool DownloadHash(const char *url, const char *hashAlgorithm, const char *encoding, CkString &outStr);
 
 	// Retrieves the content at a URL and computes and returns a hash of the content.
-	// The hash is returned as an encoded string according to the  encoding, which may be
+	// The hash is returned as an encoded string according to the encoding, which may be
 	// "Base64", "modBase64", "Base32", "UU", "QP" (for quoted-printable), "URL" (for
 	// url-encoding), "Hex", "Q", "B", "url_oath", "url_rfc1738", "url_rfc2396", and
-	// "url_rfc3986". The  hashAlgorithm may be "sha1", "sha256", "sha384", "sha512", "md2",
+	// "url_rfc3986". The hashAlgorithm may be "sha1", "sha256", "sha384", "sha512", "md2",
 	// "md5", "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320".
 	const char *downloadHash(const char *url, const char *hashAlgorithm, const char *encoding);
 	// Retrieves the content at a URL and computes and returns a hash of the content.
-	// The hash is returned as an encoded string according to the  encoding, which may be
+	// The hash is returned as an encoded string according to the encoding, which may be
 	// "Base64", "modBase64", "Base32", "UU", "QP" (for quoted-printable), "URL" (for
 	// url-encoding), "Hex", "Q", "B", "url_oath", "url_rfc1738", "url_rfc2396", and
-	// "url_rfc3986". The  hashAlgorithm may be "sha1", "sha256", "sha384", "sha512", "md2",
+	// "url_rfc3986". The hashAlgorithm may be "sha1", "sha256", "sha384", "sha512", "md2",
 	// "md5", "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320".
 	CkTask *DownloadHashAsync(const char *url, const char *hashAlgorithm, const char *encoding);
+
+
+	// Downloads the content at the url into a Chilkat StringBuilder object. The charset
+	// tells Chilkat how to interpret the bytes received. The sb is appended with the
+	// downloaded text data.
+	bool DownloadSb(const char *url, const char *charset, CkStringBuilder &sb);
+
+	// Downloads the content at the url into a Chilkat StringBuilder object. The charset
+	// tells Chilkat how to interpret the bytes received. The sb is appended with the
+	// downloaded text data.
+	CkTask *DownloadSbAsync(const char *url, const char *charset, CkStringBuilder &sb);
 
 
 	// Returns the name of the Nth event in the in-memory event log. Refer to the
@@ -2181,25 +2275,25 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// if the htmlContent contains a META refresh tag, such as:
 	// <meta http-equiv="refresh" content="5;URL='http://example.com/'">
 	// Then the return value of this method would be "http://example.com/".
-	bool ExtractMetaRefreshUrl(const char *html, CkString &outStr);
+	bool ExtractMetaRefreshUrl(const char *htmlContent, CkString &outStr);
 
 	// Convenience method for extracting the META refresh URL from HTML. For example,
 	// if the htmlContent contains a META refresh tag, such as:
 	// <meta http-equiv="refresh" content="5;URL='http://example.com/'">
 	// Then the return value of this method would be "http://example.com/".
-	const char *extractMetaRefreshUrl(const char *html);
+	const char *extractMetaRefreshUrl(const char *htmlContent);
 
 	// Makes an access token request to obtain a Google API OAuth2 access token for a
 	// service account. Access tokens issued by the Google OAuth 2.0 Authorization
 	// Server expire one hour after they are issued. When an access token expires, then
 	// the application should generate another JWT, sign it, and request another access
-	// token. The ARG1 is the service account email address of the application making
-	// the access token request. The ARG2 is a space-delimited list of the permissions
+	// token. The iss is the service account email address of the application making
+	// the access token request. The scope is a space-delimited list of the permissions
 	// that the application requests. (See
 	// https://developers.google.com/accounts/docs/OAuth2ServiceAccount )
 	// 
-	// The ARG3 is the email address of the user for which the application is
-	// requesting delegated access. The ARG3 may be left empty if there is no such
+	// The subEmail is the email address of the user for which the application is
+	// requesting delegated access. The subEmail may be left empty if there is no such
 	// email address.
 	// 
 	bool G_SvcOauthAccessToken(const char *iss, const char *scope, const char *subEmail, int numSec, CkCert &cert, CkString &outStr);
@@ -2208,13 +2302,13 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// service account. Access tokens issued by the Google OAuth 2.0 Authorization
 	// Server expire one hour after they are issued. When an access token expires, then
 	// the application should generate another JWT, sign it, and request another access
-	// token. The ARG1 is the service account email address of the application making
-	// the access token request. The ARG2 is a space-delimited list of the permissions
+	// token. The iss is the service account email address of the application making
+	// the access token request. The scope is a space-delimited list of the permissions
 	// that the application requests. (See
 	// https://developers.google.com/accounts/docs/OAuth2ServiceAccount )
 	// 
-	// The ARG3 is the email address of the user for which the application is
-	// requesting delegated access. The ARG3 may be left empty if there is no such
+	// The subEmail is the email address of the user for which the application is
+	// requesting delegated access. The subEmail may be left empty if there is no such
 	// email address.
 	// 
 	const char *g_SvcOauthAccessToken(const char *iss, const char *scope, const char *subEmail, int numSec, CkCert &cert);
@@ -2222,13 +2316,13 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// service account. Access tokens issued by the Google OAuth 2.0 Authorization
 	// Server expire one hour after they are issued. When an access token expires, then
 	// the application should generate another JWT, sign it, and request another access
-	// token. The ARG1 is the service account email address of the application making
-	// the access token request. The ARG2 is a space-delimited list of the permissions
+	// token. The iss is the service account email address of the application making
+	// the access token request. The scope is a space-delimited list of the permissions
 	// that the application requests. (See
 	// https://developers.google.com/accounts/docs/OAuth2ServiceAccount )
 	// 
-	// The ARG3 is the email address of the user for which the application is
-	// requesting delegated access. The ARG3 may be left empty if there is no such
+	// The subEmail is the email address of the user for which the application is
+	// requesting delegated access. The subEmail may be left empty if there is no such
 	// email address.
 	// 
 	CkTask *G_SvcOauthAccessTokenAsync(const char *iss, const char *scope, const char *subEmail, int numSec, CkCert &cert);
@@ -2236,18 +2330,18 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 
 	// The same as the G_SvcOauthAccessToken method, but with added flexibility for
 	// more customization. The 1st three args of the G_SvcOauthAccessToken are replaced
-	// with ARG1 allowing for future expansion of name-value params. See the example
+	// with claimParams allowing for future expansion of name-value params. See the example
 	// below.
 	bool G_SvcOauthAccessToken2(CkHashtable &claimParams, int numSec, CkCert &cert, CkString &outStr);
 
 	// The same as the G_SvcOauthAccessToken method, but with added flexibility for
 	// more customization. The 1st three args of the G_SvcOauthAccessToken are replaced
-	// with ARG1 allowing for future expansion of name-value params. See the example
+	// with claimParams allowing for future expansion of name-value params. See the example
 	// below.
 	const char *g_SvcOauthAccessToken2(CkHashtable &claimParams, int numSec, CkCert &cert);
 	// The same as the G_SvcOauthAccessToken method, but with added flexibility for
 	// more customization. The 1st three args of the G_SvcOauthAccessToken are replaced
-	// with ARG1 allowing for future expansion of name-value params. See the example
+	// with claimParams allowing for future expansion of name-value params. See the example
 	// below.
 	CkTask *G_SvcOauthAccessToken2Async(CkHashtable &claimParams, int numSec, CkCert &cert);
 
@@ -2344,21 +2438,18 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	CkTask *GetServerSslCertAsync(const char *domain, int port);
 
 
-	// Returns the path part of a URL. The syntax of a URL is :// : @
-	// 
-	// : / ; ? # . This method returns the "path" part.
-	// 
+	// Returns the path part of a URL. The syntax of a URL is
+	// _LT_scheme>://_LT_user>:_LT_password>@_LT_host>:_LT_port>/_LT_path>;_LT_params>?_
+	// LT_query>#_LT_frag>. This method returns the "path" part.
 	bool GetUrlPath(const char *url, CkString &outStr);
 
-	// Returns the path part of a URL. The syntax of a URL is :// : @
-	// 
-	// : / ; ? # . This method returns the "path" part.
-	// 
+	// Returns the path part of a URL. The syntax of a URL is
+	// _LT_scheme>://_LT_user>:_LT_password>@_LT_host>:_LT_port>/_LT_path>;_LT_params>?_
+	// LT_query>#_LT_frag>. This method returns the "path" part.
 	const char *getUrlPath(const char *url);
-	// Returns the path part of a URL. The syntax of a URL is :// : @
-	// 
-	// : / ; ? # . This method returns the "path" part.
-	// 
+	// Returns the path part of a URL. The syntax of a URL is
+	// _LT_scheme>://_LT_user>:_LT_password>@_LT_host>:_LT_port>/_LT_path>;_LT_params>?_
+	// LT_query>#_LT_frag>. This method returns the "path" part.
 	const char *urlPath(const char *url);
 
 
@@ -2373,60 +2464,44 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	bool IsUnlocked(void);
 
 
-	// Sends an HTTP request to the  url. The verb can be "POST" or "PUT". The body of
-	// the HTTP request contains the bytes passed in  byteData. The  contentType is a content type
-	// such as "image/gif", "application/pdf", etc. If  md5 is true, then a
-	// Content-MD5 header is added with the base64 MD5 hash of the  byteData. Servers aware
-	// of the Content-MD5 header will perform a message integrity check to ensure that
-	// the data has not been corrupted. If  gzip is true, the  byteData is compressed using
-	// the gzip algorithm. The HTTP request body will contain the GZIP compressed data,
-	// and a "Content-Encoding: gzip" header is automatically added to indicate that
-	// the request data needs to be ungzipped when received (at the server).
+	// Sends an HTTP request to the url. The verb can be "POST", "PUT", "PATCH", etc.
+	// The body of the HTTP request contains the bytes passed in byteData. The contentType is a
+	// content type such as "image/gif", "application/pdf", etc. If md5 is true,
+	// then a Content-MD5 header is added with the base64 MD5 hash of the byteData. Servers
+	// aware of the Content-MD5 header will perform a message integrity check to ensure
+	// that the data has not been corrupted. If gzip is true, the byteData is compressed
+	// using the gzip algorithm. The HTTP request body will contain the GZIP compressed
+	// data, and a "Content-Encoding: gzip" header is automatically added to indicate
+	// that the request data needs to be ungzipped when received (at the server).
 	// The caller is responsible for deleting the object returned by this method.
 	CkHttpResponse *PBinary(const char *verb, const char *url, CkByteData &byteData, const char *contentType, bool md5, bool gzip);
 
-	// Sends an HTTP request to the  url. The verb can be "POST" or "PUT". The body of
-	// the HTTP request contains the bytes passed in  byteData. The  contentType is a content type
-	// such as "image/gif", "application/pdf", etc. If  md5 is true, then a
-	// Content-MD5 header is added with the base64 MD5 hash of the  byteData. Servers aware
-	// of the Content-MD5 header will perform a message integrity check to ensure that
-	// the data has not been corrupted. If  gzip is true, the  byteData is compressed using
-	// the gzip algorithm. The HTTP request body will contain the GZIP compressed data,
-	// and a "Content-Encoding: gzip" header is automatically added to indicate that
-	// the request data needs to be ungzipped when received (at the server).
+	// Sends an HTTP request to the url. The verb can be "POST", "PUT", "PATCH", etc.
+	// The body of the HTTP request contains the bytes passed in byteData. The contentType is a
+	// content type such as "image/gif", "application/pdf", etc. If md5 is true,
+	// then a Content-MD5 header is added with the base64 MD5 hash of the byteData. Servers
+	// aware of the Content-MD5 header will perform a message integrity check to ensure
+	// that the data has not been corrupted. If gzip is true, the byteData is compressed
+	// using the gzip algorithm. The HTTP request body will contain the GZIP compressed
+	// data, and a "Content-Encoding: gzip" header is automatically added to indicate
+	// that the request data needs to be ungzipped when received (at the server).
 	CkTask *PBinaryAsync(const char *verb, const char *url, CkByteData &byteData, const char *contentType, bool md5, bool gzip);
 
 
-	// Sends an HTTP request to the  url. The verb can be "POST" or "PUT". The body of
-	// the HTTP request contains the text passed in  textData. The  contentType is a content type
-	// such as "text/xml", "application/json", etc. If  md5 is true, then a
-	// Content-MD5 header is added with the base64 MD5 hash of the  textData. Servers aware
-	// of the Content-MD5 header will perform a message integrity check to ensure that
-	// the data has not been corrupted. If  gzip is true, the  contentType is compressed using
-	// the gzip algorithm. The HTTP request body will contain the GZIP compressed data,
-	// and a "Content-Encoding: gzip" header is automatically added to indicate that
-	// the request data needs to be ungzipped when received (at the server).
+	// The same as PBinary, but the data to be uploaded is passed in data.
 	// The caller is responsible for deleting the object returned by this method.
-	CkHttpResponse *PText(const char *verb, const char *url, const char *textData, const char *charset, const char *contentType, bool md5, bool gzip);
+	CkHttpResponse *PBinaryBd(const char *verb, const char *url, CkBinData &data, const char *contentType, bool md5, bool gzip);
 
-	// Sends an HTTP request to the  url. The verb can be "POST" or "PUT". The body of
-	// the HTTP request contains the text passed in  textData. The  contentType is a content type
-	// such as "text/xml", "application/json", etc. If  md5 is true, then a
-	// Content-MD5 header is added with the base64 MD5 hash of the  textData. Servers aware
-	// of the Content-MD5 header will perform a message integrity check to ensure that
-	// the data has not been corrupted. If  gzip is true, the  contentType is compressed using
-	// the gzip algorithm. The HTTP request body will contain the GZIP compressed data,
-	// and a "Content-Encoding: gzip" header is automatically added to indicate that
-	// the request data needs to be ungzipped when received (at the server).
-	CkTask *PTextAsync(const char *verb, const char *url, const char *textData, const char *charset, const char *contentType, bool md5, bool gzip);
+	// The same as PBinary, but the data to be uploaded is passed in data.
+	CkTask *PBinaryBdAsync(const char *verb, const char *url, CkBinData &data, const char *contentType, bool md5, bool gzip);
 
 
 	// Sends an HTTP POST request to the url. The body of the HTTP request contains
-	// the bytes passed in  byteData. The  contentType is a content type such as "image/gif",
-	// "application/pdf", etc. If  md5 is true, then a Content-MD5 header is added
-	// with the base64 MD5 hash of the  byteData. Servers aware of the Content-MD5 header
+	// the bytes passed in byteData. The contentType is a content type such as "image/gif",
+	// "application/pdf", etc. If md5 is true, then a Content-MD5 header is added
+	// with the base64 MD5 hash of the byteData. Servers aware of the Content-MD5 header
 	// will perform a message integrity check to ensure that the data has not been
-	// corrupted. If  gzip is true, the  byteData is compressed using the gzip algorithm.
+	// corrupted. If gzip is true, the byteData is compressed using the gzip algorithm.
 	// The HTTP request body will contain the GZIP compressed data, and a
 	// "Content-Encoding: gzip" header is automatically added to indicate that the
 	// request data needs to be ungzipped when received (at the server).
@@ -2435,15 +2510,19 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// status code. Otherwise the method is considered to have failed. If more details
 	// of the HTTP response are required, call PBinary instead (which returns the HTTP
 	// response object).
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
 	// 
 	bool PostBinary(const char *url, CkByteData &byteData, const char *contentType, bool md5, bool gzip, CkString &outStr);
 
 	// Sends an HTTP POST request to the url. The body of the HTTP request contains
-	// the bytes passed in  byteData. The  contentType is a content type such as "image/gif",
-	// "application/pdf", etc. If  md5 is true, then a Content-MD5 header is added
-	// with the base64 MD5 hash of the  byteData. Servers aware of the Content-MD5 header
+	// the bytes passed in byteData. The contentType is a content type such as "image/gif",
+	// "application/pdf", etc. If md5 is true, then a Content-MD5 header is added
+	// with the base64 MD5 hash of the byteData. Servers aware of the Content-MD5 header
 	// will perform a message integrity check to ensure that the data has not been
-	// corrupted. If  gzip is true, the  byteData is compressed using the gzip algorithm.
+	// corrupted. If gzip is true, the byteData is compressed using the gzip algorithm.
 	// The HTTP request body will contain the GZIP compressed data, and a
 	// "Content-Encoding: gzip" header is automatically added to indicate that the
 	// request data needs to be ungzipped when received (at the server).
@@ -2452,14 +2531,18 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// status code. Otherwise the method is considered to have failed. If more details
 	// of the HTTP response are required, call PBinary instead (which returns the HTTP
 	// response object).
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
 	// 
 	const char *postBinary(const char *url, CkByteData &byteData, const char *contentType, bool md5, bool gzip);
 	// Sends an HTTP POST request to the url. The body of the HTTP request contains
-	// the bytes passed in  byteData. The  contentType is a content type such as "image/gif",
-	// "application/pdf", etc. If  md5 is true, then a Content-MD5 header is added
-	// with the base64 MD5 hash of the  byteData. Servers aware of the Content-MD5 header
+	// the bytes passed in byteData. The contentType is a content type such as "image/gif",
+	// "application/pdf", etc. If md5 is true, then a Content-MD5 header is added
+	// with the base64 MD5 hash of the byteData. Servers aware of the Content-MD5 header
 	// will perform a message integrity check to ensure that the data has not been
-	// corrupted. If  gzip is true, the  byteData is compressed using the gzip algorithm.
+	// corrupted. If gzip is true, the byteData is compressed using the gzip algorithm.
 	// The HTTP request body will contain the GZIP compressed data, and a
 	// "Content-Encoding: gzip" header is automatically added to indicate that the
 	// request data needs to be ungzipped when received (at the server).
@@ -2468,6 +2551,10 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// status code. Otherwise the method is considered to have failed. If more details
 	// of the HTTP response are required, call PBinary instead (which returns the HTTP
 	// response object).
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
 	// 
 	CkTask *PostBinaryAsync(const char *url, CkByteData &byteData, const char *contentType, bool md5, bool gzip);
 
@@ -2502,6 +2589,14 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	CkTask *PostJson2Async(const char *url, const char *contentType, const char *jsonText);
 
 
+	// The same as PostJson2,except a JSON object is passed in for the request body.
+	// The caller is responsible for deleting the object returned by this method.
+	CkHttpResponse *PostJson3(const char *url, const char *contentType, CkJsonObject &json);
+
+	// The same as PostJson2,except a JSON object is passed in for the request body.
+	CkTask *PostJson3Async(const char *url, const char *contentType, CkJsonObject &json);
+
+
 	// Sends a simple URL encoded POST. The form parameters are sent in the body of the
 	// HTTP request in x-www-form-urlencoded format. The content-type is
 	// "application/x-www-form-urlencoded".
@@ -2515,32 +2610,76 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 
 
 	// A simplified way of posting XML content to a web server. This method is good for
-	// making SOAP calls using HTTP POST. The  xmlCharset should match the character encoding
-	// used in the  xmlContent, which is typically "utf-8". The HTTP response is returned in
+	// making SOAP calls using HTTP POST. The xmlCharset should match the character encoding
+	// used in the xmlContent, which is typically "utf-8". The HTTP response is returned in
 	// an HTTP response object.
+	// 
+	// Important: This method sends the POST with a "Content-Type" header value of
+	// "text/xml". Sometimes a server might require the Content-Type header to be
+	// "application/xml". To use "application/xml" instead of the default "text/xml",
+	// call SetRequestHeader("Content-Type","application/xml") prior to calling this
+	// method.
 	// 
 	// To use HTTPS simply pass an endpointUrl beginning with "https://" instead of "http://".
 	// This applies to any Chilkat method where a URL is passed as an argument.
 	// 
 	// The caller is responsible for deleting the object returned by this method.
-	CkHttpResponse *PostXml(const char *url, const char *xmlDoc, const char *charset);
+	CkHttpResponse *PostXml(const char *endpointUrl, const char *xmlContent, const char *xmlCharset);
 
 	// A simplified way of posting XML content to a web server. This method is good for
-	// making SOAP calls using HTTP POST. The  xmlCharset should match the character encoding
-	// used in the  xmlContent, which is typically "utf-8". The HTTP response is returned in
+	// making SOAP calls using HTTP POST. The xmlCharset should match the character encoding
+	// used in the xmlContent, which is typically "utf-8". The HTTP response is returned in
 	// an HTTP response object.
+	// 
+	// Important: This method sends the POST with a "Content-Type" header value of
+	// "text/xml". Sometimes a server might require the Content-Type header to be
+	// "application/xml". To use "application/xml" instead of the default "text/xml",
+	// call SetRequestHeader("Content-Type","application/xml") prior to calling this
+	// method.
 	// 
 	// To use HTTPS simply pass an endpointUrl beginning with "https://" instead of "http://".
 	// This applies to any Chilkat method where a URL is passed as an argument.
 	// 
-	CkTask *PostXmlAsync(const char *url, const char *xmlDoc, const char *charset);
+	CkTask *PostXmlAsync(const char *endpointUrl, const char *xmlContent, const char *xmlCharset);
 
 
-	// Sends an HTTP PUT request to the url. The body of the HTTP request is  byteData. The
-	//  contentType is a content type such as "image/gif", "application/pdf", etc. If  md5 is
-	// true, then a Content-MD5 header is added with the base64 MD5 hash of the  byteData.
+	// Sends an HTTP request to the url. The verb can be "POST", "PUT", "PATCH", etc.
+	// The body of the HTTP request contains the text passed in textData. The contentType is a
+	// content type such as "text/xml", "application/json", etc. If md5 is true,
+	// then a Content-MD5 header is added with the base64 MD5 hash of the textData. Servers
+	// aware of the Content-MD5 header will perform a message integrity check to ensure
+	// that the data has not been corrupted. If gzip is true, the contentType is compressed
+	// using the gzip algorithm. The HTTP request body will contain the GZIP compressed
+	// data, and a "Content-Encoding: gzip" header is automatically added to indicate
+	// that the request data needs to be ungzipped when received (at the server).
+	// The caller is responsible for deleting the object returned by this method.
+	CkHttpResponse *PText(const char *verb, const char *url, const char *textData, const char *charset, const char *contentType, bool md5, bool gzip);
+
+	// Sends an HTTP request to the url. The verb can be "POST", "PUT", "PATCH", etc.
+	// The body of the HTTP request contains the text passed in textData. The contentType is a
+	// content type such as "text/xml", "application/json", etc. If md5 is true,
+	// then a Content-MD5 header is added with the base64 MD5 hash of the textData. Servers
+	// aware of the Content-MD5 header will perform a message integrity check to ensure
+	// that the data has not been corrupted. If gzip is true, the contentType is compressed
+	// using the gzip algorithm. The HTTP request body will contain the GZIP compressed
+	// data, and a "Content-Encoding: gzip" header is automatically added to indicate
+	// that the request data needs to be ungzipped when received (at the server).
+	CkTask *PTextAsync(const char *verb, const char *url, const char *textData, const char *charset, const char *contentType, bool md5, bool gzip);
+
+
+	// The same as PText, but the data to be uploaded is passed in textData.
+	// The caller is responsible for deleting the object returned by this method.
+	CkHttpResponse *PTextSb(const char *verb, const char *url, CkStringBuilder &textData, const char *charset, const char *contentType, bool md5, bool gzip);
+
+	// The same as PText, but the data to be uploaded is passed in textData.
+	CkTask *PTextSbAsync(const char *verb, const char *url, CkStringBuilder &textData, const char *charset, const char *contentType, bool md5, bool gzip);
+
+
+	// Sends an HTTP PUT request to the url. The body of the HTTP request is byteData. The
+	// contentType is a content type such as "image/gif", "application/pdf", etc. If md5 is
+	// true, then a Content-MD5 header is added with the base64 MD5 hash of the byteData.
 	// Servers aware of the Content-MD5 header will perform a message integrity check
-	// to ensure that the data has not been corrupted. If  gzip is true, the  byteData is
+	// to ensure that the data has not been corrupted. If gzip is true, the byteData is
 	// compressed using the gzip algorithm. The HTTP request body will contain the GZIP
 	// compressed data, and a "Content-Encoding: gzip" header is automatically added to
 	// indicate that the request data needs to be ungzipped when received (at the
@@ -2553,11 +2692,11 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// 
 	bool PutBinary(const char *url, CkByteData &byteData, const char *contentType, bool md5, bool gzip, CkString &outStr);
 
-	// Sends an HTTP PUT request to the url. The body of the HTTP request is  byteData. The
-	//  contentType is a content type such as "image/gif", "application/pdf", etc. If  md5 is
-	// true, then a Content-MD5 header is added with the base64 MD5 hash of the  byteData.
+	// Sends an HTTP PUT request to the url. The body of the HTTP request is byteData. The
+	// contentType is a content type such as "image/gif", "application/pdf", etc. If md5 is
+	// true, then a Content-MD5 header is added with the base64 MD5 hash of the byteData.
 	// Servers aware of the Content-MD5 header will perform a message integrity check
-	// to ensure that the data has not been corrupted. If  gzip is true, the  byteData is
+	// to ensure that the data has not been corrupted. If gzip is true, the byteData is
 	// compressed using the gzip algorithm. The HTTP request body will contain the GZIP
 	// compressed data, and a "Content-Encoding: gzip" header is automatically added to
 	// indicate that the request data needs to be ungzipped when received (at the
@@ -2569,11 +2708,11 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// response object).
 	// 
 	const char *putBinary(const char *url, CkByteData &byteData, const char *contentType, bool md5, bool gzip);
-	// Sends an HTTP PUT request to the url. The body of the HTTP request is  byteData. The
-	//  contentType is a content type such as "image/gif", "application/pdf", etc. If  md5 is
-	// true, then a Content-MD5 header is added with the base64 MD5 hash of the  byteData.
+	// Sends an HTTP PUT request to the url. The body of the HTTP request is byteData. The
+	// contentType is a content type such as "image/gif", "application/pdf", etc. If md5 is
+	// true, then a Content-MD5 header is added with the base64 MD5 hash of the byteData.
 	// Servers aware of the Content-MD5 header will perform a message integrity check
-	// to ensure that the data has not been corrupted. If  gzip is true, the  byteData is
+	// to ensure that the data has not been corrupted. If gzip is true, the byteData is
 	// compressed using the gzip algorithm. The HTTP request body will contain the GZIP
 	// compressed data, and a "Content-Encoding: gzip" header is automatically added to
 	// indicate that the request data needs to be ungzipped when received (at the
@@ -2587,13 +2726,13 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	CkTask *PutBinaryAsync(const char *url, CkByteData &byteData, const char *contentType, bool md5, bool gzip);
 
 
-	// Sends an HTTP PUT request to the url. The body of the HTTP request is  textData. The
-	//  charset should be set to a charset name such as "iso-8859-1", "windows-1252",
+	// Sends an HTTP PUT request to the url. The body of the HTTP request is textData. The
+	// charset should be set to a charset name such as "iso-8859-1", "windows-1252",
 	// "Shift_JIS", "utf-8", etc. The string "ansi" may also be used as a charset name.
-	// The  contentType is a content type such as "text/plain", "text/xml", etc. If  md5 is
-	// true, then a Content-MD5 header is added with the base64 MD5 hash of the  textData.
+	// The contentType is a content type such as "text/plain", "text/xml", etc. If md5 is
+	// true, then a Content-MD5 header is added with the base64 MD5 hash of the textData.
 	// Servers aware of the Content-MD5 header will perform a message integrity check
-	// to ensure that the data has not been corrupted. If  gzip is true, the  textData is
+	// to ensure that the data has not been corrupted. If gzip is true, the textData is
 	// compressed using the gzip algorithm. The HTTP request body will contain the GZIP
 	// compressed data, and a "Content-Encoding: gzip" header is automatically added to
 	// indicate that the request data needs to be ungzipped when received (at the
@@ -2606,13 +2745,13 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// 
 	bool PutText(const char *url, const char *textData, const char *charset, const char *contentType, bool md5, bool gzip, CkString &outStr);
 
-	// Sends an HTTP PUT request to the url. The body of the HTTP request is  textData. The
-	//  charset should be set to a charset name such as "iso-8859-1", "windows-1252",
+	// Sends an HTTP PUT request to the url. The body of the HTTP request is textData. The
+	// charset should be set to a charset name such as "iso-8859-1", "windows-1252",
 	// "Shift_JIS", "utf-8", etc. The string "ansi" may also be used as a charset name.
-	// The  contentType is a content type such as "text/plain", "text/xml", etc. If  md5 is
-	// true, then a Content-MD5 header is added with the base64 MD5 hash of the  textData.
+	// The contentType is a content type such as "text/plain", "text/xml", etc. If md5 is
+	// true, then a Content-MD5 header is added with the base64 MD5 hash of the textData.
 	// Servers aware of the Content-MD5 header will perform a message integrity check
-	// to ensure that the data has not been corrupted. If  gzip is true, the  textData is
+	// to ensure that the data has not been corrupted. If gzip is true, the textData is
 	// compressed using the gzip algorithm. The HTTP request body will contain the GZIP
 	// compressed data, and a "Content-Encoding: gzip" header is automatically added to
 	// indicate that the request data needs to be ungzipped when received (at the
@@ -2624,13 +2763,13 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// response object).
 	// 
 	const char *putText(const char *url, const char *textData, const char *charset, const char *contentType, bool md5, bool gzip);
-	// Sends an HTTP PUT request to the url. The body of the HTTP request is  textData. The
-	//  charset should be set to a charset name such as "iso-8859-1", "windows-1252",
+	// Sends an HTTP PUT request to the url. The body of the HTTP request is textData. The
+	// charset should be set to a charset name such as "iso-8859-1", "windows-1252",
 	// "Shift_JIS", "utf-8", etc. The string "ansi" may also be used as a charset name.
-	// The  contentType is a content type such as "text/plain", "text/xml", etc. If  md5 is
-	// true, then a Content-MD5 header is added with the base64 MD5 hash of the  textData.
+	// The contentType is a content type such as "text/plain", "text/xml", etc. If md5 is
+	// true, then a Content-MD5 header is added with the base64 MD5 hash of the textData.
 	// Servers aware of the Content-MD5 header will perform a message integrity check
-	// to ensure that the data has not been corrupted. If  gzip is true, the  textData is
+	// to ensure that the data has not been corrupted. If gzip is true, the textData is
 	// compressed using the gzip algorithm. The HTTP request body will contain the GZIP
 	// compressed data, and a "Content-Encoding: gzip" header is automatically added to
 	// indicate that the request data needs to be ungzipped when received (at the
@@ -2645,11 +2784,26 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 
 
 	// Same as QuickGetStr, but uses the HTTP DELETE method instead of the GET method.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	bool QuickDeleteStr(const char *url, CkString &outStr);
 
 	// Same as QuickGetStr, but uses the HTTP DELETE method instead of the GET method.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	const char *quickDeleteStr(const char *url);
 	// Same as QuickGetStr, but uses the HTTP DELETE method instead of the GET method.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	CkTask *QuickDeleteStrAsync(const char *url);
 
 
@@ -2663,6 +2817,11 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// instead. If the HTTP request fails, a zero-length byte array is returned and
 	// error information can be found in the LastErrorText, LastErrorXml, or
 	// LastErrorHtml properties.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	bool QuickGet(const char *url, CkByteData &outData);
 
 	// Sends an HTTP GET request for a URL and returns the response body as a byte
@@ -2675,7 +2834,23 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// instead. If the HTTP request fails, a zero-length byte array is returned and
 	// error information can be found in the LastErrorText, LastErrorXml, or
 	// LastErrorHtml properties.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	CkTask *QuickGetAsync(const char *url);
+
+
+	// The same as QuickGet, but returns the content in a Chilkat BinData object. The
+	// existing content of binData, if any, is cleared and replaced with the downloaded
+	// content.
+	bool QuickGetBd(const char *url, CkBinData &binData);
+
+	// The same as QuickGet, but returns the content in a Chilkat BinData object. The
+	// existing content of binData, if any, is cleared and replaced with the downloaded
+	// content.
+	CkTask *QuickGetBdAsync(const char *url, CkBinData &binData);
 
 
 	// Sends an HTTP GET request for a URL and returns the response object. If the
@@ -2692,39 +2867,80 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	CkTask *QuickGetObjAsync(const char *url);
 
 
+	// The same as QuickGetStr, but returns the content in a Chilkat StringBuilder
+	// object. The existing content of sbContent, if any, is cleared and replaced with the
+	// downloaded content.
+	bool QuickGetSb(const char *url, CkStringBuilder &sbContent);
+
+	// The same as QuickGetStr, but returns the content in a Chilkat StringBuilder
+	// object. The existing content of sbContent, if any, is cleared and replaced with the
+	// downloaded content.
+	CkTask *QuickGetSbAsync(const char *url, CkStringBuilder &sbContent);
+
+
 	// Sends an HTTP GET request for a URL and returns the response body as a string.
 	// The URL may contain query parameters. If the SendCookies property is true,
 	// matching cookies previously persisted to the CookiesDir are automatically
 	// included in the request. If the FetchFromCache property is true, the page
-	// could be fetched directly from cache. If the HTTP request fails, a NULL value is
-	// returned and error information can be found in the LastErrorText, LastErrorXml,
-	// or LastErrorHtml properties.
+	// could be fetched directly from cache. If the HTTP request fails, a _NULL_ value
+	// is returned and error information can be found in the LastErrorText,
+	// LastErrorXml, or LastErrorHtml properties.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	bool QuickGetStr(const char *url, CkString &outStr);
 
 	// Sends an HTTP GET request for a URL and returns the response body as a string.
 	// The URL may contain query parameters. If the SendCookies property is true,
 	// matching cookies previously persisted to the CookiesDir are automatically
 	// included in the request. If the FetchFromCache property is true, the page
-	// could be fetched directly from cache. If the HTTP request fails, a NULL value is
-	// returned and error information can be found in the LastErrorText, LastErrorXml,
-	// or LastErrorHtml properties.
+	// could be fetched directly from cache. If the HTTP request fails, a _NULL_ value
+	// is returned and error information can be found in the LastErrorText,
+	// LastErrorXml, or LastErrorHtml properties.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	const char *quickGetStr(const char *url);
 	// Sends an HTTP GET request for a URL and returns the response body as a string.
 	// The URL may contain query parameters. If the SendCookies property is true,
 	// matching cookies previously persisted to the CookiesDir are automatically
 	// included in the request. If the FetchFromCache property is true, the page
-	// could be fetched directly from cache. If the HTTP request fails, a NULL value is
-	// returned and error information can be found in the LastErrorText, LastErrorXml,
-	// or LastErrorHtml properties.
+	// could be fetched directly from cache. If the HTTP request fails, a _NULL_ value
+	// is returned and error information can be found in the LastErrorText,
+	// LastErrorXml, or LastErrorHtml properties.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	CkTask *QuickGetStrAsync(const char *url);
 
 
 	// Same as QuickGetStr, but uses the HTTP PUT method instead of the GET method.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	bool QuickPutStr(const char *url, CkString &outStr);
 
 	// Same as QuickGetStr, but uses the HTTP PUT method instead of the GET method.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	const char *quickPutStr(const char *url);
 	// Same as QuickGetStr, but uses the HTTP PUT method instead of the GET method.
+	// 
+	// Note: The HTTP response code is available in the LastStatus property. Other
+	// properties having information include LastResponseHeader, LastResponseBody,
+	// LastModDate, LastContentType, etc.
+	// 
 	CkTask *QuickPutStrAsync(const char *url);
 
 
@@ -2737,7 +2953,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// method. The RemoveRequestHeader method should be called instead because this
 	// method will be removed in a future version.
 	// 
-	bool RemoveQuickHeader(const char *name);
+	bool RemoveQuickHeader(const char *headerFieldName);
 
 
 	// Removes a header from the internal list of custom header field name/value pairs
@@ -2755,17 +2971,17 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// request that would've been sent and returns it.
 	const char *renderGet(const char *url);
 
-	// Same as the Download method, except a failed download may be resumed. The  targetFilename
+	// Same as the Download method, except a failed download may be resumed. The targetFilename
 	// is automatically checked and if it exists, the download will resume at the point
 	// where it previously failed. ResumeDownload may be called any number of times
 	// until the full download is complete.
-	bool ResumeDownload(const char *url, const char *filename);
+	bool ResumeDownload(const char *url, const char *targetFilename);
 
-	// Same as the Download method, except a failed download may be resumed. The  targetFilename
+	// Same as the Download method, except a failed download may be resumed. The targetFilename
 	// is automatically checked and if it exists, the download will resume at the point
 	// where it previously failed. ResumeDownload may be called any number of times
 	// until the full download is complete.
-	CkTask *ResumeDownloadAsync(const char *url, const char *filename);
+	CkTask *ResumeDownloadAsync(const char *url, const char *targetFilename);
 
 
 	// Creates a new Amazon S3 bucket.
@@ -2774,7 +2990,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// adding each header with a call to SetRequestHeader. This applies to all S3
 	// methods, even if not explicitly stated.
 	// 
-	bool S3_CreateBucket(const char *bucketName);
+	bool S3_CreateBucket(const char *bucketPath);
 
 	// Creates a new Amazon S3 bucket.
 	// 
@@ -2782,17 +2998,17 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// adding each header with a call to SetRequestHeader. This applies to all S3
 	// methods, even if not explicitly stated.
 	// 
-	CkTask *S3_CreateBucketAsync(const char *bucketName);
+	CkTask *S3_CreateBucketAsync(const char *bucketPath);
 
 
 	// Deletes an Amazon S3 bucket.
-	bool S3_DeleteBucket(const char *bucketName);
+	bool S3_DeleteBucket(const char *bucketPath);
 
 	// Deletes an Amazon S3 bucket.
-	CkTask *S3_DeleteBucketAsync(const char *bucketName);
+	CkTask *S3_DeleteBucketAsync(const char *bucketPath);
 
 
-	// Deletes multiple objects from a bucket using a single HTTP request. The ARG1
+	// Deletes multiple objects from a bucket using a single HTTP request. The bucketName
 	// contains the names (also known as "keys") of the objects to be deleted. To
 	// delete a specific version of an object, append a versionId attribute to the
 	// object name. For example: "SampleDocument.txt;
@@ -2800,7 +3016,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// The caller is responsible for deleting the object returned by this method.
 	CkHttpResponse *S3_DeleteMultipleObjects(const char *bucketName, CkStringArray &objectNames);
 
-	// Deletes multiple objects from a bucket using a single HTTP request. The ARG1
+	// Deletes multiple objects from a bucket using a single HTTP request. The bucketName
 	// contains the names (also known as "keys") of the objects to be deleted. To
 	// delete a specific version of an object, append a versionId attribute to the
 	// object name. For example: "SampleDocument.txt;
@@ -2809,77 +3025,111 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 
 
 	// Deletes a remote file (object) on the Amazon S3 service.
-	bool S3_DeleteObject(const char *bucketName, const char *objectName);
+	bool S3_DeleteObject(const char *bucketPath, const char *objectName);
 
 	// Deletes a remote file (object) on the Amazon S3 service.
-	CkTask *S3_DeleteObjectAsync(const char *bucketName, const char *objectName);
+	CkTask *S3_DeleteObjectAsync(const char *bucketPath, const char *objectName);
 
 
 	// The same as DownloadFile, except the file data is returned directly in-memory
 	// instead of being written to a local file.
-	bool S3_DownloadBytes(const char *bucketName, const char *objectName, CkByteData &outBytes);
+	bool S3_DownloadBytes(const char *bucketPath, const char *objectName, CkByteData &outBytes);
 
 	// The same as DownloadFile, except the file data is returned directly in-memory
 	// instead of being written to a local file.
-	CkTask *S3_DownloadBytesAsync(const char *bucketName, const char *objectName);
+	CkTask *S3_DownloadBytesAsync(const char *bucketPath, const char *objectName);
 
 
 	// Downloads a file from the Amazon S3 service.
-	bool S3_DownloadFile(const char *bucketName, const char *objectName, const char *localFilePath);
+	bool S3_DownloadFile(const char *bucketPath, const char *objectName, const char *localFilePath);
 
 	// Downloads a file from the Amazon S3 service.
-	CkTask *S3_DownloadFileAsync(const char *bucketName, const char *objectName, const char *localFilePath);
+	CkTask *S3_DownloadFileAsync(const char *bucketPath, const char *objectName, const char *localFilePath);
 
 
 	// Downloads a text file (object) from the Amazon S3 service directly into a string
-	// variable. The  charset specifies the character encoding, such as "utf-8", of the
+	// variable. The charset specifies the character encoding, such as "utf-8", of the
 	// remote text object.
-	bool S3_DownloadString(const char *bucketName, const char *objectName, const char *charset, CkString &outStr);
+	bool S3_DownloadString(const char *bucketPath, const char *objectName, const char *charset, CkString &outStr);
 
 	// Downloads a text file (object) from the Amazon S3 service directly into a string
-	// variable. The  charset specifies the character encoding, such as "utf-8", of the
+	// variable. The charset specifies the character encoding, such as "utf-8", of the
 	// remote text object.
-	const char *s3_DownloadString(const char *bucketName, const char *objectName, const char *charset);
+	const char *s3_DownloadString(const char *bucketPath, const char *objectName, const char *charset);
 	// Downloads a text file (object) from the Amazon S3 service directly into a string
-	// variable. The  charset specifies the character encoding, such as "utf-8", of the
+	// variable. The charset specifies the character encoding, such as "utf-8", of the
 	// remote text object.
-	CkTask *S3_DownloadStringAsync(const char *bucketName, const char *objectName, const char *charset);
+	CkTask *S3_DownloadStringAsync(const char *bucketPath, const char *objectName, const char *charset);
 
 
 	// Determines if a remote object (file) exists. Returns 1 if the file exists, 0 if
 	// it does not exist, -1 if there was a failure in checking, or 2 if using in
 	// asynchronous mode to indicate that the background task was successfully started.
-	int S3_FileExists(const char *bucketName, const char *objectName);
+	int S3_FileExists(const char *bucketPath, const char *objectName);
 
 	// Determines if a remote object (file) exists. Returns 1 if the file exists, 0 if
 	// it does not exist, -1 if there was a failure in checking, or 2 if using in
 	// asynchronous mode to indicate that the background task was successfully started.
-	CkTask *S3_FileExistsAsync(const char *bucketName, const char *objectName);
+	CkTask *S3_FileExistsAsync(const char *bucketPath, const char *objectName);
 
 
-	// Generates a temporary pre-signed URL for Amazon S3. Requires that the
-	// AwsSecretKey and AwsAccessKey be set to valid values prior to calling this
+	// Generates a temporary pre-signed URL for Amazon S3 using AWS Signature V2. (Call
+	// S3_GenerateUrlV4 to generate AWS Signature V4 pre-signed URLs.) Requires that
+	// the AwsSecretKey and AwsAccessKey be set to valid values prior to calling this
 	// method.
+	// 
+	// Note: This method can only generate URLs that are for HTTP GET requests (i.e.
+	// URLs you can paste into a browser address bar). This method does not generate
+	// URLs for POST, PUT, DELETE, etc.
+	// 
 	bool S3_GenerateUrl(const char *bucket, const char *path, CkDateTime &expire, CkString &outStr);
 
-	// Generates a temporary pre-signed URL for Amazon S3. Requires that the
-	// AwsSecretKey and AwsAccessKey be set to valid values prior to calling this
+	// Generates a temporary pre-signed URL for Amazon S3 using AWS Signature V2. (Call
+	// S3_GenerateUrlV4 to generate AWS Signature V4 pre-signed URLs.) Requires that
+	// the AwsSecretKey and AwsAccessKey be set to valid values prior to calling this
 	// method.
+	// 
+	// Note: This method can only generate URLs that are for HTTP GET requests (i.e.
+	// URLs you can paste into a browser address bar). This method does not generate
+	// URLs for POST, PUT, DELETE, etc.
+	// 
 	const char *s3_GenerateUrl(const char *bucket, const char *path, CkDateTime &expire);
 
-	// Retrieves the XML listing of the objects contained within an Amazon S3 bucket.
-	// (This is like a directory listing, but in XML format.)
+	// Generates a temporary pre-signed URL for Amazon S3 using AWS Signature V4. (Call
+	// S3_GenerateUrl to generate AWS Signature V2 pre-signed URLs.) Requires that the
+	// AwsSecretKey, AwsAccessKey, and AwsRegion properties be set to valid values
+	// prior to calling this method. Also requires the AwsEndpoint property to be set
+	// if the endpoint is different than "s3.amazonaws.com".
 	// 
-	// The bucketPath name may be qualified with URL-encoded params. For example, to list the
-	// objects in a bucket named "ChilkatABC" with max-keys = 2000 and marker = "xyz",
-	// call S3_ListBucketObject passing the following string for bucketPath:
-	// "ChilkatABC?max-keys=2000&marker=xyz"
+	// The URL that is generated has this format:
+	// https:////?X-Amz-Algorithm=AWS4-HMAC-SHA256
+	// &X-Amz-Credential=////aws4_request
+	// &X-Amz-Date=&X-Amz-Expires=&X-Amz-SignedHeaders=host
+	// &X-Amz-Signature=
 	// 
-	// The S3_ListBucketObjects method recognized all params listed in the AWS
-	// documentation for listing objects in a bucket: delimiter, marker, max-keys, and
-	// prefix. See Amazon's AWS online documentation for more information.
+	// The awsService is a string naming the AWS service, such as "s3".   If useHttps is true, then the URL begins with "https://", otherwise it begins with "http://".
 	// 
-	bool S3_ListBucketObjects(const char *bucketName, CkString &outStr);
+	// Note: This method can only generate URLs that are for HTTP GET requests (i.e. URLs you can paste into a browser address bar).  This method does not generate URLs for POST, PUT, DELETE, etc.
+	// 
+	bool S3_GenerateUrlV4(bool useHttps, const char *bucketName, const char *path, int numSecondsValid, const char *awsService, CkString &outStr);
+
+	// Generates a temporary pre-signed URL for Amazon S3 using AWS Signature V4. (Call
+	// S3_GenerateUrl to generate AWS Signature V2 pre-signed URLs.) Requires that the
+	// AwsSecretKey, AwsAccessKey, and AwsRegion properties be set to valid values
+	// prior to calling this method. Also requires the AwsEndpoint property to be set
+	// if the endpoint is different than "s3.amazonaws.com".
+	// 
+	// The URL that is generated has this format:
+	// https:////?X-Amz-Algorithm=AWS4-HMAC-SHA256
+	// &X-Amz-Credential=////aws4_request
+	// &X-Amz-Date=&X-Amz-Expires=&X-Amz-SignedHeaders=host
+	// &X-Amz-Signature=
+	// 
+	// The awsService is a string naming the AWS service, such as "s3".   If useHttps is true, then the URL begins with "https://", otherwise it begins with "http://".
+	// 
+	// Note: This method can only generate URLs that are for HTTP GET requests (i.e. URLs you can paste into a browser address bar).  This method does not generate URLs for POST, PUT, DELETE, etc.
+	// 
+	const char *s3_GenerateUrlV4(bool useHttps, const char *bucketName, const char *path, int numSecondsValid, const char *awsService);
 
 	// Retrieves the XML listing of the objects contained within an Amazon S3 bucket.
 	// (This is like a directory listing, but in XML format.)
@@ -2893,7 +3143,8 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// documentation for listing objects in a bucket: delimiter, marker, max-keys, and
 	// prefix. See Amazon's AWS online documentation for more information.
 	// 
-	const char *s3_ListBucketObjects(const char *bucketName);
+	bool S3_ListBucketObjects(const char *bucketPath, CkString &outStr);
+
 	// Retrieves the XML listing of the objects contained within an Amazon S3 bucket.
 	// (This is like a directory listing, but in XML format.)
 	// 
@@ -2906,7 +3157,20 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// documentation for listing objects in a bucket: delimiter, marker, max-keys, and
 	// prefix. See Amazon's AWS online documentation for more information.
 	// 
-	CkTask *S3_ListBucketObjectsAsync(const char *bucketName);
+	const char *s3_ListBucketObjects(const char *bucketPath);
+	// Retrieves the XML listing of the objects contained within an Amazon S3 bucket.
+	// (This is like a directory listing, but in XML format.)
+	// 
+	// The bucketPath name may be qualified with URL-encoded params. For example, to list the
+	// objects in a bucket named "ChilkatABC" with max-keys = 2000 and marker = "xyz",
+	// call S3_ListBucketObject passing the following string for bucketPath:
+	// "ChilkatABC?max-keys=2000&marker=xyz"
+	// 
+	// The S3_ListBucketObjects method recognized all params listed in the AWS
+	// documentation for listing objects in a bucket: delimiter, marker, max-keys, and
+	// prefix. See Amazon's AWS online documentation for more information.
+	// 
+	CkTask *S3_ListBucketObjectsAsync(const char *bucketPath);
 
 
 	// Retrieves the XML listing of the buckets for an Amazon S3 account.
@@ -2925,7 +3189,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// adding each header with a call to SetRequestHeader. This applies to all S3
 	// methods, even if not explicitly stated.
 	// 
-	bool S3_UploadBytes(CkByteData &objectContent, const char *contentType, const char *bucketName, const char *objectName);
+	bool S3_UploadBytes(CkByteData &contentBytes, const char *contentType, const char *bucketPath, const char *objectName);
 
 	// The same as S3_UploadFile, except the contents of the file come from contentBytes
 	// instead of a local file.
@@ -2934,7 +3198,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// adding each header with a call to SetRequestHeader. This applies to all S3
 	// methods, even if not explicitly stated.
 	// 
-	CkTask *S3_UploadBytesAsync(CkByteData &objectContent, const char *contentType, const char *bucketName, const char *objectName);
+	CkTask *S3_UploadBytesAsync(CkByteData &contentBytes, const char *contentType, const char *bucketPath, const char *objectName);
 
 
 	// Uploads a file to the Amazon S3 service.
@@ -2943,7 +3207,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// adding each header with a call to SetRequestHeader. This applies to all S3
 	// methods, even if not explicitly stated.
 	// 
-	bool S3_UploadFile(const char *localFilePath, const char *contentType, const char *bucketName, const char *ObjectName);
+	bool S3_UploadFile(const char *localFilePath, const char *contentType, const char *bucketPath, const char *objectName);
 
 	// Uploads a file to the Amazon S3 service.
 	// 
@@ -2951,30 +3215,30 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// adding each header with a call to SetRequestHeader. This applies to all S3
 	// methods, even if not explicitly stated.
 	// 
-	CkTask *S3_UploadFileAsync(const char *localFilePath, const char *contentType, const char *bucketName, const char *ObjectName);
+	CkTask *S3_UploadFileAsync(const char *localFilePath, const char *contentType, const char *bucketPath, const char *objectName);
 
 
 	// Uploads an in-memory string to the Amazon S3 service. This is the same as
 	// UploadFile, except that the file contents are from an in-memory string instead
 	// of a local file. Internal to this method, the objectContent is converted to the character
-	// encoding specified by  charset prior to uploading.
+	// encoding specified by charset prior to uploading.
 	// 
 	// Note: x-amz-* headers, including metadata, can be added to any S3 request by
 	// adding each header with a call to SetRequestHeader. This applies to all S3
 	// methods, even if not explicitly stated.
 	// 
-	bool S3_UploadString(const char *objectContent, const char *charset, const char *contentType, const char *bucketName, const char *ObjectName);
+	bool S3_UploadString(const char *objectContent, const char *charset, const char *contentType, const char *bucketPath, const char *objectName);
 
 	// Uploads an in-memory string to the Amazon S3 service. This is the same as
 	// UploadFile, except that the file contents are from an in-memory string instead
 	// of a local file. Internal to this method, the objectContent is converted to the character
-	// encoding specified by  charset prior to uploading.
+	// encoding specified by charset prior to uploading.
 	// 
 	// Note: x-amz-* headers, including metadata, can be added to any S3 request by
 	// adding each header with a call to SetRequestHeader. This applies to all S3
 	// methods, even if not explicitly stated.
 	// 
-	CkTask *S3_UploadStringAsync(const char *objectContent, const char *charset, const char *contentType, const char *bucketName, const char *ObjectName);
+	CkTask *S3_UploadStringAsync(const char *objectContent, const char *charset, const char *contentType, const char *bucketPath, const char *objectName);
 
 
 	// Restores cookies for a particular domain. It is assumed that the cookie XML was
@@ -3005,7 +3269,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// specified. (GET requests always have a 0 length body, and therefore never need a
 	// Content-Length header field.)
 	// 
-	void SetRequestHeader(const char *name, const char *value);
+	void SetRequestHeader(const char *headerFieldName, const char *headerFieldValue);
 
 
 	// Allows for a client-side certificate to be used for an SSL connection.
@@ -3014,12 +3278,18 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 
 	// Allows for a client-side certificate + private key to be used for the SSL / TLS
 	// connection (often called 2-way SSL).
-	bool SetSslClientCertPem(const char *pemDataOrFilename, const char *pemPassword);
+	bool SetSslClientCertPem(const char *pemDataOrPath, const char *pemPassword);
 
 
 	// Allows for a client-side certificate + private key to be used for the SSL / TLS
 	// connection (often called 2-way SSL).
-	bool SetSslClientCertPfx(const char *pfxFilename, const char *pfxPassword);
+	bool SetSslClientCertPfx(const char *pfxPath, const char *pfxPassword);
+
+
+	// Sets the value of a variable for substitutions in URLs passed to any method.
+	// Variables can appear in URLs in the following format: {$varName}. For example:
+	// https://graph.microsoft.com/v1.0/users/{$id}
+	bool SetUrlVar(const char *name, const char *value);
 
 
 	// Convenience method to force the calling process to sleep for a number of
@@ -3031,7 +3301,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// object. The HttpResponse object provides full access to the response including
 	// all headers and the response body. This method may be used to send POST
 	// requests, as well as GET, HEAD, file uploads, and XMLHTTP. To send via HTTPS
-	// (i.e. TLS), set the ARG3 property = true. Otherwise set it to false.
+	// (i.e. TLS), set the ssl property = true. Otherwise set it to false.
 	// The caller is responsible for deleting the object returned by this method.
 	CkHttpResponse *SynchronousRequest(const char *domain, int port, bool ssl, CkHttpRequest &req);
 
@@ -3039,7 +3309,7 @@ class CK_VISIBLE_PUBLIC CkHttp  : public CkClassWithCallbacks
 	// object. The HttpResponse object provides full access to the response including
 	// all headers and the response body. This method may be used to send POST
 	// requests, as well as GET, HEAD, file uploads, and XMLHTTP. To send via HTTPS
-	// (i.e. TLS), set the ARG3 property = true. Otherwise set it to false.
+	// (i.e. TLS), set the ssl property = true. Otherwise set it to false.
 	CkTask *SynchronousRequestAsync(const char *domain, int port, bool ssl, CkHttpRequest &req);
 
 

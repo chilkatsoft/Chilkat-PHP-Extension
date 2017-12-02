@@ -39,7 +39,6 @@
 #include "C_CkMhtW.h"
 #include "C_CkMimeW.h"
 #include "C_CkNtlmW.h"
-#include "C_CkOmaDrmW.h"
 #include "C_CkPrivateKeyW.h"
 #include "C_CkPublicKeyW.h"
 #include "C_CkRsaW.h"

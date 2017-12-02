@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkJavaKeyStore_H
 #define _CkJavaKeyStore_H
@@ -17,6 +17,8 @@ class CkCert;
 class CkCertChain;
 class CkPrivateKey;
 class CkByteData;
+class CkJsonObject;
+class CkStringBuilder;
 class CkPem;
 class CkXmlCertVault;
 
@@ -57,6 +59,10 @@ class CK_VISIBLE_PUBLIC CkJavaKeyStore  : public CkMultiByteBase
 	// The number of private keys contained within the keystore. Each private key has
 	// an alias and certificate chain associated with it.
 	int get_NumPrivateKeys(void);
+
+	// The number of secret keys (such as AES keys) contained within the keystore. Each
+	// secret key can have an alias associated with it.
+	int get_NumSecretKeys(void);
 
 	// The number of trusted certificates contained within the keystore. Each
 	// certificate has an alias (identifying string) associated with it.
@@ -139,6 +145,21 @@ class CK_VISIBLE_PUBLIC CkJavaKeyStore  : public CkMultiByteBase
 	bool AddPrivateKey(CkCert &cert, const char *alias, const char *password);
 
 
+	// Adds a secret (symmetric) key entry to the JKS. This adds a symmetric key, which
+	// is simply a number of binary bytes (such as 16 bytes for a 128-bit AES key). The
+	// encodedKeyBytes provides the actual bytes of the symmetric key, in an encoded string form.
+	// The encoding indicates the encoding of encodedKeyBytes (such as "base64", "hex", "base64url",
+	// etc.) The algorithm describes the symmetric algorithm, such as "AES". The alias is the
+	// password used to seal (encrypt) the key bytes.
+	// 
+	// Note: The algorithm describes the usage of the encodedKeyBytes. For example, if encodedKeyBytes contains
+	// the 16 bytes of a 128-bit AES key, then algorithm should be set to "AES". The actual
+	// encryption algorithm used to seal the key within the JCEKS is
+	// PBEWithMD5AndTripleDES, which is part of the JCEKS specification.
+	// 
+	bool AddSecretKey(const char *encodedKeyBytes, const char *encoding, const char *algorithm, const char *alias, const char *password);
+
+
 	// Adds a trusted certificate to the Java keystore object.
 	bool AddTrustedCert(CkCert &cert, const char *alias);
 
@@ -187,6 +208,33 @@ class CK_VISIBLE_PUBLIC CkJavaKeyStore  : public CkMultiByteBase
 	const char *privateKeyAlias(int index);
 
 
+	// Returns the Nth secret key contained within the keystore. The 1st secret key is
+	// at index 0. The bytes of the secret key are returned in the specified encoding.
+	// (such as hex, base64, base64url, etc.)
+	bool GetSecretKey(const char *password, int index, const char *encoding, CkString &outStr);
+
+	// Returns the Nth secret key contained within the keystore. The 1st secret key is
+	// at index 0. The bytes of the secret key are returned in the specified encoding.
+	// (such as hex, base64, base64url, etc.)
+	const char *getSecretKey(const char *password, int index, const char *encoding);
+	// Returns the Nth secret key contained within the keystore. The 1st secret key is
+	// at index 0. The bytes of the secret key are returned in the specified encoding.
+	// (such as hex, base64, base64url, etc.)
+	const char *secretKey(const char *password, int index, const char *encoding);
+
+
+	// Returns the Nth secret key alias contained within the keystore. The 1st secret
+	// key is at index 0.
+	bool GetSecretKeyAlias(int index, CkString &outStr);
+
+	// Returns the Nth secret key alias contained within the keystore. The 1st secret
+	// key is at index 0.
+	const char *getSecretKeyAlias(int index);
+	// Returns the Nth secret key alias contained within the keystore. The 1st secret
+	// key is at index 0.
+	const char *secretKeyAlias(int index);
+
+
 	// Returns the Nth trusted certificate contained within the keystore. The 1st
 	// certificate is at index 0.
 	// The caller is responsible for deleting the object returned by this method.
@@ -213,49 +261,55 @@ class CK_VISIBLE_PUBLIC CkJavaKeyStore  : public CkMultiByteBase
 	bool LoadEncoded(const char *password, const char *jksEncData, const char *encoding);
 
 
-	// Unlocks the component allowing for the full functionality to be used. If a
-	// permanent (purchased) unlock code is passed, there is no expiration. Any other
-	// string automatically begins a fully-functional 30-day trial the first time
-	// UnlockComponent is called.
+	// Loads a Java keystore from a file.
 	bool LoadFile(const char *password, const char *path);
 
 
+	// Loads the Java KeyStore from a JSON Web Key (JWK) Set.
+	bool LoadJwkSet(const char *password, CkJsonObject &jwkSet);
+
+
 	// Removes the Nth trusted certificate or private key entry from the keystore. The
-	// ARG1 indicates whether it is a trusted root or private key entry (1 = trusted
+	// entryType indicates whether it is a trusted root or private key entry (1 = trusted
 	// certificate entry, 2 = private key entry). The 1st entry is at index 0.
 	bool RemoveEntry(int entryType, int index);
 
 
-	// Sets the alias name for a trusted certificate or private key entry. The ARG1
+	// Sets the alias name for a trusted certificate or private key entry. The entryType
 	// indicates whether it is a trusted root or private key entry (1 = trusted
 	// certificate entry, 2 = private key entry). The 1st entry is at index 0.
 	bool SetAlias(int entryType, int index, const char *alias);
 
 
-	// Writes the key store to in-memory bytes. The ARG1 is used for the keyed hash of
+	// Writes the key store to in-memory bytes. The password is used for the keyed hash of
 	// the entire JKS file. (Each private key within the file may use different
 	// passwords, and these are provided when the private key is added via the
 	// AddPrivateKey method.)
 	bool ToBinary(const char *password, CkByteData &outBytes);
 
 
-	// Writes the key store to an encoded string. The ARG2 can be any encoding such as
-	// "base64" or "hex". The ARG1 is used for the keyed hash of the entire JKS file.
+	// Writes the key store to an encoded string. The encoding can be any encoding such as
+	// "base64" or "hex". The password is used for the keyed hash of the entire JKS file.
 	// (Each private key within the file may use different passwords, and these are
 	// provided when the private key is added via the AddPrivateKey method.)
 	bool ToEncodedString(const char *password, const char *encoding, CkString &outStr);
 
-	// Writes the key store to an encoded string. The ARG2 can be any encoding such as
-	// "base64" or "hex". The ARG1 is used for the keyed hash of the entire JKS file.
+	// Writes the key store to an encoded string. The encoding can be any encoding such as
+	// "base64" or "hex". The password is used for the keyed hash of the entire JKS file.
 	// (Each private key within the file may use different passwords, and these are
 	// provided when the private key is added via the AddPrivateKey method.)
 	const char *toEncodedString(const char *password, const char *encoding);
 
-	// Writes the key store to a file. The ARG1 is used for the keyed hash of the
+	// Writes the key store to a file. The password is used for the keyed hash of the
 	// entire JKS file. (Each private key within the file may use different passwords,
 	// and these are provided when the private key is added via the AddPrivateKey
 	// method.)
 	bool ToFile(const char *password, const char *path);
+
+
+	// Returns the private keys in JSON JWK Set format. The JWK identifier (kid) will
+	// be set from the key alias in the store.
+	bool ToJwkSet(const char *password, CkStringBuilder &sbJwkSet);
 
 
 	// Returns the Java KeyStore as a Pem object.
@@ -269,8 +323,8 @@ class CK_VISIBLE_PUBLIC CkJavaKeyStore  : public CkMultiByteBase
 
 
 	// Unlocks the component allowing for the full functionality to be used. If a
-	// permanent (purchased) unlock code is passed, there is no expiration. Any other
-	// string automatically begins a fully-functional 30-day trial the first time
+	// purchased unlock code is passed, there is no expiration. Any other string
+	// automatically begins a fully-functional 30-day trial the first time
 	// UnlockComponent is called.
 	bool UnlockComponent(const char *unlockCode);
 

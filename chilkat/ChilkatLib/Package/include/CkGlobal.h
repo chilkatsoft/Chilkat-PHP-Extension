@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkGlobal_H
 #define _CkGlobal_H
@@ -147,6 +147,23 @@ class CK_VISIBLE_PUBLIC CkGlobal  : public CkMultiByteBase
 	// the maximum.
 	void put_MaxThreads(int newVal);
 
+	// If true, then use IPv6 over IPv4 when both are supported for a particular
+	// domain. The default value of this property is false, which will choose IPv4
+	// over IPv6.
+	// 
+	// Note: Setting this property has the effect of also setting the default value of
+	// the PreferIpv6 property for other classes.
+	// 
+	bool get_PreferIpv6(void);
+	// If true, then use IPv6 over IPv4 when both are supported for a particular
+	// domain. The default value of this property is false, which will choose IPv4
+	// over IPv6.
+	// 
+	// Note: Setting this property has the effect of also setting the default value of
+	// the PreferIpv6 property for other classes.
+	// 
+	void put_PreferIpv6(bool newVal);
+
 	// If set, indicates the path of a log file to be used by the thread pool thread
 	// and each of the pool worker threads for logging async activity.
 	void get_ThreadPoolLogPath(CkString &str);
@@ -157,6 +174,37 @@ class CK_VISIBLE_PUBLIC CkGlobal  : public CkMultiByteBase
 	// and each of the pool worker threads for logging async activity.
 	void put_ThreadPoolLogPath(const char *newVal);
 
+	// Indicates the unlocked status for the last call to UnlockBundle, or any
+	// UnlockComponent call. The possible values are:
+	//     Not unlocked. (Still in locked state.)
+	//     Unlocked with in fully-functional trial mode.
+	//     Unlocked using a valid purchased unlock code.
+	// 
+	// Note: If UnlockComponent or UnlockBundle is called with a purchased unlock code,
+	// the UnlockStatus is correctly set to the value 2. This value is intentionally
+	// sticky. If a subsequent and redundant call to UnlockComponent (or UnlockBundle)
+	// happens, it is effectively a "No-Op" because the library is already unlocked.
+	// The UnlockStatus will not change.
+	// 
+	// If however, if the 1st call resulted in UnlockStatus = 1, and THEN the unlock
+	// method is called again with a purchased unlock code, the UnlockStatus should
+	// change from 1 to 2.
+	// 
+	int get_UnlockStatus(void);
+
+	// This property should typically be left at the default value of false. If set
+	// to true, then Chilkat will use a constructed ASN.1 encoding for PCKS7 data.
+	// (This is an internal implementation option that normally does not matter, and
+	// should not matter. Some PKCS7 receiving systems might be picky, and this option
+	// can be used to satisfy this requirement.)
+	bool get_UsePkcsConstructedEncoding(void);
+	// This property should typically be left at the default value of false. If set
+	// to true, then Chilkat will use a constructed ASN.1 encoding for PCKS7 data.
+	// (This is an internal implementation option that normally does not matter, and
+	// should not matter. Some PKCS7 receiving systems might be picky, and this option
+	// can be used to satisfy this requirement.)
+	void put_UsePkcsConstructedEncoding(bool newVal);
+
 
 
 	// ----------------------
@@ -166,10 +214,24 @@ class CK_VISIBLE_PUBLIC CkGlobal  : public CkMultiByteBase
 	bool DnsClearCache(void);
 
 
+	// Called to stop and finalize all threads in the thread pool, and causes the
+	// thread pool thread to exit.
+	// 
+	// The following behaviors exist in v9.5.0.64 and later:
+	//     All remaining asynchronous tasks are automatically canceled.
+	//     Restores the thread pool to it's pristine state where no background threads
+	//     are running.
+	// 
+	// It is a good idea to call this method at the very end of a program, just before
+	// it exits. This is especially true for programs written in VBScript and VB6.
+	// 
+	bool FinalizeThreadPool(void);
+
+
 	// Unlocks the entire Chilkat API for all classes. This should be called once at
 	// the beginning of a program. Once unlocked, objects of any Chilkat class may be
 	// instantiated and used. To unlock in fully-functional 30-day trial mode, pass any
-	// string, such as "Hello", in ARG1. If a license is purchased, then replace the
+	// string, such as "Hello", in bundleUnlockCode. If a license is purchased, then replace the
 	// "Hello" with the purchased unlock code.
 	// 
 	// After calling UnlockComponent once, the instance of the CLASS_NAME object may be
@@ -177,19 +239,11 @@ class CK_VISIBLE_PUBLIC CkGlobal  : public CkMultiByteBase
 	// Multiple calls to UnlockComponent are harmless. If the Chilkat API is already
 	// unlocked, the duplicate calls to UnlockComponent are no-ops.
 	// 
-	// Note: The CLASS_NAME's UnlockComponent method should only be called with a
-	// Bundle unlock code. If an individual product license was purchased, the
-	// UnlockComponent method in the specifically licensed class should be called
-	// instead.
+	// Note: The CLASS_NAME's UnlockBundle method should only be called with a Bundle
+	// unlock code. If an individual product license was purchased, the UnlockComponent
+	// method in the specifically licensed class should be called instead.
 	// 
 	bool UnlockBundle(const char *bundleUnlockCode);
-
-
-	// Called to stop and finalize all threads in the thread pool. Once the thread pool
-	// is finalized, it may not be used again. This method would only be called at the
-	// end of a program prior to exiting. Most applications, even if using async
-	// functionality, should not need to explicitly finalize the thread pool.
-	bool FinalizeThreadPool(void);
 
 
 

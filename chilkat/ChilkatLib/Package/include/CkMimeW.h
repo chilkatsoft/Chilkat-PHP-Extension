@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkMimeW_H
 #define _CkMimeW_H
@@ -16,7 +16,10 @@ class CkCertW;
 class CkPrivateKeyW;
 class CkByteData;
 class CkStringArrayW;
+class CkBinDataW;
+class CkStringBuilderW;
 class CkCertChainW;
+class CkJsonObjectW;
 class CkCspW;
 class CkXmlCertVaultW;
 
@@ -273,17 +276,36 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// set after UnwrapSecurity is called.
 	int get_NumSignerCerts(void);
 
+	// Selects the hash algorithm for use within OAEP padding when encrypting MIME
+	// using RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384", "sha512",
+	void get_OaepHash(CkString &str);
+	// Selects the hash algorithm for use within OAEP padding when encrypting MIME
+	// using RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384", "sha512",
+	const wchar_t *oaepHash(void);
+	// Selects the hash algorithm for use within OAEP padding when encrypting MIME
+	// using RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384", "sha512",
+	void put_OaepHash(const wchar_t *newVal);
+
+	// Selects the RSA encryption scheme when encrypting MIME. The default value is
+	// false, which selects RSAES_PKCS1-V1_5. If set to true, then RSAES_OAEP is
+	// used.
+	bool get_OaepPadding(void);
+	// Selects the RSA encryption scheme when encrypting MIME. The default value is
+	// false, which selects RSAES_PKCS1-V1_5. If set to true, then RSAES_OAEP is
+	// used.
+	void put_OaepPadding(bool newVal);
+
 	// When the MIME is encrypted (using PKCS7 public-key encryption), this selects the
 	// underlying symmetric encryption algorithm. Possible values are: "aes", "des",
-	// "3des", and "rc2".
+	// "3des", and "rc2". The default value is "aes".
 	void get_Pkcs7CryptAlg(CkString &str);
 	// When the MIME is encrypted (using PKCS7 public-key encryption), this selects the
 	// underlying symmetric encryption algorithm. Possible values are: "aes", "des",
-	// "3des", and "rc2".
+	// "3des", and "rc2". The default value is "aes".
 	const wchar_t *pkcs7CryptAlg(void);
 	// When the MIME is encrypted (using PKCS7 public-key encryption), this selects the
 	// underlying symmetric encryption algorithm. Possible values are: "aes", "des",
-	// "3des", and "rc2".
+	// "3des", and "rc2". The default value is "aes".
 	void put_Pkcs7CryptAlg(const wchar_t *newVal);
 
 	// When the MIME is encrypted (using PKCS7 public-key encryption), this selects the
@@ -317,6 +339,31 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	//   boundary="------------ms000908010507020408060303"
 	// then the value of the Protocol property is "application/x-pkcs7-signature".
 	void put_Protocol(const wchar_t *newVal);
+
+	// Selects the signature algorithm to be used when creating signed (PKCS7) MIME.
+	// The default value is "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply
+	// "pss") to use the RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when signing with an RSA private key. It does
+	// not apply for ECC or DSA private keys.
+	// 
+	void get_SigningAlg(CkString &str);
+	// Selects the signature algorithm to be used when creating signed (PKCS7) MIME.
+	// The default value is "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply
+	// "pss") to use the RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when signing with an RSA private key. It does
+	// not apply for ECC or DSA private keys.
+	// 
+	const wchar_t *signingAlg(void);
+	// Selects the signature algorithm to be used when creating signed (PKCS7) MIME.
+	// The default value is "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply
+	// "pss") to use the RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when signing with an RSA private key. It does
+	// not apply for ECC or DSA private keys.
+	// 
+	void put_SigningAlg(const wchar_t *newVal);
 
 	// Selects the underlying hash algorithm used when creating signed (PKCS7) MIME.
 	// Possible values are "sha1", "sha256", "sha384", "sha512", "md5", and "md2".
@@ -445,7 +492,7 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// 
 	// The pfxFileData contains the bytes of a PFX file (also known as PKCS12 or .p12).
 	// 
-	bool AddPfxSourceData(CkByteData &pfxData, const wchar_t *password);
+	bool AddPfxSourceData(CkByteData &pfxFileData, const wchar_t *pfxPassword);
 
 	// Adds a PFX file to the object's internal list of sources to be searched for
 	// certificates and private keys when decrypting. Multiple PFX files can be added
@@ -453,7 +500,7 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// registry-based certificate stores are also automatically searched, so it is
 	// commonly not required to explicitly add PFX sources.)
 	// 
-	// The ARG1 contains the bytes of a PFX file (also known as PKCS12 or .p12).
+	// The pfxFilePath contains the bytes of a PFX file (also known as PKCS12 or .p12).
 	// 
 	bool AddPfxSourceFile(const wchar_t *pfxFilePath, const wchar_t *password);
 
@@ -688,7 +735,7 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// Decrypts MIME using a specific PFX file (also known as PKCS12) as the source for
 	// any required certificates and private keys. (Note: .pfx and .p12 files are both
 	// PKCS12 format.)
-	bool DecryptUsingPfxFile(const wchar_t *pfxFilePath, const wchar_t *password);
+	bool DecryptUsingPfxFile(const wchar_t *pfxFilePath, const wchar_t *pfxPassword);
 
 	// Encrypts the MIME to create PKCS7 encrypted MIME. A digital certificate (which
 	// always contains a public-key) is used to encrypt.
@@ -711,6 +758,9 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// self-issued, then the certificate returned is a copy of the caller certificate.
 	// The caller is responsible for deleting the object returned by this method.
 	CkCertW *FindIssuer(CkCertW &cert);
+
+	// Returns the body of the MIME message in a BinData object.
+	bool GetBodyBd(CkBinDataW &binDat);
 
 	// Returns the body of the MIME message as a block of binary data. The body is
 	// automatically converted from its encoding type, such as base64 or
@@ -763,11 +813,11 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	const wchar_t *entireHead(void);
 
 	// Returns the value of a MIME header field. fieldName is case-insensitive.
-	bool GetHeaderField(const wchar_t *name, CkString &outStr);
+	bool GetHeaderField(const wchar_t *fieldName, CkString &outStr);
 	// Returns the value of a MIME header field. fieldName is case-insensitive.
-	const wchar_t *getHeaderField(const wchar_t *name);
+	const wchar_t *getHeaderField(const wchar_t *fieldName);
 	// Returns the value of a MIME header field. fieldName is case-insensitive.
-	const wchar_t *headerField(const wchar_t *name);
+	const wchar_t *headerField(const wchar_t *fieldName);
 
 	// Parses a MIME header field and returns the value of an attribute. MIME header
 	// fields w/ attributes are formatted like this:
@@ -827,9 +877,15 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// Returns a string containing the complete MIME message, including all sub-parts.
 	const wchar_t *mime(void);
 
+	// Appends the MIME to a BinData object.
+	bool GetMimeBd(CkBinDataW &bindat);
+
 	// Returns a byte array containing the complete MIME message, including all
 	// sub-parts.
 	bool GetMimeBytes(CkByteData &outBytes);
+
+	// Appends the MIME to a StringBuilder object.
+	bool GetMimeSb(CkStringBuilderW &sb);
 
 	// Returns the Nth sub-part of the MIME message. Indexing begins at 0.
 	// The caller is responsible for deleting the object returned by this method.
@@ -860,6 +916,16 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// message. Indexing begins at 0.
 	// The caller is responsible for deleting the object returned by this method.
 	CkCertChainW *GetSignerCertChain(int index);
+
+	// Returns a string summarizing the MIME structure. The output format is specified
+	// by fmt and can be "text" or "xml".
+	bool GetStructure(const wchar_t *fmt, CkString &outStr);
+	// Returns a string summarizing the MIME structure. The output format is specified
+	// by fmt and can be "text" or "xml".
+	const wchar_t *getStructure(const wchar_t *fmt);
+	// Returns a string summarizing the MIME structure. The output format is specified
+	// by fmt and can be "text" or "xml".
+	const wchar_t *structure(const wchar_t *fmt);
 
 	// Converts the MIME (or S/MIME) message to XML and returns the XML as a string.
 	bool GetXml(CkString &outStr);
@@ -936,9 +1002,22 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// Return true if the MIME message body is XML, otherwise returns false.
 	bool IsXml(void);
 
+	// Provides information about what transpired in the last method called on this
+	// object instance. For many methods, there is no information. However, for some
+	// methods, details about what occurred can be obtained by getting the LastJsonData
+	// right after the method call returns. For example, after calling UnwrapSecurity,
+	// the LastJsonData will return JSON with details about the algorithms used for
+	// signature verification and decryption.
+	// The caller is responsible for deleting the object returned by this method.
+	CkJsonObjectW *LastJsonData(void);
+
 	// Discards the current contents of the MIME object and loads a new MIME message
 	// from a string.
 	bool LoadMime(const wchar_t *mimeMsg);
+
+	// Discards the current contents of the MIME object and loads a new MIME message
+	// from a BinData object.
+	bool LoadMimeBd(CkBinDataW &bindat);
 
 	// Loads a MIME document from an in-memory byte array.
 	bool LoadMimeBytes(CkByteData &binData);
@@ -946,6 +1025,10 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// Discards the current contents of the MIME object and loads a new MIME message
 	// from a file.
 	bool LoadMimeFile(const wchar_t *fileName);
+
+	// Discards the current contents of the MIME object and loads a new MIME message
+	// from a StringBuilder.
+	bool LoadMimeSb(CkStringBuilderW &sb);
 
 	// Converts XML to MIME and replaces the MIME object's contents with the converted
 	// XML.
@@ -972,10 +1055,10 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// initializes the MIME object to be an empty mulipart/related message.
 	bool NewMultipartRelated(void);
 
-	// Removes a header field from the MIME header. If  bAllOccurances is true, then all
-	// occurances of the header field are removed. Otherwise, only the 1st occurance is
-	// removed.
-	void RemoveHeaderField(const wchar_t *name, bool bAllOccurances);
+	// Removes a header field from the MIME header. If bAllOccurrences is true, then all
+	// occurrences of the header field are removed. Otherwise, only the 1st occurrence
+	// is removed.
+	void RemoveHeaderField(const wchar_t *fieldName, bool bAllOccurrences);
 
 	// Removes the Nth subpart from the MIME message.
 	bool RemovePart(int index);
@@ -1077,7 +1160,7 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 #endif
 
 	// Adds or replaces a MIME message header field. If the field already exists, it is
-	// automatically replaced. Otherwise it is added. Pass zero-length  value to remove
+	// automatically replaced. Otherwise it is added. Pass zero-length value to remove
 	// the header field.
 	bool SetHeaderField(const wchar_t *name, const wchar_t *value);
 
@@ -1145,16 +1228,6 @@ class CK_VISIBLE_PUBLIC CkMimeW  : public CkWideCharBase
 	// if it was correctly pre-installed on the computer.
 	// 
 	bool Verify(void);
-
-	// Returns a string summarizing the MIME structure. The output format is specified
-	// by ARG1 and can be "text" or "xml".
-	bool GetStructure(const wchar_t *fmt, CkString &outStr);
-	// Returns a string summarizing the MIME structure. The output format is specified
-	// by ARG1 and can be "text" or "xml".
-	const wchar_t *getStructure(const wchar_t *fmt);
-	// Returns a string summarizing the MIME structure. The output format is specified
-	// by ARG1 and can be "text" or "xml".
-	const wchar_t *structure(const wchar_t *fmt);
 
 
 

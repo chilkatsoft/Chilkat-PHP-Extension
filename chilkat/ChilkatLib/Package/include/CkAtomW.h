@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkAtomW_H
 #define _CkAtomW_H
@@ -59,6 +59,15 @@ class CK_VISIBLE_PUBLIC CkAtomW  : public CkClassWithCallbacksW
 	// ----------------------
 	// Properties
 	// ----------------------
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	bool get_AbortCurrent(void);
+
 	// Number of entries in the Atom document.
 	int get_NumEntries(void);
 
@@ -78,7 +87,7 @@ class CK_VISIBLE_PUBLIC CkAtomW  : public CkClassWithCallbacksW
 	int AddElementDate(const wchar_t *tag, SYSTEMTIME &dateTime);
 
 	// Adds a new date-formatted element to the Atom document. The tag is a string
-	// such as "created", "modified", "issued", etc. The  dateTimeStr should be an RFC822
+	// such as "created", "modified", "issued", etc. The dateTimeStr should be an RFC822
 	// formatted date/time string such as "Tue, 25 Sep 2012 12:25:32 -0500". Returns
 	// the index of the element added, or -1 for failure.
 	int AddElementDateStr(const wchar_t *tag, const wchar_t *dateTimeStr);
@@ -111,7 +120,7 @@ class CK_VISIBLE_PUBLIC CkAtomW  : public CkClassWithCallbacksW
 	// NULL value may be passed.
 	void AddPerson(const wchar_t *tag, const wchar_t *name, const wchar_t *uri, const wchar_t *email);
 
-	// Removes the Nth occurance of a given element from the Atom document. Indexing
+	// Removes the Nth occurrence of a given element from the Atom document. Indexing
 	// begins at 0. For example, to remove the 2nd category, set tag = "category" and
 	// index = 1.
 	void DeleteElement(const wchar_t *tag, int index);
@@ -241,7 +250,7 @@ class CK_VISIBLE_PUBLIC CkAtomW  : public CkClassWithCallbacksW
 	// Replaces the content of a date-formatted element.
 	void UpdateElementDate(const wchar_t *tag, int index, SYSTEMTIME &dateTime);
 
-	// Replaces the content of a date-formatted element. The  index should be an RFC822
+	// Replaces the content of a date-formatted element. The index should be an RFC822
 	// formatted date/time string.
 	void UpdateElementDateStr(const wchar_t *tag, int index, const wchar_t *dateTimeStr);
 

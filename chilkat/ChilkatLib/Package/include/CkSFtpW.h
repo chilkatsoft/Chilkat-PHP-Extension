@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkSFtpW_H
 #define _CkSFtpW_H
@@ -16,6 +16,8 @@ class CkByteData;
 class CkTaskW;
 class CkSshKeyW;
 class CkSshW;
+class CkBinDataW;
+class CkStringBuilderW;
 class CkDateTimeW;
 class CkSFtpDirW;
 class CkSFtpProgressW;
@@ -63,6 +65,23 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// ----------------------
 	// Properties
 	// ----------------------
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	bool get_AbortCurrent(void);
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	void put_AbortCurrent(bool newVal);
+
 	// Contains the bytes downloaded from a remote file via the AccumulateBytes method
 	// call. Each call to AccumulateBytes appends to this buffer. To clear this buffer,
 	// call the ClearAccumulateBuffer method.
@@ -563,58 +582,6 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// filename -- it is a string property that contains the session log data.
 	const wchar_t *sessionLog(void);
 
-	// Sets the receive buffer size socket option. Normally, this property should be
-	// left unchanged. The default value is 0, which indicates that the receive buffer
-	// size socket option should not be explicitly set (i.e. the system default value,
-	// which may vary from system to system, should be used).
-	// 
-	// This property can be changed if download performance seems slow. It is
-	// recommended to be a multiple of 4096. To see the current system's default
-	// receive buffer size, examine the LastErrorText property after calling any method
-	// that establishes a connection. It should be reported under the heading
-	// "SO_RCVBUF". To boost performance, try setting it equal to 2, 3, or 4 times the
-	// default value.
-	// 
-	int get_SoRcvBuf(void);
-	// Sets the receive buffer size socket option. Normally, this property should be
-	// left unchanged. The default value is 0, which indicates that the receive buffer
-	// size socket option should not be explicitly set (i.e. the system default value,
-	// which may vary from system to system, should be used).
-	// 
-	// This property can be changed if download performance seems slow. It is
-	// recommended to be a multiple of 4096. To see the current system's default
-	// receive buffer size, examine the LastErrorText property after calling any method
-	// that establishes a connection. It should be reported under the heading
-	// "SO_RCVBUF". To boost performance, try setting it equal to 2, 3, or 4 times the
-	// default value.
-	// 
-	void put_SoRcvBuf(int newVal);
-
-	// Sets the send buffer size socket option. Normally, this property should be left
-	// unchanged. The default value is 0, which indicates that the send buffer size
-	// socket option should not be explicitly set (i.e. the system default value, which
-	// may vary from system to system, should be used).
-	// 
-	// This property can be changed if upload performance seems slow. It is recommended
-	// to be a multiple of 4096. To see the current system's default send buffer size,
-	// examine the LastErrorText property after calling any method that establishes a
-	// connection. It should be reported under the heading "SO_SNDBUF". To boost
-	// performance, try setting it equal to 2, 3, or 4 times the default value.
-	// 
-	int get_SoSndBuf(void);
-	// Sets the send buffer size socket option. Normally, this property should be left
-	// unchanged. The default value is 0, which indicates that the send buffer size
-	// socket option should not be explicitly set (i.e. the system default value, which
-	// may vary from system to system, should be used).
-	// 
-	// This property can be changed if upload performance seems slow. It is recommended
-	// to be a multiple of 4096. To see the current system's default send buffer size,
-	// examine the LastErrorText property after calling any method that establishes a
-	// connection. It should be reported under the heading "SO_SNDBUF". To boost
-	// performance, try setting it equal to 2, 3, or 4 times the default value.
-	// 
-	void put_SoSndBuf(int newVal);
-
 	// The SOCKS4/SOCKS5 hostname or IPv4 address (in dotted decimal notation). This
 	// property is only used if the SocksVersion property is set to 4 or 5).
 	void get_SocksHostname(CkString &str);
@@ -669,6 +636,85 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// 
 	void put_SocksVersion(int newVal);
 
+	// Sets the receive buffer size socket option. Normally, this property should be
+	// left unchanged. The default value is 4194304.
+	// 
+	// This property can be increased if download performance seems slow. It is
+	// recommended to be a multiple of 4096.
+	// 
+	int get_SoRcvBuf(void);
+	// Sets the receive buffer size socket option. Normally, this property should be
+	// left unchanged. The default value is 4194304.
+	// 
+	// This property can be increased if download performance seems slow. It is
+	// recommended to be a multiple of 4096.
+	// 
+	void put_SoRcvBuf(int newVal);
+
+	// Sets the send buffer size socket option. Normally, this property should be left
+	// unchanged. The default value is 262144.
+	// 
+	// This property can be increased if upload performance seems slow. It is
+	// recommended to be a multiple of 4096. Testing with sizes such as 512K and 1MB is
+	// reasonable.
+	// 
+	int get_SoSndBuf(void);
+	// Sets the send buffer size socket option. Normally, this property should be left
+	// unchanged. The default value is 262144.
+	// 
+	// This property can be increased if upload performance seems slow. It is
+	// recommended to be a multiple of 4096. Testing with sizes such as 512K and 1MB is
+	// reasonable.
+	// 
+	void put_SoSndBuf(int newVal);
+
+	// A property that can contain a list of comma-separated keywords to control
+	// certain aspects of an upload or download synchronization (for the SyncTreeUpload
+	// and SyncTreeDownload methods). At this time there is only one possible
+	// directive, but others may be added in the future.
+	// 
+	// Set this property to "UploadIgnoreLocalOpenFailures" to skip local files that
+	// cannot be opened. A common reason for this would be if another process on the
+	// system has the file open for exclusive access.
+	// 
+	void get_SyncDirectives(CkString &str);
+	// A property that can contain a list of comma-separated keywords to control
+	// certain aspects of an upload or download synchronization (for the SyncTreeUpload
+	// and SyncTreeDownload methods). At this time there is only one possible
+	// directive, but others may be added in the future.
+	// 
+	// Set this property to "UploadIgnoreLocalOpenFailures" to skip local files that
+	// cannot be opened. A common reason for this would be if another process on the
+	// system has the file open for exclusive access.
+	// 
+	const wchar_t *syncDirectives(void);
+	// A property that can contain a list of comma-separated keywords to control
+	// certain aspects of an upload or download synchronization (for the SyncTreeUpload
+	// and SyncTreeDownload methods). At this time there is only one possible
+	// directive, but others may be added in the future.
+	// 
+	// Set this property to "UploadIgnoreLocalOpenFailures" to skip local files that
+	// cannot be opened. A common reason for this would be if another process on the
+	// system has the file open for exclusive access.
+	// 
+	void put_SyncDirectives(const wchar_t *newVal);
+
+	// The paths of the files uploaded or downloaded in the last call to SyncUploadTree
+	// or SyncDownloadTree. The paths are listed one per line. In both cases (for
+	// upload and download) each line contains the paths relative to the root synced
+	// directory.
+	void get_SyncedFiles(CkString &str);
+	// The paths of the files uploaded or downloaded in the last call to SyncUploadTree
+	// or SyncDownloadTree. The paths are listed one per line. In both cases (for
+	// upload and download) each line contains the paths relative to the root synced
+	// directory.
+	const wchar_t *syncedFiles(void);
+	// The paths of the files uploaded or downloaded in the last call to SyncUploadTree
+	// or SyncDownloadTree. The paths are listed one per line. In both cases (for
+	// upload and download) each line contains the paths relative to the root synced
+	// directory.
+	void put_SyncedFiles(const wchar_t *newVal);
+
 	// Can contain a wildcarded list of file patterns separated by semicolons. For
 	// example, "*.xml; *.txt; *.csv". If set, the SyncTreeUpload and SyncTreeDownload
 	// methods will only transfer files that match any one of these patterns. This
@@ -706,22 +752,6 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// property only applies to files. It does not apply to sub-directory names when
 	// recursively traversing a directory tree.
 	void put_SyncMustNotMatch(const wchar_t *newVal);
-
-	// The paths of the files uploaded or downloaded in the last call to SyncUploadTree
-	// or SyncDownloadTree. The paths are listed one per line. In both cases (for
-	// upload and download) each line contains the paths relative to the root synced
-	// directory.
-	void get_SyncedFiles(CkString &str);
-	// The paths of the files uploaded or downloaded in the last call to SyncUploadTree
-	// or SyncDownloadTree. The paths are listed one per line. In both cases (for
-	// upload and download) each line contains the paths relative to the root synced
-	// directory.
-	const wchar_t *syncedFiles(void);
-	// The paths of the files uploaded or downloaded in the last call to SyncUploadTree
-	// or SyncDownloadTree. The paths are listed one per line. In both cases (for
-	// upload and download) each line contains the paths relative to the root synced
-	// directory.
-	void put_SyncedFiles(const wchar_t *newVal);
 
 	// This property controls the use of the internal TCP_NODELAY socket option (which
 	// disables the Nagle algorithm). The default value of this property is false.
@@ -762,7 +792,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// Methods
 	// ----------------------
 	// Downloads bytes from an open file and appends them to the AccumulateBuffer. The
-	// handle is a file handle returned by the OpenFile method. The  maxBytes is the maximum
+	// handle is a file handle returned by the OpenFile method. The maxBytes is the maximum
 	// number of bytes to read. If the end-of-file is reached prior to reading the
 	// number of requested bytes, then fewer bytes may be returned.
 	// 
@@ -785,7 +815,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 
 	// Authenticates with the SSH server using public-key authentication. The
 	// corresponding public key must have been installed on the SSH server for the
-	// username. Authentication will succeed if the matching  privateKey is provided.
+	// username. Authentication will succeed if the matching privateKey is provided.
 	// 
 	// Important: When reporting problems, please send the full contents of the
 	// LastErrorText property to support@chilkatsoft.com.
@@ -797,7 +827,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *AuthenticatePkAsync(const wchar_t *username, CkSshKeyW &privateKey);
 
-	// Authenticates with the SSH server using a login and  password.
+	// Authenticates with the SSH server using a login and password.
 	// 
 	// An SFTP session always begins by first calling Connect to connect to the SSH
 	// server, then calling either AuthenticatePw or AuthenticatePk to login, and
@@ -840,7 +870,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	void ClearSessionLog(void);
 
 	// Closes a file on the SSH/SFTP server. handle is a file handle returned from a
-	// previous call to OpenFile.
+	// previous call to OpenFile or OpenDir.
 	bool CloseHandle(const wchar_t *handle);
 
 	// Creates an asynchronous task to call the CloseHandle method with the arguments
@@ -849,7 +879,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	CkTaskW *CloseHandleAsync(const wchar_t *handle);
 
 	// Connects to an SSH/SFTP server. The domainName may be a domain name or an IP address
-	// (example: 192.168.1.10). Both IPv4 and IPv6 addresses are supported. The  port is
+	// (example: 192.168.1.10). Both IPv4 and IPv6 addresses are supported. The port is
 	// typically 22, which is the standard port for SSH servers.
 	// 
 	// An SFTP session always begins by first calling Connect to connect to the SSH
@@ -867,18 +897,18 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// block the connection. If the connection fails, make sure to check all potential
 	// external causes of blockage.
 	// 
-	bool Connect(const wchar_t *hostname, int port);
+	bool Connect(const wchar_t *domainName, int port);
 
 	// Creates an asynchronous task to call the Connect method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *ConnectAsync(const wchar_t *hostname, int port);
+	CkTaskW *ConnectAsync(const wchar_t *domainName, int port);
 
-	// Connects to an SSH/SFTP server through an existing SSH connection. The ARG1 is
-	// an existing connected and authenticated SSH object. The connection to ARG2:ARG3
+	// Connects to an SSH/SFTP server through an existing SSH connection. The sshConn is
+	// an existing connected and authenticated SSH object. The connection to hostname:port
 	// is made through the existing SSH connection via port-forwarding. If successful,
 	// the connection is as follows: application => ServerSSH1 => ServerSSH2. (where
-	// ServerSSH1 is the ARG1 and ServerSSH2 is the SSH server at ARG2:ARG3) Once
+	// ServerSSH1 is the sshConn and ServerSSH2 is the SSH server at hostname:port) Once
 	// connected in this way, all communications are routed through ServerSSH1 to
 	// ServerSSH2. This includes authentication -- which means the application must
 	// still call one of the Authenticate* methods to authenticate with ServerSSH2.
@@ -924,12 +954,12 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// (3) Dates/times are sent in GMT. SFTP servers should convert GMT times to local
 	// time zones.
 	// 
-	bool CopyFileAttr(const wchar_t *localFilename, const wchar_t *remoteFilename, bool bIsHandle);
+	bool CopyFileAttr(const wchar_t *localFilename, const wchar_t *remoteFilename, bool isHandle);
 
 	// Creates an asynchronous task to call the CopyFileAttr method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *CopyFileAttrAsync(const wchar_t *localFilename, const wchar_t *remoteFilename, bool bIsHandle);
+	CkTaskW *CopyFileAttrAsync(const wchar_t *localFilename, const wchar_t *remoteFilename, bool isHandle);
 
 	// Creates a directory on the SFTP server.
 	bool CreateDir(const wchar_t *path);
@@ -941,6 +971,15 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 
 	// Disconnects from the SSH server.
 	void Disconnect(void);
+
+	// Downloads the contents of a remote file to a BinData object. (Appends to the
+	// BinData.)
+	bool DownloadBd(const wchar_t *remoteFilePath, CkBinDataW &binData);
+
+	// Creates an asynchronous task to call the DownloadBd method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *DownloadBdAsync(const wchar_t *remoteFilePath, CkBinDataW &binData);
 
 	// Downloads a file from the SSH server to the local filesystem. There are no
 	// limitations on file size and the data is streamed from SSH server to the local
@@ -964,239 +1003,277 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *DownloadFileByNameAsync(const wchar_t *remoteFilePath, const wchar_t *localFilePath);
 
+	// Downloads the contents of a remote file to a StringBuilder object. (Appends to
+	// the StringBuilder.)
+	bool DownloadSb(const wchar_t *remoteFilePath, const wchar_t *charset, CkStringBuilderW &sb);
+
+	// Creates an asynchronous task to call the DownloadSb method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *DownloadSbAsync(const wchar_t *remoteFilePath, const wchar_t *charset, CkStringBuilderW &sb);
+
 	// Returns true if the last read operation for a handle reached the end of file.
 	// Otherwise returns false. If an invalid handle is passed, a value of true is
 	// returned.
 	bool Eof(const wchar_t *handle);
 
+	// Returns a value to indicate whether the remote file exists or not. remotePath is the
+	// path of the remote file. If followLinks is true, then symbolic links will be followed
+	// on the server.
+	// 
+	// This method returns one of the following possible values:
+	//     -1: Unable to check. Examine the LastErrorText to determine the reason for
+	//     failure.
+	//     0: File does not exist.
+	//     1: The regular file exists.
+	//     2: It exists, but it is a directory.
+	//     3: It exists, but it is a symlink (only possible if followLinks is false)
+	//     4: It exists, but it is a special filesystem entry type.
+	//     5: It exists, but it is an unkown filesystem entry type.
+	//     6: It exists, but it is an socket filesystem entry type.
+	//     7: It exists, but it is an char device entry type.
+	//     8: It exists, but it is an block device entry type.
+	//     9: It exists, but it is an FIFO entry type.
+	// 
+	// Note: The values greater than zero correspond to the possible values as
+	// specified in the SFTP protocol specification. A given value may not make sense
+	// on all operating systems.
+	// 
+	int FileExists(const wchar_t *remotePath, bool followLinks);
+
+	// Creates an asynchronous task to call the FileExists method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *FileExistsAsync(const wchar_t *remotePath, bool followLinks);
+
 	// Returns the create date/time for a file. pathOrHandle may be a remote filepath or an
-	// open handle string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle must
-	// be set to true, otherwise it should be false. If  bFollowLinks is true, then
+	// open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must
+	// be set to true, otherwise it should be false. If bFollowLinks is true, then
 	// symbolic links will be followed on the server.
 	// 
 	// Note: Servers running the SFTP v3 protocol or lower do not have the ability to
 	// return a file's creation date/time.
 	// 
 	// The caller is responsible for deleting the object returned by this method.
-	CkDateTimeW *GetFileCreateDt(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkDateTimeW *GetFileCreateDt(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFileCreateDt method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFileCreateDtAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFileCreateDtAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns the create date/time for a file. pathOrHandle may be a remote filepath or an
-	// open handle string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle must
-	// be set to true, otherwise it should be false. If  bFollowLinks is true, then
+	// open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must
+	// be set to true, otherwise it should be false. If bFollowLinks is true, then
 	// symbolic links will be followed on the server.
 	// 
 	// Note: Servers running the SFTP v3 protocol or lower do not have the ability to
 	// return a file's creation date/time.
 	// 
-	bool GetFileCreateTime(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, SYSTEMTIME &outSysTime);
+	bool GetFileCreateTime(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, SYSTEMTIME &outSysTime);
 
 	// The same as GetFileCreateTime, except the date/time is returned as an RFC822
 	// formatted string.
-	bool GetFileCreateTimeStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
+	bool GetFileCreateTimeStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
 	// The same as GetFileCreateTime, except the date/time is returned as an RFC822
 	// formatted string.
-	const wchar_t *getFileCreateTimeStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *getFileCreateTimeStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 	// The same as GetFileCreateTime, except the date/time is returned as an RFC822
 	// formatted string.
-	const wchar_t *fileCreateTimeStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *fileCreateTimeStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFileCreateTimeStr method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFileCreateTimeStrAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFileCreateTimeStrAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns the group of a file. pathOrHandle may be a remote filepath or an open handle
-	// string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle must be set to
-	// true, otherwise it should be false. If  bFollowLinks is true, then symbolic links
+	// string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must be set to
+	// true, otherwise it should be false. If bFollowLinks is true, then symbolic links
 	// will be followed on the server.
 	// 
 	// Note: Servers running the SFTP v3 protocol or lower do not have the ability to
 	// return a file's group name. Instead, the decimal GID of the file is returned.
 	// 
-	bool GetFileGroup(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
+	bool GetFileGroup(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
 	// Returns the group of a file. pathOrHandle may be a remote filepath or an open handle
-	// string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle must be set to
-	// true, otherwise it should be false. If  bFollowLinks is true, then symbolic links
+	// string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must be set to
+	// true, otherwise it should be false. If bFollowLinks is true, then symbolic links
 	// will be followed on the server.
 	// 
 	// Note: Servers running the SFTP v3 protocol or lower do not have the ability to
 	// return a file's group name. Instead, the decimal GID of the file is returned.
 	// 
-	const wchar_t *getFileGroup(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *getFileGroup(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 	// Returns the group of a file. pathOrHandle may be a remote filepath or an open handle
-	// string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle must be set to
-	// true, otherwise it should be false. If  bFollowLinks is true, then symbolic links
+	// string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must be set to
+	// true, otherwise it should be false. If bFollowLinks is true, then symbolic links
 	// will be followed on the server.
 	// 
 	// Note: Servers running the SFTP v3 protocol or lower do not have the ability to
 	// return a file's group name. Instead, the decimal GID of the file is returned.
 	// 
-	const wchar_t *fileGroup(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *fileGroup(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFileGroup method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFileGroupAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFileGroupAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns the last-access date/time for a file. pathOrHandle may be a remote filepath or
-	// an open handle string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle
-	// must be set to true, otherwise it should be false. If  bFollowLinks is true, then
+	// an open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle
+	// must be set to true, otherwise it should be false. If bFollowLinks is true, then
 	// symbolic links will be followed on the server.
-	bool GetFileLastAccess(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, SYSTEMTIME &outSysTime);
+	bool GetFileLastAccess(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, SYSTEMTIME &outSysTime);
 
 	// Returns the last-access date/time for a file. pathOrHandle may be a remote filepath or
-	// an open handle string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle
-	// must be set to true, otherwise it should be false. If  bFollowLinks is true, then
+	// an open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle
+	// must be set to true, otherwise it should be false. If bFollowLinks is true, then
 	// symbolic links will be followed on the server.
 	// The caller is responsible for deleting the object returned by this method.
-	CkDateTimeW *GetFileLastAccessDt(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkDateTimeW *GetFileLastAccessDt(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFileLastAccessDt method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFileLastAccessDtAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFileLastAccessDtAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// The same as GetFileLastAccess, except the date/time is returned as an RFC822
 	// formatted string.
-	bool GetFileLastAccessStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
+	bool GetFileLastAccessStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
 	// The same as GetFileLastAccess, except the date/time is returned as an RFC822
 	// formatted string.
-	const wchar_t *getFileLastAccessStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *getFileLastAccessStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 	// The same as GetFileLastAccess, except the date/time is returned as an RFC822
 	// formatted string.
-	const wchar_t *fileLastAccessStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *fileLastAccessStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFileLastAccessStr method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFileLastAccessStrAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFileLastAccessStrAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns the last-modified date/time for a file. pathOrHandle may be a remote filepath or
-	// an open handle string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle
-	// must be set to true, otherwise it should be false. If  bFollowLinks is true, then
+	// an open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle
+	// must be set to true, otherwise it should be false. If bFollowLinks is true, then
 	// symbolic links will be followed on the server.
-	bool GetFileLastModified(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, SYSTEMTIME &outSysTime);
+	bool GetFileLastModified(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, SYSTEMTIME &outSysTime);
 
 	// Returns the last-modified date/time for a file. pathOrHandle may be a remote filepath or
-	// an open handle string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle
-	// must be set to true, otherwise it should be false. If  bFollowLinks is true, then
+	// an open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle
+	// must be set to true, otherwise it should be false. If bFollowLinks is true, then
 	// symbolic links will be followed on the server.
 	// The caller is responsible for deleting the object returned by this method.
-	CkDateTimeW *GetFileLastModifiedDt(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkDateTimeW *GetFileLastModifiedDt(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFileLastModifiedDt method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFileLastModifiedDtAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFileLastModifiedDtAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// The same as GetFileLastModified, except the date/time is returned as an RFC822
 	// formatted string.
-	bool GetFileLastModifiedStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
+	bool GetFileLastModifiedStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
 	// The same as GetFileLastModified, except the date/time is returned as an RFC822
 	// formatted string.
-	const wchar_t *getFileLastModifiedStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *getFileLastModifiedStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 	// The same as GetFileLastModified, except the date/time is returned as an RFC822
 	// formatted string.
-	const wchar_t *fileLastModifiedStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *fileLastModifiedStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFileLastModifiedStr method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFileLastModifiedStrAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFileLastModifiedStrAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns the owner of a file. pathOrHandle may be a remote filepath or an open handle
-	// string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle must be set to
-	// true, otherwise it should be false. If  bFollowLinks is true, then symbolic links
+	// string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must be set to
+	// true, otherwise it should be false. If bFollowLinks is true, then symbolic links
 	// will be followed on the server.
 	// 
 	// Note: Servers running the SFTP v3 protocol or lower do not have the ability to
 	// return a file's owner name. Instead, the decimal UID of the file is returned.
 	// 
-	bool GetFileOwner(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
+	bool GetFileOwner(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
 	// Returns the owner of a file. pathOrHandle may be a remote filepath or an open handle
-	// string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle must be set to
-	// true, otherwise it should be false. If  bFollowLinks is true, then symbolic links
+	// string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must be set to
+	// true, otherwise it should be false. If bFollowLinks is true, then symbolic links
 	// will be followed on the server.
 	// 
 	// Note: Servers running the SFTP v3 protocol or lower do not have the ability to
 	// return a file's owner name. Instead, the decimal UID of the file is returned.
 	// 
-	const wchar_t *getFileOwner(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *getFileOwner(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 	// Returns the owner of a file. pathOrHandle may be a remote filepath or an open handle
-	// string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle must be set to
-	// true, otherwise it should be false. If  bFollowLinks is true, then symbolic links
+	// string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must be set to
+	// true, otherwise it should be false. If bFollowLinks is true, then symbolic links
 	// will be followed on the server.
 	// 
 	// Note: Servers running the SFTP v3 protocol or lower do not have the ability to
 	// return a file's owner name. Instead, the decimal UID of the file is returned.
 	// 
-	const wchar_t *fileOwner(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *fileOwner(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFileOwner method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFileOwnerAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFileOwnerAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns the access permisssions flags of a file. pathOrHandle may be a remote filepath
-	// or an open handle string as returned by OpenFile. If pathOrHandle is a handle, then  bIsHandle
-	// must be set to true, otherwise it should be false. If  bFollowLinks is true, then
+	// or an open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle
+	// must be set to true, otherwise it should be false. If bFollowLinks is true, then
 	// symbolic links will be followed on the server.
-	int GetFilePermissions(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	int GetFilePermissions(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Creates an asynchronous task to call the GetFilePermissions method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *GetFilePermissionsAsync(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	CkTaskW *GetFilePermissionsAsync(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns the size in bytes of a file on the SSH server. If the file size exceeds
 	// what can be represented in 32-bits, a value of -1 is returned. pathOrHandle may be a
 	// remote filepath or an open handle string as returned by OpenFile. If pathOrHandle is a
-	// handle, then  bIsHandle must be set to true, otherwise it should be false. If  bFollowLinks
+	// handle, then bIsHandle must be set to true, otherwise it should be false. If bFollowLinks
 	// is true, then symbolic links will be followed on the server.
-	int GetFileSize32(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	int GetFileSize32(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns a 64-bit integer containing the size (in bytes) of a file on the SSH
 	// server. pathOrHandle may be a remote filepath or an open handle string as returned by
-	// OpenFile. If pathOrHandle is a handle, then  bIsHandle must be set to true, otherwise it
-	// should be false. If  bFollowLinks is true, then symbolic links will be followed on
+	// OpenFile. If pathOrHandle is a handle, then bIsHandle must be set to true, otherwise it
+	// should be false. If bFollowLinks is true, then symbolic links will be followed on
 	// the server.
-	__int64 GetFileSize64(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	__int64 GetFileSize64(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Returns the size in bytes (in decimal string form) of a file on the SSH server.
 	// pathOrHandle may be a remote filepath or an open handle string as returned by OpenFile.
-	// If pathOrHandle is a handle, then  bIsHandle must be set to true, otherwise it should be
-	// false. If  bFollowLinks is true, then symbolic links will be followed on the server.
+	// If pathOrHandle is a handle, then bIsHandle must be set to true, otherwise it should be
+	// false. If bFollowLinks is true, then symbolic links will be followed on the server.
 	// 
 	// Note: This method exists for environments that do not have 64-bit integer
 	// support. The Add64 method is provided for 64-bit addition, and other methods
 	// such as ReadFileBytes64s allow for 64-bit values to be passed as strings.
 	// 
-	bool GetFileSizeStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
+	bool GetFileSizeStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle, CkString &outStr);
 	// Returns the size in bytes (in decimal string form) of a file on the SSH server.
 	// pathOrHandle may be a remote filepath or an open handle string as returned by OpenFile.
-	// If pathOrHandle is a handle, then  bIsHandle must be set to true, otherwise it should be
-	// false. If  bFollowLinks is true, then symbolic links will be followed on the server.
+	// If pathOrHandle is a handle, then bIsHandle must be set to true, otherwise it should be
+	// false. If bFollowLinks is true, then symbolic links will be followed on the server.
 	// 
 	// Note: This method exists for environments that do not have 64-bit integer
 	// support. The Add64 method is provided for 64-bit addition, and other methods
 	// such as ReadFileBytes64s allow for 64-bit values to be passed as strings.
 	// 
-	const wchar_t *getFileSizeStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *getFileSizeStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 	// Returns the size in bytes (in decimal string form) of a file on the SSH server.
 	// pathOrHandle may be a remote filepath or an open handle string as returned by OpenFile.
-	// If pathOrHandle is a handle, then  bIsHandle must be set to true, otherwise it should be
-	// false. If  bFollowLinks is true, then symbolic links will be followed on the server.
+	// If pathOrHandle is a handle, then bIsHandle must be set to true, otherwise it should be
+	// false. If bFollowLinks is true, then symbolic links will be followed on the server.
 	// 
 	// Note: This method exists for environments that do not have 64-bit integer
 	// support. The Add64 method is provided for 64-bit addition, and other methods
 	// such as ReadFileBytes64s allow for 64-bit values to be passed as strings.
 	// 
-	const wchar_t *fileSizeStr(const wchar_t *filenameOrHandle, bool bFollowLinks, bool bIsHandle);
+	const wchar_t *fileSizeStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
 
 	// Intializes the SFTP subsystem. This should be called after connecting and
 	// authenticating. An SFTP session always begins by first calling Connect to
@@ -1294,12 +1371,13 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 
 	// Opens or creates a file on the remote system. Returns a handle which may be
 	// passed to methods for reading and/or writing the file. The remotePath is the remote
-	// file path (the path to the file on the server).
+	// file path (the path to the file on the server). When the application is finished
+	// with the handle, it should call CloseHandle(remotePath).
 	// 
-	//  access should be one of the following strings: "readOnly", "writeOnly", or
+	// access should be one of the following strings: "readOnly", "writeOnly", or
 	// "readWrite".
 	// 
-	//  createDisposition is a comma-separated list of keywords to provide more control over how the
+	// createDisposition is a comma-separated list of keywords to provide more control over how the
 	// file is opened or created. One of the following keywords must be present:
 	// "createNew", "createTruncate", "openExisting", "openOrCreate", or
 	// "truncateExisting". All other keywords are optional. The list of keywords and
@@ -1393,15 +1471,16 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// responds with a "Folder not found" error, then try prepending "./" to the remotePath.
 	// For example, instead of passing "test.txt", try "./test.txt".
 	// 
-	bool OpenFile(const wchar_t *remoteFilePath, const wchar_t *access, const wchar_t *createDisp, CkString &outStr);
+	bool OpenFile(const wchar_t *remotePath, const wchar_t *access, const wchar_t *createDisposition, CkString &outStr);
 	// Opens or creates a file on the remote system. Returns a handle which may be
 	// passed to methods for reading and/or writing the file. The remotePath is the remote
-	// file path (the path to the file on the server).
+	// file path (the path to the file on the server). When the application is finished
+	// with the handle, it should call CloseHandle(remotePath).
 	// 
-	//  access should be one of the following strings: "readOnly", "writeOnly", or
+	// access should be one of the following strings: "readOnly", "writeOnly", or
 	// "readWrite".
 	// 
-	//  createDisposition is a comma-separated list of keywords to provide more control over how the
+	// createDisposition is a comma-separated list of keywords to provide more control over how the
 	// file is opened or created. One of the following keywords must be present:
 	// "createNew", "createTruncate", "openExisting", "openOrCreate", or
 	// "truncateExisting". All other keywords are optional. The list of keywords and
@@ -1495,12 +1574,12 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// responds with a "Folder not found" error, then try prepending "./" to the remotePath.
 	// For example, instead of passing "test.txt", try "./test.txt".
 	// 
-	const wchar_t *openFile(const wchar_t *remoteFilePath, const wchar_t *access, const wchar_t *createDisp);
+	const wchar_t *openFile(const wchar_t *remotePath, const wchar_t *access, const wchar_t *createDisposition);
 
 	// Creates an asynchronous task to call the OpenFile method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *OpenFileAsync(const wchar_t *remoteFilePath, const wchar_t *access, const wchar_t *createDisp);
+	CkTaskW *OpenFileAsync(const wchar_t *remotePath, const wchar_t *access, const wchar_t *createDisposition);
 
 	// Reads the contents of a directory and returns the directory listing (as an
 	// object). The handle returned by OpenDir should be passed to this method.
@@ -1513,7 +1592,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	CkTaskW *ReadDirAsync(const wchar_t *handle);
 
 	// Reads file data from a remote file on the SSH server. The handle is a file handle
-	// returned by the OpenFile method. The  numBytes is the maximum number of bytes to
+	// returned by the OpenFile method. The numBytes is the maximum number of bytes to
 	// read. If the end-of-file is reached prior to reading the number of requested
 	// bytes, then fewer bytes may be returned.
 	// 
@@ -1528,42 +1607,42 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	CkTaskW *ReadFileBytesAsync(const wchar_t *handle, int numBytes);
 
 	// Reads file data from a remote file on the SSH server. The handle is a file handle
-	// returned by the OpenFile method. The  offset is measured in bytes relative to the
+	// returned by the OpenFile method. The offset is measured in bytes relative to the
 	// beginning of the file. (64-bit offsets are supported via the ReadFileBytes64 and
-	// ReadFileBytes64s methods.) The  offset is ignored if the "textMode" flag was
-	// specified during the OpenFile. The  numBytes is the maximum number of bytes to read.
+	// ReadFileBytes64s methods.) The offset is ignored if the "textMode" flag was
+	// specified during the OpenFile. The numBytes is the maximum number of bytes to read.
 	// If the end-of-file is reached prior to reading the number of requested bytes,
 	// then fewer bytes may be returned.
 	bool ReadFileBytes32(const wchar_t *handle, int offset, int numBytes, CkByteData &outBytes);
 
 	// Reads file data from a remote file on the SSH server. The handle is a file handle
-	// returned by the OpenFile method. The  offset is a 64-bit integer measured in bytes
-	// relative to the beginning of the file. The  offset is ignored if the "textMode"
-	// flag was specified during the OpenFile. The  numBytes is the maximum number of bytes
+	// returned by the OpenFile method. The offset is a 64-bit integer measured in bytes
+	// relative to the beginning of the file. The offset is ignored if the "textMode"
+	// flag was specified during the OpenFile. The numBytes is the maximum number of bytes
 	// to read. If the end-of-file is reached prior to reading the number of requested
 	// bytes, then fewer bytes may be returned.
-	bool ReadFileBytes64(const wchar_t *handle, __int64 offset64, int numBytes, CkByteData &outBytes);
+	bool ReadFileBytes64(const wchar_t *handle, __int64 offset, int numBytes, CkByteData &outBytes);
 
 	// (This method exists for systems that do not support 64-bit integers. The 64-bit
 	// integer offset is passed as a decimal string instead.)
 	// 
 	// Reads file data from a remote file on the SSH server. The handle is a file handle
-	// returned by the OpenFile method. The  offset is a 64-bit integer represented as a
+	// returned by the OpenFile method. The offset is a 64-bit integer represented as a
 	// decimal string. It represents an offset in bytes from the beginning of the file.
-	// The  offset is ignored if the "textMode" flag was specified during the OpenFile.
-	// The  numBytes is the maximum number of bytes to read. If the end-of-file is reached
+	// The offset is ignored if the "textMode" flag was specified during the OpenFile.
+	// The numBytes is the maximum number of bytes to read. If the end-of-file is reached
 	// prior to reading the number of requested bytes, then fewer bytes may be
 	// returned.
 	// 
-	bool ReadFileBytes64s(const wchar_t *handle, const wchar_t *offset64, int numBytes, CkByteData &outBytes);
+	bool ReadFileBytes64s(const wchar_t *handle, const wchar_t *offset, int numBytes, CkByteData &outBytes);
 
 	// This method is identical to ReadFileBytes except for one thing: The bytes are
-	// interpreted according to the specified  charset (i.e. the character encoding) and
+	// interpreted according to the specified charset (i.e. the character encoding) and
 	// returned as a string. A list of supported charset values may be found on this
 	// page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
 	// 
-	// Note: If the  charset is an encoding where a single character might be represented
+	// Note: If the charset is an encoding where a single character might be represented
 	// in multiple bytes (such as utf-8, Shift_JIS, etc.) then there is a risk that the
 	// very last character may be partially read. This is because the method specifies
 	// the number of bytes to read, not the number of characters. This is never a
@@ -1575,12 +1654,12 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// 
 	bool ReadFileText(const wchar_t *handle, int numBytes, const wchar_t *charset, CkString &outStr);
 	// This method is identical to ReadFileBytes except for one thing: The bytes are
-	// interpreted according to the specified  charset (i.e. the character encoding) and
+	// interpreted according to the specified charset (i.e. the character encoding) and
 	// returned as a string. A list of supported charset values may be found on this
 	// page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
 	// 
-	// Note: If the  charset is an encoding where a single character might be represented
+	// Note: If the charset is an encoding where a single character might be represented
 	// in multiple bytes (such as utf-8, Shift_JIS, etc.) then there is a risk that the
 	// very last character may be partially read. This is because the method specifies
 	// the number of bytes to read, not the number of characters. This is never a
@@ -1598,91 +1677,91 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	CkTaskW *ReadFileTextAsync(const wchar_t *handle, int numBytes, const wchar_t *charset);
 
 	// This method is identical to ReadFileBytes32 except for one thing: The bytes are
-	// interpreted according to the specified  charset (i.e. the character encoding) and
+	// interpreted according to the specified charset (i.e. the character encoding) and
 	// returned as a string. A list of supported charset values may be found on this
 	// page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
 	// 
-	// Note: If the  charset is an encoding where a single character might be represented
+	// Note: If the charset is an encoding where a single character might be represented
 	// in multiple bytes (such as utf-8, Shift_JIS, etc.) then there is a risk that the
 	// very last character may be partially read. This is because the method specifies
 	// the number of bytes to read, not the number of characters. This is never a
 	// problem with character encodings that use a single byte per character, such as
 	// all of the iso-8859-* encodings, or the Windows-* encodings.
 	// 
-	bool ReadFileText32(const wchar_t *handle, int offset32, int numBytes, const wchar_t *charset, CkString &outStr);
+	bool ReadFileText32(const wchar_t *handle, int offset, int numBytes, const wchar_t *charset, CkString &outStr);
 	// This method is identical to ReadFileBytes32 except for one thing: The bytes are
-	// interpreted according to the specified  charset (i.e. the character encoding) and
+	// interpreted according to the specified charset (i.e. the character encoding) and
 	// returned as a string. A list of supported charset values may be found on this
 	// page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
 	// 
-	// Note: If the  charset is an encoding where a single character might be represented
+	// Note: If the charset is an encoding where a single character might be represented
 	// in multiple bytes (such as utf-8, Shift_JIS, etc.) then there is a risk that the
 	// very last character may be partially read. This is because the method specifies
 	// the number of bytes to read, not the number of characters. This is never a
 	// problem with character encodings that use a single byte per character, such as
 	// all of the iso-8859-* encodings, or the Windows-* encodings.
 	// 
-	const wchar_t *readFileText32(const wchar_t *handle, int offset32, int numBytes, const wchar_t *charset);
+	const wchar_t *readFileText32(const wchar_t *handle, int offset, int numBytes, const wchar_t *charset);
 
 	// This method is identical to ReadFileBytes64 except for one thing: The bytes are
-	// interpreted according to the specified  charset (i.e. the character encoding) and
+	// interpreted according to the specified charset (i.e. the character encoding) and
 	// returned as a string. A list of supported charset values may be found on this
 	// page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
 	// 
-	// Note: If the  charset is an encoding where a single character might be represented
+	// Note: If the charset is an encoding where a single character might be represented
 	// in multiple bytes (such as utf-8, Shift_JIS, etc.) then there is a risk that the
 	// very last character may be partially read. This is because the method specifies
 	// the number of bytes to read, not the number of characters. This is never a
 	// problem with character encodings that use a single byte per character, such as
 	// all of the iso-8859-* encodings, or the Windows-* encodings.
 	// 
-	bool ReadFileText64(const wchar_t *handle, __int64 offset64, int numBytes, const wchar_t *charset, CkString &outStr);
+	bool ReadFileText64(const wchar_t *handle, __int64 offset, int numBytes, const wchar_t *charset, CkString &outStr);
 	// This method is identical to ReadFileBytes64 except for one thing: The bytes are
-	// interpreted according to the specified  charset (i.e. the character encoding) and
+	// interpreted according to the specified charset (i.e. the character encoding) and
 	// returned as a string. A list of supported charset values may be found on this
 	// page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
 	// 
-	// Note: If the  charset is an encoding where a single character might be represented
+	// Note: If the charset is an encoding where a single character might be represented
 	// in multiple bytes (such as utf-8, Shift_JIS, etc.) then there is a risk that the
 	// very last character may be partially read. This is because the method specifies
 	// the number of bytes to read, not the number of characters. This is never a
 	// problem with character encodings that use a single byte per character, such as
 	// all of the iso-8859-* encodings, or the Windows-* encodings.
 	// 
-	const wchar_t *readFileText64(const wchar_t *handle, __int64 offset64, int numBytes, const wchar_t *charset);
+	const wchar_t *readFileText64(const wchar_t *handle, __int64 offset, int numBytes, const wchar_t *charset);
 
 	// This method is identical to ReadFileBytes64s except for one thing: The bytes are
-	// interpreted according to the specified  charset (i.e. the character encoding) and
+	// interpreted according to the specified charset (i.e. the character encoding) and
 	// returned as a string. A list of supported charset values may be found on this
 	// page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
 	// 
-	// Note: If the  charset is an encoding where a single character might be represented
+	// Note: If the charset is an encoding where a single character might be represented
 	// in multiple bytes (such as utf-8, Shift_JIS, etc.) then there is a risk that the
 	// very last character may be partially read. This is because the method specifies
 	// the number of bytes to read, not the number of characters. This is never a
 	// problem with character encodings that use a single byte per character, such as
 	// all of the iso-8859-* encodings, or the Windows-* encodings.
 	// 
-	bool ReadFileText64s(const wchar_t *handle, const wchar_t *offset64, int numBytes, const wchar_t *charset, CkString &outStr);
+	bool ReadFileText64s(const wchar_t *handle, const wchar_t *offset, int numBytes, const wchar_t *charset, CkString &outStr);
 	// This method is identical to ReadFileBytes64s except for one thing: The bytes are
-	// interpreted according to the specified  charset (i.e. the character encoding) and
+	// interpreted according to the specified charset (i.e. the character encoding) and
 	// returned as a string. A list of supported charset values may be found on this
 	// page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
 	// 
-	// Note: If the  charset is an encoding where a single character might be represented
+	// Note: If the charset is an encoding where a single character might be represented
 	// in multiple bytes (such as utf-8, Shift_JIS, etc.) then there is a risk that the
 	// very last character may be partially read. This is because the method specifies
 	// the number of bytes to read, not the number of characters. This is never a
 	// problem with character encodings that use a single byte per character, such as
 	// all of the iso-8859-* encodings, or the Windows-* encodings.
 	// 
-	const wchar_t *readFileText64s(const wchar_t *handle, const wchar_t *offset64, int numBytes, const wchar_t *charset);
+	const wchar_t *readFileText64s(const wchar_t *handle, const wchar_t *offset, int numBytes, const wchar_t *charset);
 
 	// This method can be used to have the server canonicalize any given path name to
 	// an absolute path. This is useful for converting path names containing ".."
@@ -1692,15 +1771,15 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// originalPath is the first component of the path which the client wishes resolved into a
 	// absolute canonical path. This may be the entire path.
 	// 
-	// The  composePath is a path which the client wishes the server to compose with the
+	// The composePath is a path which the client wishes the server to compose with the
 	// original path to form the new path. This field is optional and may be set to a
 	// zero-length string.
 	// 
-	// The server will take the originalPath and apply the  composePath as a modification to it.  composePath
+	// The server will take the originalPath and apply the composePath as a modification to it. composePath
 	// may be relative to originalPath or may be an absolute path, in which case originalPath will be
-	// discarded. The  composePath may be zero length.
+	// discarded. The composePath may be zero length.
 	// 
-	// Note: Servers running SFTP v4 and below do not support  composePath.
+	// Note: Servers running SFTP v4 and below do not support composePath.
 	// 
 	bool RealPath(const wchar_t *originalPath, const wchar_t *composePath, CkString &outStr);
 	// This method can be used to have the server canonicalize any given path name to
@@ -1711,15 +1790,15 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// originalPath is the first component of the path which the client wishes resolved into a
 	// absolute canonical path. This may be the entire path.
 	// 
-	// The  composePath is a path which the client wishes the server to compose with the
+	// The composePath is a path which the client wishes the server to compose with the
 	// original path to form the new path. This field is optional and may be set to a
 	// zero-length string.
 	// 
-	// The server will take the originalPath and apply the  composePath as a modification to it.  composePath
+	// The server will take the originalPath and apply the composePath as a modification to it. composePath
 	// may be relative to originalPath or may be an absolute path, in which case originalPath will be
-	// discarded. The  composePath may be zero length.
+	// discarded. The composePath may be zero length.
 	// 
-	// Note: Servers running SFTP v4 and below do not support  composePath.
+	// Note: Servers running SFTP v4 and below do not support composePath.
 	// 
 	const wchar_t *realPath(const wchar_t *originalPath, const wchar_t *composePath);
 
@@ -1753,9 +1832,9 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *RenameFileOrDirAsync(const wchar_t *oldPath, const wchar_t *newPath);
 
-	// Resumes an SFTP download. The size of the  localFilePath is checked and the download
-	// begins at the appropriate position in the remoteFilePath. If  localFilePath is empty or
-	// non-existent, then this method is identical to DownloadFileByName. If the  localFilePath
+	// Resumes an SFTP download. The size of the localFilePath is checked and the download
+	// begins at the appropriate position in the remoteFilePath. If localFilePath is empty or
+	// non-existent, then this method is identical to DownloadFileByName. If the localFilePath
 	// is already fully downloaded, then no additional data is downloaded and the
 	// method will return true.
 	bool ResumeDownloadFileByName(const wchar_t *remoteFilePath, const wchar_t *localFilePath);
@@ -1769,7 +1848,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// Resumes a file upload to the SFTP/SSH server. The size of the remoteFilePath is first
 	// checked to determine the starting offset for the upload. If remoteFilePath is empty or
 	// does not exist, this method is equivalent to UploadFileByName. If remoteFilePath is
-	// already fully uploaded (i.e. it's size is equal to  localFilePath), then no additional
+	// already fully uploaded (i.e. it's size is equal to localFilePath), then no additional
 	// bytes are uploaded and true is returned.
 	bool ResumeUploadFileByName(const wchar_t *remoteFilePath, const wchar_t *localFilePath);
 
@@ -1778,28 +1857,40 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *ResumeUploadFileByNameAsync(const wchar_t *remoteFilePath, const wchar_t *localFilePath);
 
+	// Sends an IGNORE message to the SSH server. This is one way of verifying that the
+	// connection to the SSH server is open and valid. The SSH server does not respond
+	// to an IGNORE message. It simply ignores it. IGNORE messages are not associated
+	// with a channel (i.e., you do not need to first open a channel prior to sending
+	// an IGNORE message).
+	bool SendIgnore(void);
+
+	// Creates an asynchronous task to call the SendIgnore method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *SendIgnoreAsync(void);
+
 	// Sets the create date/time for a file on the server. The pathOrHandle may be a filepath
-	// or the handle of a currently open file.  isHandle should be set to true if the pathOrHandle
-	// is a handle, otherwise set  isHandle to false.
+	// or the handle of a currently open file. isHandle should be set to true if the pathOrHandle
+	// is a handle, otherwise set isHandle to false.
 	// 
 	// Note: Servers running version 3 or lower of the SFTP protocol do not support
 	// setting the create date/time.
 	// 
-	bool SetCreateDt(const wchar_t *pathOrHandle, bool bIsHandle, CkDateTimeW &createTime);
+	bool SetCreateDt(const wchar_t *pathOrHandle, bool isHandle, CkDateTimeW &createDateTime);
 
 	// Creates an asynchronous task to call the SetCreateDt method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SetCreateDtAsync(const wchar_t *pathOrHandle, bool bIsHandle, CkDateTimeW &createTime);
+	CkTaskW *SetCreateDtAsync(const wchar_t *pathOrHandle, bool isHandle, CkDateTimeW &createDateTime);
 
 	// Sets the create date/time for a file on the server. The pathOrHandle may be a filepath
-	// or the handle of a currently open file.  isHandle should be set to true if the pathOrHandle
-	// is a handle, otherwise set  isHandle to false.
+	// or the handle of a currently open file. isHandle should be set to true if the pathOrHandle
+	// is a handle, otherwise set isHandle to false.
 	// 
 	// Note: Servers running version 3 or lower of the SFTP protocol do not support
 	// setting the create date/time.
 	// 
-	bool SetCreateTime(const wchar_t *pathOrHandle, bool bIsHandle, SYSTEMTIME &createTime);
+	bool SetCreateTime(const wchar_t *pathOrHandle, bool isHandle, SYSTEMTIME &createDateTime);
 
 	// The same as SetCreateTime, except the date/time is passed as an RFC822 formatted
 	// string.
@@ -1811,19 +1902,19 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	CkTaskW *SetCreateTimeStrAsync(const wchar_t *pathOrHandle, bool bIsHandle, const wchar_t *dateTimeStr);
 
 	// Sets the last-access date/time for a file on the server. The pathOrHandle may be a
-	// filepath or the handle of a currently open file.  isHandle should be set to true if
-	// the pathOrHandle is a handle, otherwise set  isHandle to false.
-	bool SetLastAccessDt(const wchar_t *pathOrHandle, bool bIsHandle, CkDateTimeW &createTime);
+	// filepath or the handle of a currently open file. isHandle should be set to true if
+	// the pathOrHandle is a handle, otherwise set isHandle to false.
+	bool SetLastAccessDt(const wchar_t *pathOrHandle, bool isHandle, CkDateTimeW &accessDateTime);
 
 	// Creates an asynchronous task to call the SetLastAccessDt method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SetLastAccessDtAsync(const wchar_t *pathOrHandle, bool bIsHandle, CkDateTimeW &createTime);
+	CkTaskW *SetLastAccessDtAsync(const wchar_t *pathOrHandle, bool isHandle, CkDateTimeW &accessDateTime);
 
 	// Sets the last-access date/time for a file on the server. The pathOrHandle may be a
-	// filepath or the handle of a currently open file.  isHandle should be set to true if
-	// the pathOrHandle is a handle, otherwise set  isHandle to false.
-	bool SetLastAccessTime(const wchar_t *pathOrHandle, bool bIsHandle, SYSTEMTIME &createTime);
+	// filepath or the handle of a currently open file. isHandle should be set to true if
+	// the pathOrHandle is a handle, otherwise set isHandle to false.
+	bool SetLastAccessTime(const wchar_t *pathOrHandle, bool isHandle, SYSTEMTIME &accessDateTime);
 
 	// The same as SetLastAccessTime, except the date/time is passed as an RFC822
 	// formatted string.
@@ -1835,19 +1926,19 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	CkTaskW *SetLastAccessTimeStrAsync(const wchar_t *pathOrHandle, bool bIsHandle, const wchar_t *dateTimeStr);
 
 	// Sets the last-modified date/time for a file on the server. The pathOrHandle may be a
-	// filepath or the handle of a currently open file.  isHandle should be set to true if
-	// the pathOrHandle is a handle, otherwise set  isHandle to false.
-	bool SetLastModifiedDt(const wchar_t *pathOrHandle, bool bIsHandle, CkDateTimeW &createTime);
+	// filepath or the handle of a currently open file. isHandle should be set to true if
+	// the pathOrHandle is a handle, otherwise set isHandle to false.
+	bool SetLastModifiedDt(const wchar_t *pathOrHandle, bool isHandle, CkDateTimeW &modifiedDateTime);
 
 	// Creates an asynchronous task to call the SetLastModifiedDt method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SetLastModifiedDtAsync(const wchar_t *pathOrHandle, bool bIsHandle, CkDateTimeW &createTime);
+	CkTaskW *SetLastModifiedDtAsync(const wchar_t *pathOrHandle, bool isHandle, CkDateTimeW &modifiedDateTime);
 
 	// Sets the last-modified date/time for a file on the server. The pathOrHandle may be a
-	// filepath or the handle of a currently open file.  isHandle should be set to true if
-	// the pathOrHandle is a handle, otherwise set  isHandle to false.
-	bool SetLastModifiedTime(const wchar_t *pathOrHandle, bool bIsHandle, SYSTEMTIME &createTime);
+	// filepath or the handle of a currently open file. isHandle should be set to true if
+	// the pathOrHandle is a handle, otherwise set isHandle to false.
+	bool SetLastModifiedTime(const wchar_t *pathOrHandle, bool isHandle, SYSTEMTIME &modifiedDateTime);
 
 	// The same as SetLastModifiedTime, except the date/time is passed as an RFC822
 	// formatted string.
@@ -1859,28 +1950,28 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	CkTaskW *SetLastModifiedTimeStrAsync(const wchar_t *pathOrHandle, bool bIsHandle, const wchar_t *dateTimeStr);
 
 	// Sets the owner and group for a file on the server. The pathOrHandle may be a filepath or
-	// the handle of a currently open file.  isHandle should be set to true if the pathOrHandle is
-	// a handle, otherwise set  isHandle to false.
+	// the handle of a currently open file. isHandle should be set to true if the pathOrHandle is
+	// a handle, otherwise set isHandle to false.
 	// 
 	// Note: Servers running version 3 or lower of the SFTP protocol do not support
 	// setting the owner and group.
 	// 
-	bool SetOwnerAndGroup(const wchar_t *pathOrHandle, bool bIsHandle, const wchar_t *owner, const wchar_t *group);
+	bool SetOwnerAndGroup(const wchar_t *pathOrHandle, bool isHandle, const wchar_t *owner, const wchar_t *group);
 
 	// Creates an asynchronous task to call the SetOwnerAndGroup method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SetOwnerAndGroupAsync(const wchar_t *pathOrHandle, bool bIsHandle, const wchar_t *owner, const wchar_t *group);
+	CkTaskW *SetOwnerAndGroupAsync(const wchar_t *pathOrHandle, bool isHandle, const wchar_t *owner, const wchar_t *group);
 
 	// Sets the permissions for a file on the server. The pathOrHandle may be a filepath or the
-	// handle of a currently open file.  isHandle should be set to true if the pathOrHandle is a
-	// handle, otherwise set  isHandle to false.
-	bool SetPermissions(const wchar_t *pathOrHandle, bool bIsHandle, int perm);
+	// handle of a currently open file. isHandle should be set to true if the pathOrHandle is a
+	// handle, otherwise set isHandle to false.
+	bool SetPermissions(const wchar_t *pathOrHandle, bool isHandle, int permissions);
 
 	// Creates an asynchronous task to call the SetPermissions method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SetPermissionsAsync(const wchar_t *pathOrHandle, bool bIsHandle, int perm);
+	CkTaskW *SetPermissionsAsync(const wchar_t *pathOrHandle, bool isHandle, int permissions);
 
 	// Downloads files from the SFTP server to a local directory tree. Synchronization
 	// modes include:
@@ -1896,7 +1987,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	//     exist locally.
 	//     
 	// 
-	// If ARG4 is false, then the remotel directory tree is not recursively
+	// If recurse is false, then the remotel directory tree is not recursively
 	// descended.
 	// 
 	bool SyncTreeDownload(const wchar_t *remoteRoot, const wchar_t *localRoot, int mode, bool recurse);
@@ -1917,7 +2008,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	//     mode=4: transfer missing files or files with size differences.
 	//     mode=5: same as mode 4, but also newer files.
 	// 
-	// If ARG4 is false, then the local directory tree is not recursively descended.
+	// If bRecurse is false, then the local directory tree is not recursively descended.
 	bool SyncTreeUpload(const wchar_t *localBaseDir, const wchar_t *remoteBaseDir, int mode, bool bRecurse);
 
 	// Creates an asynchronous task to call the SyncTreeUpload method with the
@@ -1931,22 +2022,31 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// "abc123" will unlock the component for the 1st thirty days after the initial
 	// install.
 	// 
-	// A permanent unlock code for SFTP should contain the substring "SSH" because SFTP
-	// is the Secure File Transfer protocol over SSH. It is a sub-system of the SSH
-	// protocol. It is not the FTP protocol. If the Chilkat FTP2 component/library
-	// should be used for the FTP protocol.
+	// A purchased unlock code for SFTP should contain the substring ".SS" or "SSH" (or
+	// it can be a Bundle unlock code) because SFTP is the Secure File Transfer
+	// protocol over SSH. It is a sub-system of the SSH protocol. It is not the FTP
+	// protocol. If the Chilkat FTP2 component/library should be used for the FTP
+	// protocol.
 	// 
 	bool UnlockComponent(const wchar_t *unlockCode);
 
+	// Uploads the contents of a BinData to a remote file.
+	bool UploadBd(CkBinDataW &binData, const wchar_t *remoteFilePath);
+
+	// Creates an asynchronous task to call the UploadBd method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *UploadBdAsync(CkBinDataW &binData, const wchar_t *remoteFilePath);
+
 	// Uploads a file from the local filesystem to the SFTP server. handle is a handle of
-	// a currently open file (obtained by calling the OpenFile method).  fromFilename is the
+	// a currently open file (obtained by calling the OpenFile method). fromFilename is the
 	// local file path of the file to be uploaded.
-	bool UploadFile(const wchar_t *handle, const wchar_t *localFilePath);
+	bool UploadFile(const wchar_t *handle, const wchar_t *fromFilename);
 
 	// Creates an asynchronous task to call the UploadFile method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *UploadFileAsync(const wchar_t *handle, const wchar_t *localFilePath);
+	CkTaskW *UploadFileAsync(const wchar_t *handle, const wchar_t *fromFilename);
 
 	// Simplified method for uploading a file to the SFTP/SSH server.
 	// 
@@ -1961,32 +2061,40 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *UploadFileByNameAsync(const wchar_t *remoteFilePath, const wchar_t *localFilePath);
 
+	// Uploads the contents of a StringBuilder to a remote file.
+	bool UploadSb(CkStringBuilderW &sb, const wchar_t *remoteFilePath, const wchar_t *charset, bool includeBom);
+
+	// Creates an asynchronous task to call the UploadSb method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *UploadSbAsync(CkStringBuilderW &sb, const wchar_t *remoteFilePath, const wchar_t *charset, bool includeBom);
+
 	// Appends byte data to an open file. The handle is a file handle returned by the
 	// OpenFile method.
-	bool WriteFileBytes(const wchar_t *handle, CkByteData &data);
+	bool WriteFileBytes(const wchar_t *handle, CkByteData &byteData);
 
 	// Creates an asynchronous task to call the WriteFileBytes method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *WriteFileBytesAsync(const wchar_t *handle, CkByteData &data);
+	CkTaskW *WriteFileBytesAsync(const wchar_t *handle, CkByteData &byteData);
 
 	// Writes data to an open file at a specific offset from the beginning of the file.
-	// The handle is a file handle returned by the OpenFile method. The  offset is an offset
+	// The handle is a file handle returned by the OpenFile method. The offset is an offset
 	// from the beginning of the file.
 	bool WriteFileBytes32(const wchar_t *handle, int offset, CkByteData &data);
 
 	// Writes data to an open file at a specific offset from the beginning of the file.
-	// The handle is a file handle returned by the OpenFile method. The  offset64 is an offset
+	// The handle is a file handle returned by the OpenFile method. The offset64 is an offset
 	// from the beginning of the file.
 	bool WriteFileBytes64(const wchar_t *handle, __int64 offset64, CkByteData &data);
 
 	// Writes data to an open file at a specific offset from the beginning of the file.
-	// The handle is a file handle returned by the OpenFile method. The  offset64 is an offset
+	// The handle is a file handle returned by the OpenFile method. The offset64 is an offset
 	// (in decimal string format) from the beginning of the file.
 	bool WriteFileBytes64s(const wchar_t *handle, const wchar_t *offset64, CkByteData &data);
 
 	// Appends character data to an open file. The handle is a file handle returned by
-	// the OpenFile method.  charset is a character encoding and is typically set to values
+	// the OpenFile method. charset is a character encoding and is typically set to values
 	// such as "ansi", "utf-8", "windows-1252", etc. A list of supported character
 	// encodings is found on this page: Supported Charsets
 	// <http://www.chilkatsoft.com/p/p_463.asp> .
@@ -1994,7 +2102,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// Note: It is necessary to specify the character encoding because in many
 	// programming languages, strings are represented as Unicode (2 bytes/char) and in
 	// most cases one does not wish to write Unicode chars to a text file (although it
-	// is possible by setting  charset = "Unicode").
+	// is possible by setting charset = "Unicode").
 	// 
 	bool WriteFileText(const wchar_t *handle, const wchar_t *charset, const wchar_t *textData);
 
@@ -2004,7 +2112,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	CkTaskW *WriteFileTextAsync(const wchar_t *handle, const wchar_t *charset, const wchar_t *textData);
 
 	// Writes character data to an open file at a specific offset from the beginning of
-	// the file. The handle is a file handle returned by the OpenFile method.  charset is a
+	// the file. The handle is a file handle returned by the OpenFile method. charset is a
 	// character encoding and is typically set to values such as "ansi", "utf-8",
 	// "windows-1252", etc. A list of supported character encodings is found on this
 	// page: Supported Charsets
@@ -2012,7 +2120,7 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	bool WriteFileText32(const wchar_t *handle, int offset32, const wchar_t *charset, const wchar_t *textData);
 
 	// Writes character data to an open file at a specific offset from the beginning of
-	// the file. The handle is a file handle returned by the OpenFile method.  charset is a
+	// the file. The handle is a file handle returned by the OpenFile method. charset is a
 	// character encoding and is typically set to values such as "ansi", "utf-8",
 	// "windows-1252", etc. A list of supported character encodings is found on this
 	// page: Supported Charsets
@@ -2020,8 +2128,8 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	bool WriteFileText64(const wchar_t *handle, __int64 offset64, const wchar_t *charset, const wchar_t *textData);
 
 	// Writes character data to an open file at a specific offset from the beginning of
-	// the file. The handle is a file handle returned by the OpenFile method. The  offset64 is
-	// an offset (in decimal string format) from the beginning of the file.  charset is a
+	// the file. The handle is a file handle returned by the OpenFile method. The offset64 is
+	// an offset (in decimal string format) from the beginning of the file. charset is a
 	// character encoding and is typically set to values such as "ansi", "utf-8",
 	// "windows-1252", etc. A list of supported character encodings is found on this
 	// page: Supported Charsets

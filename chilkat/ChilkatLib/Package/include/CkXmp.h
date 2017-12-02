@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkXmp_H
 #define _CkXmp_H
@@ -241,7 +241,7 @@ class CK_VISIBLE_PUBLIC CkXmp  : public CkMultiByteBase
 
 	// Unlocks the XMP component at runtime. This must be called once at the beginning
 	// of your application. Passing an arbitrary value initiates a fully-functional
-	// 30-day trial. A permanent unlock code is required to use the component beyond 30
+	// 30-day trial. A purchased unlock code is required to use the component beyond 30
 	// days.
 	bool UnlockComponent(const char *unlockCode);
 

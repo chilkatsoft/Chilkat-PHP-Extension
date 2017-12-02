@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkNtlm_H
 #define _CkNtlm_H
@@ -559,7 +559,8 @@ class CK_VISIBLE_PUBLIC CkNtlm  : public CkMultiByteBase
 	bool SetFlag(const char *flagLetter, bool onOrOff);
 
 
-	// To be documented soon.
+	// Unlocks the component. This must be called once prior to calling any other
+	// method.
 	bool UnlockComponent(const char *unlockCode);
 
 

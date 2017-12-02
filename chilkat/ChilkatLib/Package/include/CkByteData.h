@@ -128,7 +128,7 @@ class CK_VISIBLE_PUBLIC CkByteData : public CkObject
 
 	// The CkByteData will use *your* memory buffer, and will not delete
 	// it when the object is destructed.  
-	void borrowData(void *pByteData, unsigned long szByteData);
+	void borrowData(const void *pByteData, unsigned long szByteData);
 
 	// Removes the data from the CkByteData object.  The caller will receive
 	// a pointer to the memory buffer, and is responsible for deleting it.

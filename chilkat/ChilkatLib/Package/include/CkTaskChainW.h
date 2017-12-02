@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkTaskChainW_H
 #define _CkTaskChainW_H
@@ -10,10 +10,9 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkClassWithCallbacksW.h"
+#include "CkWideCharBase.h"
 
 class CkTaskW;
-class CkBaseProgressW;
 
 
 
@@ -23,10 +22,10 @@ class CkBaseProgressW;
  
 
 // CLASS: CkTaskChainW
-class CK_VISIBLE_PUBLIC CkTaskChainW  : public CkClassWithCallbacksW
+class CK_VISIBLE_PUBLIC CkTaskChainW  : public CkWideCharBase
 {
     private:
-	bool m_cbOwned;
+	
 
 	// Don't allow assignment or copying these objects.
 	CkTaskChainW(const CkTaskChainW &);
@@ -39,9 +38,6 @@ class CK_VISIBLE_PUBLIC CkTaskChainW  : public CkClassWithCallbacksW
 	static CkTaskChainW *createNew(void);
 	
 
-	CkTaskChainW(bool bCallbackOwned);
-	static CkTaskChainW *createNew(bool bCallbackOwned);
-
 	
 	void CK_VISIBLE_PRIVATE inject(void *impl);
 
@@ -49,9 +45,7 @@ class CK_VISIBLE_PUBLIC CkTaskChainW  : public CkClassWithCallbacksW
 	// internal resources held by the object. 
 	void dispose(void);
 
-	CkBaseProgressW *get_EventCallbackObject(void) const;
-	void put_EventCallbackObject(CkBaseProgressW *progress);
-
+	
 
 	// BEGIN PUBLIC INTERFACE
 
@@ -174,9 +168,9 @@ class CK_VISIBLE_PUBLIC CkTaskChainW  : public CkClassWithCallbacksW
 	void SleepMs(int numMs);
 
 	// Waits for the task chain to complete. Returns when all of the tasks in the chain
-	// have completed, or after ARG1 milliseconds have elapsed. (A ARG1 value of 0 is
+	// have completed, or after maxWaitMs milliseconds have elapsed. (A maxWaitMs value of 0 is
 	// to wait indefinitely.) Returns (false) if the task chain has not yet been
-	// started by calling the Run method, or if the ARG1 expired. If the task chain
+	// started by calling the Run method, or if the maxWaitMs expired. If the task chain
 	// completed, was already completed, was canceled, or aborted, then this method
 	// returns true.
 	bool Wait(int maxWaitMs);

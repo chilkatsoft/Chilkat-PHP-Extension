@@ -1,9 +1,10 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkPfx_H
 #define _C_CkPfx_H
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
 
 CK_VISIBLE_PUBLIC HCkPfx CkPfx_Create(void);
 CK_VISIBLE_PUBLIC void CkPfx_Dispose(HCkPfx handle);

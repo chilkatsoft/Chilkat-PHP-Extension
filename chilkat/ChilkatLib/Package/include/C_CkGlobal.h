@@ -1,9 +1,10 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkGlobal_H
 #define _C_CkGlobal_H
 #include "chilkatDefs.h"
 
 #include "Chilkat_C.h"
+
 
 CK_VISIBLE_PUBLIC HCkGlobal CkGlobal_Create(void);
 CK_VISIBLE_PUBLIC void CkGlobal_Dispose(HCkGlobal handle);
@@ -30,9 +31,14 @@ CK_VISIBLE_PUBLIC BOOL CkGlobal_getLastMethodSuccess(HCkGlobal cHandle);
 CK_VISIBLE_PUBLIC void CkGlobal_putLastMethodSuccess(HCkGlobal cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC int CkGlobal_getMaxThreads(HCkGlobal cHandle);
 CK_VISIBLE_PUBLIC void CkGlobal_putMaxThreads(HCkGlobal cHandle, int newVal);
+CK_VISIBLE_PUBLIC BOOL CkGlobal_getPreferIpv6(HCkGlobal cHandle);
+CK_VISIBLE_PUBLIC void CkGlobal_putPreferIpv6(HCkGlobal cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkGlobal_getThreadPoolLogPath(HCkGlobal cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkGlobal_putThreadPoolLogPath(HCkGlobal cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkGlobal_threadPoolLogPath(HCkGlobal cHandle);
+CK_VISIBLE_PUBLIC int CkGlobal_getUnlockStatus(HCkGlobal cHandle);
+CK_VISIBLE_PUBLIC BOOL CkGlobal_getUsePkcsConstructedEncoding(HCkGlobal cHandle);
+CK_VISIBLE_PUBLIC void CkGlobal_putUsePkcsConstructedEncoding(HCkGlobal cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkGlobal_getUtf8(HCkGlobal cHandle);
 CK_VISIBLE_PUBLIC void CkGlobal_putUtf8(HCkGlobal cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkGlobal_getVerboseLogging(HCkGlobal cHandle);

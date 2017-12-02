@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkOAuth1W_H
 #define _CkOAuth1W_H
@@ -12,6 +12,7 @@
 #include "CkString.h"
 #include "CkWideCharBase.h"
 
+class CkPrivateKeyW;
 
 
 
@@ -126,14 +127,38 @@ class CK_VISIBLE_PUBLIC CkOAuth1W  : public CkWideCharBase
 	// The OAuth URL, such as "http://echo.lab.madgex.com/echo.ashx". See
 	// http://bettiolo.github.io/oauth-reference-page/ to compare Chilkat results with
 	// another tool's results.
+	// 
+	// Note: The OAuthUrl should not include query parameters. For example, do not set
+	// the OAuthUrl equal
+	// tohttps://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl?script=165&deploy
+	// =1 Instead, set OAuthUrl equal
+	// tohttps://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl and then
+	// subsequently call AddParam for each query parameter.
+	// 
 	void get_OauthUrl(CkString &str);
 	// The OAuth URL, such as "http://echo.lab.madgex.com/echo.ashx". See
 	// http://bettiolo.github.io/oauth-reference-page/ to compare Chilkat results with
 	// another tool's results.
+	// 
+	// Note: The OAuthUrl should not include query parameters. For example, do not set
+	// the OAuthUrl equal
+	// tohttps://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl?script=165&deploy
+	// =1 Instead, set OAuthUrl equal
+	// tohttps://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl and then
+	// subsequently call AddParam for each query parameter.
+	// 
 	const wchar_t *oauthUrl(void);
 	// The OAuth URL, such as "http://echo.lab.madgex.com/echo.ashx". See
 	// http://bettiolo.github.io/oauth-reference-page/ to compare Chilkat results with
 	// another tool's results.
+	// 
+	// Note: The OAuthUrl should not include query parameters. For example, do not set
+	// the OAuthUrl equal
+	// tohttps://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl?script=165&deploy
+	// =1 Instead, set OAuthUrl equal
+	// tohttps://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl and then
+	// subsequently call AddParam for each query parameter.
+	// 
 	void put_OauthUrl(const wchar_t *newVal);
 
 	// The oauth_version. Defaults to "1.0". May be set to the empty string to exclude.
@@ -150,16 +175,26 @@ class CK_VISIBLE_PUBLIC CkOAuth1W  : public CkWideCharBase
 	// read-only property made available for debugging purposes.
 	const wchar_t *queryString(void);
 
+	// The realm (optional).
+	void get_Realm(CkString &str);
+	// The realm (optional).
+	const wchar_t *realm(void);
+	// The realm (optional).
+	void put_Realm(const wchar_t *newVal);
+
 	// The generated base64 signature.
 	void get_Signature(CkString &str);
 	// The generated base64 signature.
 	const wchar_t *signature(void);
 
-	// The signature method. Defaults to "HMAC-SHA1".
+	// The signature method. Defaults to "HMAC-SHA1". Other possible choices are
+	// "HMAC1-SHA256", "RSA-SHA1", and "RSA-SHA2".
 	void get_SignatureMethod(CkString &str);
-	// The signature method. Defaults to "HMAC-SHA1".
+	// The signature method. Defaults to "HMAC-SHA1". Other possible choices are
+	// "HMAC1-SHA256", "RSA-SHA1", and "RSA-SHA2".
 	const wchar_t *signatureMethod(void);
-	// The signature method. Defaults to "HMAC-SHA1".
+	// The signature method. Defaults to "HMAC-SHA1". Other possible choices are
+	// "HMAC1-SHA256", "RSA-SHA1", and "RSA-SHA2".
 	void put_SignatureMethod(const wchar_t *newVal);
 
 	// The timestamp, such as "1441632569".
@@ -198,15 +233,19 @@ class CK_VISIBLE_PUBLIC CkOAuth1W  : public CkWideCharBase
 	// andAuthorizationHeader.
 	bool Generate(void);
 
-	// Removes a name/value parameter from the OAuth1 signature.
-	bool RemoveParam(const wchar_t *name);
-
-	// Generates a random nonce ARG1 in length and sets the Nonce property to the hex
+	// Generates a random nonce numBytes in length and sets the Nonce property to the hex
 	// encoded value.
 	bool GenNonce(int numBytes);
 
 	// Sets the Timestamp property to the current date/time.
 	bool GenTimestamp(void);
+
+	// Removes a name/value parameter from the OAuth1 signature.
+	bool RemoveParam(const wchar_t *name);
+
+	// Sets the RSA key to be used when the SignatureMethod is set to "RSA-SHA1" or
+	// "RSA-SHA2".
+	bool SetRsaKey(CkPrivateKeyW &privKey);
 
 
 

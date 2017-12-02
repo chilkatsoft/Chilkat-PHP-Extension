@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkMht_H
 #define _C_CkMht_H
 #include "chilkatDefs.h"
@@ -13,6 +13,8 @@ CK_VISIBLE_PUBLIC void CkMht_setTaskCompleted(HCkMht cHandle, void (*fnTaskCompl
 
 CK_VISIBLE_PUBLIC HCkMht CkMht_Create(void);
 CK_VISIBLE_PUBLIC void CkMht_Dispose(HCkMht handle);
+CK_VISIBLE_PUBLIC BOOL CkMht_getAbortCurrent(HCkMht cHandle);
+CK_VISIBLE_PUBLIC void CkMht_putAbortCurrent(HCkMht cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkMht_getBaseUrl(HCkMht cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkMht_putBaseUrl(HCkMht cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkMht_baseUrl(HCkMht cHandle);

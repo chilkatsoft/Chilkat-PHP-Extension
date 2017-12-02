@@ -42,7 +42,6 @@
 #include "C_CkMht.h"
 #include "C_CkMime.h"
 #include "C_CkNtlm.h"
-#include "C_CkOmaDrm.h"
 #include "C_CkPrivateKey.h"
 #include "C_CkPublicKey.h"
 #include "C_CkRsa.h"

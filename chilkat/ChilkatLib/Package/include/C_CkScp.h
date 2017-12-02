@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkScp_H
 #define _C_CkScp_H
 #include "chilkatDefs.h"
@@ -13,6 +13,8 @@ CK_VISIBLE_PUBLIC void CkScp_setTaskCompleted(HCkScp cHandle, void (*fnTaskCompl
 
 CK_VISIBLE_PUBLIC HCkScp CkScp_Create(void);
 CK_VISIBLE_PUBLIC void CkScp_Dispose(HCkScp handle);
+CK_VISIBLE_PUBLIC BOOL CkScp_getAbortCurrent(HCkScp cHandle);
+CK_VISIBLE_PUBLIC void CkScp_putAbortCurrent(HCkScp cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkScp_getDebugLogFilePath(HCkScp cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkScp_putDebugLogFilePath(HCkScp cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkScp_debugLogFilePath(HCkScp cHandle);
@@ -28,15 +30,21 @@ CK_VISIBLE_PUBLIC BOOL CkScp_getLastMethodSuccess(HCkScp cHandle);
 CK_VISIBLE_PUBLIC void CkScp_putLastMethodSuccess(HCkScp cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC int CkScp_getPercentDoneScale(HCkScp cHandle);
 CK_VISIBLE_PUBLIC void CkScp_putPercentDoneScale(HCkScp cHandle, int newVal);
-CK_VISIBLE_PUBLIC void CkScp_getSyncMustMatch(HCkScp cHandle, HCkString retval);
-CK_VISIBLE_PUBLIC void CkScp_putSyncMustMatch(HCkScp cHandle, const char *newVal);
-CK_VISIBLE_PUBLIC const char *CkScp_syncMustMatch(HCkScp cHandle);
-CK_VISIBLE_PUBLIC void CkScp_getSyncMustNotMatch(HCkScp cHandle, HCkString retval);
-CK_VISIBLE_PUBLIC void CkScp_putSyncMustNotMatch(HCkScp cHandle, const char *newVal);
-CK_VISIBLE_PUBLIC const char *CkScp_syncMustNotMatch(HCkScp cHandle);
 CK_VISIBLE_PUBLIC void CkScp_getSyncedFiles(HCkScp cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkScp_putSyncedFiles(HCkScp cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkScp_syncedFiles(HCkScp cHandle);
+CK_VISIBLE_PUBLIC void CkScp_getSyncMustMatch(HCkScp cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void CkScp_putSyncMustMatch(HCkScp cHandle, const char *newVal);
+CK_VISIBLE_PUBLIC const char *CkScp_syncMustMatch(HCkScp cHandle);
+CK_VISIBLE_PUBLIC void CkScp_getSyncMustMatchDir(HCkScp cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void CkScp_putSyncMustMatchDir(HCkScp cHandle, const char *newVal);
+CK_VISIBLE_PUBLIC const char *CkScp_syncMustMatchDir(HCkScp cHandle);
+CK_VISIBLE_PUBLIC void CkScp_getSyncMustNotMatch(HCkScp cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void CkScp_putSyncMustNotMatch(HCkScp cHandle, const char *newVal);
+CK_VISIBLE_PUBLIC const char *CkScp_syncMustNotMatch(HCkScp cHandle);
+CK_VISIBLE_PUBLIC void CkScp_getSyncMustNotMatchDir(HCkScp cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void CkScp_putSyncMustNotMatchDir(HCkScp cHandle, const char *newVal);
+CK_VISIBLE_PUBLIC const char *CkScp_syncMustNotMatchDir(HCkScp cHandle);
 CK_VISIBLE_PUBLIC BOOL CkScp_getUtf8(HCkScp cHandle);
 CK_VISIBLE_PUBLIC void CkScp_putUtf8(HCkScp cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkScp_getVerboseLogging(HCkScp cHandle);

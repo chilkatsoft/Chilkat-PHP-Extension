@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkSFtpFile_H
 #define _CkSFtpFile_H
@@ -59,6 +59,11 @@ class CK_VISIBLE_PUBLIC CkSFtpFile  : public CkMultiByteBase
 	// formatted string.
 	const char *createTimeStr(void);
 
+	// The filename (or directory name, symbolic link name, etc.)
+	void get_Filename(CkString &str);
+	// The filename (or directory name, symbolic link name, etc.)
+	const char *filename(void);
+
 	// One of the following values:
 	//   regular
 	//   directory
@@ -81,11 +86,6 @@ class CK_VISIBLE_PUBLIC CkSFtpFile  : public CkMultiByteBase
 	//   blockDevice
 	//   fifo
 	const char *fileType(void);
-
-	// The filename (or directory name, symbolic link name, etc.)
-	void get_Filename(CkString &str);
-	// The filename (or directory name, symbolic link name, etc.)
-	const char *filename(void);
 
 	// The integer Group ID of the file.
 	int get_Gid(void);

@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkMailMan_H
 #define _C_CkMailMan_H
 #include "chilkatDefs.h"
@@ -13,6 +13,8 @@ CK_VISIBLE_PUBLIC void CkMailMan_setTaskCompleted(HCkMailMan cHandle, void (*fnT
 
 CK_VISIBLE_PUBLIC HCkMailMan CkMailMan_Create(void);
 CK_VISIBLE_PUBLIC void CkMailMan_Dispose(HCkMailMan handle);
+CK_VISIBLE_PUBLIC BOOL CkMailMan_getAbortCurrent(HCkMailMan cHandle);
+CK_VISIBLE_PUBLIC void CkMailMan_putAbortCurrent(HCkMailMan cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_getAllOrNone(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_putAllOrNone(HCkMailMan cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_getAutoFix(HCkMailMan cHandle);
@@ -82,8 +84,10 @@ CK_VISIBLE_PUBLIC void CkMailMan_getLastErrorXml(HCkMailMan cHandle, HCkString r
 CK_VISIBLE_PUBLIC const char *CkMailMan_lastErrorXml(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_getLastMethodSuccess(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_putLastMethodSuccess(HCkMailMan cHandle, BOOL newVal);
+#if defined(CK_SMTPQ_INCLUDED)
 CK_VISIBLE_PUBLIC void CkMailMan_getLastSendQFilename(HCkMailMan cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const char *CkMailMan_lastSendQFilename(HCkMailMan cHandle);
+#endif
 CK_VISIBLE_PUBLIC int CkMailMan_getLastSmtpStatus(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_getLogMailReceivedFilename(HCkMailMan cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkMailMan_putLogMailReceivedFilename(HCkMailMan cHandle, const char *newVal);
@@ -114,11 +118,11 @@ CK_VISIBLE_PUBLIC void CkMailMan_putP7sSigAttachFilename(HCkMailMan cHandle, con
 CK_VISIBLE_PUBLIC const char *CkMailMan_p7sSigAttachFilename(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC int CkMailMan_getPercentDoneScale(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_putPercentDoneScale(HCkMailMan cHandle, int newVal);
-CK_VISIBLE_PUBLIC BOOL CkMailMan_getPop3SPA(HCkMailMan cHandle);
-CK_VISIBLE_PUBLIC void CkMailMan_putPop3SPA(HCkMailMan cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC int CkMailMan_getPop3SessionId(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_getPop3SessionLog(HCkMailMan cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const char *CkMailMan_pop3SessionLog(HCkMailMan cHandle);
+CK_VISIBLE_PUBLIC BOOL CkMailMan_getPop3SPA(HCkMailMan cHandle);
+CK_VISIBLE_PUBLIC void CkMailMan_putPop3SPA(HCkMailMan cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_getPop3SslServerCertVerified(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_getPop3Stls(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_putPop3Stls(HCkMailMan cHandle, BOOL newVal);
@@ -173,10 +177,6 @@ CK_VISIBLE_PUBLIC BOOL CkMailMan_getSmtpSslServerCertVerified(HCkMailMan cHandle
 CK_VISIBLE_PUBLIC void CkMailMan_getSmtpUsername(HCkMailMan cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkMailMan_putSmtpUsername(HCkMailMan cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkMailMan_smtpUsername(HCkMailMan cHandle);
-CK_VISIBLE_PUBLIC int CkMailMan_getSoRcvBuf(HCkMailMan cHandle);
-CK_VISIBLE_PUBLIC void CkMailMan_putSoRcvBuf(HCkMailMan cHandle, int newVal);
-CK_VISIBLE_PUBLIC int CkMailMan_getSoSndBuf(HCkMailMan cHandle);
-CK_VISIBLE_PUBLIC void CkMailMan_putSoSndBuf(HCkMailMan cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkMailMan_getSocksHostname(HCkMailMan cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkMailMan_putSocksHostname(HCkMailMan cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkMailMan_socksHostname(HCkMailMan cHandle);
@@ -190,6 +190,10 @@ CK_VISIBLE_PUBLIC void CkMailMan_putSocksUsername(HCkMailMan cHandle, const char
 CK_VISIBLE_PUBLIC const char *CkMailMan_socksUsername(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC int CkMailMan_getSocksVersion(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_putSocksVersion(HCkMailMan cHandle, int newVal);
+CK_VISIBLE_PUBLIC int CkMailMan_getSoRcvBuf(HCkMailMan cHandle);
+CK_VISIBLE_PUBLIC void CkMailMan_putSoRcvBuf(HCkMailMan cHandle, int newVal);
+CK_VISIBLE_PUBLIC int CkMailMan_getSoSndBuf(HCkMailMan cHandle);
+CK_VISIBLE_PUBLIC void CkMailMan_putSoSndBuf(HCkMailMan cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkMailMan_getSslAllowedCiphers(HCkMailMan cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkMailMan_putSslAllowedCiphers(HCkMailMan cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkMailMan_sslAllowedCiphers(HCkMailMan cHandle);
@@ -198,6 +202,8 @@ CK_VISIBLE_PUBLIC void CkMailMan_putSslProtocol(HCkMailMan cHandle, const char *
 CK_VISIBLE_PUBLIC const char *CkMailMan_sslProtocol(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_getStartTLS(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_putStartTLS(HCkMailMan cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC BOOL CkMailMan_getStartTLSifPossible(HCkMailMan cHandle);
+CK_VISIBLE_PUBLIC void CkMailMan_putStartTLSifPossible(HCkMailMan cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkMailMan_getTlsCipherSuite(HCkMailMan cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const char *CkMailMan_tlsCipherSuite(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC void CkMailMan_getTlsPinSet(HCkMailMan cHandle, HCkString retval);
@@ -276,6 +282,7 @@ CK_VISIBLE_PUBLIC HCkTask CkMailMan_GetUidlsAsync(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_IsSmtpDsnCapable(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC HCkTask CkMailMan_IsSmtpDsnCapableAsync(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_IsUnlocked(HCkMailMan cHandle);
+CK_VISIBLE_PUBLIC HCkJsonObject CkMailMan_LastJsonData(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC HCkEmail CkMailMan_LoadEml(HCkMailMan cHandle, const char *emlFilename);
 CK_VISIBLE_PUBLIC HCkEmailBundle CkMailMan_LoadMbx(HCkMailMan cHandle, const char *mbxFileName);
 CK_VISIBLE_PUBLIC HCkEmail CkMailMan_LoadMime(HCkMailMan cHandle, const char *mimeText);
@@ -288,8 +295,6 @@ CK_VISIBLE_PUBLIC HCkEmailBundle CkMailMan_LoadXmlFile(HCkMailMan cHandle, const
 CK_VISIBLE_PUBLIC HCkEmailBundle CkMailMan_LoadXmlString(HCkMailMan cHandle, const char *xmlString);
 #if defined(CK_MX_INCLUDED)
 CK_VISIBLE_PUBLIC BOOL CkMailMan_MxLookup(HCkMailMan cHandle, const char *emailAddress, HCkString outStrHostname);
-#endif
-#if defined(CK_MX_INCLUDED)
 CK_VISIBLE_PUBLIC const char *CkMailMan_mxLookup(HCkMailMan cHandle, const char *emailAddress);
 #endif
 #if defined(CK_MX_INCLUDED)
@@ -318,7 +323,9 @@ CK_VISIBLE_PUBLIC BOOL CkMailMan_QuickSend(HCkMailMan cHandle, const char *fromA
 CK_VISIBLE_PUBLIC HCkTask CkMailMan_QuickSendAsync(HCkMailMan cHandle, const char *fromAddr, const char *toAddr, const char *subject, const char *body, const char *smtpServer);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_RenderToMime(HCkMailMan cHandle, HCkEmail email, HCkString outStr);
 CK_VISIBLE_PUBLIC const char *CkMailMan_renderToMime(HCkMailMan cHandle, HCkEmail email);
+CK_VISIBLE_PUBLIC BOOL CkMailMan_RenderToMimeBd(HCkMailMan cHandle, HCkEmail email, HCkBinData renderedMime);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_RenderToMimeBytes(HCkMailMan cHandle, HCkEmail email, HCkByteData outBytes);
+CK_VISIBLE_PUBLIC BOOL CkMailMan_RenderToMimeSb(HCkMailMan cHandle, HCkEmail email, HCkStringBuilder renderedMime);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_SaveLastError(HCkMailMan cHandle, const char *path);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_SendBundle(HCkMailMan cHandle, HCkEmailBundle bundle);
 CK_VISIBLE_PUBLIC HCkTask CkMailMan_SendBundleAsync(HCkMailMan cHandle, HCkEmailBundle bundle);
@@ -363,10 +370,10 @@ CK_VISIBLE_PUBLIC HCkTask CkMailMan_SmtpResetAsync(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_SmtpSendRawCommand(HCkMailMan cHandle, const char *command, const char *charset, BOOL bEncodeBase64, HCkString outStr);
 CK_VISIBLE_PUBLIC const char *CkMailMan_smtpSendRawCommand(HCkMailMan cHandle, const char *command, const char *charset, BOOL bEncodeBase64);
 CK_VISIBLE_PUBLIC HCkTask CkMailMan_SmtpSendRawCommandAsync(HCkMailMan cHandle, const char *command, const char *charset, BOOL bEncodeBase64);
-CK_VISIBLE_PUBLIC BOOL CkMailMan_SshAuthenticatePk(HCkMailMan cHandle, const char *bSmtp, HCkSshKey sshUsername);
-CK_VISIBLE_PUBLIC HCkTask CkMailMan_SshAuthenticatePkAsync(HCkMailMan cHandle, const char *bSmtp, HCkSshKey sshUsername);
-CK_VISIBLE_PUBLIC BOOL CkMailMan_SshAuthenticatePw(HCkMailMan cHandle, const char *bSmtp, const char *sshLogin);
-CK_VISIBLE_PUBLIC HCkTask CkMailMan_SshAuthenticatePwAsync(HCkMailMan cHandle, const char *bSmtp, const char *sshLogin);
+CK_VISIBLE_PUBLIC BOOL CkMailMan_SshAuthenticatePk(HCkMailMan cHandle, const char *sshLogin, HCkSshKey sshUsername);
+CK_VISIBLE_PUBLIC HCkTask CkMailMan_SshAuthenticatePkAsync(HCkMailMan cHandle, const char *sshLogin, HCkSshKey sshUsername);
+CK_VISIBLE_PUBLIC BOOL CkMailMan_SshAuthenticatePw(HCkMailMan cHandle, const char *sshLogin, const char *sshPassword);
+CK_VISIBLE_PUBLIC HCkTask CkMailMan_SshAuthenticatePwAsync(HCkMailMan cHandle, const char *sshLogin, const char *sshPassword);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_SshCloseTunnel(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC HCkTask CkMailMan_SshCloseTunnelAsync(HCkMailMan cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailMan_SshOpenTunnel(HCkMailMan cHandle, const char *sshHostname, int sshPort);

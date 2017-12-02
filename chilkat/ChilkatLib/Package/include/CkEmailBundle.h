@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkEmailBundle_H
 #define _CkEmailBundle_H
@@ -62,10 +62,10 @@ class CK_VISIBLE_PUBLIC CkEmailBundle  : public CkMultiByteBase
 	bool AddEmail(CkEmail &email);
 
 
-	// Returns the first email having a header field matching the headerFieldName and  headerFieldValue exactly
+	// Returns the first email having a header field matching the headerFieldName and headerFieldValue exactly
 	// (case sensitive). If no matching email is found, returns _NULL_.
 	// The caller is responsible for deleting the object returned by this method.
-	CkEmail *FindByHeader(const char *name, const char *value);
+	CkEmail *FindByHeader(const char *headerFieldName, const char *headerFieldValue);
 
 
 	// Returns the Nth Email in the bundle. The email returned is a copy of the email

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkMailManW_H
 #define _CkMailManW_H
@@ -18,6 +18,9 @@ class CkEmailBundleW;
 class CkEmailW;
 class CkStringArrayW;
 class CkCertW;
+class CkJsonObjectW;
+class CkBinDataW;
+class CkStringBuilderW;
 class CkCspW;
 class CkPrivateKeyW;
 class CkSshKeyW;
@@ -69,6 +72,23 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// ----------------------
 	// Properties
 	// ----------------------
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	bool get_AbortCurrent(void);
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	void put_AbortCurrent(bool newVal);
+
 	// Prevents sending any email if any of the addresses in the recipient list are
 	// rejected by the SMTP server. The default value is false, which indicates that
 	// the mail sending should continue even if some email addresses are invalid.
@@ -77,6 +97,11 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	// Note: An SMTP server only knows the validity of email addresses within the
 	// domain it controls.
+	// 
+	// Important: The AllOrNone property only works if SMTP pipelining is turned off.
+	// By default, the SmtpPipelining property is turned on and has the value of
+	// true. If all-or-none behavior is desired, make sure to set SmtpPipelining
+	// equal to false.
 	// 
 	bool get_AllOrNone(void);
 	// Prevents sending any email if any of the addresses in the recipient list are
@@ -87,6 +112,11 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	// Note: An SMTP server only knows the validity of email addresses within the
 	// domain it controls.
+	// 
+	// Important: The AllOrNone property only works if SMTP pipelining is turned off.
+	// By default, the SmtpPipelining property is turned on and has the value of
+	// true. If all-or-none behavior is desired, make sure to set SmtpPipelining
+	// equal to false.
 	// 
 	void put_AllOrNone(bool newVal);
 
@@ -230,8 +260,8 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	void put_ClientIpAddress(const wchar_t *newVal);
 
-	// This property will be set to the status of the last HTTP connection made (or
-	// failed to be made) by any HTTP method.
+	// This property will be set to the status of the last connection made (or failed
+	// to be made) by any method.
 	// 
 	// Possible values are:
 	// 0 = success
@@ -341,7 +371,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	// Any MIME header field name can be used, case is insensitive. 
 	// Literal strings are double-quoted, and case is insensitive. 
-	// The "*" wildcard matches 0 or more occurances of any character. 
+	// The "*" wildcard matches 0 or more occurrences of any character. 
 	// Parentheses can be used to control precedence. 
 	// The logical operators are: AND, OR, NOT (case insensitive) 
 	// Comparison operators are: =, , =, String comparison operators are: CONTAINS, LIKE (case insensitive)
@@ -362,7 +392,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	// Any MIME header field name can be used, case is insensitive. 
 	// Literal strings are double-quoted, and case is insensitive. 
-	// The "*" wildcard matches 0 or more occurances of any character. 
+	// The "*" wildcard matches 0 or more occurrences of any character. 
 	// Parentheses can be used to control precedence. 
 	// The logical operators are: AND, OR, NOT (case insensitive) 
 	// Comparison operators are: =, , =, String comparison operators are: CONTAINS, LIKE (case insensitive)
@@ -383,7 +413,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	// Any MIME header field name can be used, case is insensitive. 
 	// Literal strings are double-quoted, and case is insensitive. 
-	// The "*" wildcard matches 0 or more occurances of any character. 
+	// The "*" wildcard matches 0 or more occurrences of any character. 
 	// Parentheses can be used to control precedence. 
 	// The logical operators are: AND, OR, NOT (case insensitive) 
 	// Comparison operators are: =, , =, String comparison operators are: CONTAINS, LIKE (case insensitive)
@@ -531,12 +561,14 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	bool get_IsSmtpConnected(void);
 
+#if defined(CK_SMTPQ_INCLUDED)
 	// The name of the file created in the SMTPQ's queue directory for the last email
 	// sent via SendQ, SendQ2, or SendMimeQ.
 	void get_LastSendQFilename(CkString &str);
 	// The name of the file created in the SMTPQ's queue directory for the last email
 	// sent via SendQ, SendQ2, or SendMimeQ.
 	const wchar_t *lastSendQFilename(void);
+#endif
 
 	// Returns the last SMTP diagnostic status code. This can be checked after sending
 	// an email. SMTP reply codes are defined by RFC 821 - Simple Mail Transfer
@@ -678,15 +710,6 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	void put_PercentDoneScale(int newVal);
 
-	// Controls whether SPA authentication for POP3 is used or not. To use SPA
-	// authentication, set this propoerty = true. No other programming changes are
-	// required. The default value is false.
-	bool get_Pop3SPA(void);
-	// Controls whether SPA authentication for POP3 is used or not. To use SPA
-	// authentication, set this propoerty = true. No other programming changes are
-	// required. The default value is false.
-	void put_Pop3SPA(bool newVal);
-
 	// 0 if no POP3 session is active. Otherwise a positive integer that is incremented
 	// with each new POP3 session. It may be used to determine if a new POP3 session
 	// has been established.
@@ -700,6 +723,23 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// the raw responses received from the POP3 server. This property is read-only, but
 	// it may be cleared by calling ClearPop3SessionLog.
 	const wchar_t *pop3SessionLog(void);
+
+	// Controls whether SPA authentication for POP3 is used or not. To use SPA
+	// authentication, set this propoerty = true. No other programming changes are
+	// required. The default value is false.
+	// 
+	// Note: If SPA (i.e. NTLM) authentication does not succeed, set the
+	// Global.DefaultNtlmVersion property equal to 1 and then retry.
+	// 
+	bool get_Pop3SPA(void);
+	// Controls whether SPA authentication for POP3 is used or not. To use SPA
+	// authentication, set this propoerty = true. No other programming changes are
+	// required. The default value is false.
+	// 
+	// Note: If SPA (i.e. NTLM) authentication does not succeed, set the
+	// Global.DefaultNtlmVersion property equal to 1 and then retry.
+	// 
+	void put_Pop3SPA(bool newVal);
 
 	// When connecting via SSL, this property is true if the POP3 server's SSL
 	// certificate was verified. Otherwise it is set to false.
@@ -864,6 +904,10 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// to automatically determine the best authorization method. To force a particular
 	// auth method, or to prevent any authorization from being used, set this property
 	// to one of the following values: "NONE", "LOGIN", "PLAIN", "CRAM-MD5", or "NTLM".
+	// 
+	// Note: If NTLM authentication does not succeed, set the Global.DefaultNtlmVersion
+	// property equal to 1 and then retry.
+	// 
 	void get_SmtpAuthMethod(CkString &str);
 	// This property should usually be left empty. The MailMan will by default choose
 	// the most secure login method available to prevent unencrypted username and
@@ -872,6 +916,10 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// to automatically determine the best authorization method. To force a particular
 	// auth method, or to prevent any authorization from being used, set this property
 	// to one of the following values: "NONE", "LOGIN", "PLAIN", "CRAM-MD5", or "NTLM".
+	// 
+	// Note: If NTLM authentication does not succeed, set the Global.DefaultNtlmVersion
+	// property equal to 1 and then retry.
+	// 
 	const wchar_t *smtpAuthMethod(void);
 	// This property should usually be left empty. The MailMan will by default choose
 	// the most secure login method available to prevent unencrypted username and
@@ -880,6 +928,10 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// to automatically determine the best authorization method. To force a particular
 	// auth method, or to prevent any authorization from being used, set this property
 	// to one of the following values: "NONE", "LOGIN", "PLAIN", "CRAM-MD5", or "NTLM".
+	// 
+	// Note: If NTLM authentication does not succeed, set the Global.DefaultNtlmVersion
+	// property equal to 1 and then retry.
+	// 
 	void put_SmtpAuthMethod(const wchar_t *newVal);
 
 	// A keyword that indicates the cause of failure (or success) for the last SMTP
@@ -1097,66 +1149,6 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	void put_SmtpUsername(const wchar_t *newVal);
 
-	// Sets the receive buffer size socket option. Normally, this property should be
-	// left unchanged. The default value is 0, which indicates that the receive buffer
-	// size socket option should not be explicitly set (i.e. the system default value,
-	// which may vary from system to system, should be used).
-	// 
-	// This property can be changed if download performance seems slow. It is
-	// recommended to be a multiple of 4096. To see the current system's default
-	// receive buffer size, examine the LastErrorText property after calling any method
-	// that establishes a connection. It should be reported under the heading
-	// "SO_RCVBUF". To boost performance, try setting it equal to 2, 3, or 4 times the
-	// default value.
-	// 
-	int get_SoRcvBuf(void);
-	// Sets the receive buffer size socket option. Normally, this property should be
-	// left unchanged. The default value is 0, which indicates that the receive buffer
-	// size socket option should not be explicitly set (i.e. the system default value,
-	// which may vary from system to system, should be used).
-	// 
-	// This property can be changed if download performance seems slow. It is
-	// recommended to be a multiple of 4096. To see the current system's default
-	// receive buffer size, examine the LastErrorText property after calling any method
-	// that establishes a connection. It should be reported under the heading
-	// "SO_RCVBUF". To boost performance, try setting it equal to 2, 3, or 4 times the
-	// default value.
-	// 
-	void put_SoRcvBuf(int newVal);
-
-	// Sets the send buffer size socket option. Normally, this property should be left
-	// unchanged. The default value is 0, which indicates that the send buffer size
-	// socket option should not be explicitly set (i.e. the system default value, which
-	// may vary from system to system, should be used).
-	// 
-	// This property can be changed if upload performance seems slow. It is recommended
-	// to be a multiple of 4096. To see the current system's default send buffer size,
-	// examine the LastErrorText property after calling any method that establishes a
-	// connection. It should be reported under the heading "SO_SNDBUF". To boost
-	// performance, try setting it equal to 2, 3, or 4 times the default value.
-	// 
-	// Note: This property only applies to FTP data connections. The control connection
-	// (for sending commands and getting responses) is not typically a performance
-	// issue.
-	// 
-	int get_SoSndBuf(void);
-	// Sets the send buffer size socket option. Normally, this property should be left
-	// unchanged. The default value is 0, which indicates that the send buffer size
-	// socket option should not be explicitly set (i.e. the system default value, which
-	// may vary from system to system, should be used).
-	// 
-	// This property can be changed if upload performance seems slow. It is recommended
-	// to be a multiple of 4096. To see the current system's default send buffer size,
-	// examine the LastErrorText property after calling any method that establishes a
-	// connection. It should be reported under the heading "SO_SNDBUF". To boost
-	// performance, try setting it equal to 2, 3, or 4 times the default value.
-	// 
-	// Note: This property only applies to FTP data connections. The control connection
-	// (for sending commands and getting responses) is not typically a performance
-	// issue.
-	// 
-	void put_SoSndBuf(int newVal);
-
 	// The SOCKS4/SOCKS5 hostname or IPv4 address (in dotted decimal notation). This
 	// property is only used if the SocksVersion property is set to 4 or 5).
 	void get_SocksHostname(CkString &str);
@@ -1210,6 +1202,38 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 5 - Connect via a SOCKS5 proxy.
 	// 
 	void put_SocksVersion(int newVal);
+
+	// Sets the receive buffer size socket option. Normally, this property should be
+	// left unchanged. The default value is 4194304.
+	// 
+	// This property can be increased if download performance seems slow. It is
+	// recommended to be a multiple of 4096.
+	// 
+	int get_SoRcvBuf(void);
+	// Sets the receive buffer size socket option. Normally, this property should be
+	// left unchanged. The default value is 4194304.
+	// 
+	// This property can be increased if download performance seems slow. It is
+	// recommended to be a multiple of 4096.
+	// 
+	void put_SoRcvBuf(int newVal);
+
+	// Sets the send buffer size socket option. Normally, this property should be left
+	// unchanged. The default value is 262144.
+	// 
+	// This property can be increased if upload performance seems slow. It is
+	// recommended to be a multiple of 4096. Testing with sizes such as 512K and 1MB is
+	// reasonable.
+	// 
+	int get_SoSndBuf(void);
+	// Sets the send buffer size socket option. Normally, this property should be left
+	// unchanged. The default value is 262144.
+	// 
+	// This property can be increased if upload performance seems slow. It is
+	// recommended to be a multiple of 4096. Testing with sizes such as 512K and 1MB is
+	// reasonable.
+	// 
+	void put_SoSndBuf(int newVal);
 
 	// Provides a means for setting a list of ciphers that are allowed for SSL/TLS
 	// connections. The default (empty string) indicates that all implemented ciphers
@@ -1489,6 +1513,27 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// The default value is false.
 	void put_StartTLS(bool newVal);
 
+	// When set to true, causes the mailman to do STARTTLS (if possible and supported
+	// by the server) to convert to a secure SSL/TLS connection prior to authenticating
+	// and sending email. The default value is true.
+	// 
+	// Note: Setting the StartTLS property = true causes STARTTLS to always be used,
+	// even if the SMTP server does not support it. This property allows for a
+	// non-encrypted connection, whereas the StartTLS property disallows non-encrypted
+	// connections.
+	// 
+	bool get_StartTLSifPossible(void);
+	// When set to true, causes the mailman to do STARTTLS (if possible and supported
+	// by the server) to convert to a secure SSL/TLS connection prior to authenticating
+	// and sending email. The default value is true.
+	// 
+	// Note: Setting the StartTLS property = true causes STARTTLS to always be used,
+	// even if the SMTP server does not support it. This property allows for a
+	// non-encrypted connection, whereas the StartTLS property disallows non-encrypted
+	// connections.
+	// 
+	void put_StartTLSifPossible(bool newVal);
+
 	// Contains the current or last negotiated TLS cipher suite. If no TLS connection
 	// has yet to be established, or if a connection as attempted and failed, then this
 	// will be empty. A sample cipher suite string looks like this:
@@ -1585,7 +1630,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// automatically searched, so it is commonly not required to explicitly add PFX
 	// sources.)
 	// 
-	// The ARG1 contains the bytes of a PFX file (also known as PKCS12 or .p12).
+	// The pfxData contains the bytes of a PFX file (also known as PKCS12 or .p12).
 	// 
 	bool AddPfxSourceData(CkByteData &pfxData, const wchar_t *password);
 
@@ -1596,7 +1641,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// automatically searched, so it is commonly not required to explicitly add PFX
 	// sources.)
 	// 
-	// The ARG1 contains the bytes of a PFX file (also known as PKCS12 or .p12).
+	// The pfxFilePath contains the bytes of a PFX file (also known as PKCS12 or .p12).
 	// 
 	bool AddPfxSourceFile(const wchar_t *pfxFilePath, const wchar_t *password);
 
@@ -1671,12 +1716,12 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// Also, any method call requiring communication with the POP3 server will
 	// automatically re-establish a session based on the current property settings.
 	// 
-	bool DeleteBundle(CkEmailBundleW &bundle);
+	bool DeleteBundle(CkEmailBundleW &emailBundle);
 
 	// Creates an asynchronous task to call the DeleteBundle method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *DeleteBundleAsync(CkEmailBundleW &bundle);
+	CkTaskW *DeleteBundleAsync(CkEmailBundleW &emailBundle);
 
 	// Marks an email for deletion by message number. WARNING: Be very careful if
 	// calling this method. Message numbers are specific to a POP3 session. If a
@@ -1841,7 +1886,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	// Note: The email objects returned in the bundle contain only headers. The
 	// attachments will be missing, and the bodies will be mostly missing (only the 1st
-	//  numBodyLines lines of either the plain-text or HTML body will be present).
+	// numBodyLines lines of either the plain-text or HTML body will be present).
 	// 
 	// The caller is responsible for deleting the object returned by this method.
 	CkEmailBundleW *FetchMultipleHeaders(CkStringArrayW &uidlArray, int numBodyLines);
@@ -1868,25 +1913,25 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	// Note: The email objects returned in the bundle contain only headers. The
 	// attachments will be missing, and the bodies will be mostly missing (only the 1st
-	//  messageNumber lines of either the plain-text or HTML body will be present).
+	// messageNumber lines of either the plain-text or HTML body will be present).
 	// 
 	// Also Important:Message numbers are specific to a POP3 session (whereas UIDLs are
 	// valid across sessions). Be very careful when using this method.
 	// 
 	// The caller is responsible for deleting the object returned by this method.
-	CkEmailW *FetchSingleHeader(int numBodyLines, int index);
+	CkEmailW *FetchSingleHeader(int numBodyLines, int messageNumber);
 
 	// Creates an asynchronous task to call the FetchSingleHeader method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *FetchSingleHeaderAsync(int numBodyLines, int index);
+	CkTaskW *FetchSingleHeaderAsync(int numBodyLines, int messageNumber);
 
 	// Fetches a single header by UIDL. Returns an email object on success, or a null
 	// reference on failure.
 	// 
 	// Note: The email objects returned in the bundle contain only headers. The
 	// attachments will be missing, and the bodies will be mostly missing (only the 1st
-	// ARG2 lines of either the plain-text or HTML body will be present).
+	// uidl lines of either the plain-text or HTML body will be present).
 	// 
 	// The caller is responsible for deleting the object returned by this method.
 	CkEmailW *FetchSingleHeaderByUidl(int numBodyLines, const wchar_t *uidl);
@@ -1931,7 +1976,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *GetFullEmailAsync(CkEmailW &email);
 
-	// The same as the GetAllHeaders method, except only the emails from  fromIndex to  toIndex
+	// The same as the GetAllHeaders method, except only the emails from fromIndex to toIndex
 	// on the POP3 server are returned. The first email on the server is at index 0.
 	// The caller is responsible for deleting the object returned by this method.
 	CkEmailBundleW *GetHeaders(int numBodyLines, int fromIndex, int toIndex);
@@ -2043,6 +2088,13 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 
 	// Returns true if the mailman is already unlocked, otherwise returns false.
 	bool IsUnlocked(void);
+
+	// Provides information about what transpired in the last method called on this
+	// object instance. For many methods, there is no information. However, for some
+	// methods, details about what occurred can be obtained by getting the LastJsonData
+	// right after the method call returns.
+	// The caller is responsible for deleting the object returned by this method.
+	CkJsonObjectW *LastJsonData(void);
 
 	// Loads an email from a .eml file. (EML files contain the MIME source of an
 	// email.) Returns a null reference on failure.
@@ -2239,12 +2291,12 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	CkTaskW *Pop3ResetAsync(void);
 
 	// Sends a raw command to the POP3 server and returns the POP3 server's response.
-	// If non-us-ascii characters are included in command, then  charset indicates the charset
+	// If non-us-ascii characters are included in command, then charset indicates the charset
 	// to be used in sending the command (such as "utf-8", "ansi", "iso-8859-1",
 	// "Shift_JIS", etc.)
 	bool Pop3SendRawCommand(const wchar_t *command, const wchar_t *charset, CkString &outStr);
 	// Sends a raw command to the POP3 server and returns the POP3 server's response.
-	// If non-us-ascii characters are included in command, then  charset indicates the charset
+	// If non-us-ascii characters are included in command, then charset indicates the charset
 	// to be used in sending the command (such as "utf-8", "ansi", "iso-8859-1",
 	// "Shift_JIS", etc.)
 	const wchar_t *pop3SendRawCommand(const wchar_t *command, const wchar_t *charset);
@@ -2288,6 +2340,10 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// 
 	const wchar_t *renderToMime(CkEmailW &email);
 
+	// The same as RenderToMimeBytes, except the MIME is rendered into renderedMime. The
+	// rendered MIME is appended to renderedMime.
+	bool RenderToMimeBd(CkEmailW &email, CkBinDataW &renderedMime);
+
 	// This method is the same as RenderToMime, but the MIME is returned in a byte
 	// array. If an email uses an 8bit or binary MIME encoding, then calling
 	// RenderToMime may introduce errors because it is not possible to return non-text
@@ -2295,6 +2351,10 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// over RenderToMime, unless it is assured that the email (MIME) does not use a
 	// binary encoding for non-text data.
 	bool RenderToMimeBytes(CkEmailW &email, CkByteData &outBytes);
+
+	// The same as RenderToMime, except the MIME is rendered into renderedMime. The rendered
+	// MIME is appended to renderedMime.
+	bool RenderToMimeSb(CkEmailW &email, CkStringBuilderW &renderedMime);
 
 	// Sends a bundle of emails. This is identical to calling SendEmail for each email
 	// in the bundle.
@@ -2338,42 +2398,42 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	CkTaskW *SendEmailAsync(CkEmailW &email);
 
 	// Provides complete control over the email that is sent. The MIME text passed in
-	//  mimeSource (the MIME source of an email) is passed exactly as-is to the SMTP server.
-	// The  recipients is a comma separated list of recipient email addresses. The fromAddr is the
+	// mimeSource (the MIME source of an email) is passed exactly as-is to the SMTP server.
+	// The recipients is a comma separated list of recipient email addresses. The fromAddr is the
 	// reverse-path email address. This is where bounced email (non-delivery reports)
-	// will be delivered. It may be different than the "From" header field in the  mimeSource.
+	// will be delivered. It may be different than the "From" header field in the mimeSource.
 	// 
-	// To understand how the fromAddr and  recipients relate to the email addresses found in the
+	// To understand how the fromAddr and recipients relate to the email addresses found in the
 	// MIME headers (FROM, TO, CC), see the link below entitled "SMTP Protocol in a
 	// Nutshell". The fromAddr is what is passed to the SMTP server in the "MAIL FROM"
-	// command. The  recipients are the email addresses passed in "RCPT TO" commands. These
+	// command. The recipients are the email addresses passed in "RCPT TO" commands. These
 	// are usually the same email addresses found in the MIME headers, but need not be
 	// (unless the SMTP server enforces policies that require them to be the same).
 	// 
-	bool SendMime(const wchar_t *from, const wchar_t *recipients, const wchar_t *mimeText);
+	bool SendMime(const wchar_t *fromAddr, const wchar_t *recipients, const wchar_t *mimeSource);
 
 	// Creates an asynchronous task to call the SendMime method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SendMimeAsync(const wchar_t *from, const wchar_t *recipients, const wchar_t *mimeText);
+	CkTaskW *SendMimeAsync(const wchar_t *fromAddr, const wchar_t *recipients, const wchar_t *mimeSource);
 
 	// This method is the same as SendMime, except the MIME is passed in a byte array.
 	// This can be important if the MIME uses a binary encoding, or if a DKIM/DomainKey
 	// signature is included.
 	// 
-	// To understand how the fromAddr and  recipients relate to the email addresses found in the
+	// To understand how the fromAddr and recipients relate to the email addresses found in the
 	// MIME headers (FROM, TO, CC), see the link below entitled "SMTP Protocol in a
 	// Nutshell". The fromAddr is what is passed to the SMTP server in the "MAIL FROM"
-	// command. The  recipients are the email addresses passed in "RCPT TO" commands. These
+	// command. The recipients are the email addresses passed in "RCPT TO" commands. These
 	// are usually the same email addresses found in the MIME headers, but need not be
 	// (unless the SMTP server enforces policies that require them to be the same).
 	// 
-	bool SendMimeBytes(const wchar_t *from, const wchar_t *recipients, CkByteData &mimeData);
+	bool SendMimeBytes(const wchar_t *fromAddr, const wchar_t *recipients, CkByteData &mimeSource);
 
 	// Creates an asynchronous task to call the SendMimeBytes method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SendMimeBytesAsync(const wchar_t *from, const wchar_t *recipients, CkByteData &mimeData);
+	CkTaskW *SendMimeBytesAsync(const wchar_t *fromAddr, const wchar_t *recipients, CkByteData &mimeSource);
 
 #if defined(CK_SMTPQ_INCLUDED)
 	// This method is the samem as SendMimeQ, except the MIME is passed in a byte array
@@ -2384,17 +2444,23 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 #if defined(CK_SMTPQ_INCLUDED)
 	// Same as SendMime, except the email is written to the Chilkat SMTPQ's queue
 	// directory for background sending from the SMTPQ service.
-	bool SendMimeQ(const wchar_t *from, const wchar_t *recipients, const wchar_t *mimeText);
+	// 
+	// Important: The SMTPQ functionality is deprecated and will be removed in a future
+	// version. The SMTPQ Windows Service Visual Studo project is available on GitHub
+	// at the link below. Users would need to build the project prior to using. Chilkat
+	// does not provide pre-built binaries for the SMTPQ Windows Service.
+	// 
+	bool SendMimeQ(const wchar_t *fromAddr, const wchar_t *recipients, const wchar_t *mimeSource);
 #endif
 
-	// Same as SendMime, but the recipient list is read from a text file ( distListFilename)
+	// Same as SendMime, but the recipient list is read from a text file (distListFilename)
 	// containing one email address per line.
-	bool SendMimeToList(const wchar_t *from, const wchar_t *distListFile, const wchar_t *mimeText);
+	bool SendMimeToList(const wchar_t *fromAddr, const wchar_t *distListFilename, const wchar_t *mimeSource);
 
 	// Creates an asynchronous task to call the SendMimeToList method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SendMimeToListAsync(const wchar_t *from, const wchar_t *distListFile, const wchar_t *mimeText);
+	CkTaskW *SendMimeToListAsync(const wchar_t *fromAddr, const wchar_t *distListFilename, const wchar_t *mimeSource);
 
 #if defined(CK_SMTPQ_INCLUDED)
 	// Queues an email to be sent using the Chilkat SMTP queue service. This is the
@@ -2417,6 +2483,11 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// Note: After calling this method, the filename of the .eml that was created will
 	// be available in the LastSendQFilename property.
 	// 
+	// Important: The SMTPQ functionality is deprecated and will be removed in a future
+	// version. The SMTPQ Windows Service Visual Studo project is available on GitHub
+	// at the link below. Users would need to build the project prior to using. Chilkat
+	// does not provide pre-built binaries for the SMTPQ Windows Service.
+	// 
 	bool SendQ(CkEmailW &email);
 #endif
 
@@ -2424,20 +2495,25 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// Same as SendQ, but the queue directory can be explicitly specified in a method
 	// argument.
 	// 
-	// Beginning with version 9.5.0.47, the ARG2 can indicate the exact output filepath
-	// to be written. If ARG2 specifies only the directory, then SendQ2 will
+	// Beginning with version 9.5.0.47, the queueDir can indicate the exact output filepath
+	// to be written. If queueDir specifies only the directory, then SendQ2 will
 	// automatically generate the output filename.
+	// 
+	// Important: The SMTPQ functionality is deprecated and will be removed in a future
+	// version. The SMTPQ Windows Service Visual Studo project is available on GitHub
+	// at the link below. Users would need to build the project prior to using. Chilkat
+	// does not provide pre-built binaries for the SMTPQ Windows Service.
 	// 
 	bool SendQ2(CkEmailW &email, const wchar_t *queueDir);
 #endif
 
 	// Send the same email to a list of email addresses.
-	bool SendToDistributionList(CkEmailW &email, CkStringArrayW &sa);
+	bool SendToDistributionList(CkEmailW &emailObj, CkStringArrayW &recipientList);
 
 	// Creates an asynchronous task to call the SendToDistributionList method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SendToDistributionListAsync(CkEmailW &email, CkStringArrayW &sa);
+	CkTaskW *SendToDistributionListAsync(CkEmailW &emailObj, CkStringArrayW &recipientList);
 
 #if defined(CK_CSP_INCLUDED)
 	// (Only applies to the Microsoft Windows OS) Sets the Cryptographic Service
@@ -2463,7 +2539,7 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// store, nothing needs to be done -- the mailman will automatically locate and use
 	// the required cert + private key.
 	// 
-	bool SetDecryptCert2(CkCertW &cert, CkPrivateKeyW &key);
+	bool SetDecryptCert2(CkCertW &cert, CkPrivateKeyW &privateKey);
 
 	// Sets the client-side certificate to be used with SSL connections. This is
 	// typically not required, as most SSL connections are such that only the server is
@@ -2545,20 +2621,20 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	CkTaskW *SmtpResetAsync(void);
 
 	// Sends a raw command to the SMTP server and returns the SMTP server's response.
-	// If non-us-ascii characters are included in command, then  charset indicates the charset
+	// If non-us-ascii characters are included in command, then charset indicates the charset
 	// to be used in sending the command (such as "utf-8", "ansi", "iso-8859-1",
 	// "Shift_JIS", etc.)
 	// 
-	// If  bEncodeBase64 is true, then the response is returned in Base64-encoded format.
+	// If bEncodeBase64 is true, then the response is returned in Base64-encoded format.
 	// Otherwise the raw response is returned.
 	// 
 	bool SmtpSendRawCommand(const wchar_t *command, const wchar_t *charset, bool bEncodeBase64, CkString &outStr);
 	// Sends a raw command to the SMTP server and returns the SMTP server's response.
-	// If non-us-ascii characters are included in command, then  charset indicates the charset
+	// If non-us-ascii characters are included in command, then charset indicates the charset
 	// to be used in sending the command (such as "utf-8", "ansi", "iso-8859-1",
 	// "Shift_JIS", etc.)
 	// 
-	// If  bEncodeBase64 is true, then the response is returned in Base64-encoded format.
+	// If bEncodeBase64 is true, then the response is returned in Base64-encoded format.
 	// Otherwise the raw response is returned.
 	// 
 	const wchar_t *smtpSendRawCommand(const wchar_t *command, const wchar_t *charset, bool bEncodeBase64);
@@ -2570,19 +2646,19 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 
 	// Authenticates with the SSH server using public-key authentication. The
 	// corresponding public key must have been installed on the SSH server for the
-	// bSmtp. Authentication will succeed if the matching  sshUsername is provided.
+	// sshLogin. Authentication will succeed if the matching sshUsername is provided.
 	// 
 	// Important: When reporting problems, please send the full contents of the
 	// LastErrorText property to support@chilkatsoft.com.
 	// 
-	bool SshAuthenticatePk(const wchar_t *sshLogin, CkSshKeyW &privateKey);
+	bool SshAuthenticatePk(const wchar_t *sshLogin, CkSshKeyW &sshUsername);
 
 	// Creates an asynchronous task to call the SshAuthenticatePk method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SshAuthenticatePkAsync(const wchar_t *sshLogin, CkSshKeyW &privateKey);
+	CkTaskW *SshAuthenticatePkAsync(const wchar_t *sshLogin, CkSshKeyW &sshUsername);
 
-	// Authenticates with the SSH server using a bSmtp and  sshLogin.
+	// Authenticates with the SSH server using a sshLogin and sshPassword.
 	// 
 	// An SSH tunneling (port forwarding) session always begins by first calling
 	// SshTunnel to connect to the SSH server, then calling either AuthenticatePw or
@@ -2611,8 +2687,8 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SshCloseTunnelAsync(void);
 
-	// Connects to an SSH server and creates a tunnel for SMTP or POP3. The ARG1 is the
-	// hostname (or IP address) of the SSH server. The ARG2 is typically 22, which is
+	// Connects to an SSH server and creates a tunnel for SMTP or POP3. The sshHostname is the
+	// hostname (or IP address) of the SSH server. The sshPort is typically 22, which is
 	// the standard SSH port number.
 	// 
 	// An SSH tunneling (port forwarding) session always begins by first calling
@@ -2664,8 +2740,8 @@ class CK_VISIBLE_PUBLIC CkMailManW  : public CkClassWithCallbacksW
 	// arbitrary string, such as "Hello World" may be passed to automatically begin a
 	// fully-functional 30-day trial.
 	// 
-	// A valid permanent unlock code for this object will always included the substring
-	// "MAIL".
+	// A valid purchased unlock code for this object will always included the substring
+	// "MAIL", or can be a Bundle unlock code.
 	// 
 	bool UnlockComponent(const wchar_t *code);
 

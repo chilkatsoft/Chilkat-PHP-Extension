@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkCharsetW_H
 #define _CkCharsetW_H
@@ -702,12 +702,12 @@ class CK_VISIBLE_PUBLIC CkCharsetW  : public CkWideCharBase
 	// the ToCharset is utf-16 or utf-8, then the preamble (also known as BOM) is
 	// included in the output. (Call ConvertFileNoPreamble to suppress the output of
 	// the BOM.)
-	bool ConvertFile(const wchar_t *srcPath, const wchar_t *destPath);
+	bool ConvertFile(const wchar_t *inPath, const wchar_t *destPath);
 
 	// Converts a file from one character encoding to another. The FromCharset and
 	// ToCharset properties specify the source and destination character encodings. No
 	// preamble (also known as BOM) is included in the output.
-	bool ConvertFileNoPreamble(const wchar_t *srcPath, const wchar_t *destPath);
+	bool ConvertFileNoPreamble(const wchar_t *inPath, const wchar_t *destPath);
 
 	// Converts Unicode (utf-16) text to the charset specified by the ToCharset
 	// property.
@@ -726,7 +726,7 @@ class CK_VISIBLE_PUBLIC CkCharsetW  : public CkWideCharBase
 	// set, it is obtained from the HTML META tag that indicates the charset. This
 	// method automatically edits the META tag within the HTML that indicates the
 	// charset.
-	bool ConvertHtmlFile(const wchar_t *srcPath, const wchar_t *destPath);
+	bool ConvertHtmlFile(const wchar_t *inPath, const wchar_t *destPath);
 
 	// Converts multibyte character data to a Unicode string. The FromCharset property
 	// should be set before calling this method.
@@ -760,13 +760,13 @@ class CK_VISIBLE_PUBLIC CkCharsetW  : public CkWideCharBase
 
 	// Examines an HTML file and extracts the charset name specified by the META tag,
 	// if present.
-	bool GetHtmlFileCharset(const wchar_t *htmlFilename, CkString &outCharset);
+	bool GetHtmlFileCharset(const wchar_t *htmlFilePath, CkString &outCharset);
 	// Examines an HTML file and extracts the charset name specified by the META tag,
 	// if present.
-	const wchar_t *getHtmlFileCharset(const wchar_t *htmlFilename);
+	const wchar_t *getHtmlFileCharset(const wchar_t *htmlFilePath);
 	// Examines an HTML file and extracts the charset name specified by the META tag,
 	// if present.
-	const wchar_t *htmlFileCharset(const wchar_t *htmlFilename);
+	const wchar_t *htmlFileCharset(const wchar_t *htmlFilePath);
 
 	// Converts HTML entities to Unicode characters.
 	bool HtmlDecodeToStr(const wchar_t *inStr, CkString &outStr);
@@ -782,7 +782,7 @@ class CK_VISIBLE_PUBLIC CkCharsetW  : public CkWideCharBase
 	// decoded. See http://www.w3.org/TR/REC-html40/sgml/entities.html for information
 	// on HTML entities. Examples of HTML entities are _AMP_lt; , _AMP_#229; ,
 	// _AMP_#xE5; , _AMP_#x6C34; , _AMP_Iacute; , etc.
-	bool HtmlEntityDecodeFile(const wchar_t *inFilename, const wchar_t *destPath);
+	bool HtmlEntityDecodeFile(const wchar_t *inPath, const wchar_t *destPath);
 
 	// Returns true if the component is unlocked.
 	bool IsUnlocked(void);
@@ -793,16 +793,16 @@ class CK_VISIBLE_PUBLIC CkCharsetW  : public CkWideCharBase
 	const wchar_t *lowerCase(const wchar_t *inStr);
 
 	// Convenience method for reading the entire contents of a file into a byte array.
-	bool ReadFile(const wchar_t *filename, CkByteData &outData);
+	bool ReadFile(const wchar_t *path, CkByteData &outData);
 
 	// Reads a text file and returns the text converted to a Unicode string. The
 	// filename is specified by the first method argument, and the charset of the text
 	// data is specified by the 2nd method argument.
-	bool ReadFileToString(const wchar_t *filename, const wchar_t *srcCharset, CkString &outStr);
+	bool ReadFileToString(const wchar_t *path, const wchar_t *charset, CkString &outStr);
 	// Reads a text file and returns the text converted to a Unicode string. The
 	// filename is specified by the first method argument, and the charset of the text
 	// data is specified by the 2nd method argument.
-	const wchar_t *readFileToString(const wchar_t *filename, const wchar_t *srcCharset);
+	const wchar_t *readFileToString(const wchar_t *path, const wchar_t *charset);
 
 	// If the ErrorAction property is set to 1, the bytes passed to this method are
 	// used as the result for any characters that cannot be converted during a
@@ -835,14 +835,14 @@ class CK_VISIBLE_PUBLIC CkCharsetW  : public CkWideCharBase
 
 	// Returns true if the file contains character data that conforms to the charset
 	// passed in the 1st argument.
-	bool VerifyFile(const wchar_t *charset, const wchar_t *filename);
+	bool VerifyFile(const wchar_t *charset, const wchar_t *path);
 
 	// Convenience method for saving an entire byte array to a file.
-	bool WriteFile(const wchar_t *filename, CkByteData &fileData);
+	bool WriteFile(const wchar_t *path, CkByteData &byteData);
 
 	// Converts a Unicode string to a multibyte charset and writes the multibyte text
 	// data to a file. The destination charset is specified in the 2nd method argument.
-	bool WriteStringToFile(const wchar_t *str, const wchar_t *filename, const wchar_t *charset);
+	bool WriteStringToFile(const wchar_t *textData, const wchar_t *path, const wchar_t *charset);
 
 
 

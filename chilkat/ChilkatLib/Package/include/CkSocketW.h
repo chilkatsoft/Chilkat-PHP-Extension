@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkSocketW_H
 #define _CkSocketW_H
@@ -15,6 +15,8 @@
 class CkByteData;
 class CkTaskW;
 class CkCertW;
+class CkBinDataW;
+class CkStringBuilderW;
 class CkSshKeyW;
 class CkSshW;
 class CkBaseProgressW;
@@ -62,6 +64,23 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// ----------------------
 	// Properties
 	// ----------------------
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	bool get_AbortCurrent(void);
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	void put_AbortCurrent(bool newVal);
+
 	// If a AcceptNextConnection method fails, this property can be checked to
 	// determine the reason for failure.
 	// 
@@ -209,6 +228,32 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// 
 	bool get_AsyncDnsSuccess(void);
 
+	// Contains the data received in an asynchronous receive operation (when receiving
+	// bytes asynchronously).
+	// 
+	// This functionality is replaced by the new model for asynchronous programming
+	// introduced in Chilkat v9.5.0.52. Applications should use the new model, which is
+	// identified by methods having names ending with "Async" and return a task object.
+	// 
+	void get_AsyncReceivedBytes(CkByteData &outBytes);
+
+	// Contains the string received in an asynchronous receive operation (when
+	// receiving a string asynchronously).
+	// 
+	// This functionality is replaced by the new model for asynchronous programming
+	// introduced in Chilkat v9.5.0.52. Applications should use the new model, which is
+	// identified by methods having names ending with "Async" and return a task object.
+	// 
+	void get_AsyncReceivedString(CkString &str);
+	// Contains the string received in an asynchronous receive operation (when
+	// receiving a string asynchronously).
+	// 
+	// This functionality is replaced by the new model for asynchronous programming
+	// introduced in Chilkat v9.5.0.52. Applications should use the new model, which is
+	// identified by methods having names ending with "Async" and return a task object.
+	// 
+	const wchar_t *asyncReceivedString(void);
+
 	// Set to true when an asynchronous receive operation completes. Once the
 	// asynchronous receive has finished, the success/failure is available in the
 	// AsyncReceiveSuccess boolean property.
@@ -242,32 +287,6 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// identified by methods having names ending with "Async" and return a task object.
 	// 
 	bool get_AsyncReceiveSuccess(void);
-
-	// Contains the data received in an asynchronous receive operation (when receiving
-	// bytes asynchronously).
-	// 
-	// This functionality is replaced by the new model for asynchronous programming
-	// introduced in Chilkat v9.5.0.52. Applications should use the new model, which is
-	// identified by methods having names ending with "Async" and return a task object.
-	// 
-	void get_AsyncReceivedBytes(CkByteData &outBytes);
-
-	// Contains the string received in an asynchronous receive operation (when
-	// receiving a string asynchronously).
-	// 
-	// This functionality is replaced by the new model for asynchronous programming
-	// introduced in Chilkat v9.5.0.52. Applications should use the new model, which is
-	// identified by methods having names ending with "Async" and return a task object.
-	// 
-	void get_AsyncReceivedString(CkString &str);
-	// Contains the string received in an asynchronous receive operation (when
-	// receiving a string asynchronously).
-	// 
-	// This functionality is replaced by the new model for asynchronous programming
-	// introduced in Chilkat v9.5.0.52. Applications should use the new model, which is
-	// identified by methods having names ending with "Async" and return a task object.
-	// 
-	const wchar_t *asyncReceivedString(void);
 
 	// Set to true when an asynchronous send operation completes. Once the
 	// asynchronous send has finished, the success/failure is available in the
@@ -462,6 +481,15 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// The NTLM authentication domain (optional) if NTLM authentication is used.
 	void put_HttpProxyDomain(const wchar_t *newVal);
 
+	// If this connection is effectively used to send HTTP requests, then set this
+	// property to true when using an HTTP proxy. The default value of this property
+	// is false.
+	bool get_HttpProxyForHttp(void);
+	// If this connection is effectively used to send HTTP requests, then set this
+	// property to true when using an HTTP proxy. The default value of this property
+	// is false.
+	void put_HttpProxyForHttp(bool newVal);
+
 	// If an HTTP proxy is to be used, set this property to the HTTP proxy hostname or
 	// IPv4 address (in dotted decimal notation).
 	void get_HttpProxyHostname(CkString &str);
@@ -531,6 +559,10 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// BindAndList and AcceptNextConnection method calls) will use IPv6 and not IPv4.
 	// The default value is false for IPv4.
 	void put_ListenIpv6(bool newVal);
+
+	// The BindAndListen method will find a random unused port to listen on if you bind
+	// to port 0. This chosen listen port is available via this property.
+	int get_ListenPort(void);
 
 	// The local IP address for a bound or connected socket.
 	void get_LocalIpAddress(CkString &str);
@@ -653,33 +685,6 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// over IPv6.
 	void put_PreferIpv6(bool newVal);
 
-	// If a Receive method fails, this property can be checked to determine the reason
-	// for failure.
-	// 
-	// Possible values are:
-	// 0 = Success
-	// 1 = An async receive operation is already in progress.
-	// 2 = The socket is not connected, such as if it was never connected, or if the connection was previously lost.
-	// 3 = An unspecified internal failure, perhaps out-of-memory, caused the failure.
-	// 4 = Invalid parameters were passed to the receive method call.
-	// 5 = Timeout.  Data stopped arriving for more than the amount of time specified by the MaxReadIdleMs property.
-	// 6 = The receive was aborted by the application in an event callback.
-	// 7 = The connection was lost -- the remote peer reset the connection. (The connection was forcibly closed by the peer.)
-	// 8 = An established connection was aborted by the software in your host machine. (See https://www.chilkatsoft.com/p/p_299.asp )
-	// 9 = An unspecified fatal socket error occurred (less common).
-	// 10 = The connection was closed by the peer.
-	// 
-	int get_ReceiveFailReason(void);
-
-	// The number of bytes to receive at a time (internally). This setting has an
-	// effect on methods such as ReadBytes and ReadString where the number of bytes to
-	// read is not explicitly specified. The default value is 4096.
-	int get_ReceivePacketSize(void);
-	// The number of bytes to receive at a time (internally). This setting has an
-	// effect on methods such as ReadBytes and ReadString where the number of bytes to
-	// read is not explicitly specified. The default value is 4096.
-	void put_ReceivePacketSize(int newVal);
-
 	// Any method that receives data will increase the value of this property by the
 	// number of bytes received. The application may reset this property to 0 at any
 	// point. It is provided as a way to keep count of the total number of bytes
@@ -715,6 +720,33 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// Contains the last integer received via a call to ReceiveByte, ReceiveInt16, or
 	// ReceiveInt32.
 	void put_ReceivedInt(int newVal);
+
+	// If a Receive method fails, this property can be checked to determine the reason
+	// for failure.
+	// 
+	// Possible values are:
+	// 0 = Success
+	// 1 = An async receive operation is already in progress.
+	// 2 = The socket is not connected, such as if it was never connected, or if the connection was previously lost.
+	// 3 = An unspecified internal failure, perhaps out-of-memory, caused the failure.
+	// 4 = Invalid parameters were passed to the receive method call.
+	// 5 = Timeout.  Data stopped arriving for more than the amount of time specified by the MaxReadIdleMs property.
+	// 6 = The receive was aborted by the application in an event callback.
+	// 7 = The connection was lost -- the remote peer reset the connection. (The connection was forcibly closed by the peer.)
+	// 8 = An established connection was aborted by the software in your host machine. (See https://www.chilkatsoft.com/p/p_299.asp )
+	// 9 = An unspecified fatal socket error occurred (less common).
+	// 10 = The connection was closed by the peer.
+	// 
+	int get_ReceiveFailReason(void);
+
+	// The number of bytes to receive at a time (internally). This setting has an
+	// effect on methods such as ReadBytes and ReadString where the number of bytes to
+	// read is not explicitly specified. The default value is 4096.
+	int get_ReceivePacketSize(void);
+	// The number of bytes to receive at a time (internally). This setting has an
+	// effect on methods such as ReadBytes and ReadString where the number of bytes to
+	// read is not explicitly specified. The default value is 4096.
+	void put_ReceivePacketSize(int newVal);
 
 	// When a socket is connected, the remote IP address of the connected peer is
 	// available in this property.
@@ -841,69 +873,6 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// 
 	void put_SessionLogEncoding(const wchar_t *newVal);
 
-	// Sets the receive buffer size socket option. Normally, this property should be
-	// left unchanged. The default value is 0, which indicates that the receive buffer
-	// size socket option should not be explicitly set (i.e. the system default value,
-	// which may vary from system to system, should be used).
-	// 
-	// This property can be changed if download performance seems slow. It is
-	// recommended to be a multiple of 4096. To see the current system's default
-	// receive buffer size, examine the LastErrorText property after calling any method
-	// that establishes a connection. It should be reported under the heading
-	// "SO_RCVBUF". To boost performance, try setting it equal to 2, 3, or 4 times the
-	// default value.
-	// 
-	int get_SoRcvBuf(void);
-	// Sets the receive buffer size socket option. Normally, this property should be
-	// left unchanged. The default value is 0, which indicates that the receive buffer
-	// size socket option should not be explicitly set (i.e. the system default value,
-	// which may vary from system to system, should be used).
-	// 
-	// This property can be changed if download performance seems slow. It is
-	// recommended to be a multiple of 4096. To see the current system's default
-	// receive buffer size, examine the LastErrorText property after calling any method
-	// that establishes a connection. It should be reported under the heading
-	// "SO_RCVBUF". To boost performance, try setting it equal to 2, 3, or 4 times the
-	// default value.
-	// 
-	void put_SoRcvBuf(int newVal);
-
-	// Sets the SO_REUSEADDR socket option for a socket that will bind to a port and
-	// listen for incoming connections. The default value is true, meaning that the
-	// SO_REUSEADDR socket option is set. If the socket option must be unset, set this
-	// property equal to false prior to calling BindAndListen or InitSslServer.
-	bool get_SoReuseAddr(void);
-	// Sets the SO_REUSEADDR socket option for a socket that will bind to a port and
-	// listen for incoming connections. The default value is true, meaning that the
-	// SO_REUSEADDR socket option is set. If the socket option must be unset, set this
-	// property equal to false prior to calling BindAndListen or InitSslServer.
-	void put_SoReuseAddr(bool newVal);
-
-	// Sets the send buffer size socket option. Normally, this property should be left
-	// unchanged. The default value is 0, which indicates that the send buffer size
-	// socket option should not be explicitly set (i.e. the system default value, which
-	// may vary from system to system, should be used).
-	// 
-	// This property can be changed if upload performance seems slow. It is recommended
-	// to be a multiple of 4096. To see the current system's default send buffer size,
-	// examine the LastErrorText property after calling any method that establishes a
-	// connection. It should be reported under the heading "SO_SNDBUF". To boost
-	// performance, try setting it equal to 2, 3, or 4 times the default value.
-	// 
-	int get_SoSndBuf(void);
-	// Sets the send buffer size socket option. Normally, this property should be left
-	// unchanged. The default value is 0, which indicates that the send buffer size
-	// socket option should not be explicitly set (i.e. the system default value, which
-	// may vary from system to system, should be used).
-	// 
-	// This property can be changed if upload performance seems slow. It is recommended
-	// to be a multiple of 4096. To see the current system's default send buffer size,
-	// examine the LastErrorText property after calling any method that establishes a
-	// connection. It should be reported under the heading "SO_SNDBUF". To boost
-	// performance, try setting it equal to 2, 3, or 4 times the default value.
-	// 
-	void put_SoSndBuf(int newVal);
-
 	// The SOCKS4/SOCKS5 hostname or IPv4 address (in dotted decimal notation). This
 	// property is only used if the SocksVersion property is set to 4 or 5).
 	void get_SocksHostname(CkString &str);
@@ -957,6 +926,49 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// 5 - Connect via a SOCKS5 proxy.
 	// 
 	void put_SocksVersion(int newVal);
+
+	// Sets the receive buffer size socket option. Normally, this property should be
+	// left unchanged. The default value is 4194304.
+	// 
+	// This property can be increased if download performance seems slow. It is
+	// recommended to be a multiple of 4096.
+	// 
+	int get_SoRcvBuf(void);
+	// Sets the receive buffer size socket option. Normally, this property should be
+	// left unchanged. The default value is 4194304.
+	// 
+	// This property can be increased if download performance seems slow. It is
+	// recommended to be a multiple of 4096.
+	// 
+	void put_SoRcvBuf(int newVal);
+
+	// Sets the SO_REUSEADDR socket option for a socket that will bind to a port and
+	// listen for incoming connections. The default value is true, meaning that the
+	// SO_REUSEADDR socket option is set. If the socket option must be unset, set this
+	// property equal to false prior to calling BindAndListen or InitSslServer.
+	bool get_SoReuseAddr(void);
+	// Sets the SO_REUSEADDR socket option for a socket that will bind to a port and
+	// listen for incoming connections. The default value is true, meaning that the
+	// SO_REUSEADDR socket option is set. If the socket option must be unset, set this
+	// property equal to false prior to calling BindAndListen or InitSslServer.
+	void put_SoReuseAddr(bool newVal);
+
+	// Sets the send buffer size socket option. Normally, this property should be left
+	// unchanged. The default value is 262144.
+	// 
+	// This property can be increased if upload performance seems slow. It is
+	// recommended to be a multiple of 4096. Testing with sizes such as 512K and 1MB is
+	// reasonable.
+	// 
+	int get_SoSndBuf(void);
+	// Sets the send buffer size socket option. Normally, this property should be left
+	// unchanged. The default value is 262144.
+	// 
+	// This property can be increased if upload performance seems slow. It is
+	// recommended to be a multiple of 4096. Testing with sizes such as 512K and 1MB is
+	// reasonable.
+	// 
+	void put_SoSndBuf(int newVal);
 
 	// Set this property to true if the socket requires an SSL connection. The
 	// default value is false.
@@ -1392,6 +1404,9 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// or more calls to this method to identify the CA's it will accept for client-side
 	// certificates.
 	// 
+	// If no CA DN's are added by this method, then client certificates from any root
+	// CA are accepted.
+	// 
 	// Important: If calling this method, it must be called before calling
 	// InitSslServer.
 	// 
@@ -1447,7 +1462,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// Initiates a background thread to establish a TCP connection with a remote
 	// host:port. The method will fail if an asynchronous operation is already in
 	// progress, or if the timeout expired. The timeout (in milliseconds) is passed in
-	//  maxWaitMs. To wait indefinitely, set  maxWaitMs to 0. Set  ssl = true to esablish an SSL
+	// maxWaitMs. To wait indefinitely, set maxWaitMs to 0. Set ssl = true to esablish an SSL
 	// connection. Asynchronous connect operations can be aborted by calling
 	// AsyncConnectAbort. When the async connect operation completes, the
 	// AsyncConnectFinished property will become true. If the connect was successful,
@@ -1472,7 +1487,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// Initiates a background thread to do a DNS query (i.e. to resolve a hostname to
 	// an IP address). The method will fail if an asynchronous operation is already in
 	// progress, or if the timeout expired. The timeout (in milliseconds) is passed in
-	//  maxWaitMs. To wait indefinitely, set  maxWaitMs to 0. Asynchronous DNS lookups can be
+	// maxWaitMs. To wait indefinitely, set maxWaitMs to 0. Asynchronous DNS lookups can be
 	// aborted by calling AsyncDnsAbort. When the async DNS operation completes, the
 	// AsyncDnsFinished property will become true. If the DNS query was successful,
 	// the AsyncDnsSuccess property is set to true. A debug log is available in the
@@ -1569,7 +1584,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// introduced in Chilkat v9.5.0.52. Applications should use the new model, which is
 	// identified by methods having names ending with "Async" and return a task object.
 	// 
-	bool AsyncSendBytes(CkByteData &data);
+	bool AsyncSendBytes(CkByteData &byteData);
 
 	// Initiates a background thread to send text on an already-connected socket (ssl
 	// or non-ssl). Before sending, the stringToSend is first converted (if necessary) to the
@@ -1579,23 +1594,53 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// introduced in Chilkat v9.5.0.52. Applications should use the new model, which is
 	// identified by methods having names ending with "Async" and return a task object.
 	// 
-	bool AsyncSendString(const wchar_t *str);
+	bool AsyncSendString(const wchar_t *stringToSend);
 
 	// Binds a TCP socket to a port and configures it to listen for incoming
-	// connections. The size of the backlog is passed in  backLog. The  backLog is necessary
+	// connections. The size of the backlog is passed in backLog. The backLog is necessary
 	// when multiple connections arrive at the same time, or close enough in time such
-	// that they cannot be serviced immediately. (A typical value to use for  backLog is
+	// that they cannot be serviced immediately. (A typical value to use for backLog is
 	// 5.) This method should be called once prior to receiving incoming connection
 	// requests via the AcceptNextConnection or AsyncAcceptStart methods.
+	// 
+	// Note:This method will find a random unused port to listen on if you bind to port
+	// 0. The chosen port is available via the read-only ListenPort property after this
+	// method returns successful.
 	// 
 	// To bind and listen using IPv6, set the ListenIpv6 property = true prior to
 	// calling this method.
 	// 
-	// What is a reasonable value for  backLog? The answer depends on how many simultaneous
+	// What is a reasonable value for backLog? The answer depends on how many simultaneous
 	// incoming connections could be expected, and how quickly your application can
 	// process an incoming connection and then return to accept the next connection.
 	// 
-	bool BindAndListen(int port, int backlog);
+	bool BindAndListen(int port, int backLog);
+
+	// Creates an asynchronous task to call the BindAndListen method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *BindAndListenAsync(int port, int backLog);
+
+	// Binds a TCP socket to an unused port within a port range (beginPort to endPort) and
+	// configures it to listen for incoming connections. The size of the backlog is
+	// passed in endPort. The endPort is necessary when multiple connections arrive at the
+	// same time, or close enough in time such that they cannot be serviced
+	// immediately. (A typical value to use for endPort is 5.) This method should be
+	// called once prior to receiving incoming connection requests via the
+	// AcceptNextConnection method.
+	// 
+	// To bind and listen using IPv6, set the ListenIpv6 property = true prior to
+	// calling this method.
+	// 
+	// Returns the port number that was bound, or -1 if no port was available or if it
+	// failed for some other reason.
+	// 
+	int BindAndListenPortRange(int beginPort, int endPort, int backLog);
+
+	// Creates an asynchronous task to call the BindAndListenPortRange method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *BindAndListenPortRangeAsync(int beginPort, int endPort, int backLog);
 
 	// Convenience method for building a simple HTTP GET request from a URL.
 	bool BuildHttpGetRequest(const wchar_t *url, CkString &outStr);
@@ -1643,10 +1688,10 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 
 	// Establishes a secure SSL/TLS or a plain non-secure TCP connection with a remote
 	// host:port. This is a blocking call. The maximum wait time (in milliseconds) is
-	// passed in  maxWaitMs. This is the amount of time the app is willing to wait for the
+	// passed in maxWaitMs. This is the amount of time the app is willing to wait for the
 	// TCP connection to be accepted.
 	// 
-	// To establish an SSL/TLS connection, set  ssl = true, otherwise set  ssl =
+	// To establish an SSL/TLS connection, set ssl = true, otherwise set ssl =
 	// false for a normal TCP connection. Note: The timeouts that apply to the
 	// internal SSL/TLS handshaking messages are the MaxReadIdleMs and MaxSendIdleMs
 	// properties.
@@ -1661,6 +1706,18 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// hardware firewalls, anti-virus, at either source or destination (or both) can
 	// block the connection. If the connection fails, make sure to check all potential
 	// external causes of blockage.
+	// 
+	// Question: How do I Choose the TLS version, such as 1.2? Answer: The client does
+	// not specifically choose the TLS version. In the TLS handshake (which is what
+	// occurs internally in this method), the client tells the server the version of
+	// the TLS protocol it wishes to use, which should be the highest version is
+	// supports. In this case, (at the time of this writing on 22-June-2017) it is TLS
+	// 1.2. The server then chooses the TLS version that will actually be used. In most
+	// cases it will be TLS 1.2. The client can then choose to accept or reject the
+	// connection based on the TLS version chosen by the server. By default, Chilkat
+	// will reject anything lower than SSL 3.0 (i.e. SSL 2.0 or lower is rejected). The
+	// SslProtocol property can be set to change what is accepted by Chilkat. For
+	// example, it can be set to "TLS 1.0 or higher".
 	// 
 	bool Connect(const wchar_t *hostname, int port, bool ssl, int maxWaitMs);
 
@@ -1696,11 +1753,11 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 
 	// Performs a DNS query to resolve a hostname to an IP address. The IP address is
 	// returned if successful. The maximum time to wait (in milliseconds) is passed in
-	//  maxWaitMs. To wait indefinitely, set  maxWaitMs = 0.
+	// maxWaitMs. To wait indefinitely, set maxWaitMs = 0.
 	bool DnsLookup(const wchar_t *hostname, int maxWaitMs, CkString &outStr);
 	// Performs a DNS query to resolve a hostname to an IP address. The IP address is
 	// returned if successful. The maximum time to wait (in milliseconds) is passed in
-	//  maxWaitMs. To wait indefinitely, set  maxWaitMs = 0.
+	// maxWaitMs. To wait indefinitely, set maxWaitMs = 0.
 	const wchar_t *dnsLookup(const wchar_t *hostname, int maxWaitMs);
 
 	// Creates an asynchronous task to call the DnsLookup method with the arguments
@@ -1776,9 +1833,34 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// data is waiting and false if no data is waiting to be read.
 	bool PollDataAvailable(void);
 
+	// Creates an asynchronous task to call the PollDataAvailable method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *PollDataAvailableAsync(void);
+
+	// Receives as much data as is immediately available on a connected TCP socket and
+	// appends the incoming data to binData. If no data is immediately available, it waits
+	// up to MaxReadIdleMs milliseconds for data to arrive.
+	bool ReceiveBd(CkBinDataW &binData);
+
+	// Creates an asynchronous task to call the ReceiveBd method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *ReceiveBdAsync(CkBinDataW &binData);
+
+	// Reads exactly numBytes bytes from the connection. This method blocks until numBytes
+	// bytes are read or the read times out. The timeout is specified by the
+	// MaxReadIdleMs property (in milliseconds).
+	bool ReceiveBdN(unsigned long numBytes, CkBinDataW &binData);
+
+	// Creates an asynchronous task to call the ReceiveBdN method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *ReceiveBdNAsync(unsigned long numBytes, CkBinDataW &binData);
+
 	// Receives a single byte. The received byte will be available in the ReceivedInt
-	// property. If ARG1 is true, then a value from 0 to 255 is returned in
-	// ReceivedInt. If ARG1 is false, then a value from -128 to +127 is returned.
+	// property. If bUnsigned is true, then a value from 0 to 255 is returned in
+	// ReceivedInt. If bUnsigned is false, then a value from -128 to +127 is returned.
 	bool ReceiveByte(bool bUnsigned);
 
 	// Creates an asynchronous task to call the ReceiveByte method with the arguments
@@ -1845,10 +1927,10 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	CkTaskW *ReceiveCountAsync(void);
 
 	// Receives a 16-bit integer (2 bytes). The received integer will be available in
-	// the ReceivedInt property. Set ARG1 equal to true if the incoming 16-bit
-	// integer is in big-endian byte order. Otherwise set ARG1 equal to false for
-	// receving a little-endian integer. If ARG2 is true, the ReceivedInt will range
-	// from 0 to 65,535. If ARG2 is false, the ReceivedInt will range from -32,768
+	// the ReceivedInt property. Set bigEndian equal to true if the incoming 16-bit
+	// integer is in big-endian byte order. Otherwise set bigEndian equal to false for
+	// receving a little-endian integer. If bUnsigned is true, the ReceivedInt will range
+	// from 0 to 65,535. If bUnsigned is false, the ReceivedInt will range from -32,768
 	// through 32,767.
 	bool ReceiveInt16(bool bigEndian, bool bUnsigned);
 
@@ -1858,8 +1940,8 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	CkTaskW *ReceiveInt16Async(bool bigEndian, bool bUnsigned);
 
 	// Receives a 32-bit integer (4 bytes). The received integer will be available in
-	// the ReceivedInt property. Set ARG1 equal to true if the incoming 32-bit
-	// integer is in big-endian byte order. Otherwise set ARG1 equal to false for
+	// the ReceivedInt property. Set bigEndian equal to true if the incoming 32-bit
+	// integer is in big-endian byte order. Otherwise set bigEndian equal to false for
 	// receving a little-endian integer.
 	bool ReceiveInt32(bool bigEndian);
 
@@ -1883,6 +1965,17 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *ReceiveNBytesENCAsync(unsigned long numBytes, const wchar_t *encodingAlg);
+
+	// Receives as much data as is immediately available on the connection. If no data
+	// is immediately available, it waits up to MaxReadIdleMs milliseconds for data to
+	// arrive. The incoming bytes are interpreted according to the StringCharset
+	// property and appended to sb.
+	bool ReceiveSb(CkStringBuilderW &sb);
+
+	// Creates an asynchronous task to call the ReceiveSb method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *ReceiveSbAsync(CkStringBuilderW &sb);
 
 	// Receives as much data as is immediately available on a TCP/IP or SSL socket. If
 	// no data is immediately available, it waits up to MaxReadIdleMs milliseconds for
@@ -1908,7 +2001,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// for data to arrive. The incoming bytes are interpreted according to the
 	// StringCharset property and returned as a string.)
 	// 
-	bool ReceiveStringMaxN(int maxBytes, CkString &outStr);
+	bool ReceiveStringMaxN(int maxByteCount, CkString &outStr);
 	// Same as ReceiveString, but limits the amount of data returned to a maximum of
 	// maxByteCount bytes.
 	// 
@@ -1917,26 +2010,26 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// for data to arrive. The incoming bytes are interpreted according to the
 	// StringCharset property and returned as a string.)
 	// 
-	const wchar_t *receiveStringMaxN(int maxBytes);
+	const wchar_t *receiveStringMaxN(int maxByteCount);
 
 	// Creates an asynchronous task to call the ReceiveStringMaxN method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *ReceiveStringMaxNAsync(int maxBytes);
+	CkTaskW *ReceiveStringMaxNAsync(int maxByteCount);
 
 	// Receives bytes on a connected SSL or non-SSL socket until a specific 1-byte
 	// value is read. Returns a string containing all the bytes up to but excluding the
 	// lookForByte.
-	bool ReceiveStringUntilByte(int byteValue, CkString &outStr);
+	bool ReceiveStringUntilByte(int lookForByte, CkString &outStr);
 	// Receives bytes on a connected SSL or non-SSL socket until a specific 1-byte
 	// value is read. Returns a string containing all the bytes up to but excluding the
 	// lookForByte.
-	const wchar_t *receiveStringUntilByte(int byteValue);
+	const wchar_t *receiveStringUntilByte(int lookForByte);
 
 	// Creates an asynchronous task to call the ReceiveStringUntilByte method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *ReceiveStringUntilByteAsync(int byteValue);
+	CkTaskW *ReceiveStringUntilByteAsync(int lookForByte);
 
 	// Reads text from the connected TCP/IP or SSL socket until a CRLF is received.
 	// Returns the text up to and including the CRLF. The incoming bytes are
@@ -1954,12 +2047,12 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 
 	// Receives bytes on the TCP/IP or SSL socket until a specific 1-byte value is
 	// read. Returns all the bytes up to and including the lookForByte.
-	bool ReceiveUntilByte(int byteValue, CkByteData &outBytes);
+	bool ReceiveUntilByte(int lookForByte, CkByteData &outBytes);
 
 	// Creates an asynchronous task to call the ReceiveUntilByte method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *ReceiveUntilByteAsync(int byteValue);
+	CkTaskW *ReceiveUntilByteAsync(int lookForByte);
 
 	// Reads text from the connected TCP/IP or SSL socket until a matching string
 	// (matchStr) is received. Returns the text up to and including the matching string. As
@@ -2010,7 +2103,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// remote receiver can read it), then a socket write can block (until outgoing send
 	// buffer space becomes available).
 	// 
-	// Waits a maximum of ARG1 milliseconds. If maxWaitMs = 0, then it is effectively a
+	// Waits a maximum of timeoutMs milliseconds. If maxWaitMs = 0, then it is effectively a
 	// poll. Returns the number of sockets such that data can be written without
 	// blocking. A value of -1 indicates an error condition.
 	// 
@@ -2020,6 +2113,21 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SelectForWritingAsync(int timeoutMs);
+
+	// Sends bytes from binData over a connected SSL or non-SSL socket. If transmission
+	// halts for more than MaxSendIdleMs milliseconds, the send is aborted. This is a
+	// blocking (synchronous) method. It returns only after the bytes have been sent.
+	// 
+	// Set offset and/or numBytes to non-zero values to send a portion of the binData. If offset
+	// and numBytes are both 0, then the entire binData is sent. If offset is non-zero and numBytes
+	// is zero, then the bytes starting at offset until the end are sent.
+	// 
+	bool SendBd(CkBinDataW &binData, unsigned long offset, unsigned long numBytes);
+
+	// Creates an asynchronous task to call the SendBd method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *SendBdAsync(CkBinDataW &binData, unsigned long offset, unsigned long numBytes);
 
 	// Sends a single byte. The integer must have a value from 0 to 255.
 	bool SendByte(int value);
@@ -2040,7 +2148,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	CkTaskW *SendBytesAsync(CkByteData &data);
 
 	// The same as SendBytes, except the bytes are provided in encoded string form as
-	// specified by  encodingAlg. The  encodingAlg can be "Base64", "modBase64", "Base32", "Base58",
+	// specified by encodingAlg. The encodingAlg can be "Base64", "modBase64", "Base32", "Base58",
 	// "UU", "QP" (for quoted-printable), "URL" (for url-encoding), "Hex", "Q", "B",
 	// "url_oauth", "url_rfc1738", "url_rfc2396", and "url_rfc3986".
 	bool SendBytesENC(const wchar_t *encodedBytes, const wchar_t *encodingAlg);
@@ -2062,9 +2170,9 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SendCountAsync(int byteCount);
 
-	// Sends a 16-bit integer (2 bytes). Set ARG2 equal to true to send the integer
+	// Sends a 16-bit integer (2 bytes). Set bigEndian equal to true to send the integer
 	// in big-endian byte order (this is the standard network byte order). Otherwise
-	// set ARG2 equal to false to send in little-endian byte order.
+	// set bigEndian equal to false to send in little-endian byte order.
 	bool SendInt16(int value, bool bigEndian);
 
 	// Creates an asynchronous task to call the SendInt16 method with the arguments
@@ -2072,15 +2180,29 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SendInt16Async(int value, bool bigEndian);
 
-	// Sends a 32-bit integer (4 bytes). Set ARG2 equal to true to send the integer
+	// Sends a 32-bit integer (4 bytes). Set bigEndian equal to true to send the integer
 	// in big-endian byte order (this is the standard network byte order). Otherwise
-	// set ARG2 equal to false to send in little-endian byte order.
+	// set bigEndian equal to false to send in little-endian byte order.
 	bool SendInt32(int value, bool bigEndian);
 
 	// Creates an asynchronous task to call the SendInt32 method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SendInt32Async(int value, bool bigEndian);
+
+	// Sends the contents of sb over the connection. If transmission halts for more
+	// than MaxSendIdleMs milliseconds, the send is aborted. The string is sent in the
+	// charset encoding specified by the StringCharset property.
+	// 
+	// This is a blocking (synchronous) method. It returns after the string has been
+	// sent.
+	// 
+	bool SendSb(CkStringBuilderW &sb);
+
+	// Creates an asynchronous task to call the SendSb method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *SendSbAsync(CkStringBuilderW &sb);
 
 	// Sends a string over a connected SSL or non-SSL (TCP/IP) socket. If transmission
 	// halts for more than MaxSendIdleMs milliseconds, the send is aborted. The string
@@ -2089,12 +2211,30 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// This is a blocking (synchronous) method. It returns after the string has been
 	// sent.
 	// 
-	bool SendString(const wchar_t *str);
+	bool SendString(const wchar_t *stringToSend);
 
 	// Creates an asynchronous task to call the SendString method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *SendStringAsync(const wchar_t *str);
+	CkTaskW *SendStringAsync(const wchar_t *stringToSend);
+
+	// Sends a "Wake on Lan" magic packet to a computer. A Wake on Lan is a way to
+	// power on a computer remotely by sending a data packet known as a magic packet.
+	// For this to work, the network card must have enabled the feature: “Power on
+	// Lan” or “Power on PCI Device“, which is done by accessing the BIOS of the
+	// machine.
+	// 
+	// The macAddress is the MAC address (in hex) of the computer to wake. A MAC address
+	// should be 6 bytes in length. For example, "000102030405". The port is the port
+	// which should be 7 or 9. (Port number 9 is more commonly used.) The ipBroadcastAddr is the
+	// broadcast address of your network, which usually ends with *.255. For example:
+	// "192.168.1.255".
+	// 
+	// Your application does not call Connect prior to calling SendWakeOnLan. To use
+	// this method, it's just a matter of instantiating an instance of this socket
+	// object and then call SendWakeOnLan.
+	// 
+	bool SendWakeOnLan(const wchar_t *macAddress, int port, const wchar_t *ipBroadcastAddr);
 
 	// A client-side certificate for SSL/TLS connections is optional. It should be used
 	// only if the server demands it. This method allows the certificate to be
@@ -2117,7 +2257,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 
 	// Authenticates with the SSH server using public-key authentication. The
 	// corresponding public key must have been installed on the SSH server for the
-	// sshLogin. Authentication will succeed if the matching  privateKey is provided.
+	// sshLogin. Authentication will succeed if the matching privateKey is provided.
 	// 
 	// Important: When reporting problems, please send the full contents of the
 	// LastErrorText property to support@chilkatsoft.com.
@@ -2129,7 +2269,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SshAuthenticatePkAsync(const wchar_t *sshLogin, CkSshKeyW &privateKey);
 
-	// Authenticates with the SSH server using a sshLogin and  sshPassword. This method is only
+	// Authenticates with the SSH server using a sshLogin and sshPassword. This method is only
 	// used for SSH tunneling. The tunnel is established by calling SshOpenTunnel, then
 	// (if necessary) authenticated by calling SshAuthenticatePw or SshAuthenticatePk.
 	bool SshAuthenticatePw(const wchar_t *sshLogin, const wchar_t *sshPassword);
@@ -2148,7 +2288,7 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	CkTaskW *SshCloseTunnelAsync(void);
 
 	// Opens a new channel within an SSH tunnel. Returns the socket that is connected
-	// to the destination host:port through the SSH tunnel via port forwarding. If ARG3
+	// to the destination host:port through the SSH tunnel via port forwarding. If ssl
 	// is true, the connection is TLS (i.e. TLS inside the SSH tunnel). Returns the
 	// socket object that is the port-forwarded tunneled connection. Any number of
 	// channels may be opened within a single SSH tunnel, and may be port-forwarded to
@@ -2161,8 +2301,8 @@ class CK_VISIBLE_PUBLIC CkSocketW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SshOpenChannelAsync(const wchar_t *hostname, int port, bool ssl, int maxWaitMs);
 
-	// Connects to an SSH server and creates a tunnel for port forwarding. The ARG1 is
-	// the hostname (or IP address) of the SSH server. The ARG2 is typically 22, which
+	// Connects to an SSH server and creates a tunnel for port forwarding. The sshHostname is
+	// the hostname (or IP address) of the SSH server. The sshPort is typically 22, which
 	// is the standard SSH port number.
 	// 
 	// An SSH tunneling (port forwarding) session always begins by first calling

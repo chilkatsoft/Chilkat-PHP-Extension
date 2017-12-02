@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkEmailW_H
 #define _CkEmailW_H
@@ -12,10 +12,12 @@
 #include "CkString.h"
 #include "CkWideCharBase.h"
 
+class CkBinDataW;
 class CkByteData;
 class CkCertW;
 class CkStringArrayW;
 class CkDateTimeW;
+class CkStringBuilderW;
 class CkCertChainW;
 class CkTaskW;
 class CkCspW;
@@ -414,6 +416,12 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// an error condition.)
 	int get_NumDaysOld(void);
 
+	// Returns the number of message/rfc822 parts contained within the multipart/digest
+	// enclosure. If no multipart/digest enclosure exists, then this property has the
+	// value of 0. The GetDigest method is called to get the Nth digest as an email
+	// object.
+	int get_NumDigests(void);
+
 	// The number of header fields. When accessing a header field by index, the 1st
 	// header field is at index 0, and the last is at NumHeaderFields-1. (Chilkat
 	// indexing is always 0-based.)
@@ -444,6 +452,25 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// The number of direct email recipients.
 	int get_NumTo(void);
 
+	// Selects the hash algorithm for use within OAEP padding when encrypting email
+	// using RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384", "sha512",
+	void get_OaepHash(CkString &str);
+	// Selects the hash algorithm for use within OAEP padding when encrypting email
+	// using RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384", "sha512",
+	const wchar_t *oaepHash(void);
+	// Selects the hash algorithm for use within OAEP padding when encrypting email
+	// using RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384", "sha512",
+	void put_OaepHash(const wchar_t *newVal);
+
+	// Selects the RSA encryption scheme when encrypting email. The default value is
+	// false, which selects RSAES_PKCS1-V1_5. If set to true, then RSAES_OAEP is
+	// used.
+	bool get_OaepPadding(void);
+	// Selects the RSA encryption scheme when encrypting email. The default value is
+	// false, which selects RSAES_PKCS1-V1_5. If set to true, then RSAES_OAEP is
+	// used.
+	void put_OaepPadding(bool newVal);
+
 	// When true (the default) the methods to save email attachments and related
 	// items will overwrite files if they already exist. If false, then the methods
 	// that save email attachments and related items will append a string of 4
@@ -461,15 +488,15 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 
 	// When an email is sent encrypted (using PKCS7 public-key encryption), this
 	// selects the underlying symmetric encryption algorithm. Possible values are:
-	// "aes", "des", "3des", and "rc2".
+	// "aes", "des", "3des", and "rc2". The default value is "aes".
 	void get_Pkcs7CryptAlg(CkString &str);
 	// When an email is sent encrypted (using PKCS7 public-key encryption), this
 	// selects the underlying symmetric encryption algorithm. Possible values are:
-	// "aes", "des", "3des", and "rc2".
+	// "aes", "des", "3des", and "rc2". The default value is "aes".
 	const wchar_t *pkcs7CryptAlg(void);
 	// When an email is sent encrypted (using PKCS7 public-key encryption), this
 	// selects the underlying symmetric encryption algorithm. Possible values are:
-	// "aes", "des", "3des", and "rc2".
+	// "aes", "des", "3des", and "rc2". The default value is "aes".
 	void put_Pkcs7CryptAlg(const wchar_t *newVal);
 
 	// When the email is sent encrypted (using PKCS7 public-key encryption), this
@@ -575,11 +602,6 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Set to true if this email should be sent encrypted.
 	void put_SendEncrypted(bool newVal);
 
-	// Set to true if this email should be sent with a digital signature.
-	bool get_SendSigned(void);
-	// Set to true if this email should be sent with a digital signature.
-	void put_SendSigned(bool newVal);
-
 	// The sender's address for this email message.
 	// 
 	// This is the address of the actual sender acting on behalf of the author listed
@@ -632,6 +654,11 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// 
 	void put_Sender(const wchar_t *newVal);
 
+	// Set to true if this email should be sent with a digital signature.
+	bool get_SendSigned(void);
+	// Set to true if this email should be sent with a digital signature.
+	void put_SendSigned(bool newVal);
+
 	// true if the email was received with one or more digital signatures, and if all
 	// the signatures were validated indicating that the email was not altered.
 	// Otherwise this property is set to false.
@@ -657,6 +684,31 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// attribute.
 	// 
 	const wchar_t *signedBy(void);
+
+	// Selects the signature algorithm to be used when sending signed (PKCS7) email.
+	// The default value is "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply
+	// "pss") to use the RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when signing with an RSA private key. It does
+	// not apply for ECC or DSA private keys.
+	// 
+	void get_SigningAlg(CkString &str);
+	// Selects the signature algorithm to be used when sending signed (PKCS7) email.
+	// The default value is "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply
+	// "pss") to use the RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when signing with an RSA private key. It does
+	// not apply for ECC or DSA private keys.
+	// 
+	const wchar_t *signingAlg(void);
+	// Selects the signature algorithm to be used when sending signed (PKCS7) email.
+	// The default value is "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply
+	// "pss") to use the RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when signing with an RSA private key. It does
+	// not apply for ECC or DSA private keys.
+	// 
+	void put_SigningAlg(const wchar_t *newVal);
 
 	// Selects the underlying hash algorithm used when sending signed (PKCS7) email.
 	// Possible values are "sha1", "sha256", "sha384", "sha512", "md5", and "md2".
@@ -717,6 +769,10 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// ----------------------
 	// Methods
 	// ----------------------
+	// Adds an attachment using the contents of a BinData object. If contentType is empty,
+	// then the content-type will be inferred from the filename extension.
+	bool AddAttachmentBd(const wchar_t *filename, CkBinDataW &binData, const wchar_t *contentType);
+
 	// Adds or replaces a MIME header field in one of the email attachments. If the
 	// header field does not exist, it is added. Otherwise it is replaced.
 	void AddAttachmentHeader(int index, const wchar_t *fieldName, const wchar_t *fieldValue);
@@ -730,11 +786,11 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	bool AddCC(const wchar_t *friendlyName, const wchar_t *emailAddress);
 
 	// Adds an attachment directly from data in memory to the email.
-	bool AddDataAttachment(const wchar_t *filePath, CkByteData &content);
+	bool AddDataAttachment(const wchar_t *fileName, CkByteData &content);
 
 	// Adds an attachment to an email from in-memory data. Same as AddDataAttachment
 	// but allows the content-type to be specified.
-	bool AddDataAttachment2(const wchar_t *path, CkByteData &content, const wchar_t *contentType);
+	bool AddDataAttachment2(const wchar_t *fileName, CkByteData &content, const wchar_t *contentType);
 
 	// Allows for certificates to be explicitly specified for sending encrypted email
 	// to one or more recipients. Call this method once per certificate to be used. The
@@ -742,11 +798,11 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// certificates.
 	// 
 	// Note: It is possible to send encrypted email without explicitly specifying the
-	// certificates. The Chilkat email component will automatically search the
-	// registry-based Current-User and Local-Machine certificate stores for certs
-	// matching each of the recipients (To, CC, and BCC recipients).
+	// certificates. On Windows computers, the registry-based Current-User and
+	// Local-Machine certificate stores are automatically searched for certs matching
+	// each of the recipients (To, CC, and BCC recipients).
 	// 
-	// Note: The SentEncryptCert method is equivalent to calling ClearEncryptCerts
+	// Note: The SetEncryptCert method is equivalent to calling ClearEncryptCerts
 	// followed by AddEncryptCert.
 	// 
 	bool AddEncryptCert(CkCertW &cert);
@@ -782,6 +838,27 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Otherwise, set the body by calling the SetHtmlBody method.
 	bool AddHtmlAlternativeBody(const wchar_t *body);
 
+	// Adds an iCalendar (text/calendar) alternative body to the email. The icalContent
+	// contains the content of the iCalendar data. A sample is shown here:
+	// BEGIN:VCALENDAR
+	// VERSION:2.0
+	// PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+	// BEGIN:VEVENT
+	// UID:uid1@example.com
+	// DTSTAMP:19970714T170000Z
+	// ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
+	// DTSTART:19970714T170000Z
+	// DTEND:19970715T035959Z
+	// SUMMARY:Bastille Day Party
+	// END:VEVENT
+	// END:VCALENDAR
+	// The methodName is the "method" attribute used in the Content-Type header field in the
+	// alternative body. For example, if set to "REQUEST", then the alternative body's
+	// header would look like this:
+	// Content-Type: text/calendar; method=REQUEST
+	// Content-Transfer-Encoding: base64
+	bool AddiCalendarAlternativeBody(const wchar_t *icalContent, const wchar_t *methodName);
+
 	// Adds multiple recipients to the blind carbon-copy list. The parameter is a
 	// string containing a comma separated list of full email addresses. Returns True
 	// if successful.
@@ -804,7 +881,7 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// 
 	// The pfxBytes contains the bytes of a PFX file (also known as PKCS12 or .p12).
 	// 
-	bool AddPfxSourceData(CkByteData &pfxData, const wchar_t *password);
+	bool AddPfxSourceData(CkByteData &pfxBytes, const wchar_t *pfxPassword);
 
 	// Adds a PFX file to the object's internal list of sources to be searched for
 	// certificates and private keys when decrypting. Multiple PFX files can be added
@@ -814,23 +891,35 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// 
 	// The pfxFilePath contains the bytes of a PFX file (also known as PKCS12 or .p12).
 	// 
-	bool AddPfxSourceFile(const wchar_t *pfxFilePath, const wchar_t *password);
+	bool AddPfxSourceFile(const wchar_t *pfxFilePath, const wchar_t *pfxPassword);
 
 	// Sets the plain-text body of the email. Use this method if there will be multiple
 	// versions of the body, but in different formats, such as HTML and plain text.
 	// Otherwise, simply set the Body property.
 	bool AddPlainTextAlternativeBody(const wchar_t *body);
 
+	// Adds a related item using the contents of a BinData object. Returns the
+	// Content-ID for the newly added relted item.
+	bool AddRelatedBd(const wchar_t *filename, CkBinDataW &binData, CkString &outStr);
+	// Adds a related item using the contents of a BinData object. Returns the
+	// Content-ID for the newly added relted item.
+	const wchar_t *addRelatedBd(const wchar_t *filename, CkBinDataW &binData);
+
+	// Adds a related item using the contents of a BinData object. The fileNameInHtml should be
+	// set to the filename/path/url used in the corresponding HTML IMG tag's "src"
+	// attribute.
+	bool AddRelatedBd2(CkBinDataW &binData, const wchar_t *fileNameInHtml);
+
 	// Adds the memory data as a related item to the email and returns the Content-ID.
 	// Emails formatted in HTML can include images with this call and internally
 	// reference the image through a "cid"hyperlink. (Chilkat Email.NET fully supports
 	// the MHTML standard.)
-	bool AddRelatedData(const wchar_t *path, CkByteData &inData, CkString &outStr);
+	bool AddRelatedData(const wchar_t *fileName, CkByteData &inData, CkString &outStr);
 	// Adds the memory data as a related item to the email and returns the Content-ID.
 	// Emails formatted in HTML can include images with this call and internally
 	// reference the image through a "cid"hyperlink. (Chilkat Email.NET fully supports
 	// the MHTML standard.)
-	const wchar_t *addRelatedData(const wchar_t *path, CkByteData &inData);
+	const wchar_t *addRelatedData(const wchar_t *fileName, CkByteData &inData);
 
 	// Adds a related item to the email from in-memory byte data. Related items are
 	// things such as images and style sheets that are embedded within an HTML email.
@@ -843,19 +932,19 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 
 #if !defined(CHILKAT_MONO)
 	// The same as AddRelatedData2, except the data is passed in as a "const unsigned
-	// char *" with the byte count in  szBytes.
-	void AddRelatedData2P(const unsigned char *pByteData, unsigned long szByteData, const wchar_t *fileNameInHtml);
+	// char *" with the byte count in szBytes.
+	void AddRelatedData2P(const void *pBytes, unsigned long szBytes, const wchar_t *fileNameInHtml);
 #endif
 
 #if !defined(CHILKAT_MONO)
 	// The same as AddRelatedData, except the data is passed in as a "const unsigned
-	// char *" with the byte count in  szBytes. The Content-ID assigned to the related item
-	// is returned (in  outStrContentId for the upper-case alternative for this method).
-	bool AddRelatedDataP(const wchar_t *nameInHtml, const unsigned char *pByteData, unsigned long szByteData, CkString &outStrContentId);
+	// char *" with the byte count in szBytes. The Content-ID assigned to the related item
+	// is returned (in ARG4 for the upper-case alternative for this method).
+	bool AddRelatedDataP(const wchar_t *nameInHtml, const void *pBytes, unsigned long szBytes, CkString &outStrContentId);
 	// The same as AddRelatedData, except the data is passed in as a "const unsigned
-	// char *" with the byte count in  szBytes. The Content-ID assigned to the related item
-	// is returned (in  outStrContentId for the upper-case alternative for this method).
-	const wchar_t *addRelatedDataP(const wchar_t *nameInHtml, const unsigned char *pByteData, unsigned long szByteData);
+	// char *" with the byte count in szBytes. The Content-ID assigned to the related item
+	// is returned (in ARG4 for the upper-case alternative for this method).
+	const wchar_t *addRelatedDataP(const wchar_t *nameInHtml, const void *pBytes, unsigned long szBytes);
 #endif
 
 	// Adds the contents of a file to the email and returns the Content-ID. Emails
@@ -873,15 +962,15 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// images and style sheets that are embedded within an HTML email. They are not
 	// considered attachments because their sole purpose is to participate in the
 	// display of the HTML. This method differs from AddRelatedFile in that it does not
-	// use or return a Content-ID. The ARG2 argument should be set to the filename used
+	// use or return a Content-ID. The filenameInHtml argument should be set to the filename used
 	// in the HTML img tag's src attribute (if it's an image), or the URL referenced in
-	// an HTML link tag for a stylesheet. The ARG1 is the path in the local filesystem
+	// an HTML link tag for a stylesheet. The filenameOnDisk is the path in the local filesystem
 	// of the file to be added.
 	// 
-	// Note: Outlook.com will not properly display embedded HTMl images when the ARG2
+	// Note: Outlook.com will not properly display embedded HTMl images when the filenameInHtml
 	// includes a path part. Apparently, Outlook.com is only capable of correctly
-	// displaying images when the ARG2 is a only a filename. Other email clients, such
-	// as Mozilla Thunderbird, have no trouble when the ARG2 includes a path part.
+	// displaying images when the filenameInHtml is a only a filename. Other email clients, such
+	// as Mozilla Thunderbird, have no trouble when the filenameInHtml includes a path part.
 	// 
 	bool AddRelatedFile2(const wchar_t *filenameOnDisk, const wchar_t *filenameInHtml);
 
@@ -891,15 +980,15 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 
 	// Adds a related item to the email. A related item is typically an image or style
 	// sheet referenced by an HTML tag within the HTML email body. The contents of the
-	// related item are passed  str. nameInHtml specifies the filename that should be used
-	// within the HTML, and not an actual filename on the local filesystem.  charset
+	// related item are passed str. nameInHtml specifies the filename that should be used
+	// within the HTML, and not an actual filename on the local filesystem. charset
 	// specifies the charset that should be used for the text content of the related
 	// item. Returns the content-ID generated for the added item.
 	bool AddRelatedString(const wchar_t *nameInHtml, const wchar_t *str, const wchar_t *charset, CkString &outCid);
 	// Adds a related item to the email. A related item is typically an image or style
 	// sheet referenced by an HTML tag within the HTML email body. The contents of the
-	// related item are passed  str. nameInHtml specifies the filename that should be used
-	// within the HTML, and not an actual filename on the local filesystem.  charset
+	// related item are passed str. nameInHtml specifies the filename that should be used
+	// within the HTML, and not an actual filename on the local filesystem. charset
 	// specifies the charset that should be used for the text content of the related
 	// item. Returns the content-ID generated for the added item.
 	const wchar_t *addRelatedString(const wchar_t *nameInHtml, const wchar_t *str, const wchar_t *charset);
@@ -913,17 +1002,17 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// that the content should first be converted to the specified charset prior to
 	// adding to the email. It should hava a value such as "iso-8859-1", "utf-8",
 	// "Shift_JIS", etc.
-	void AddRelatedString2(const wchar_t *content, const wchar_t *charset, const wchar_t *fileNameInHtml);
+	void AddRelatedString2(const wchar_t *fileNameInHtml, const wchar_t *content, const wchar_t *charset);
 
 	// Adds an attachment directly from a string in memory to the email.
 	bool AddStringAttachment(const wchar_t *path, const wchar_t *content);
 
-	// Adds an attachment to an email. The ARG1 specifies the filename to be used for
+	// Adds an attachment to an email. The path specifies the filename to be used for
 	// the attachment and is not an actual filename existing on the local filesystem.
-	// The ARG2 contains the text data for the attachment. The string will be converted
-	// to the charset specified in ARG3 before being added to the email.
+	// The content contains the text data for the attachment. The string will be converted
+	// to the charset specified in charset before being added to the email.
 	// 
-	// Note: Beginning in v9.5.0.48, the ARG3 may be prepended with "bom-" or "no-bom-"
+	// Note: Beginning in v9.5.0.48, the charset may be prepended with "bom-" or "no-bom-"
 	// to include or exclude the BOM (preamble) for charsets such as utf-16 or utf-8.
 	// For example: "no-bom-utf-8" or "bom-utf-8".
 	// 
@@ -933,27 +1022,6 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Emails that have no "To" recipients will be sent to
 	// _LT_undisclosed-recipients_GT_.
 	bool AddTo(const wchar_t *friendlyName, const wchar_t *emailAddress);
-
-	// Adds an iCalendar (text/calendar) alternative body to the email. The icalContent
-	// contains the content of the iCalendar data. A sample is shown here:
-	// BEGIN:VCALENDAR
-	// VERSION:2.0
-	// PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-	// BEGIN:VEVENT
-	// UID:uid1@example.com
-	// DTSTAMP:19970714T170000Z
-	// ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
-	// DTSTART:19970714T170000Z
-	// DTEND:19970715T035959Z
-	// SUMMARY:Bastille Day Party
-	// END:VEVENT
-	// END:VCALENDAR
-	// The  methodName is the "method" attribute used in the Content-Type header field in the
-	// alternative body. For example, if set to "REQUEST", then the alternative body's
-	// header would look like this:
-	// Content-Type: text/calendar; method=REQUEST
-	// Content-Transfer-Encoding: base64
-	bool AddiCalendarAlternativeBody(const wchar_t *body, const wchar_t *methodName);
 
 	// Decrypts and restores an email message that was previously encrypted using
 	// AesEncrypt. The password must match the password used for encryption.
@@ -1015,29 +1083,74 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// The caller is responsible for deleting the object returned by this method.
 	CkEmailW *Clone(void);
 
-	// Computes a global unique key for the email that may be used as a key for a
-	// relational database table (or anything else). The key is created by a digest-MD5
+	// Important: New programs should ComputeGlobalKey2 instead. This method did not
+	// adequately canonicalize the string passed to the digest-MD5 hash and therefore
+	// different versions of Chilkat may produce different results with this method.
+	// 
+	// Computes a global unique key for the email. The key is created by a digest-MD5
 	// hash of the concatenation of the following header fields: Message-ID, Subject,
 	// From, Date, To. (The header fields are Q/B decoded if necessary, converted to
 	// the utf-8 encoding, concatenated, and hashed using MD5.) The 16-byte MD5 hash is
 	// returned as an encoded string. The encoding determines the encoding: base64, hex,
-	// url, etc. If  bFold is true, then the 16-byte MD5 hash is folded to 8 bytes with
+	// url, etc. If bFold is true, then the 16-byte MD5 hash is folded to 8 bytes with
 	// an XOR to produce a shorter key.
+	// 
 	bool ComputeGlobalKey(const wchar_t *encoding, bool bFold, CkString &outStr);
-	// Computes a global unique key for the email that may be used as a key for a
-	// relational database table (or anything else). The key is created by a digest-MD5
+	// Important: New programs should ComputeGlobalKey2 instead. This method did not
+	// adequately canonicalize the string passed to the digest-MD5 hash and therefore
+	// different versions of Chilkat may produce different results with this method.
+	// 
+	// Computes a global unique key for the email. The key is created by a digest-MD5
 	// hash of the concatenation of the following header fields: Message-ID, Subject,
 	// From, Date, To. (The header fields are Q/B decoded if necessary, converted to
 	// the utf-8 encoding, concatenated, and hashed using MD5.) The 16-byte MD5 hash is
 	// returned as an encoded string. The encoding determines the encoding: base64, hex,
-	// url, etc. If  bFold is true, then the 16-byte MD5 hash is folded to 8 bytes with
+	// url, etc. If bFold is true, then the 16-byte MD5 hash is folded to 8 bytes with
 	// an XOR to produce a shorter key.
+	// 
 	const wchar_t *computeGlobalKey(const wchar_t *encoding, bool bFold);
+
+	// Computes a global unique key for the email. The key is created by a digest-MD5
+	// hash of the concatenation of the following:
+	// messageID + CRLF + subject + CRLF + from + CRLF + date + CRLF + recipientAddrs
+	// 
+	// messageID contains the contents of the Message-ID header field.
+	// subject contains the contents of the Subject header field, trimmed of whitespace from both ends, 
+	//     where TAB chars are converted to SPACE chars, and internal whitespace is trimmed so that 
+	//    no more than one SPACE char in a row exists.
+	// from contains the lowercase FROM header email address.
+	// date contains the contents of the DATE header field.
+	// toAddrs contains lowercase TO and CC recipient email addresses, comma separated, with duplicates removed, and sorted 
+	//     in ascending order.  The BCC addresses are NOT included.
+	// 
+	// (After calling this method, the LastErrorText property can be examined to see the string that was hashed.)
+	// The 16-byte MD5 hash is returned as an encoded string. The encoding determines the
+	// encoding: base64, hex, url, etc. If bFold is true, then the 16-byte MD5 hash is
+	// folded to 8 bytes with an XOR to produce a shorter key.
+	bool ComputeGlobalKey2(const wchar_t *encoding, bool bFold, CkString &outStr);
+	// Computes a global unique key for the email. The key is created by a digest-MD5
+	// hash of the concatenation of the following:
+	// messageID + CRLF + subject + CRLF + from + CRLF + date + CRLF + recipientAddrs
+	// 
+	// messageID contains the contents of the Message-ID header field.
+	// subject contains the contents of the Subject header field, trimmed of whitespace from both ends, 
+	//     where TAB chars are converted to SPACE chars, and internal whitespace is trimmed so that 
+	//    no more than one SPACE char in a row exists.
+	// from contains the lowercase FROM header email address.
+	// date contains the contents of the DATE header field.
+	// toAddrs contains lowercase TO and CC recipient email addresses, comma separated, with duplicates removed, and sorted 
+	//     in ascending order.  The BCC addresses are NOT included.
+	// 
+	// (After calling this method, the LastErrorText property can be examined to see the string that was hashed.)
+	// The 16-byte MD5 hash is returned as an encoded string. The encoding determines the
+	// encoding: base64, hex, url, etc. If bFold is true, then the 16-byte MD5 hash is
+	// folded to 8 bytes with an XOR to produce a shorter key.
+	const wchar_t *computeGlobalKey2(const wchar_t *encoding, bool bFold);
 
 	// Creates a new DSN (Delivery Status Notification) email having the format as
 	// specified in RFC 3464. See the example (below) for more detailed information.
 	// The caller is responsible for deleting the object returned by this method.
-	CkEmailW *CreateDsn(const wchar_t *explanation, const wchar_t *xmlDeliveryStatus, bool bHeaderOnly);
+	CkEmailW *CreateDsn(const wchar_t *humanReadableMessage, const wchar_t *xmlStatusFields, bool bHeaderOnly);
 
 	// Returns a copy of the Email object with the body and header fields changed so
 	// that the newly created email can be forwarded. After calling CreateForward,
@@ -1048,7 +1161,7 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Creates a new MDN (Message Disposition Notification) email having the format as
 	// specified in RFC 3798. See the example (below) for more detailed information.
 	// The caller is responsible for deleting the object returned by this method.
-	CkEmailW *CreateMdn(const wchar_t *explanation, const wchar_t *xmlMdnFields, bool bHeaderOnly);
+	CkEmailW *CreateMdn(const wchar_t *humanReadableMessage, const wchar_t *xmlStatusFields, bool bHeaderOnly);
 
 	// Returns a copy of the Email object with the body and header fields changed so
 	// that the newly created email can be sent as a reply. After calling CreateReply,
@@ -1123,16 +1236,6 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// time the method is called.
 	const wchar_t *generateFilename(void);
 
-	// Returns the value of a header field within the Nth alternative body's MIME
-	// sub-part.
-	bool GetAltHeaderField(int index, const wchar_t *fieldName, CkString &outStr);
-	// Returns the value of a header field within the Nth alternative body's MIME
-	// sub-part.
-	const wchar_t *getAltHeaderField(int index, const wchar_t *fieldName);
-	// Returns the value of a header field within the Nth alternative body's MIME
-	// sub-part.
-	const wchar_t *altHeaderField(int index, const wchar_t *fieldName);
-
 	// Returns the Nth alternative body. The NumAlternatives property tells the number
 	// of alternative bodies present. Use the GetHtmlBody and GetPlainTextBody methods
 	// to easily get the HTML or plain text alternative bodies.
@@ -1145,6 +1248,11 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// of alternative bodies present. Use the GetHtmlBody and GetPlainTextBody methods
 	// to easily get the HTML or plain text alternative bodies.
 	const wchar_t *alternativeBody(int index);
+
+	// Returns contents of the Nth alternative body to binData. The 1st alternative body
+	// is at index 0. This method should only be called when the NumAlternatives
+	// property has a value greater than 0.
+	bool GetAlternativeBodyBd(int index, CkBinDataW &binData);
 
 	// Returns the alternative body by content-type, such as "text/plain", "text/html",
 	// "text/xml", etc.
@@ -1165,6 +1273,16 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Returns the content type of the Nth alternative body. The NumAlternatives
 	// property tells the number of alternative bodies present.
 	const wchar_t *alternativeContentType(int index);
+
+	// Returns the value of a header field within the Nth alternative body's MIME
+	// sub-part.
+	bool GetAltHeaderField(int index, const wchar_t *fieldName, CkString &outStr);
+	// Returns the value of a header field within the Nth alternative body's MIME
+	// sub-part.
+	const wchar_t *getAltHeaderField(int index, const wchar_t *fieldName);
+	// Returns the value of a header field within the Nth alternative body's MIME
+	// sub-part.
+	const wchar_t *altHeaderField(int index, const wchar_t *fieldName);
 
 	// Returns an embedded "message/rfc822" subpart as an email object. (Emails are
 	// embedded as "message/rfc822" subparts by some mail clients when forwarding an
@@ -1194,14 +1312,56 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Returns the filename of the Nth attached (embedded) email. The filename is the
 	// "filename" attribute of the content-disposition header field found within the
 	// Nth message/rfc822 sub-part of the calling email object.
+	// 
+	// Important: The attached message filename is only present if the
+	// Content-Disposition header exists AND contains a "filename" attribute. If
+	// questions arise, one could open the email in a text editor to examine the MIME
+	// sub-header for the attached message (where the Content-Type = "message/rfc822").
+	// For example, here is a sub-header that has a filename:
+	// Content-Type: message/rfc822; name="GetAttachedMessageAttr.eml"
+	// Content-Transfer-Encoding: 7bit
+	// Content-Disposition: attachment; filename="GetAttachedMessageAttr.eml"
+	// Here is an attached message sub-header that does NOT have a filename:
+	// Content-Type: message/rfc822
+	// Content-Transfer-Encoding: 7bit
+	// Content-Disposition: attachment
+	// 
 	bool GetAttachedMessageFilename(int index, CkString &outStr);
 	// Returns the filename of the Nth attached (embedded) email. The filename is the
 	// "filename" attribute of the content-disposition header field found within the
 	// Nth message/rfc822 sub-part of the calling email object.
+	// 
+	// Important: The attached message filename is only present if the
+	// Content-Disposition header exists AND contains a "filename" attribute. If
+	// questions arise, one could open the email in a text editor to examine the MIME
+	// sub-header for the attached message (where the Content-Type = "message/rfc822").
+	// For example, here is a sub-header that has a filename:
+	// Content-Type: message/rfc822; name="GetAttachedMessageAttr.eml"
+	// Content-Transfer-Encoding: 7bit
+	// Content-Disposition: attachment; filename="GetAttachedMessageAttr.eml"
+	// Here is an attached message sub-header that does NOT have a filename:
+	// Content-Type: message/rfc822
+	// Content-Transfer-Encoding: 7bit
+	// Content-Disposition: attachment
+	// 
 	const wchar_t *getAttachedMessageFilename(int index);
 	// Returns the filename of the Nth attached (embedded) email. The filename is the
 	// "filename" attribute of the content-disposition header field found within the
 	// Nth message/rfc822 sub-part of the calling email object.
+	// 
+	// Important: The attached message filename is only present if the
+	// Content-Disposition header exists AND contains a "filename" attribute. If
+	// questions arise, one could open the email in a text editor to examine the MIME
+	// sub-header for the attached message (where the Content-Type = "message/rfc822").
+	// For example, here is a sub-header that has a filename:
+	// Content-Type: message/rfc822; name="GetAttachedMessageAttr.eml"
+	// Content-Transfer-Encoding: 7bit
+	// Content-Disposition: attachment; filename="GetAttachedMessageAttr.eml"
+	// Here is an attached message sub-header that does NOT have a filename:
+	// Content-Type: message/rfc822
+	// Content-Transfer-Encoding: 7bit
+	// Content-Disposition: attachment
+	// 
 	const wchar_t *attachedMessageFilename(int index);
 
 	// Returns a header field attribute value from the header field of the Nth
@@ -1213,6 +1373,10 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Returns a header field attribute value from the header field of the Nth
 	// attachment.
 	const wchar_t *attachmentAttr(int index, const wchar_t *fieldName, const wchar_t *attrName);
+
+	// Copies an attachment's binary data into binData. The first attachment is at index
+	// 0.
+	bool GetAttachmentBd(int index, CkBinDataW &binData);
 
 	// Returns the ContentID header field for the Nth attachment. The first attachment
 	// is at index 0.
@@ -1363,6 +1527,15 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// 
 	const wchar_t *deliveryStatusInfo(const wchar_t *fieldName);
 
+	// Returns an digest contained within a multipart/digest as an email object. The
+	// 1st digest is at index 0. Use the NumDigests property to get the number of
+	// digests available.
+	// 
+	// Note: This example requires Chilkat v9.5.0.66 or greater.
+	// 
+	// The caller is responsible for deleting the object returned by this method.
+	CkEmailW *GetDigest(int index);
+
 	// If the email is a multipart/report, then it is a delivery status notification.
 	// This method can be used to get Final-Recipient values from the
 	// message/delivery-status part of the email. This method should only be called if
@@ -1497,14 +1670,24 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// related items (if any), and all attachments
 	const wchar_t *mime(void);
 
+	// Return the email as binary MIME containing the email header, body (or bodies),
+	// related items (if any), and all attachments. The MIME is appended to the
+	// existing contents (if any) of bindat.
+	bool GetMimeBd(CkBinDataW &bindat);
+
 	// Returns the full MIME of an email.
 	bool GetMimeBinary(CkByteData &outBytes);
 
+	// Return the email as MIME text containing the email header, body (or bodies),
+	// related items (if any), and all attachments. The MIME is appended to the
+	// existing contents (if any) of sb.
+	bool GetMimeSb(CkStringBuilderW &sb);
+
 	// Returns the binary bytes of the Nth MIME sub-part having a specified content
 	// type (such as "application/pdf". Indexing begins at 0. Call GetNumPartsOfType to
-	// find out how many MIME sub-parts exist for any given content type. If ARG3 is
+	// find out how many MIME sub-parts exist for any given content type. If inlineOnly is
 	// true, then only MIME sub-parts having a content-disposition of "inline" are
-	// included. If ARG4 is true, then MIME sub-parts having a content-disposition of
+	// included. If excludeAttachments is true, then MIME sub-parts having a content-disposition of
 	// "attachment" are excluded.
 	// 
 	// Note: If the email was downloaded as header-only, it will not contain all the
@@ -1515,9 +1698,9 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 
 	// Returns the text of the Nth MIME sub-part having a specified content type (such
 	// as "text/plain". Indexing begins at 0. Call GetNumPartsOfType to find out how
-	// many MIME sub-parts exist for any given content type. If ARG3 is true, then
+	// many MIME sub-parts exist for any given content type. If inlineOnly is true, then
 	// only MIME sub-parts having a content-disposition of "inline" are included. If
-	// ARG4 is true, then MIME sub-parts having a content-disposition of "attachment"
+	// excludeAttachments is true, then MIME sub-parts having a content-disposition of "attachment"
 	// are excluded.
 	// 
 	// Note: If the email was downloaded as header-only, it will not contain all the
@@ -1527,9 +1710,9 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	bool GetNthTextPartOfType(int index, const wchar_t *contentType, bool inlineOnly, bool excludeAttachments, CkString &outStr);
 	// Returns the text of the Nth MIME sub-part having a specified content type (such
 	// as "text/plain". Indexing begins at 0. Call GetNumPartsOfType to find out how
-	// many MIME sub-parts exist for any given content type. If ARG3 is true, then
+	// many MIME sub-parts exist for any given content type. If inlineOnly is true, then
 	// only MIME sub-parts having a content-disposition of "inline" are included. If
-	// ARG4 is true, then MIME sub-parts having a content-disposition of "attachment"
+	// excludeAttachments is true, then MIME sub-parts having a content-disposition of "attachment"
 	// are excluded.
 	// 
 	// Note: If the email was downloaded as header-only, it will not contain all the
@@ -1539,9 +1722,9 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	const wchar_t *getNthTextPartOfType(int index, const wchar_t *contentType, bool inlineOnly, bool excludeAttachments);
 	// Returns the text of the Nth MIME sub-part having a specified content type (such
 	// as "text/plain". Indexing begins at 0. Call GetNumPartsOfType to find out how
-	// many MIME sub-parts exist for any given content type. If ARG3 is true, then
+	// many MIME sub-parts exist for any given content type. If inlineOnly is true, then
 	// only MIME sub-parts having a content-disposition of "inline" are included. If
-	// ARG4 is true, then MIME sub-parts having a content-disposition of "attachment"
+	// excludeAttachments is true, then MIME sub-parts having a content-disposition of "attachment"
 	// are excluded.
 	// 
 	// Note: If the email was downloaded as header-only, it will not contain all the
@@ -1551,8 +1734,8 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	const wchar_t *nthTextPartOfType(int index, const wchar_t *contentType, bool inlineOnly, bool excludeAttachments);
 
 	// Returns the number of MIME sub-parts within the email having a specified content
-	// type (such as "text/plain"). If ARG2 is true, then only MIME sub-parts having
-	// a content-disposition of "inline" are included. If ARG3 is true, then MIME
+	// type (such as "text/plain"). If inlineOnly is true, then only MIME sub-parts having
+	// a content-disposition of "inline" are included. If excludeAttachments is true, then MIME
 	// sub-parts having a content-disposition of "attachment" are excluded.
 	// 
 	// Note: If the email was downloaded as header-only, it will not contain all the
@@ -1749,10 +1932,10 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	const wchar_t *xml(void);
 
 	// Returns true if the email has a header field with the specified fieldName with a
-	// value matching  valuePattern. Case sensitivity is controlled by  caseSensitive. The  valuePattern may
+	// value matching valuePattern. Case sensitivity is controlled by caseSensitive. The valuePattern may
 	// include 0 or more asterisk (wildcard) characters which match 0 or more of any
 	// character.
-	bool HasHeaderMatching(const wchar_t *fieldName, const wchar_t *valuePattern, bool caseInsensitive);
+	bool HasHeaderMatching(const wchar_t *fieldName, const wchar_t *valuePattern, bool caseSensitive);
 
 	// Returns true if the email has an HTML body.
 	bool HasHtmlBody(void);
@@ -1803,7 +1986,7 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Removes path information from all attachment filenames.
 	void RemoveAttachmentPaths(void);
 
-	// Removes by name all occurances of a header field.
+	// Removes by name all occurrences of a header field.
 	void RemoveHeaderField(const wchar_t *fieldName);
 
 	// Removes the HTML body from the email (if an HTML body exists).
@@ -1822,21 +2005,21 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// calling GetAttachmentFilename(index). Each attachment's filename can be set by
 	// calling SetAttachmentFilename(index, newFilename).
 	// 
-	bool SaveAllAttachments(const wchar_t *directory);
+	bool SaveAllAttachments(const wchar_t *dirPath);
 
-	// Saves the Nth email attachment to the directory specified by  dirPath. The 1st
+	// Saves the Nth email attachment to the directory specified by dirPath. The 1st
 	// attachment is at index 0. The OverwriteExisting property controls whether
 	// existing files are allowed to be overwritten.
-	bool SaveAttachedFile(int index, const wchar_t *directory);
+	bool SaveAttachedFile(int index, const wchar_t *dirPath);
 
 	// Convert this email object to EML and save it to a file.
-	bool SaveEml(const wchar_t *path);
+	bool SaveEml(const wchar_t *emlFilePath);
 
-	// Saves the Nth related item to the directory specified by  dirPath. (The 1st related
+	// Saves the Nth related item to the directory specified by dirPath. (The 1st related
 	// item is at index 0) Related content items are typically image or style-sheets
 	// embedded within an HTML email. The OverwriteExisting property controls whether
 	// existing files are allowed to be overwritten.
-	bool SaveRelatedItem(int index, const wchar_t *directory);
+	bool SaveRelatedItem(int index, const wchar_t *dirPath);
 
 	// Convert this email object to XML and save it to a file.
 	bool SaveXml(const wchar_t *path);
@@ -1848,11 +2031,11 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 
 	// Set's an attachment's disposition. The default disposition of an attachment is
 	// "attachment". This method is typically called to change the disposition to
-	// "inline". The 1st attachment is at ARG1 0.
+	// "inline". The 1st attachment is at index 0.
 	bool SetAttachmentDisposition(int index, const wchar_t *disposition);
 
 	// Renames a email attachment's filename. The 1st attachment is at index 0.
-	bool SetAttachmentFilename(int index, const wchar_t *path);
+	bool SetAttachmentFilename(int index, const wchar_t *filename);
 
 	// Sets the main body of the email to binary content of any type. The disposition
 	// can be an empty string, "inline", or "attachment". If a filename is specified,
@@ -1879,7 +2062,7 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	bool SetDecryptCert(CkCertW &cert);
 
 	// Allows for a certificate and private key to be explicity specified for
-	// decryptoin. When an email object is loaded via any method, such as LoadEml,
+	// decryption. When an email object is loaded via any method, such as LoadEml,
 	// SetFromMimeText, SetFromMimeBytes, etc., security layers (signatures and
 	// encryption) are automatically unwrapped. Decryption requires a private key. On
 	// Windows-based systems, the private key is often pre-installed and nothing need
@@ -1894,13 +2077,13 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	bool SetDt(CkDateTimeW &dt);
 
 	// Creates a typical email used to send EDIFACT messages. Does the following:
-	//     Sets the email body to the EDIFACT message passed in ARG1.
+	//     Sets the email body to the EDIFACT message passed in message.
 	//     Sets the Content-Transfer-Encoding to Base64.
 	//     Set the Content-Type equal to "application/EDIFACT".
-	//     Sets the Content-Type header's name attribute to ARG2.
+	//     Sets the Content-Type header's name attribute to name.
 	//     Sets the Content-Disposition equal to "attachment".
-	//     Sets the Content-Disposition's "filename" attribute equal to ARG3.
-	//     The EDIFACT message is converted to the charset indicated by ARG4, and
+	//     Sets the Content-Disposition's "filename" attribute equal to filename.
+	//     The EDIFACT message is converted to the charset indicated by charset, and
 	//     encoded using Base64 in the email body.
 	// The email's subject, recipients, FROM address, and other headers are left
 	// unmodified.
@@ -1910,6 +2093,10 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// CertStore, and Cert classes to create a Cert object by either locating a
 	// certificate in a certificate store or loading one from a file.
 	bool SetEncryptCert(CkCertW &cert);
+
+	// Loads an email with the MIME stored in a BinData object. The contents of the
+	// email object are completely replaced.
+	bool SetFromMimeBd(CkBinDataW &bindat);
 
 	// Loads the email object with the mimeBytes. If the email object already contained an
 	// email, it is entirely replaced. The character encoding (such as "utf-8",
@@ -1921,10 +2108,14 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// Loads the email object with the mimeBytes. If the email object already contained an
 	// email, it is entirely replaced.
 	// 
-	// The  charset specifies the character encoding of the MIME bytes (such as "utf-8",
+	// The charset specifies the character encoding of the MIME bytes (such as "utf-8",
 	// "iso-8859-1", etc.).
 	// 
 	bool SetFromMimeBytes2(CkByteData &mimeBytes, const wchar_t *charset);
+
+	// Loads an email with the MIME stored in a StringBuilder object. The contents of
+	// the email object are completely replaced.
+	bool SetFromMimeSb(CkStringBuilderW &sb);
 
 	// Loads an email with the contents of a .eml (i.e. MIME) contained in a string.
 	// The contents of the email object are completely replaced.
@@ -1979,7 +2170,7 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	bool SetSigningCert2(CkCertW &cert, CkPrivateKeyW &key);
 
 	// Sets the body of the email and also sets the Content-Type header field of the
-	//  contentType. If the email is already multipart/alternative, an additional alternative
+	// contentType. If the email is already multipart/alternative, an additional alternative
 	// with the indicated Content-Type will be added. If an alternative with the same
 	// Content-Type already exists, it is replaced.
 	void SetTextBody(const wchar_t *bodyText, const wchar_t *contentType);
@@ -1988,14 +2179,14 @@ class CK_VISIBLE_PUBLIC CkEmailW  : public CkWideCharBase
 	// argument.
 	bool UidlEquals(CkEmailW &e);
 
-	// Unobfuscates emails by undoing what spammers do to obfuscate email. It removes
-	// comments from HTML bodies and unobfuscates hyperlinked URLs.
-	void UnSpamify(void);
-
 	// Unpacks an HTML email into an HTML file and related files (images and style
 	// sheets). The links within the HTML are updated to point to the files unpacked
 	// and saved to disk.
 	bool UnpackHtml(const wchar_t *unpackDir, const wchar_t *htmlFilename, const wchar_t *partsSubdir);
+
+	// Unobfuscates emails by undoing what spammers do to obfuscate email. It removes
+	// comments from HTML bodies and unobfuscates hyperlinked URLs.
+	void UnSpamify(void);
 
 	// Unzips and replaces any Zip file attachments with the expanded contents. As an
 	// example, if an email contained a single Zip file containing 3 GIF image files as

@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkPem_H
 #define _C_CkPem_H
 #include "chilkatDefs.h"
@@ -45,6 +45,7 @@ CK_VISIBLE_PUBLIC void CkPem_putVerboseLogging(HCkPem cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkPem_getVersion(HCkPem cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const char *CkPem_version(HCkPem cHandle);
 CK_VISIBLE_PUBLIC BOOL CkPem_AddCert(HCkPem cHandle, HCkCert cert, BOOL includeChain);
+CK_VISIBLE_PUBLIC BOOL CkPem_AddItem(HCkPem cHandle, const char *itemType, const char *encoding, const char *itemData);
 CK_VISIBLE_PUBLIC BOOL CkPem_AddPrivateKey(HCkPem cHandle, HCkPrivateKey privateKey);
 CK_VISIBLE_PUBLIC BOOL CkPem_AddPrivateKey2(HCkPem cHandle, HCkPrivateKey privKey, HCkCertChain certChain);
 CK_VISIBLE_PUBLIC BOOL CkPem_AddPublicKey(HCkPem cHandle, HCkPublicKey pubkey);

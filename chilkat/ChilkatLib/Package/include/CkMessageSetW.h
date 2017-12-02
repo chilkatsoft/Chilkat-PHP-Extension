@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkMessageSetW_H
 #define _CkMessageSetW_H
@@ -68,7 +68,7 @@ class CK_VISIBLE_PUBLIC CkMessageSetW  : public CkWideCharBase
 	// Methods
 	// ----------------------
 	// Returns true if the msgId is contained in the message set.
-	bool ContainsId(int id);
+	bool ContainsId(int msgId);
 
 	// Loads the message set from a compact-string representation. Here are some
 	// examples:

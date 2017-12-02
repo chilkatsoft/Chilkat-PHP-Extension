@@ -21,6 +21,12 @@ public:
 
 	// CLASS: CkSettings
 
+	// m_usePkcsConstructedEncoding is new starting in v9.5.0.70
+	// If true, then PKCS7 Data is written using a constructed encoding, where the data is saved in a series of chunks of octets, as opposed to one large chunk.
+	static bool m_usePkcsConstructedEncoding;
+	// Set to 1000 by default.
+	static uint32_t m_pkcsConstructedChunkSize;
+
 	// Applies to Windows systems only.  Indicates whether the Windows CA cert stores (registry based, such as Current User or Local Machine)
 	// are automatically consulted to implicitly trust root CA certificates. (Meaning that if a certificate is found in 
 	// a CA cert store, then it is assumed to be trusted.)
@@ -43,6 +49,8 @@ public:
 	// The default is false.
 	static bool m_verboseCertStoreSearch;
 
+	static bool m_verboseLzma;
+
 	// Defaults to 262144
 	static int m_socketSendBufSize;
 	// Defaults to 4194304
@@ -51,6 +59,10 @@ public:
 	// Defaults to 2.  May be set to 1 in CkGlobal's "DefaultNtlmVersion" property.
 	// Determines the NTLM protocol version used by HTTP, POP3, IMAP, SMTP, and HTTP proxies.
 	static int m_defaultNtlmVersion;
+
+	// Set via ClsGlobal.put_PreferIpv6
+	// Default is false.
+	static bool m_preferIpv6;
 
 #if defined(CK_SIM_OUT_OF_MEMORY)
 

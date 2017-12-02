@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkSFtpDirW_H
 #define _CkSFtpDirW_H
@@ -68,16 +68,16 @@ class CK_VISIBLE_PUBLIC CkSFtpDirW  : public CkWideCharBase
 	// ----------------------
 	// Methods
 	// ----------------------
-	// Returns the Nth entry in the directory. Indexing begins at 0.
-	// The caller is responsible for deleting the object returned by this method.
-	CkSFtpFileW *GetFileObject(int index);
-
 	// Returns the Nth filename in the directory (indexing begins at 0).
 	bool GetFilename(int index, CkString &outStr);
 	// Returns the Nth filename in the directory (indexing begins at 0).
 	const wchar_t *getFilename(int index);
 	// Returns the Nth filename in the directory (indexing begins at 0).
 	const wchar_t *filename(int index);
+
+	// Returns the Nth entry in the directory. Indexing begins at 0.
+	// The caller is responsible for deleting the object returned by this method.
+	CkSFtpFileW *GetFileObject(int index);
 
 	// Loads the SFTP directory object from a completed asynchronous task.
 	bool LoadTaskResult(CkTaskW &task);

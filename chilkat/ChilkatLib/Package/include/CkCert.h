@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkCert_H
 #define _CkCert_H
@@ -13,6 +13,7 @@
 #include "CkMultiByteBase.h"
 
 class CkByteData;
+class CkBinData;
 class CkPrivateKey;
 class CkPublicKey;
 class CkCertChain;
@@ -402,6 +403,10 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 	bool ExportCertDer(CkByteData &outData);
 
 
+	// Exports the digital certificate in ASN.1 DER format to a BinData object.
+	bool ExportCertDerBd(CkBinData &cerData);
+
+
 	// Exports the digital certificate to ASN.1 DER format binary file.
 	bool ExportCertDerFile(const char *path);
 
@@ -438,17 +443,23 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 	CkPublicKey *ExportPublicKey(void);
 
 
+	// Exports the certificate and private key (if available) to pfxData. The password is what
+	// will be required to access the PFX contents at a later time. If includeCertChain is true,
+	// then the certificates in the chain of authority are also included in the PFX.
+	bool ExportToPfxBd(const char *password, bool includeCertChain, CkBinData &pfxData);
+
+
 	// Exports the certificate and private key (if available) to an in-memory PFX
-	// image. The ARG1 is what will be required to access the PFX contents at a later
-	// time. If ARG2 is true, then the certificates in the chain of authority are
+	// image. The password is what will be required to access the PFX contents at a later
+	// time. If includeCertChain is true, then the certificates in the chain of authority are
 	// also included in the PFX.
 	bool ExportToPfxData(const char *password, bool includeCertChain, CkByteData &outBytes);
 
 
 	// Exports the certificate and private key (if available) to a PFX (.pfx or .p12)
-	// file. The output PFX is secured using the  pfxPassword. If  bIncludeCertChain is true, then the
+	// file. The output PFX is secured using the pfxPassword. If bIncludeCertChain is true, then the
 	// certificates in the chain of authority are also included in the PFX output file.
-	bool ExportToPfxFile(const char *pfxFilename, const char *password, bool bIncludeChain);
+	bool ExportToPfxFile(const char *pfxFilename, const char *pfxPassword, bool bIncludeCertChain);
 
 
 	// Finds and returns the issuer certificate. If the certificate is a root or
@@ -495,7 +506,7 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 
 
 	// Returns the certificate extension data in XML format (converted from ASN.1). The
-	// ARG1 is an OID, such as the ones listed here:
+	// oid is an OID, such as the ones listed here:
 	// http://www.alvestrand.no/objectid/2.5.29.html
 	// 
 	// Note: In many cases, the data within the XML is returned base64 encoded. An
@@ -505,7 +516,7 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 	bool GetExtensionAsXml(const char *oid, CkString &outStr);
 
 	// Returns the certificate extension data in XML format (converted from ASN.1). The
-	// ARG1 is an OID, such as the ones listed here:
+	// oid is an OID, such as the ones listed here:
 	// http://www.alvestrand.no/objectid/2.5.29.html
 	// 
 	// Note: In many cases, the data within the XML is returned base64 encoded. An
@@ -514,7 +525,7 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 	// 
 	const char *getExtensionAsXml(const char *oid);
 	// Returns the certificate extension data in XML format (converted from ASN.1). The
-	// ARG1 is an OID, such as the ones listed here:
+	// oid is an OID, such as the ones listed here:
 	// http://www.alvestrand.no/objectid/2.5.29.html
 	// 
 	// Note: In many cases, the data within the XML is returned base64 encoded. An
@@ -539,9 +550,9 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 	// Returns the SPKI Fingerprint suitable for use in pinning. (See RFC 7469.) An
 	// SPKI Fingerprint is defined as the output of a known cryptographic hash
 	// algorithm whose input is the DER-encoded ASN.1 representation of the Subject
-	// Public Key Info (SPKI) of an X.509 certificate. The ARG1 specifies the hash
+	// Public Key Info (SPKI) of an X.509 certificate. The hashAlg specifies the hash
 	// algorithm and may be "sha256", "sha384", "sha512", "sha1", "md2", "md5",
-	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The ARG2
+	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The encoding
 	// specifies the encoding, and may be "base64", "hex", or any of the encoding modes
 	// specified in the article at the link below.
 	bool GetSpkiFingerprint(const char *hashAlg, const char *encoding, CkString &outStr);
@@ -549,18 +560,18 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 	// Returns the SPKI Fingerprint suitable for use in pinning. (See RFC 7469.) An
 	// SPKI Fingerprint is defined as the output of a known cryptographic hash
 	// algorithm whose input is the DER-encoded ASN.1 representation of the Subject
-	// Public Key Info (SPKI) of an X.509 certificate. The ARG1 specifies the hash
+	// Public Key Info (SPKI) of an X.509 certificate. The hashAlg specifies the hash
 	// algorithm and may be "sha256", "sha384", "sha512", "sha1", "md2", "md5",
-	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The ARG2
+	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The encoding
 	// specifies the encoding, and may be "base64", "hex", or any of the encoding modes
 	// specified in the article at the link below.
 	const char *getSpkiFingerprint(const char *hashAlg, const char *encoding);
 	// Returns the SPKI Fingerprint suitable for use in pinning. (See RFC 7469.) An
 	// SPKI Fingerprint is defined as the output of a known cryptographic hash
 	// algorithm whose input is the DER-encoded ASN.1 representation of the Subject
-	// Public Key Info (SPKI) of an X.509 certificate. The ARG1 specifies the hash
+	// Public Key Info (SPKI) of an X.509 certificate. The hashAlg specifies the hash
 	// algorithm and may be "sha256", "sha384", "sha512", "sha1", "md2", "md5",
-	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The ARG2
+	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The encoding
 	// specifies the encoding, and may be "base64", "hex", or any of the encoding modes
 	// specified in the article at the link below.
 	const char *spkiFingerprint(const char *hashAlg, const char *encoding);
@@ -612,13 +623,17 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 
 	// (Relevant only when running on a Microsoft Windows operating system.) Searches
 	// the Windows Local Machine and Current User registry-based certificate stores for
-	// a certificate matching the issuerCN and having an issuer matching the  serialNumber. If
+	// a certificate matching the issuerCN and having an issuer matching the serialNumber. If
 	// found, the certificate is loaded and ready for use.
-	bool LoadByIssuerAndSerialNumber(const char *issuerCN, const char *serialNum);
+	bool LoadByIssuerAndSerialNumber(const char *issuerCN, const char *serialNumber);
 
 
 	// Loads an ASN.1 or DER encoded certificate represented in a Base64 string.
 	bool LoadFromBase64(const char *encodedCert);
+
+
+	// Loads an X.509 certificate from the ASN.1 DER encoded bytes contained in certBytes.
+	bool LoadFromBd(CkBinData &certBytes);
 
 
 	// Loads an X.509 certificate from ASN.1 DER encoded bytes.
@@ -629,7 +644,7 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 	// The same as LoadFromBinary, but instead of using a CkByteData object, the
 	// pointer to the byte data and length (in number of bytes) are specified directly
 	// in the method arguments.
-	bool LoadFromBinary2(const unsigned char *pByteData, unsigned long szByteData);
+	bool LoadFromBinary2(const void *pByteData, unsigned long szByteData);
 
 #endif
 
@@ -650,6 +665,11 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 	bool LoadPem(const char *strPem);
 
 
+	// Loads the certificate from the PFX contained in pfxData. Note: If the PFX contains
+	// multiple certificates, the 1st certificate in the PFX is loaded.
+	bool LoadPfxBd(CkBinData &pfxData, const char *password);
+
+
 	// Loads a PFX from an in-memory image of a PFX file. Note: If the PFX contains
 	// multiple certificates, the 1st certificate in the PFX is loaded.
 	bool LoadPfxData(CkByteData &pfxData, const char *password);
@@ -658,7 +678,7 @@ class CK_VISIBLE_PUBLIC CkCert  : public CkMultiByteBase
 #if !defined(CHILKAT_MONO)
 	// Loads a PFX from an in-memory image of a PFX file. Note: If the PFX contains
 	// multiple certificates, the 1st certificate in the PFX is loaded.
-	bool LoadPfxData2(const unsigned char *pByteData, unsigned long szByteData, const char *password);
+	bool LoadPfxData2(const void *pByteData, unsigned long szByteData, const char *password);
 
 #endif
 

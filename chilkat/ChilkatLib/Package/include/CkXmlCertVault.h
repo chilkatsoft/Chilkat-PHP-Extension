@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkXmlCertVault_H
 #define _CkXmlCertVault_H
@@ -88,7 +88,7 @@ class CK_VISIBLE_PUBLIC CkXmlCertVault  : public CkMultiByteBase
 
 
 	// Adds a certificate to the XML vault where certificate is passed directly from
-	// encoded bytes (such as Base64, Hex, etc.). The encoding is indicated by ARG2.
+	// encoded bytes (such as Base64, Hex, etc.). The encoding is indicated by encoding.
 	bool AddCertEncoded(const char *encodedBytes, const char *encoding);
 
 
@@ -117,7 +117,7 @@ class CK_VISIBLE_PUBLIC CkXmlCertVault  : public CkMultiByteBase
 
 
 	// Adds a PFX to the XML vault where PFX is passed directly from encoded bytes
-	// (such as Base64, Hex, etc.). The encoding is indicated by ARG2.
+	// (such as Base64, Hex, etc.). The encoding is indicated by encoding.
 	bool AddPfxEncoded(const char *encodedBytes, const char *encoding, const char *password);
 
 

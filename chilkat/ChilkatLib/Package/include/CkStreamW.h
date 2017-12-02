@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkStreamW_H
 #define _CkStreamW_H
@@ -12,8 +12,10 @@
 #include "CkString.h"
 #include "CkClassWithCallbacksW.h"
 
-class CkByteData;
+class CkBinDataW;
 class CkTaskW;
+class CkByteData;
+class CkStringBuilderW;
 class CkBaseProgressW;
 
 
@@ -59,6 +61,47 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// ----------------------
 	// Properties
 	// ----------------------
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	bool get_AbortCurrent(void);
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	void put_AbortCurrent(bool newVal);
+
+	// true if the stream supports reading. Otherwise false.
+	// 
+	// Note: A stream that supports reading, which has already reached the
+	// end-of-stream, will still have a CanRead value of true. This property
+	// indicates the stream's inherent ability, and not whether or not the stream can
+	// be read at a particular moment in time.
+	// 
+	bool get_CanRead(void);
+
+	// true if the stream supports writing. Otherwise false.
+	// 
+	// Note: A stream that supports writing, which has already been closed for write,
+	// will still have a CanWrite value of true. This property indicates the stream's
+	// inherent ability, and not whether or not the stream can be written at a
+	// particular moment in time.
+	// 
+	bool get_CanWrite(void);
+
+	// true if it is known for sure that data is ready and waiting to be read.
+	// false if it is not known for sure (it may be that data is immediately
+	// available, but reading the stream with a ReadTimeoutMs of 0, which is to poll
+	// the stream, is the way to find out).
+	bool get_DataAvailable(void);
+
 	// The default internal chunk size for reading or writing. The default value is
 	// 65536. If this property is set to 0, it will cause the default chunk size
 	// (65536) to be used. Note: The chunk size can have significant performance
@@ -80,6 +123,36 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// true if the stream is closed for writing. Once closed, no more data may be
 	// written to the stream.
 	bool get_IsWriteClosed(void);
+
+	// The length (in bytes) of the stream's source. If unknown, then this property
+	// will have a value of -1. This property may be set by the application if it knows
+	// in advance the length of the stream.
+	__int64 get_Length(void);
+	// The length (in bytes) of the stream's source. If unknown, then this property
+	// will have a value of -1. This property may be set by the application if it knows
+	// in advance the length of the stream.
+	void put_Length(__int64 newVal);
+
+	// The length (in bytes) of the stream's source. If unknown, then this property
+	// will have a value of -1. This property may be set by the application if it knows
+	// in advance the length of the stream.
+	// 
+	// Setting this property also sets the Length property (which is a 64-bit integer).
+	// 
+	int get_Length32(void);
+	// The length (in bytes) of the stream's source. If unknown, then this property
+	// will have a value of -1. This property may be set by the application if it knows
+	// in advance the length of the stream.
+	// 
+	// Setting this property also sets the Length property (which is a 64-bit integer).
+	// 
+	void put_Length32(int newVal);
+
+	// The number of bytes received by the stream.
+	__int64 get_NumReceived(void);
+
+	// The number of bytes sent by the stream.
+	__int64 get_NumSent(void);
 
 	// This property is automatically set when a Read* method is called. It indicates
 	// the reason for failure. Possible values are:
@@ -171,6 +244,38 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// 
 	void put_SourceFile(const wchar_t *newVal);
 
+	// If the source is a file, then this property can be used to stream one part of
+	// the file. The SourceFilePartSize property defines the size (in bytes) of each
+	// part. The SourceFilePart and SourceFilePartSize have default values of 0, which
+	// means the entire SourceFile is streamed.
+	// 
+	// This property is a 0-based index. For example, if the SourceFilePartSize is
+	// 1000, then part 0 is for bytes 0 to 999, part 1 is for bytes 1000 to 1999, etc.
+	// 
+	int get_SourceFilePart(void);
+	// If the source is a file, then this property can be used to stream one part of
+	// the file. The SourceFilePartSize property defines the size (in bytes) of each
+	// part. The SourceFilePart and SourceFilePartSize have default values of 0, which
+	// means the entire SourceFile is streamed.
+	// 
+	// This property is a 0-based index. For example, if the SourceFilePartSize is
+	// 1000, then part 0 is for bytes 0 to 999, part 1 is for bytes 1000 to 1999, etc.
+	// 
+	void put_SourceFilePart(int newVal);
+
+	// If the source is a file, then this property, in conjunction with the
+	// SourceFilePart property, can be used to stream a single part of the file. This
+	// property defines the size (in bytes) of each part. The SourceFilePart and
+	// SourceFilePartSize have default values of 0, which means that by default, the
+	// entire SourceFile is streamed.
+	int get_SourceFilePartSize(void);
+	// If the source is a file, then this property, in conjunction with the
+	// SourceFilePart property, can be used to stream a single part of the file. This
+	// property defines the size (in bytes) of each part. The SourceFilePart and
+	// SourceFilePartSize have default values of 0, which means that by default, the
+	// entire SourceFile is streamed.
+	void put_SourceFilePartSize(int newVal);
+
 	// If true, then include the BOM when creating a string source via
 	// SetSourceString where the charset is utf-8, utf-16, etc. (The term "BOM" stands
 	// for Byte Order Mark, also known as the preamble.) Also, if true, then include
@@ -228,45 +333,21 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// not possible to write to the sink immediately.
 	void put_WriteTimeoutMs(int newVal);
 
-	// true if the stream supports reading. Otherwise false.
-	// 
-	// Note: A stream that supports reading, which has already reached the
-	// end-of-stream, will still have a CanRead value of true. This property
-	// indicates the stream's inherent ability, and not whether or not the stream can
-	// be read at a particular moment in time.
-	// 
-	bool get_CanRead(void);
-
-	// true if the stream supports writing. Otherwise false.
-	// 
-	// Note: A stream that supports writing, which has already been closed for write,
-	// will still have a CanWrite value of true. This property indicates the stream's
-	// inherent ability, and not whether or not the stream can be written at a
-	// particular moment in time.
-	// 
-	bool get_CanWrite(void);
-
-	// true if it is known for sure that data is ready and waiting to be read.
-	// false if it is not known for sure (it may be that data is immediately
-	// available, but reading the stream with a ReadTimeoutMs of 0, which is to poll
-	// the stream, is the way to find out).
-	bool get_DataAvailable(void);
-
-	// The length (in bytes) of the stream's source. If unknown, then this property
-	// will have a value of -1.
-	__int64 get_Length(void);
-
-	// The number of bytes received by the stream.
-	__int64 get_NumReceived(void);
-
-	// The number of bytes sent by the stream.
-	__int64 get_NumSent(void);
-
 
 
 	// ----------------------
 	// Methods
 	// ----------------------
+	// Read as much data as is immediately available on the stream. If no data is
+	// immediately available, it waits up to ReadTimeoutMs milliseconds for data to
+	// arrive. The incoming data is appended to binData.
+	bool ReadBd(CkBinDataW &binData);
+
+	// Creates an asynchronous task to call the ReadBd method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *ReadBdAsync(CkBinDataW &binData);
+
 	// Read as much data as is immediately available on the stream. If no data is
 	// immediately available, it waits up to ReadTimeoutMs milliseconds for data to
 	// arrive.
@@ -278,11 +359,11 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	CkTaskW *ReadBytesAsync(void);
 
 	// The same as ReadBytes, except returns the received bytes in encoded string form.
-	// The ARG1 argument indicates the encoding, which can be "base64", "hex", or any
+	// The encoding argument indicates the encoding, which can be "base64", "hex", or any
 	// of the multitude of encodings indicated in the link below.
 	bool ReadBytesENC(const wchar_t *encoding, CkString &outStr);
 	// The same as ReadBytes, except returns the received bytes in encoded string form.
-	// The ARG1 argument indicates the encoding, which can be "base64", "hex", or any
+	// The encoding argument indicates the encoding, which can be "base64", "hex", or any
 	// of the multitude of encodings indicated in the link below.
 	const wchar_t *readBytesENC(const wchar_t *encoding);
 
@@ -291,7 +372,7 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *ReadBytesENCAsync(const wchar_t *encoding);
 
-	// Reads exactly ARG1 bytes from the stream. If no data is immediately available,
+	// Reads exactly numBytes bytes from the stream. If no data is immediately available,
 	// it waits up to ReadTimeoutMs milliseconds for data to arrive.
 	bool ReadNBytes(int numBytes, CkByteData &outBytes);
 
@@ -301,11 +382,11 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	CkTaskW *ReadNBytesAsync(int numBytes);
 
 	// The same as ReadNBytes, except returns the received bytes in encoded string
-	// form. The ARG2 argument indicates the encoding, which can be "base64", "hex", or
+	// form. The encoding argument indicates the encoding, which can be "base64", "hex", or
 	// any of the multitude of encodings indicated in the link below.
 	bool ReadNBytesENC(int numBytes, const wchar_t *encoding, CkString &outStr);
 	// The same as ReadNBytes, except returns the received bytes in encoded string
-	// form. The ARG2 argument indicates the encoding, which can be "base64", "hex", or
+	// form. The encoding argument indicates the encoding, which can be "base64", "hex", or
 	// any of the multitude of encodings indicated in the link below.
 	const wchar_t *readNBytesENC(int numBytes, const wchar_t *encoding);
 
@@ -313,6 +394,18 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *ReadNBytesENCAsync(int numBytes, const wchar_t *encoding);
+
+	// Read as much data as is immediately available on the stream. If no data is
+	// immediately available, it waits up to ReadTimeoutMs milliseconds for data to
+	// arrive. The data is appended to sb. The incoming bytes are interpreted
+	// according to the StringCharset property. For example, if utf-8 bytes are
+	// expected, then StringCharset should be set to "utf-8" prior to calling ReadSb.
+	bool ReadSb(CkStringBuilderW &sb);
+
+	// Creates an asynchronous task to call the ReadSb method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *ReadSbAsync(CkStringBuilderW &sb);
 
 	// Read as much data as is immediately available on the stream. If no data is
 	// immediately available, it waits up to ReadTimeoutMs milliseconds for data to
@@ -364,7 +457,7 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *ReadToCRLFAsync(void);
 
-	// Reads the stream until the string indicated by ARG1 is received. If no data is
+	// Reads the stream until the string indicated by matchStr is received. If no data is
 	// immediately available, it waits up to ReadTimeoutMs milliseconds for data to
 	// arrive. The data is returned as a string. The incoming bytes are interpreted
 	// according to the StringCharset property. For example, if utf-8 bytes are
@@ -377,7 +470,7 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// returned that does not end with the desired match string.
 	// 
 	bool ReadUntilMatch(const wchar_t *matchStr, CkString &outStr);
-	// Reads the stream until the string indicated by ARG1 is received. If no data is
+	// Reads the stream until the string indicated by matchStr is received. If no data is
 	// immediately available, it waits up to ReadTimeoutMs milliseconds for data to
 	// arrive. The data is returned as a string. The incoming bytes are interpreted
 	// according to the StringCharset property. For example, if utf-8 bytes are
@@ -415,22 +508,30 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *RunStreamAsync(void);
 
-	// Sets the stream's sink to ARG1. Any data written to this stream's sink will
-	// become available to ARG1 on its source.
+	// Sets the stream's sink to strm. Any data written to this stream's sink will
+	// become available to strm on its source.
 	bool SetSinkStream(CkStreamW &strm);
 
-	// Sets the stream's source to the contents of ARG1.
+	// Sets the stream's source to the contents of sourceData.
 	bool SetSourceBytes(CkByteData &sourceData);
 
-	// Sets the stream's source to be the sink of ARG1. Any data written to ARG1's sink
+	// Sets the stream's source to be the sink of strm. Any data written to strm's sink
 	// will become available on this stream's source.
 	bool SetSourceStream(CkStreamW &strm);
 
-	// Sets the stream's source to the contents of ARG1. The ARG2 indicates the
-	// character encoding to be used for the byte representation of the ARG1.
+	// Sets the stream's source to the contents of srcStr. The charset indicates the
+	// character encoding to be used for the byte representation of the srcStr.
 	bool SetSourceString(const wchar_t *srcStr, const wchar_t *charset);
 
-	// Writes a single byte to the stream. The ARG1 must have a value from 0 to 255.
+	// Writes the contents of binData to the stream.
+	bool WriteBd(CkBinDataW &binData);
+
+	// Creates an asynchronous task to call the WriteBd method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *WriteBdAsync(CkBinDataW &binData);
+
+	// Writes a single byte to the stream. The byteVal must have a value from 0 to 255.
 	bool WriteByte(int byteVal);
 
 	// Creates an asynchronous task to call the WriteByte method with the arguments
@@ -447,7 +548,7 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	CkTaskW *WriteBytesAsync(CkByteData &byteData);
 
 	// Writes binary bytes to a stream. The byte data is passed in encoded string form,
-	// where the ARG2 can be "base64", "hex", or any of the supported binary encodings
+	// where the encoding can be "base64", "hex", or any of the supported binary encodings
 	// listed at the link below.
 	bool WriteBytesENC(const wchar_t *byteData, const wchar_t *encoding);
 
@@ -455,6 +556,20 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *WriteBytesENCAsync(const wchar_t *byteData, const wchar_t *encoding);
+
+	// Indicates that no more data will be written to the stream.
+	bool WriteClose(void);
+
+	// Writes the contents of sb to the stream. The actual bytes written are the byte
+	// representation of the string as indicated by the StringCharset property. For
+	// example, to write utf-8 bytes, first set StringCharset equal to "utf-8" and then
+	// call WriteSb.
+	bool WriteSb(CkStringBuilderW &sb);
+
+	// Creates an asynchronous task to call the WriteSb method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *WriteSbAsync(CkStringBuilderW &sb);
 
 	// Writes a string to a stream. The actual bytes written are the byte
 	// representation of the string as indicated by the StringCharset property. For
@@ -466,9 +581,6 @@ class CK_VISIBLE_PUBLIC CkStreamW  : public CkClassWithCallbacksW
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *WriteStringAsync(const wchar_t *str);
-
-	// Indicates that no more data will be written to the stream.
-	bool WriteClose(void);
 
 
 

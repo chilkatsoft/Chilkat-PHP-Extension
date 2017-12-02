@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkTaskChain_H
 #define _CkTaskChain_H
@@ -10,10 +10,9 @@
 #include "chilkatDefs.h"
 
 #include "CkString.h"
-#include "CkClassWithCallbacks.h"
+#include "CkMultiByteBase.h"
 
 class CkTask;
-class CkBaseProgress;
 
 
 
@@ -23,7 +22,7 @@ class CkBaseProgress;
  
 
 // CLASS: CkTaskChain
-class CK_VISIBLE_PUBLIC CkTaskChain  : public CkClassWithCallbacks
+class CK_VISIBLE_PUBLIC CkTaskChain  : public CkMultiByteBase
 {
     private:
 
@@ -42,9 +41,7 @@ class CK_VISIBLE_PUBLIC CkTaskChain  : public CkClassWithCallbacks
 	// internal resources held by the object. 
 	void dispose(void);
 
-	CkBaseProgress *get_EventCallbackObject(void) const;
-	void put_EventCallbackObject(CkBaseProgress *progress);
-
+	
 
 	// BEGIN PUBLIC INTERFACE
 
@@ -173,9 +170,9 @@ class CK_VISIBLE_PUBLIC CkTaskChain  : public CkClassWithCallbacks
 
 
 	// Waits for the task chain to complete. Returns when all of the tasks in the chain
-	// have completed, or after ARG1 milliseconds have elapsed. (A ARG1 value of 0 is
+	// have completed, or after maxWaitMs milliseconds have elapsed. (A maxWaitMs value of 0 is
 	// to wait indefinitely.) Returns (false) if the task chain has not yet been
-	// started by calling the Run method, or if the ARG1 expired. If the task chain
+	// started by calling the Run method, or if the maxWaitMs expired. If the task chain
 	// completed, was already completed, was canceled, or aborted, then this method
 	// returns true.
 	bool Wait(int maxWaitMs);

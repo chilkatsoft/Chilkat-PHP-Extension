@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.56
+// This is a generated source file for Chilkat version 9.5.0.70
 #ifndef _C_CkBz2_H
 #define _C_CkBz2_H
 #include "chilkatDefs.h"
@@ -13,6 +13,8 @@ CK_VISIBLE_PUBLIC void CkBz2_setTaskCompleted(HCkBz2 cHandle, void (*fnTaskCompl
 
 CK_VISIBLE_PUBLIC HCkBz2 CkBz2_Create(void);
 CK_VISIBLE_PUBLIC void CkBz2_Dispose(HCkBz2 handle);
+CK_VISIBLE_PUBLIC BOOL CkBz2_getAbortCurrent(HCkBz2 cHandle);
+CK_VISIBLE_PUBLIC void CkBz2_putAbortCurrent(HCkBz2 cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkBz2_getDebugLogFilePath(HCkBz2 cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void CkBz2_putDebugLogFilePath(HCkBz2 cHandle, const char *newVal);
 CK_VISIBLE_PUBLIC const char *CkBz2_debugLogFilePath(HCkBz2 cHandle);
@@ -36,18 +38,18 @@ CK_VISIBLE_PUBLIC BOOL CkBz2_CompressFile(HCkBz2 cHandle, const char *inFilename
 CK_VISIBLE_PUBLIC HCkTask CkBz2_CompressFileAsync(HCkBz2 cHandle, const char *inFilename, const char *toPath);
 CK_VISIBLE_PUBLIC BOOL CkBz2_CompressFileToMem(HCkBz2 cHandle, const char *inFilename, HCkByteData outBytes);
 CK_VISIBLE_PUBLIC HCkTask CkBz2_CompressFileToMemAsync(HCkBz2 cHandle, const char *inFilename);
-CK_VISIBLE_PUBLIC BOOL CkBz2_CompressMemToFile(HCkBz2 cHandle, HCkByteData inData, const char *toPath);
-CK_VISIBLE_PUBLIC HCkTask CkBz2_CompressMemToFileAsync(HCkBz2 cHandle, HCkByteData inData, const char *toPath);
 CK_VISIBLE_PUBLIC BOOL CkBz2_CompressMemory(HCkBz2 cHandle, HCkByteData inData, HCkByteData outBytes);
 CK_VISIBLE_PUBLIC HCkTask CkBz2_CompressMemoryAsync(HCkBz2 cHandle, HCkByteData inData);
+CK_VISIBLE_PUBLIC BOOL CkBz2_CompressMemToFile(HCkBz2 cHandle, HCkByteData inData, const char *toPath);
+CK_VISIBLE_PUBLIC HCkTask CkBz2_CompressMemToFileAsync(HCkBz2 cHandle, HCkByteData inData, const char *toPath);
 CK_VISIBLE_PUBLIC BOOL CkBz2_SaveLastError(HCkBz2 cHandle, const char *path);
 CK_VISIBLE_PUBLIC BOOL CkBz2_UncompressFile(HCkBz2 cHandle, const char *inFilename, const char *toPath);
 CK_VISIBLE_PUBLIC HCkTask CkBz2_UncompressFileAsync(HCkBz2 cHandle, const char *inFilename, const char *toPath);
 CK_VISIBLE_PUBLIC BOOL CkBz2_UncompressFileToMem(HCkBz2 cHandle, const char *inFilename, HCkByteData outBytes);
 CK_VISIBLE_PUBLIC HCkTask CkBz2_UncompressFileToMemAsync(HCkBz2 cHandle, const char *inFilename);
-CK_VISIBLE_PUBLIC BOOL CkBz2_UncompressMemToFile(HCkBz2 cHandle, HCkByteData inData, const char *toPath);
-CK_VISIBLE_PUBLIC HCkTask CkBz2_UncompressMemToFileAsync(HCkBz2 cHandle, HCkByteData inData, const char *toPath);
 CK_VISIBLE_PUBLIC BOOL CkBz2_UncompressMemory(HCkBz2 cHandle, HCkByteData inData, HCkByteData outBytes);
 CK_VISIBLE_PUBLIC HCkTask CkBz2_UncompressMemoryAsync(HCkBz2 cHandle, HCkByteData inData);
+CK_VISIBLE_PUBLIC BOOL CkBz2_UncompressMemToFile(HCkBz2 cHandle, HCkByteData inData, const char *toPath);
+CK_VISIBLE_PUBLIC HCkTask CkBz2_UncompressMemToFileAsync(HCkBz2 cHandle, HCkByteData inData, const char *toPath);
 CK_VISIBLE_PUBLIC BOOL CkBz2_UnlockComponent(HCkBz2 cHandle, const char *regCode);
 #endif

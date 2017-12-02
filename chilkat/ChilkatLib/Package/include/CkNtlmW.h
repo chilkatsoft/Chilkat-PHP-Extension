@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkNtlmW_H
 #define _CkNtlmW_H
@@ -554,7 +554,8 @@ class CK_VISIBLE_PUBLIC CkNtlmW  : public CkWideCharBase
 	// above.
 	bool SetFlag(const wchar_t *flagLetter, bool onOrOff);
 
-	// To be documented soon.
+	// Unlocks the component. This must be called once prior to calling any other
+	// method.
 	bool UnlockComponent(const wchar_t *unlockCode);
 
 

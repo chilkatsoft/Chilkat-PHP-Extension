@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.70
 
 #ifndef _CkGzipW_H
 #define _CkGzipW_H
@@ -13,6 +13,7 @@
 #include "CkClassWithCallbacksW.h"
 
 class CkByteData;
+class CkBinDataW;
 class CkTaskW;
 class CkDateTimeW;
 class CkBaseProgressW;
@@ -60,6 +61,23 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	// ----------------------
 	// Properties
 	// ----------------------
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	bool get_AbortCurrent(void);
+	// When set to true, causes the currently running method to abort. Methods that
+	// always finish quickly (i.e.have no length file operations or network
+	// communications) are not affected. If no method is running, then this property is
+	// automatically reset to false when the next method is called. When the abort
+	// occurs, this property is reset to false. Both synchronous and asynchronous
+	// method calls can be aborted. (A synchronous method call could be aborted by
+	// setting this property from a separate thread.)
+	void put_AbortCurrent(bool newVal);
+
 	// Specifies an optional comment string that can be embedded within the .gz when
 	// any Compress* method is called.
 	void get_Comment(CkString &str);
@@ -149,23 +167,31 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	// ----------------------
 	// Methods
 	// ----------------------
+	// In-place gzip the contents of binDat.
+	bool CompressBd(CkBinDataW &binDat);
+
+	// Creates an asynchronous task to call the CompressBd method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *CompressBdAsync(CkBinDataW &binDat);
+
 	// Compresses a file to create a GZip compressed file (.gz).
-	bool CompressFile(const wchar_t *srcPath, const wchar_t *destPath);
+	bool CompressFile(const wchar_t *inFilename, const wchar_t *destPath);
 
 	// Creates an asynchronous task to call the CompressFile method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *CompressFileAsync(const wchar_t *srcPath, const wchar_t *destPath);
+	CkTaskW *CompressFileAsync(const wchar_t *inFilename, const wchar_t *destPath);
 
 	// Compresses a file to create a GZip compressed file (.gz). inFilename is the actual
-	// filename on disk.  embeddedFilename is the filename to be embedded in the .gz such that when
+	// filename on disk. embeddedFilename is the filename to be embedded in the .gz such that when
 	// it is un-gzipped, this is the name of the file that will be created.
-	bool CompressFile2(const wchar_t *srcPath, const wchar_t *embeddedFilename, const wchar_t *destPath);
+	bool CompressFile2(const wchar_t *inFilename, const wchar_t *embeddedFilename, const wchar_t *destPath);
 
 	// Creates an asynchronous task to call the CompressFile2 method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *CompressFile2Async(const wchar_t *srcPath, const wchar_t *embeddedFilename, const wchar_t *destPath);
+	CkTaskW *CompressFile2Async(const wchar_t *inFilename, const wchar_t *embeddedFilename, const wchar_t *destPath);
 
 	// Gzip compresses a file to an in-memory image of a .gz file.
 	bool CompressFileToMem(const wchar_t *inFilename, CkByteData &outData);
@@ -175,14 +201,6 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *CompressFileToMemAsync(const wchar_t *inFilename);
 
-	// Gzip compresses and creates a .gz file from in-memory data.
-	bool CompressMemToFile(CkByteData &inData, const wchar_t *destPath);
-
-	// Creates an asynchronous task to call the CompressMemToFile method with the
-	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
-	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *CompressMemToFileAsync(CkByteData &inData, const wchar_t *destPath);
-
 	// Compresses in-memory data to an in-memory image of a .gz file.
 	bool CompressMemory(CkByteData &inData, CkByteData &outData);
 
@@ -191,8 +209,16 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *CompressMemoryAsync(CkByteData &inData);
 
+	// Gzip compresses and creates a .gz file from in-memory data.
+	bool CompressMemToFile(CkByteData &inData, const wchar_t *destPath);
+
+	// Creates an asynchronous task to call the CompressMemToFile method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *CompressMemToFileAsync(CkByteData &inData, const wchar_t *destPath);
+
 	// Gzip compresses a string and writes the output to a byte array. The string is
-	// first converted to the charset specified by ARG2. Typical charsets are "utf-8",
+	// first converted to the charset specified by destCharset. Typical charsets are "utf-8",
 	// "iso-8859-1", "shift_JIS", etc.
 	bool CompressString(const wchar_t *inStr, const wchar_t *destCharset, CkByteData &outBytes);
 
@@ -202,20 +228,20 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	CkTaskW *CompressStringAsync(const wchar_t *inStr, const wchar_t *destCharset);
 
 	// The same as CompressString, except the binary output is returned in encoded
-	// string form according to the  encoding. The  encoding can be any of the following:
+	// string form according to the encoding. The encoding can be any of the following:
 	// "Base64", "modBase64", "Base32", "UU", "QP" (for quoted-printable), "URL" (for
 	// url-encoding), "Hex", "Q", "B", "url_oath", "url_rfc1738", "url_rfc2396", and
 	// "url_rfc3986".
-	bool CompressStringENC(const wchar_t *strIn, const wchar_t *charset, const wchar_t *encoding, CkString &outStr);
+	bool CompressStringENC(const wchar_t *inStr, const wchar_t *charset, const wchar_t *encoding, CkString &outStr);
 	// The same as CompressString, except the binary output is returned in encoded
-	// string form according to the  encoding. The  encoding can be any of the following:
+	// string form according to the encoding. The encoding can be any of the following:
 	// "Base64", "modBase64", "Base32", "UU", "QP" (for quoted-printable), "URL" (for
 	// url-encoding), "Hex", "Q", "B", "url_oath", "url_rfc1738", "url_rfc2396", and
 	// "url_rfc3986".
-	const wchar_t *compressStringENC(const wchar_t *strIn, const wchar_t *charset, const wchar_t *encoding);
+	const wchar_t *compressStringENC(const wchar_t *inStr, const wchar_t *charset, const wchar_t *encoding);
 
 	// Gzip compresses a string and writes the output to a .gz compressed file. The
-	// string is first converted to the charset specified by ARG2. Typical charsets are
+	// string is first converted to the charset specified by destCharset. Typical charsets are
 	// "utf-8", "iso-8859-1", "shift_JIS", etc.
 	bool CompressStringToFile(const wchar_t *inStr, const wchar_t *destCharset, const wchar_t *destPath);
 
@@ -225,40 +251,40 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	CkTaskW *CompressStringToFileAsync(const wchar_t *inStr, const wchar_t *destCharset, const wchar_t *destPath);
 
 	// Decodes an encoded string and returns the original data. The encoding mode is
-	// determined by  encoding. It may be "base64", "hex", "quoted-printable", or "url".
-	bool Decode(const wchar_t *str, const wchar_t *encoding, CkByteData &outBytes);
+	// determined by encoding. It may be "base64", "hex", "quoted-printable", or "url".
+	bool Decode(const wchar_t *encodedStr, const wchar_t *encoding, CkByteData &outBytes);
 
 	// Provides the ability to use the zip/gzip's deflate algorithm directly to
 	// compress a string. Internal to this method, inString is first converted to the
-	// charset specified by  charsetName. The data is then compressed using the deflate
-	// compression algorithm. The binary output is then encoded according to  outputEncoding.
-	// Possible values for  outputEncoding are "hex", "base64", "url", and "quoted-printable".
+	// charset specified by charsetName. The data is then compressed using the deflate
+	// compression algorithm. The binary output is then encoded according to outputEncoding.
+	// Possible values for outputEncoding are "hex", "base64", "url", and "quoted-printable".
 	// 
 	// Note: The output of this method is compressed data with no Gzip file format. Use
 	// the Compress* methods to produce Gzip file format output.
 	// 
-	bool DeflateStringENC(const wchar_t *strIn, const wchar_t *charset, const wchar_t *encoding, CkString &outStr);
+	bool DeflateStringENC(const wchar_t *inString, const wchar_t *charsetName, const wchar_t *outputEncoding, CkString &outStr);
 	// Provides the ability to use the zip/gzip's deflate algorithm directly to
 	// compress a string. Internal to this method, inString is first converted to the
-	// charset specified by  charsetName. The data is then compressed using the deflate
-	// compression algorithm. The binary output is then encoded according to  outputEncoding.
-	// Possible values for  outputEncoding are "hex", "base64", "url", and "quoted-printable".
+	// charset specified by charsetName. The data is then compressed using the deflate
+	// compression algorithm. The binary output is then encoded according to outputEncoding.
+	// Possible values for outputEncoding are "hex", "base64", "url", and "quoted-printable".
 	// 
 	// Note: The output of this method is compressed data with no Gzip file format. Use
 	// the Compress* methods to produce Gzip file format output.
 	// 
-	const wchar_t *deflateStringENC(const wchar_t *strIn, const wchar_t *charset, const wchar_t *encoding);
+	const wchar_t *deflateStringENC(const wchar_t *inString, const wchar_t *charsetName, const wchar_t *outputEncoding);
 
 	// Encodes binary data to a printable string. The encoding mode is determined by
-	//  encoding. It may be "base64", "hex", "quoted-printable", or "url".
+	// encoding. It may be "base64", "hex", "quoted-printable", or "url".
 	bool Encode(CkByteData &byteData, const wchar_t *encoding, CkString &outStr);
 	// Encodes binary data to a printable string. The encoding mode is determined by
-	//  encoding. It may be "base64", "hex", "quoted-printable", or "url".
+	// encoding. It may be "base64", "hex", "quoted-printable", or "url".
 	const wchar_t *encode(CkByteData &byteData, const wchar_t *encoding);
 
 	// Determines if the inGzFilename is a Gzip formatted file. Returns true if it is a Gzip
 	// formatted file, otherwise returns false.
-	bool ExamineFile(const wchar_t *inGzPath);
+	bool ExamineFile(const wchar_t *inGzFilename);
 
 	// Determines if the in-memory bytes (inGzData) contain a Gzip formatted file. Returns
 	// true if it is Gzip format, otherwise returns false.
@@ -270,20 +296,20 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 
 	// This the reverse of DeflateStringENC.
 	// 
-	// The input string is first decoded according to  inputEncoding. (Possible values for  inputEncoding
+	// The input string is first decoded according to inputEncoding. (Possible values for inputEncoding
 	// are "hex", "base64", "url", and "quoted-printable".) The compressed data is then
-	// inflated, and the result is then converted from  convertFromCharset (if necessary) to return a
+	// inflated, and the result is then converted from convertFromCharset (if necessary) to return a
 	// string.
 	// 
-	bool InflateStringENC(const wchar_t *strIn, const wchar_t *charset, const wchar_t *encoding, CkString &outStr);
+	bool InflateStringENC(const wchar_t *inString, const wchar_t *convertFromCharset, const wchar_t *inputEncoding, CkString &outStr);
 	// This the reverse of DeflateStringENC.
 	// 
-	// The input string is first decoded according to  inputEncoding. (Possible values for  inputEncoding
+	// The input string is first decoded according to inputEncoding. (Possible values for inputEncoding
 	// are "hex", "base64", "url", and "quoted-printable".) The compressed data is then
-	// inflated, and the result is then converted from  convertFromCharset (if necessary) to return a
+	// inflated, and the result is then converted from convertFromCharset (if necessary) to return a
 	// string.
 	// 
-	const wchar_t *inflateStringENC(const wchar_t *strIn, const wchar_t *charset, const wchar_t *encoding);
+	const wchar_t *inflateStringENC(const wchar_t *inString, const wchar_t *convertFromCharset, const wchar_t *inputEncoding);
 
 	// Returns true if the component has been unlocked.
 	bool IsUnlocked(void);
@@ -298,17 +324,13 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	// is used.
 	bool SetDt(CkDateTimeW &dt);
 
-	// Unpacks a .tar.gz file. The ungzip and untar occur in streaming mode. There are
-	// no temporary files and the memory footprint is constant (and small) while
-	// untarring.  bNoAbsolute may be true or false. A value of true protects from
-	// untarring to absolute paths. (For example, imagine the trouble if the tar
-	// contains files with absolute paths beginning with /Windows/system32)
-	bool UnTarGz(const wchar_t *gzFilename, const wchar_t *destDir, bool bNoAbsolute);
+	// In-place ungzip the contents of binDat.
+	bool UncompressBd(CkBinDataW &binDat);
 
-	// Creates an asynchronous task to call the UnTarGz method with the arguments
+	// Creates an asynchronous task to call the UncompressBd method with the arguments
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *UnTarGzAsync(const wchar_t *gzFilename, const wchar_t *destDir, bool bNoAbsolute);
+	CkTaskW *UncompressBdAsync(CkBinDataW &binDat);
 
 	// Un-Gzips a .gz file. The output filename is specified by the 2nd argument and
 	// not by the filename embedded within the .gz.
@@ -329,27 +351,19 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 
 	// Uncompresses a .gz file that contains a text file. The contents of the text file
 	// are returned as a string. The character encoding of the text file is specified
-	// by  charset. Typical charsets are "iso-8859-1", "utf-8", "windows-1252",
+	// by charset. Typical charsets are "iso-8859-1", "utf-8", "windows-1252",
 	// "shift_JIS", "big5", etc.
-	bool UncompressFileToString(const wchar_t *inFilename, const wchar_t *inCharset, CkString &outStr);
+	bool UncompressFileToString(const wchar_t *gzFilename, const wchar_t *charset, CkString &outStr);
 	// Uncompresses a .gz file that contains a text file. The contents of the text file
 	// are returned as a string. The character encoding of the text file is specified
-	// by  charset. Typical charsets are "iso-8859-1", "utf-8", "windows-1252",
+	// by charset. Typical charsets are "iso-8859-1", "utf-8", "windows-1252",
 	// "shift_JIS", "big5", etc.
-	const wchar_t *uncompressFileToString(const wchar_t *inFilename, const wchar_t *inCharset);
+	const wchar_t *uncompressFileToString(const wchar_t *gzFilename, const wchar_t *charset);
 
 	// Creates an asynchronous task to call the UncompressFileToString method with the
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *UncompressFileToStringAsync(const wchar_t *inFilename, const wchar_t *inCharset);
-
-	// Un-Gzips from an in-memory image of a .gz file to a file.
-	bool UncompressMemToFile(CkByteData &inData, const wchar_t *destPath);
-
-	// Creates an asynchronous task to call the UncompressMemToFile method with the
-	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
-	// The caller is responsible for deleting the object returned by this method.
-	CkTaskW *UncompressMemToFileAsync(CkByteData &inData, const wchar_t *destPath);
+	CkTaskW *UncompressFileToStringAsync(const wchar_t *gzFilename, const wchar_t *charset);
 
 	// Un-Gzips from an in-memory image of a .gz file directly into memory.
 	bool UncompressMemory(CkByteData &inData, CkByteData &outData);
@@ -359,15 +373,23 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *UncompressMemoryAsync(CkByteData &inData);
 
+	// Un-Gzips from an in-memory image of a .gz file to a file.
+	bool UncompressMemToFile(CkByteData &inData, const wchar_t *destPath);
+
+	// Creates an asynchronous task to call the UncompressMemToFile method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *UncompressMemToFileAsync(CkByteData &inData, const wchar_t *destPath);
+
 	// The reverse of CompressString.
 	// 
-	// The bytes in inData are uncompressed, then converted from  inCharset (if necessary) to
+	// The bytes in inData are uncompressed, then converted from inCharset (if necessary) to
 	// return a string.
 	// 
 	bool UncompressString(CkByteData &inData, const wchar_t *inCharset, CkString &outStr);
 	// The reverse of CompressString.
 	// 
-	// The bytes in inData are uncompressed, then converted from  inCharset (if necessary) to
+	// The bytes in inData are uncompressed, then converted from inCharset (if necessary) to
 	// return a string.
 	// 
 	const wchar_t *uncompressString(CkByteData &inData, const wchar_t *inCharset);
@@ -378,28 +400,40 @@ class CK_VISIBLE_PUBLIC CkGzipW  : public CkClassWithCallbacksW
 	CkTaskW *UncompressStringAsync(CkByteData &inData, const wchar_t *inCharset);
 
 	// The same as UncompressString, except the compressed data is provided in encoded
-	// string form based on the value of  encoding. The  encoding can be "Base64", "modBase64",
+	// string form based on the value of encoding. The encoding can be "Base64", "modBase64",
 	// "Base32", "UU", "QP" (for quoted-printable), "URL" (for url-encoding), "Hex",
 	// "Q", "B", "url_oath", "url_rfc1738", "url_rfc2396", and "url_rfc3986".
-	bool UncompressStringENC(const wchar_t *strIn, const wchar_t *charset, const wchar_t *encoding, CkString &outStr);
+	bool UncompressStringENC(const wchar_t *inStr, const wchar_t *charset, const wchar_t *encoding, CkString &outStr);
 	// The same as UncompressString, except the compressed data is provided in encoded
-	// string form based on the value of  encoding. The  encoding can be "Base64", "modBase64",
+	// string form based on the value of encoding. The encoding can be "Base64", "modBase64",
 	// "Base32", "UU", "QP" (for quoted-printable), "URL" (for url-encoding), "Hex",
 	// "Q", "B", "url_oath", "url_rfc1738", "url_rfc2396", and "url_rfc3986".
-	const wchar_t *uncompressStringENC(const wchar_t *strIn, const wchar_t *charset, const wchar_t *encoding);
+	const wchar_t *uncompressStringENC(const wchar_t *inStr, const wchar_t *charset, const wchar_t *encoding);
 
 	// Unlocks the component allowing for the full functionality to be used.
 	bool UnlockComponent(const wchar_t *unlockCode);
+
+	// Unpacks a .tar.gz file. The ungzip and untar occur in streaming mode. There are
+	// no temporary files and the memory footprint is constant (and small) while
+	// untarring. bNoAbsolute may be true or false. A value of true protects from
+	// untarring to absolute paths. (For example, imagine the trouble if the tar
+	// contains files with absolute paths beginning with /Windows/system32)
+	bool UnTarGz(const wchar_t *tgzFilename, const wchar_t *destDir, bool bNoAbsolute);
+
+	// Creates an asynchronous task to call the UnTarGz method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *UnTarGzAsync(const wchar_t *tgzFilename, const wchar_t *destDir, bool bNoAbsolute);
 
 	// A convenience method for writing a binary byte array to a file.
 	bool WriteFile(const wchar_t *path, CkByteData &binaryData);
 
 	// Converts base64-gzip .xfdl data to a decompressed XML string. The xfldData contains
 	// the base64 data. This method returns the decoded/decompressed XML string.
-	bool XfdlToXml(const wchar_t *xfdl, CkString &outStr);
+	bool XfdlToXml(const wchar_t *xfldData, CkString &outStr);
 	// Converts base64-gzip .xfdl data to a decompressed XML string. The xfldData contains
 	// the base64 data. This method returns the decoded/decompressed XML string.
-	const wchar_t *xfdlToXml(const wchar_t *xfdl);
+	const wchar_t *xfdlToXml(const wchar_t *xfldData);
 
 
 
