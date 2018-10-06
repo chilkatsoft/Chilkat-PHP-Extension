@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkSocket_H
 #define _CkSocket_H
@@ -102,6 +102,7 @@ class CK_VISIBLE_PUBLIC CkSocket  : public CkClassWithCallbacks
 	// 122 = Failed to process client cert URL message.
 	// 123 = Failed to process client key exchange message.
 	// 124 = Failed to process certificate verify message.
+	// 125 = Received and rejected an SSL 2.0 connection attempt.
 	// 
 	int get_AcceptFailReason(void);
 
@@ -408,6 +409,7 @@ class CK_VISIBLE_PUBLIC CkSocket  : public CkClassWithCallbacks
 	// 105 = Unexpected TLS protocol version.
 	// 106 = Server certificate verify failed (the server certificate is expired or the cert's signature verification failed).
 	// 107 = Unacceptable TLS protocol version.
+	// 108 = App-defined server certificate requirements failure.
 	// 109 = Failed to read handshake messages.
 	// 110 = Failed to send client certificate handshake message.
 	// 111 = Failed to send client key exchange handshake message.

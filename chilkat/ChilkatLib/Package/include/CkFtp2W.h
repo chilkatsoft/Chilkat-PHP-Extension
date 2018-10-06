@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkFtp2W_H
 #define _CkFtp2W_H
@@ -19,6 +19,7 @@ class CkBinDataW;
 class CkStringBuilderW;
 class CkStreamW;
 class CkCertW;
+class CkSecureStringW;
 class CkFtp2ProgressW;
 
 
@@ -3648,13 +3649,7 @@ class CK_VISIBLE_PUBLIC CkFtp2W  : public CkClassWithCallbacksW
 	// "subDir/*.xml", etc.
 	// 
 	// The format of the XML returned is:
-	// <nlst>
-	// <e>filename_or_dir_1</e>
-	// <e>filename_or_dir_2</e>
-	// <e>filename_or_dir_3</e>
-	// <e>filename_or_dir_4</e>
-	// ...
-	// </nlst>
+	// filename_or_dir_1filename_or_dir_2filename_or_dir_3filename_or_dir_4...
 	// 
 	bool NlstXml(const wchar_t *remoteDirPattern, CkString &outStr);
 	// Sends an NLST command to the FTP server and returns the results in XML format.
@@ -3663,13 +3658,7 @@ class CK_VISIBLE_PUBLIC CkFtp2W  : public CkClassWithCallbacksW
 	// "subDir/*.xml", etc.
 	// 
 	// The format of the XML returned is:
-	// <nlst>
-	// <e>filename_or_dir_1</e>
-	// <e>filename_or_dir_2</e>
-	// <e>filename_or_dir_3</e>
-	// <e>filename_or_dir_4</e>
-	// ...
-	// </nlst>
+	// filename_or_dir_1filename_or_dir_2filename_or_dir_3filename_or_dir_4...
 	// 
 	const wchar_t *nlstXml(const wchar_t *remoteDirPattern);
 
@@ -3850,6 +3839,15 @@ class CK_VISIBLE_PUBLIC CkFtp2W  : public CkClassWithCallbacksW
 	// 
 	bool SetOption(const wchar_t *option);
 
+	// Sets the password in a more secure way than setting the Password property.
+	// Calling this method is the equivalent of setting the Password property.
+	// 
+	// Note: Starting in v9.5.0.76, this method has been copied to SetSecurePassword.
+	// Applications should call SetSecurePassword instead because this method is now
+	// deprecated.
+	// 
+	bool SetPassword(CkSecureStringW &password);
+
 	// Sets the last-modified date/time of a file on the FTP server. Important: Not all
 	// FTP servers support this functionality. Please see the information at the
 	// Chilkat blog below:
@@ -3878,6 +3876,10 @@ class CK_VISIBLE_PUBLIC CkFtp2W  : public CkClassWithCallbacksW
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SetRemoteFileDtAsync(CkDateTimeW &dt, const wchar_t *remoteFilename);
+
+	// Sets the password in a more secure way than setting the Password property.
+	// Calling this method is the equivalent of setting the Password property.
+	bool SetSecurePassword(CkSecureStringW &password);
 
 	// Enforces a requirement on the FTP server's certificate. The reqName can be
 	// "SubjectDN", "SubjectCN", "IssuerDN", or "IssuerCN". The reqName specifies the part

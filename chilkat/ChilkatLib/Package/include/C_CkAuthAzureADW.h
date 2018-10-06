@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkAuthAzureADWH
 #define _C_CkAuthAzureADWH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkAuthAzureADW_setAbortCheck(HCkAuthAzureADW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkAuthAzureADW_setAbortCheck(HCkAuthAzureADW cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkAuthAzureADW_setPercentDone(HCkAuthAzureADW cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkAuthAzureADW_setProgressInfo(HCkAuthAzureADW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkAuthAzureADW_setTaskCompleted(HCkAuthAzureADW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));

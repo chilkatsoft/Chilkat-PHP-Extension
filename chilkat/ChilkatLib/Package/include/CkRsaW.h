@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkRsaW_H
 #define _CkRsaW_H
@@ -15,6 +15,7 @@
 class CkByteData;
 class CkPrivateKeyW;
 class CkPublicKeyW;
+class CkCertW;
 
 
 
@@ -63,6 +64,8 @@ class CK_VISIBLE_PUBLIC CkRsaW  : public CkWideCharBase
 	// returning strings always return Unicode (2 bytes/char). Java strings are utf-8.
 	// Chilkat C++ strings are ANSI or utf-8. .NET strings are Unicode.
 	// 
+	// The default value of this property is the ANSI charset of the local computer.
+	// 
 	// When signing string data, the input string is first converted to this charset
 	// before being hashed and signed. When verifying the signature for string data,
 	// the input string is first converted to this charset before the verification
@@ -78,6 +81,8 @@ class CK_VISIBLE_PUBLIC CkRsaW  : public CkWideCharBase
 	// returning strings always return Unicode (2 bytes/char). Java strings are utf-8.
 	// Chilkat C++ strings are ANSI or utf-8. .NET strings are Unicode.
 	// 
+	// The default value of this property is the ANSI charset of the local computer.
+	// 
 	// When signing string data, the input string is first converted to this charset
 	// before being hashed and signed. When verifying the signature for string data,
 	// the input string is first converted to this charset before the verification
@@ -92,6 +97,8 @@ class CK_VISIBLE_PUBLIC CkRsaW  : public CkWideCharBase
 	// encoding and converted to the appropriate return. For example, ActiveX's
 	// returning strings always return Unicode (2 bytes/char). Java strings are utf-8.
 	// Chilkat C++ strings are ANSI or utf-8. .NET strings are Unicode.
+	// 
+	// The default value of this property is the ANSI charset of the local computer.
 	// 
 	// When signing string data, the input string is first converted to this charset
 	// before being hashed and signed. When verifying the signature for string data,
@@ -191,6 +198,22 @@ class CK_VISIBLE_PUBLIC CkRsaW  : public CkWideCharBase
 	// "sha1", "sha256", "sha384", "sha512", "md2", "md5", "haval", "ripemd128",
 	// "ripemd160","ripemd256", or "ripemd320". The default is "sha1".
 	void put_OaepHash(const wchar_t *newVal);
+
+	// Selects the MGF (mask generation) hash algorithm for use within OAEP padding.
+	// The valid choices are "sha1", "sha256", "sha384", "sha512", "md2", "md5",
+	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The default is
+	// "sha1".
+	void get_OaepMgfHash(CkString &str);
+	// Selects the MGF (mask generation) hash algorithm for use within OAEP padding.
+	// The valid choices are "sha1", "sha256", "sha384", "sha512", "md2", "md5",
+	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The default is
+	// "sha1".
+	const wchar_t *oaepMgfHash(void);
+	// Selects the MGF (mask generation) hash algorithm for use within OAEP padding.
+	// The valid choices are "sha1", "sha256", "sha384", "sha512", "md2", "md5",
+	// "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320". The default is
+	// "sha1".
+	void put_OaepMgfHash(const wchar_t *newVal);
 
 	// Controls whether Optimal Asymmetric Encryption Padding (OAEP) is used for the
 	// padding scheme (for encrypting/decrypting). If set to false, PKCS1 v1.5
@@ -482,6 +505,11 @@ class CK_VISIBLE_PUBLIC CkRsaW  : public CkWideCharBase
 	// the original data. Input data is a signature string encoded according to the
 	// EncodingMode property (base64, hex, etc.). Returns the original string.
 	const wchar_t *openSslVerifyStringENC(const wchar_t *str);
+
+	// Provides the private or public key indirectly through a certificate. This method
+	// is especially useful on Windows computers where the private key is installed as
+	// non-exportable (such as on a hardware token).
+	bool SetX509Cert(CkCertW &cert, bool usePrivateKey);
 
 	// Creates an RSA digital signature by hashing binaryData and then signing the hash. The
 	// hash algorithm is specified by hashAlgorithm, which may be "SHA-1", "MD5", "MD2",

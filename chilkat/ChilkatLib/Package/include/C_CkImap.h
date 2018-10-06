@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkImap_H
 #define _C_CkImap_H
 #include "chilkatDefs.h"
@@ -6,10 +6,19 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkImap_setAbortCheck(HCkImap cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkImap_setAbortCheck(HCkImap cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkImap_setPercentDone(HCkImap cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkImap_setProgressInfo(HCkImap cHandle, void (*fnProgressInfo)(const char *name, const char *value));
 CK_VISIBLE_PUBLIC void CkImap_setTaskCompleted(HCkImap cHandle, void (*fnTaskCompleted)(HCkTask hTask));
+
+CK_VISIBLE_PUBLIC void CkImap_setAbortCheck2(HCkImap cHandle, BOOL (*fnAbortCheck2)(void *pContext));
+CK_VISIBLE_PUBLIC void CkImap_setPercentDone2(HCkImap cHandle, BOOL (*fnPercentDone2)(int pctDone, void *pContext));
+CK_VISIBLE_PUBLIC void CkImap_setProgressInfo2(HCkImap cHandle, void (*fnProgressInfo2)(const char *name, const char *value, void *pContext));
+CK_VISIBLE_PUBLIC void CkImap_setTaskCompleted2(HCkImap cHandle, void (*fnTaskCompleted2)(HCkTask hTask, void *pContext));
+
+// setExternalProgress is for C callback functions defined in the external programming language (such as Go)
+CK_VISIBLE_PUBLIC void CkImap_setExternalProgress(HCkImap cHandle, BOOL on);
+CK_VISIBLE_PUBLIC void CkImap_setCallbackContext(HCkImap cHandle, void *pContext);
 
 CK_VISIBLE_PUBLIC HCkImap CkImap_Create(void);
 CK_VISIBLE_PUBLIC void CkImap_Dispose(HCkImap handle);
@@ -267,6 +276,8 @@ CK_VISIBLE_PUBLIC HCkMailboxes CkImap_ListSubscribed(HCkImap cHandle, const char
 CK_VISIBLE_PUBLIC HCkTask CkImap_ListSubscribedAsync(HCkImap cHandle, const char *reference, const char *wildcardedMailbox);
 CK_VISIBLE_PUBLIC BOOL CkImap_Login(HCkImap cHandle, const char *loginName, const char *password);
 CK_VISIBLE_PUBLIC HCkTask CkImap_LoginAsync(HCkImap cHandle, const char *loginName, const char *password);
+CK_VISIBLE_PUBLIC BOOL CkImap_LoginSecure(HCkImap cHandle, HCkSecureString loginName, HCkSecureString password);
+CK_VISIBLE_PUBLIC HCkTask CkImap_LoginSecureAsync(HCkImap cHandle, HCkSecureString loginName, HCkSecureString password);
 CK_VISIBLE_PUBLIC BOOL CkImap_Logout(HCkImap cHandle);
 CK_VISIBLE_PUBLIC HCkTask CkImap_LogoutAsync(HCkImap cHandle);
 CK_VISIBLE_PUBLIC BOOL CkImap_MoveMessages(HCkImap cHandle, HCkMessageSet messageSet, const char *destFolder);
@@ -305,6 +316,8 @@ CK_VISIBLE_PUBLIC HCkTask CkImap_SetQuotaAsync(HCkImap cHandle, const char *quot
 CK_VISIBLE_PUBLIC BOOL CkImap_SetSslClientCert(HCkImap cHandle, HCkCert cert);
 CK_VISIBLE_PUBLIC BOOL CkImap_SetSslClientCertPem(HCkImap cHandle, const char *pemDataOrFilename, const char *pemPassword);
 CK_VISIBLE_PUBLIC BOOL CkImap_SetSslClientCertPfx(HCkImap cHandle, const char *pfxFilename, const char *pfxPassword);
+CK_VISIBLE_PUBLIC HCkMessageSet CkImap_Sort(HCkImap cHandle, const char *sortCriteria, const char *charset, const char *searchCriteria, BOOL bUid);
+CK_VISIBLE_PUBLIC HCkTask CkImap_SortAsync(HCkImap cHandle, const char *sortCriteria, const char *charset, const char *searchCriteria, BOOL bUid);
 CK_VISIBLE_PUBLIC BOOL CkImap_SshAuthenticatePk(HCkImap cHandle, const char *sshLogin, HCkSshKey privateKey);
 CK_VISIBLE_PUBLIC HCkTask CkImap_SshAuthenticatePkAsync(HCkImap cHandle, const char *sshLogin, HCkSshKey privateKey);
 CK_VISIBLE_PUBLIC BOOL CkImap_SshAuthenticatePw(HCkImap cHandle, const char *sshLogin, const char *sshPassword);

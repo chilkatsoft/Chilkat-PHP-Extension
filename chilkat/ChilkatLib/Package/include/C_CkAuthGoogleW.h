@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkAuthGoogleWH
 #define _C_CkAuthGoogleWH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkAuthGoogleW_setAbortCheck(HCkAuthGoogleW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkAuthGoogleW_setAbortCheck(HCkAuthGoogleW cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkAuthGoogleW_setPercentDone(HCkAuthGoogleW cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkAuthGoogleW_setProgressInfo(HCkAuthGoogleW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkAuthGoogleW_setTaskCompleted(HCkAuthGoogleW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));

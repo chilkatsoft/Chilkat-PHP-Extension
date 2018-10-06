@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkXmlDSigGenWH
 #define _C_CkXmlDSigGenWH
 #include "chilkatDefs.h"
@@ -23,6 +23,9 @@ CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_incNamespacePrefix(HCkXmlDSigGenW
 CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getIncNamespaceUri(HCkXmlDSigGenW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putIncNamespaceUri(HCkXmlDSigGenW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_incNamespaceUri(HCkXmlDSigGenW cHandle);
+CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getKeyInfoId(HCkXmlDSigGenW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putKeyInfoId(HCkXmlDSigGenW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_keyInfoId(HCkXmlDSigGenW cHandle);
 CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getKeyInfoKeyName(HCkXmlDSigGenW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putKeyInfoKeyName(HCkXmlDSigGenW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_keyInfoKeyName(HCkXmlDSigGenW cHandle);
@@ -55,12 +58,18 @@ CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_signedInfoCanonAlg(HCkXmlDSigGenW
 CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getSignedInfoDigestMethod(HCkXmlDSigGenW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putSignedInfoDigestMethod(HCkXmlDSigGenW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_signedInfoDigestMethod(HCkXmlDSigGenW cHandle);
+CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getSignedInfoId(HCkXmlDSigGenW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putSignedInfoId(HCkXmlDSigGenW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_signedInfoId(HCkXmlDSigGenW cHandle);
 CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getSignedInfoPrefixList(HCkXmlDSigGenW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putSignedInfoPrefixList(HCkXmlDSigGenW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_signedInfoPrefixList(HCkXmlDSigGenW cHandle);
 CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getSigningAlg(HCkXmlDSigGenW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putSigningAlg(HCkXmlDSigGenW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_signingAlg(HCkXmlDSigGenW cHandle);
+CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getSigValueId(HCkXmlDSigGenW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putSigValueId(HCkXmlDSigGenW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_sigValueId(HCkXmlDSigGenW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_getVerboseLogging(HCkXmlDSigGenW cHandle);
 CK_VISIBLE_PUBLIC void  CkXmlDSigGenW_putVerboseLogging(HCkXmlDSigGenW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkXmlDSigGenW_getVersion(HCkXmlDSigGenW cHandle, HCkString retval);
@@ -73,12 +82,18 @@ CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_AddExternalBinaryRef(HCkXmlDSigGenW cHandle
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_AddExternalFileRef(HCkXmlDSigGenW cHandle, const wchar_t *uri, const wchar_t *localFilePath, const wchar_t *digestMethod, const wchar_t *refType);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_AddExternalTextRef(HCkXmlDSigGenW cHandle, const wchar_t *uri, HCkStringBuilderW content, const wchar_t *charset, BOOL includeBom, const wchar_t *digestMethod, const wchar_t *refType);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_AddExternalXmlRef(HCkXmlDSigGenW cHandle, const wchar_t *uri, HCkStringBuilderW content, const wchar_t *digestMethod, const wchar_t *canonMethod, const wchar_t *refType);
+CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_AddObject(HCkXmlDSigGenW cHandle, const wchar_t *id, const wchar_t *content, const wchar_t *mimeType, const wchar_t *encoding);
+CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_AddObjectRef(HCkXmlDSigGenW cHandle, const wchar_t *id, const wchar_t *digestMethod, const wchar_t *canonMethod, const wchar_t *prefixList, const wchar_t *refType);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_AddSameDocRef(HCkXmlDSigGenW cHandle, const wchar_t *id, const wchar_t *digestMethod, const wchar_t *canonMethod, const wchar_t *prefixList, const wchar_t *refType);
+CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_AddSignatureNamespace(HCkXmlDSigGenW cHandle, const wchar_t *nsPrefix, const wchar_t *nsUri);
+CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_ConstructSignedInfo(HCkXmlDSigGenW cHandle, HCkStringBuilderW sbXml, HCkString outStr);
+CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_constructSignedInfo(HCkXmlDSigGenW cHandle, HCkStringBuilderW sbXml);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_CreateXmlDSig(HCkXmlDSigGenW cHandle, const wchar_t *inXml, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkXmlDSigGenW_createXmlDSig(HCkXmlDSigGenW cHandle, const wchar_t *inXml);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_CreateXmlDSigSb(HCkXmlDSigGenW cHandle, HCkStringBuilderW sbXml);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_SaveLastError(HCkXmlDSigGenW cHandle, const wchar_t *path);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_SetHmacKey(HCkXmlDSigGenW cHandle, const wchar_t *key, const wchar_t *encoding);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_SetPrivateKey(HCkXmlDSigGenW cHandle, HCkPrivateKeyW privKey);
+CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_SetRefIdAttr(HCkXmlDSigGenW cHandle, const wchar_t *uri_or_id, const wchar_t *value);
 CK_VISIBLE_PUBLIC BOOL CkXmlDSigGenW_SetX509Cert(HCkXmlDSigGenW cHandle, HCkCertW cert, BOOL usePrivateKey);
 #endif

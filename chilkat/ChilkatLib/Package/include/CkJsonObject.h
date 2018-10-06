@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkJsonObject_H
 #define _CkJsonObject_H
@@ -15,6 +15,8 @@
 class CkJsonArray;
 class CkStringTable;
 class CkBinData;
+class CkDateTime;
+class CkDtObj;
 class CkStringBuilder;
 class CkHashtable;
 
@@ -166,31 +168,52 @@ class CK_VISIBLE_PUBLIC CkJsonObject  : public CkMultiByteBase
 
 
 	// Appends a new and empty JSON array and returns it.
+	// 
+	// Important: The name is the member name, it is not a JSON path.
+	// 
 	// The caller is responsible for deleting the object returned by this method.
 	CkJsonArray *AppendArray(const char *name);
 
 
 	// Appends a new boolean member. (This is the same as passing -1 to the AddBoolAt
 	// method.)
+	// 
+	// Important: The name is the member name. It is not a JSON path. To append (or
+	// update) using a JSON path, call UpdateBool instead.
+	// 
 	bool AppendBool(const char *name, bool value);
 
 
 	// Appends a new integer member. (This is the same as passing an index of -1 to the
 	// AddIntAt method.)
+	// 
+	// Important: The name is the member name. It is not a JSON path. To append (or
+	// update) using a JSON path, call UpdateInt instead.
+	// 
 	bool AppendInt(const char *name, int value);
 
 
 	// Appends a new and empty JSON object and returns it.
+	// 
+	// Important: The name is the member name, it is not a JSON path.
+	// 
 	// The caller is responsible for deleting the object returned by this method.
 	CkJsonObject *AppendObject(const char *name);
 
 
 	// Appends a new string member. (This is the same as passing -1 to the AddStringAt
 	// method.)
+	// 
+	// Important: The name is the member name. It is not a JSON path. To append (or
+	// update) using a JSON path, call UpdateString instead.
+	// 
 	bool AppendString(const char *name, const char *value);
 
 
 	// Appends an array of string values.
+	// 
+	// Important: The name is the member name, it is not a JSON path.
+	// 
 	bool AppendStringArray(const char *name, CkStringTable &values);
 
 
@@ -224,6 +247,13 @@ class CK_VISIBLE_PUBLIC CkJsonObject  : public CkMultiByteBase
 	CkJsonObject *Clone(void);
 
 
+	// Fills the dateTime with the date/time string located at jsonPath. Auto-recognizes the
+	// following date/time string formats: ISO-8061 Timestamp (such as
+	// "2009-11-04T19:55:41Z"), RFC822 date/time format (such as "Wed, 18 Apr 2018
+	// 15:51:55 -0400"), or Unix timestamp integers.
+	bool DateOf(const char *jsonPath, CkDateTime &dateTime);
+
+
 	// Deletes the member at having the name specified by name.
 	bool Delete(const char *name);
 
@@ -231,6 +261,14 @@ class CK_VISIBLE_PUBLIC CkJsonObject  : public CkMultiByteBase
 	// Deletes the member at index index. Indexing is 0-based (the 1st member is at
 	// index 0).
 	bool DeleteAt(int index);
+
+
+	// Fills the dt with the date/time string located at jsonPath. If bLocal is true,
+	// then dt is filled with the local date/time values, otherwise it is filled with
+	// the UTC/GMT values. Auto-recognizes the following date/time string formats:
+	// ISO-8061 Timestamp (such as "2009-11-04T19:55:41Z"), RFC822 date/time format
+	// (such as "Wed, 18 Apr 2018 15:51:55 -0400"), or Unix timestamp integers.
+	bool DtOf(const char *jsonPath, bool bLocal, CkDtObj &dt);
 
 
 	// Writes the JSON document (rooted at the caller) and returns as a string.
@@ -501,6 +539,16 @@ const char *emit(void);
 	// Updates or appends a new integer member. If the full path specified by jsonPath does
 	// not exist, it is automatically created as needed.
 	bool UpdateInt(const char *jsonPath, int value);
+
+
+	// Updates or appends a new and empty array at the jsonPath. If the full path specified
+	// by jsonPath does not exist, it is automatically created as needed.
+	bool UpdateNewArray(const char *jsonPath);
+
+
+	// Updates or appends a new and empty array at the jsonPath. If the full path specified
+	// by jsonPath does not exist, it is automatically created as needed.
+	bool UpdateNewObject(const char *jsonPath);
 
 
 	// Updates or appends a null member. If the full path specified by jsonPath does not

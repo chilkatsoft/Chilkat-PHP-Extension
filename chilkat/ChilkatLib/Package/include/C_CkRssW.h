@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkRssWH
 #define _C_CkRssWH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkRssW_setAbortCheck(HCkRssW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkRssW_setAbortCheck(HCkRssW cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkRssW_setPercentDone(HCkRssW cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkRssW_setProgressInfo(HCkRssW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkRssW_setTaskCompleted(HCkRssW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));

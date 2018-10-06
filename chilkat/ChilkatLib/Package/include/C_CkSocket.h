@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkSocket_H
 #define _C_CkSocket_H
 #include "chilkatDefs.h"
@@ -6,10 +6,19 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkSocket_setAbortCheck(HCkSocket cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkSocket_setAbortCheck(HCkSocket cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkSocket_setPercentDone(HCkSocket cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkSocket_setProgressInfo(HCkSocket cHandle, void (*fnProgressInfo)(const char *name, const char *value));
 CK_VISIBLE_PUBLIC void CkSocket_setTaskCompleted(HCkSocket cHandle, void (*fnTaskCompleted)(HCkTask hTask));
+
+CK_VISIBLE_PUBLIC void CkSocket_setAbortCheck2(HCkSocket cHandle, BOOL (*fnAbortCheck2)(void *pContext));
+CK_VISIBLE_PUBLIC void CkSocket_setPercentDone2(HCkSocket cHandle, BOOL (*fnPercentDone2)(int pctDone, void *pContext));
+CK_VISIBLE_PUBLIC void CkSocket_setProgressInfo2(HCkSocket cHandle, void (*fnProgressInfo2)(const char *name, const char *value, void *pContext));
+CK_VISIBLE_PUBLIC void CkSocket_setTaskCompleted2(HCkSocket cHandle, void (*fnTaskCompleted2)(HCkTask hTask, void *pContext));
+
+// setExternalProgress is for C callback functions defined in the external programming language (such as Go)
+CK_VISIBLE_PUBLIC void CkSocket_setExternalProgress(HCkSocket cHandle, BOOL on);
+CK_VISIBLE_PUBLIC void CkSocket_setCallbackContext(HCkSocket cHandle, void *pContext);
 
 CK_VISIBLE_PUBLIC HCkSocket CkSocket_Create(void);
 CK_VISIBLE_PUBLIC void CkSocket_Dispose(HCkSocket handle);

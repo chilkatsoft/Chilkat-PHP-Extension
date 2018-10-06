@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkAuthAws_H
 #define _CkAuthAws_H

@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkRsaWH
 #define _C_CkRsaWH
 #include "chilkatDefs.h"
@@ -33,6 +33,9 @@ CK_VISIBLE_PUBLIC int CkRsaW_getNumBits(HCkRsaW cHandle);
 CK_VISIBLE_PUBLIC void CkRsaW_getOaepHash(HCkRsaW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkRsaW_putOaepHash(HCkRsaW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkRsaW_oaepHash(HCkRsaW cHandle);
+CK_VISIBLE_PUBLIC void CkRsaW_getOaepMgfHash(HCkRsaW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkRsaW_putOaepMgfHash(HCkRsaW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkRsaW_oaepMgfHash(HCkRsaW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkRsaW_getOaepPadding(HCkRsaW cHandle);
 CK_VISIBLE_PUBLIC void  CkRsaW_putOaepPadding(HCkRsaW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkRsaW_getVerboseLogging(HCkRsaW cHandle);
@@ -75,6 +78,7 @@ CK_VISIBLE_PUBLIC const wchar_t *CkRsaW_openSslVerifyString(HCkRsaW cHandle, HCk
 CK_VISIBLE_PUBLIC BOOL CkRsaW_OpenSslVerifyStringENC(HCkRsaW cHandle, const wchar_t *str, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkRsaW_openSslVerifyStringENC(HCkRsaW cHandle, const wchar_t *str);
 CK_VISIBLE_PUBLIC BOOL CkRsaW_SaveLastError(HCkRsaW cHandle, const wchar_t *path);
+CK_VISIBLE_PUBLIC BOOL CkRsaW_SetX509Cert(HCkRsaW cHandle, HCkCertW cert, BOOL usePrivateKey);
 CK_VISIBLE_PUBLIC BOOL CkRsaW_SignBytes(HCkRsaW cHandle, HCkByteData binaryData, const wchar_t *hashAlgorithm, HCkByteData outData);
 CK_VISIBLE_PUBLIC BOOL CkRsaW_SignBytesENC(HCkRsaW cHandle, HCkByteData binaryData, const wchar_t *hashAlgorithm, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkRsaW_signBytesENC(HCkRsaW cHandle, HCkByteData binaryData, const wchar_t *hashAlgorithm);

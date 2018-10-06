@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkSFtpW_H
 #define _CkSFtpW_H
@@ -15,6 +15,7 @@
 class CkByteData;
 class CkTaskW;
 class CkSshKeyW;
+class CkSecureStringW;
 class CkSshW;
 class CkBinDataW;
 class CkStringBuilderW;
@@ -305,11 +306,11 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 
 	// If set to true, forces the client to choose version 3 of the SFTP protocol,
 	// even if the server supports a higher version. The default value of this property
-	// is false.
+	// is true.
 	bool get_ForceV3(void);
 	// If set to true, forces the client to choose version 3 of the SFTP protocol,
 	// even if the server supports a higher version. The default value of this property
-	// is false.
+	// is true.
 	void put_ForceV3(bool newVal);
 
 	// This is the number of milliseconds between each AbortCheck event callback. The
@@ -444,6 +445,37 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// Returns true if connected to the SSH server. Note: This does not mean
 	// authentication has happened or InitializeSftp has already succeeded. It only
 	// means that the connection has been established by calling Connect.
+	// 
+	// Understanding the IsConnected property: The IsConnected property is the last
+	// known state of the TCP connection (either connected or disconnected). This
+	// requires some explanation because most developer have incorrect assumptions
+	// about TCP connections.
+	//     If a TCP connection is established, and neither side is reading or writing
+	//     the socket (i.e. both sides are doing nothing), then you can disconnect the
+	//     network cable from the computer for any length of time, and then re-connect, and
+	//     the TCP connection is not affected.
+	//     A TCP connection only becomes disconnected when an attempt is made to
+	//     read/write while a network problem exists. If no attempts to read/write occur, a
+	//     network problem may arise and then become resolved without affecting the TCP
+	//     connection.
+	//     If the peer chooses to close its side of the TCP connection, your
+	//     application won't magically know about it until you try to do something with the
+	//     TCP socket (such as read or write).
+	//     A Chilkat API property (as opposed to a method) CANNOT and should not do
+	//     something that would cause an application to timeout, hang, etc. Therefore, it
+	//     is not appropriate for the IsConnected property to attempt any kind of socket
+	//     operation (read/write/peek) on the socket. It simply returns the last known
+	//     state of the connection. It may very well be that your network cable is
+	//     unplugged and IsConnected returns true because technically, if neither peer is
+	//     trying to read/write, the network cable could be plugged back in without
+	//     affecting the connection. IsConnected could also return true if the peer has
+	//     already closed its side of the connection, because the state of the connection
+	//     is only updated after trying to read/write/peek.
+	//     To truly know the current connected state (as opposed to the last known
+	//     connection state), your application should attempt a network operation that is
+	//     appropriate to the protocol. For SFTP, an application could call SendIgnore, and
+	//     then check IsConnected.
+	// 
 	bool get_IsConnected(void);
 
 	// Controls whether communications to/from the SFTP server are saved to the
@@ -572,6 +604,15 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// example, "*.xml; *.txt; *.csv". If set, the ReadDir method will only return
 	// files that do not match any of these patterns.
 	void put_ReadDirMustNotMatch(const wchar_t *newVal);
+
+	// The server-identifier string received from the server during connection
+	// establishment. For example, a typical value would be similar to
+	// "SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.2".
+	void get_ServerIdentifier(CkString &str);
+	// The server-identifier string received from the server during connection
+	// establishment. For example, a typical value would be similar to
+	// "SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.2".
+	const wchar_t *serverIdentifier(void);
 
 	// Contains a log of the messages sent to/from the SFTP server. To enable session
 	// logging, set the KeepSessionLog property = true. Note: This property is not a
@@ -764,6 +805,34 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// packets on the network.
 	void put_TcpNoDelay(bool newVal);
 
+	// This is a catch-all property to be used for uncommon needs. This property
+	// defaults to the empty string, and should typically remain empty.
+	// 
+	// As of v9.5.0.73, the only possible value is:
+	//     "KEX_DH_GEX_REQUEST_OLD" - Force the old Group Exchange message to be used.
+	//     This would be used for very old SSH server implementations that do not use the
+	//     RFC standard for diffie-hellman-group-exchange.
+	// 
+	void get_UncommonOptions(CkString &str);
+	// This is a catch-all property to be used for uncommon needs. This property
+	// defaults to the empty string, and should typically remain empty.
+	// 
+	// As of v9.5.0.73, the only possible value is:
+	//     "KEX_DH_GEX_REQUEST_OLD" - Force the old Group Exchange message to be used.
+	//     This would be used for very old SSH server implementations that do not use the
+	//     RFC standard for diffie-hellman-group-exchange.
+	// 
+	const wchar_t *uncommonOptions(void);
+	// This is a catch-all property to be used for uncommon needs. This property
+	// defaults to the empty string, and should typically remain empty.
+	// 
+	// As of v9.5.0.73, the only possible value is:
+	//     "KEX_DH_GEX_REQUEST_OLD" - Force the old Group Exchange message to be used.
+	//     This would be used for very old SSH server implementations that do not use the
+	//     RFC standard for diffie-hellman-group-exchange.
+	// 
+	void put_UncommonOptions(const wchar_t *newVal);
+
 	// The chunk size to use when uploading files via the UploadFile or
 	// UploadFileByName methods. The default value is 32000. If an upload fails because
 	// "WSAECONNABORTED An established connection was aborted by the software in your
@@ -785,6 +854,18 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// If true, then date/times are returned as UTC times. If false (the default)
 	// then date/times are returned as local times.
 	void put_UtcMode(bool newVal);
+
+	// The current transfer byte count for an ongoing upload or download. Programs
+	// doing asynchronous uploads or downloads can read this property in real time
+	// during the upload. For SyncTreeUpload and SyncTreeDownload operations, this is
+	// the real-time cumulative number of bytes for all files uploaded or downloaded.
+	unsigned long get_XferByteCount(void);
+
+	// The current transfer byte count for an ongoing upload or download. Programs
+	// doing asynchronous uploads or downloads can read this property in real time
+	// during the upload. For SyncTreeUpload and SyncTreeDownload operations, this is
+	// the real-time cumulative number of bytes for all files uploaded or downloaded.
+	__int64 get_XferByteCount64(void);
 
 
 
@@ -858,6 +939,24 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *AuthenticatePwPkAsync(const wchar_t *username, const wchar_t *password, CkSshKeyW &privateKey);
+
+	// The same as AuthenticatePw, but the login and password are passed in secure
+	// string objects.
+	bool AuthenticateSecPw(CkSecureStringW &login, CkSecureStringW &password);
+
+	// Creates an asynchronous task to call the AuthenticateSecPw method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *AuthenticateSecPwAsync(CkSecureStringW &login, CkSecureStringW &password);
+
+	// The same as AuthenticatePwPk, but the login and password are passed in secure
+	// string objects.
+	bool AuthenticateSecPwPk(CkSecureStringW &username, CkSecureStringW &password, CkSshKeyW &privateKey);
+
+	// Creates an asynchronous task to call the AuthenticateSecPwPk method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *AuthenticateSecPwPkAsync(CkSecureStringW &username, CkSecureStringW &password, CkSshKeyW &privateKey);
 
 	// Clears the contents of the AccumulateBuffer property.
 	void ClearAccumulateBuffer(void);
@@ -1045,6 +1144,20 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *FileExistsAsync(const wchar_t *remotePath, bool followLinks);
+
+	// Causes the SFTP server to do an fsync on the open file. Specifically, this is
+	// directing the SFTP server to call fsync (https://linux.die.net/man/2/fsync) on
+	// the open file.
+	// 
+	// This method uses the fsync@openssh.com and only works for servers supporting the
+	// fsync@openssh.com extension.
+	// 
+	bool Fsync(const wchar_t *handle);
+
+	// Creates an asynchronous task to call the Fsync method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *FsyncAsync(const wchar_t *handle);
 
 	// Returns the create date/time for a file. pathOrHandle may be a remote filepath or an
 	// open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must
@@ -1274,6 +1387,15 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// such as ReadFileBytes64s allow for 64-bit values to be passed as strings.
 	// 
 	const wchar_t *fileSizeStr(const wchar_t *pathOrHandle, bool bFollowLinks, bool bIsHandle);
+
+	// Creates a hard link on the server using the hardlink@openssh.com extension. This
+	// only works for SFTP servers that support the hardlink@openssh.com extension.
+	bool HardLink(const wchar_t *oldPath, const wchar_t *newPath);
+
+	// Creates an asynchronous task to call the HardLink method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *HardLinkAsync(const wchar_t *oldPath, const wchar_t *newPath);
 
 	// Intializes the SFTP subsystem. This should be called after connecting and
 	// authenticating. An SFTP session always begins by first calling Connect to
@@ -1763,6 +1885,18 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// 
 	const wchar_t *readFileText64s(const wchar_t *handle, const wchar_t *offset, int numBytes, const wchar_t *charset);
 
+	// Returns the target of a symbolic link on the server. The path is the path of the
+	// symbolic link on the server.
+	bool ReadLink(const wchar_t *path, CkString &outStr);
+	// Returns the target of a symbolic link on the server. The path is the path of the
+	// symbolic link on the server.
+	const wchar_t *readLink(const wchar_t *path);
+
+	// Creates an asynchronous task to call the ReadLink method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *ReadLinkAsync(const wchar_t *path);
+
 	// This method can be used to have the server canonicalize any given path name to
 	// an absolute path. This is useful for converting path names containing ".."
 	// components or relative pathnames without a leading slash into absolute paths.
@@ -1972,6 +2106,14 @@ class CK_VISIBLE_PUBLIC CkSFtpW  : public CkClassWithCallbacksW
 	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *SetPermissionsAsync(const wchar_t *pathOrHandle, bool isHandle, int permissions);
+
+	// Create a symbolic link from oldpath to newpath on the server filesystem.
+	bool SymLink(const wchar_t *oldPath, const wchar_t *newPath);
+
+	// Creates an asynchronous task to call the SymLink method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *SymLinkAsync(const wchar_t *oldPath, const wchar_t *newPath);
 
 	// Downloads files from the SFTP server to a local directory tree. Synchronization
 	// modes include:

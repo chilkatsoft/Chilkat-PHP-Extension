@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkSshWH
 #define _C_CkSshWH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkSshW_setAbortCheck(HCkSshW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkSshW_setAbortCheck(HCkSshW cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkSshW_setPercentDone(HCkSshW cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkSshW_setProgressInfo(HCkSshW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkSshW_setTaskCompleted(HCkSshW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
@@ -27,6 +27,8 @@ CK_VISIBLE_PUBLIC const wchar_t *CkSshW_clientIdentifier(HCkSshW cHandle);
 CK_VISIBLE_PUBLIC void CkSshW_getClientIpAddress(HCkSshW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkSshW_putClientIpAddress(HCkSshW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkSshW_clientIpAddress(HCkSshW cHandle);
+CK_VISIBLE_PUBLIC int CkSshW_getClientPort(HCkSshW cHandle);
+CK_VISIBLE_PUBLIC void  CkSshW_putClientPort(HCkSshW cHandle, int newVal);
 CK_VISIBLE_PUBLIC int CkSshW_getConnectTimeoutMs(HCkSshW cHandle);
 CK_VISIBLE_PUBLIC void  CkSshW_putConnectTimeoutMs(HCkSshW cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkSshW_getDebugLogFilePath(HCkSshW cHandle, HCkString retval);
@@ -88,6 +90,8 @@ CK_VISIBLE_PUBLIC void  CkSshW_putReadTimeoutMs(HCkSshW cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkSshW_getReqExecCharset(HCkSshW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkSshW_putReqExecCharset(HCkSshW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkSshW_reqExecCharset(HCkSshW cHandle);
+CK_VISIBLE_PUBLIC void CkSshW_getServerIdentifier(HCkSshW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC const wchar_t *CkSshW_serverIdentifier(HCkSshW cHandle);
 CK_VISIBLE_PUBLIC void CkSshW_getSessionLog(HCkSshW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkSshW_sessionLog(HCkSshW cHandle);
 CK_VISIBLE_PUBLIC void CkSshW_getSocksHostname(HCkSshW cHandle, HCkString retval);
@@ -113,6 +117,9 @@ CK_VISIBLE_PUBLIC BOOL CkSshW_getStripColorCodes(HCkSshW cHandle);
 CK_VISIBLE_PUBLIC void  CkSshW_putStripColorCodes(HCkSshW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkSshW_getTcpNoDelay(HCkSshW cHandle);
 CK_VISIBLE_PUBLIC void  CkSshW_putTcpNoDelay(HCkSshW cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC void CkSshW_getUncommonOptions(HCkSshW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkSshW_putUncommonOptions(HCkSshW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkSshW_uncommonOptions(HCkSshW cHandle);
 CK_VISIBLE_PUBLIC void CkSshW_getUserAuthBanner(HCkSshW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkSshW_putUserAuthBanner(HCkSshW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkSshW_userAuthBanner(HCkSshW cHandle);
@@ -126,6 +133,10 @@ CK_VISIBLE_PUBLIC BOOL CkSshW_AuthenticatePw(HCkSshW cHandle, const wchar_t *log
 CK_VISIBLE_PUBLIC HCkTaskW CkSshW_AuthenticatePwAsync(HCkSshW cHandle, const wchar_t *login, const wchar_t *password);
 CK_VISIBLE_PUBLIC BOOL CkSshW_AuthenticatePwPk(HCkSshW cHandle, const wchar_t *username, const wchar_t *password, HCkSshKeyW privateKey);
 CK_VISIBLE_PUBLIC HCkTaskW CkSshW_AuthenticatePwPkAsync(HCkSshW cHandle, const wchar_t *username, const wchar_t *password, HCkSshKeyW privateKey);
+CK_VISIBLE_PUBLIC BOOL CkSshW_AuthenticateSecPw(HCkSshW cHandle, HCkSecureStringW login, HCkSecureStringW password);
+CK_VISIBLE_PUBLIC HCkTaskW CkSshW_AuthenticateSecPwAsync(HCkSshW cHandle, HCkSecureStringW login, HCkSecureStringW password);
+CK_VISIBLE_PUBLIC BOOL CkSshW_AuthenticateSecPwPk(HCkSshW cHandle, HCkSecureStringW username, HCkSecureStringW password, HCkSshKeyW privateKey);
+CK_VISIBLE_PUBLIC HCkTaskW CkSshW_AuthenticateSecPwPkAsync(HCkSshW cHandle, HCkSecureStringW username, HCkSecureStringW password, HCkSshKeyW privateKey);
 CK_VISIBLE_PUBLIC BOOL CkSshW_ChannelIsOpen(HCkSshW cHandle, int channelNum);
 CK_VISIBLE_PUBLIC int CkSshW_ChannelPoll(HCkSshW cHandle, int channelNum, int pollTimeoutMs);
 CK_VISIBLE_PUBLIC HCkTaskW CkSshW_ChannelPollAsync(HCkSshW cHandle, int channelNum, int pollTimeoutMs);

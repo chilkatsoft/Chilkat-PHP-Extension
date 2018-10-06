@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkRestWH
 #define _C_CkRestWH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkRestW_setAbortCheck(HCkRestW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkRestW_setAbortCheck(HCkRestW cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkRestW_setPercentDone(HCkRestW cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkRestW_setProgressInfo(HCkRestW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkRestW_setTaskCompleted(HCkRestW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
@@ -21,6 +21,8 @@ CK_VISIBLE_PUBLIC void CkRestW_getAuthorization(HCkRestW cHandle, HCkString retv
 CK_VISIBLE_PUBLIC void  CkRestW_putAuthorization(HCkRestW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkRestW_authorization(HCkRestW cHandle);
 CK_VISIBLE_PUBLIC int CkRestW_getConnectFailReason(HCkRestW cHandle);
+CK_VISIBLE_PUBLIC int CkRestW_getConnectTimeoutMs(HCkRestW cHandle);
+CK_VISIBLE_PUBLIC void  CkRestW_putConnectTimeoutMs(HCkRestW cHandle, int newVal);
 CK_VISIBLE_PUBLIC void CkRestW_getDebugLogFilePath(HCkRestW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkRestW_putDebugLogFilePath(HCkRestW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkRestW_debugLogFilePath(HCkRestW cHandle);
@@ -146,6 +148,7 @@ CK_VISIBLE_PUBLIC BOOL CkRestW_SetAuthAzureAD(HCkRestW cHandle, HCkAuthAzureADW 
 CK_VISIBLE_PUBLIC BOOL CkRestW_SetAuthAzureSas(HCkRestW cHandle, HCkAuthAzureSASW authProvider);
 CK_VISIBLE_PUBLIC BOOL CkRestW_SetAuthAzureStorage(HCkRestW cHandle, HCkAuthAzureStorageW authProvider);
 CK_VISIBLE_PUBLIC BOOL CkRestW_SetAuthBasic(HCkRestW cHandle, const wchar_t *username, const wchar_t *password);
+CK_VISIBLE_PUBLIC BOOL CkRestW_SetAuthBasicSecure(HCkRestW cHandle, HCkSecureStringW username, HCkSecureStringW password);
 CK_VISIBLE_PUBLIC BOOL CkRestW_SetAuthGoogle(HCkRestW cHandle, HCkAuthGoogleW authProvider);
 CK_VISIBLE_PUBLIC BOOL CkRestW_SetAuthOAuth1(HCkRestW cHandle, HCkOAuth1W authProvider, BOOL useQueryParams);
 CK_VISIBLE_PUBLIC BOOL CkRestW_SetAuthOAuth2(HCkRestW cHandle, HCkOAuth2W authProvider);

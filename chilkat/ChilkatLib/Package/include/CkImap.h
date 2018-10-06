@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkImap_H
 #define _CkImap_H
@@ -22,6 +22,7 @@ class CkEmailBundle;
 class CkStringArray;
 class CkCert;
 class CkMailboxes;
+class CkSecureString;
 class CkCsp;
 class CkPrivateKey;
 class CkSshKey;
@@ -2227,6 +2228,15 @@ class CK_VISIBLE_PUBLIC CkImap  : public CkClassWithCallbacks
 	CkTask *LoginAsync(const char *loginName, const char *password);
 
 
+	// The same as Login, except the login name and password are passed as secure
+	// strings.
+	bool LoginSecure(CkSecureString &loginName, CkSecureString &password);
+
+	// The same as Login, except the login name and password are passed as secure
+	// strings.
+	CkTask *LoginSecureAsync(CkSecureString &loginName, CkSecureString &password);
+
+
 	// Logs out of the IMAP server.
 	bool Logout(void);
 
@@ -2280,10 +2290,11 @@ class CK_VISIBLE_PUBLIC CkImap  : public CkClassWithCallbacks
 	CkTask *RenameMailboxAsync(const char *fromMailbox, const char *toMailbox);
 
 
-	// Searches the selected mailbox for messages that meet a given criteria and
-	// returns a message set of all matching messages. If bUid is true, then UIDs are
-	// returned in the message set, otherwise sequence numbers are returned. The
-	// criteria is passed through to the low-level IMAP protocol unmodified, so the
+	// Searches the already selected mailbox for messages that match criteria and returns a
+	// message set of all matching messages. If bUid is true, then UIDs are returned
+	// in the message set, otherwise sequence numbers are returned.
+	// 
+	// The criteria is passed through to the low-level IMAP protocol unmodified, so the
 	// rules for the IMAP SEARCH command (RFC 3501) apply and are reproduced here:
 	// FROM RFC 3501 (IMAP Protocol)
 	// 
@@ -2463,10 +2474,11 @@ class CK_VISIBLE_PUBLIC CkImap  : public CkClassWithCallbacks
 	// The caller is responsible for deleting the object returned by this method.
 	CkMessageSet *Search(const char *criteria, bool bUid);
 
-	// Searches the selected mailbox for messages that meet a given criteria and
-	// returns a message set of all matching messages. If bUid is true, then UIDs are
-	// returned in the message set, otherwise sequence numbers are returned. The
-	// criteria is passed through to the low-level IMAP protocol unmodified, so the
+	// Searches the already selected mailbox for messages that match criteria and returns a
+	// message set of all matching messages. If bUid is true, then UIDs are returned
+	// in the message set, otherwise sequence numbers are returned.
+	// 
+	// The criteria is passed through to the low-level IMAP protocol unmodified, so the
 	// rules for the IMAP SEARCH command (RFC 3501) apply and are reproduced here:
 	// FROM RFC 3501 (IMAP Protocol)
 	// 
@@ -2854,6 +2866,62 @@ class CK_VISIBLE_PUBLIC CkImap  : public CkClassWithCallbacks
 	// client-side certificate is typically used in high-security situations where the
 	// certificate is an additional means to indentify the client to the server.
 	bool SetSslClientCertPfx(const char *pfxFilename, const char *pfxPassword);
+
+
+	// Searches the already selected mailbox for messages that match searchCriteria and returns a
+	// message set of all matching messages in the order specified by sortCriteria. If bUid is
+	// true, then UIDs are returned in the message set, otherwise sequence numbers
+	// are returned.
+	// 
+	// The sortCriteria is a string of SPACE separated keywords to indicate sort order (default
+	// is ascending). The keyword "REVERSE" can precede a keyword to reverse the sort
+	// order (i.e. make it descending). Possible sort keywords are:
+	//     ARRIVAL
+	//     CC
+	//     DATE
+	//     FROM
+	//     SIZE
+	//     SUBJECT
+	//     TO
+	// 
+	// Some examples of sortCriteria are:
+	//     "SUBJECT REVERSE DATE"
+	//     "REVERSE SIZE"
+	//     "ARRIVAL"
+	// 
+	// The searchCriteria is passed through to the low-level IMAP protocol unmodified, and
+	// therefore the rules for the IMAP SEARCH command (RFC 3501) apply. See the
+	// documentation for the Search method for more details (and also see RFC 3501).
+	// 
+	// The caller is responsible for deleting the object returned by this method.
+	CkMessageSet *Sort(const char *sortCriteria, const char *charset, const char *searchCriteria, bool bUid);
+
+	// Searches the already selected mailbox for messages that match searchCriteria and returns a
+	// message set of all matching messages in the order specified by sortCriteria. If bUid is
+	// true, then UIDs are returned in the message set, otherwise sequence numbers
+	// are returned.
+	// 
+	// The sortCriteria is a string of SPACE separated keywords to indicate sort order (default
+	// is ascending). The keyword "REVERSE" can precede a keyword to reverse the sort
+	// order (i.e. make it descending). Possible sort keywords are:
+	//     ARRIVAL
+	//     CC
+	//     DATE
+	//     FROM
+	//     SIZE
+	//     SUBJECT
+	//     TO
+	// 
+	// Some examples of sortCriteria are:
+	//     "SUBJECT REVERSE DATE"
+	//     "REVERSE SIZE"
+	//     "ARRIVAL"
+	// 
+	// The searchCriteria is passed through to the low-level IMAP protocol unmodified, and
+	// therefore the rules for the IMAP SEARCH command (RFC 3501) apply. See the
+	// documentation for the Search method for more details (and also see RFC 3501).
+	// 
+	CkTask *SortAsync(const char *sortCriteria, const char *charset, const char *searchCriteria, bool bUid);
 
 
 	// Authenticates with the SSH server using public-key authentication. The

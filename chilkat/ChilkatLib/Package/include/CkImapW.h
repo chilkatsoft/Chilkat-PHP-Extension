@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkImapW_H
 #define _CkImapW_H
@@ -22,6 +22,7 @@ class CkEmailBundleW;
 class CkStringArrayW;
 class CkCertW;
 class CkMailboxesW;
+class CkSecureStringW;
 class CkCspW;
 class CkPrivateKeyW;
 class CkSshKeyW;
@@ -1934,6 +1935,15 @@ class CK_VISIBLE_PUBLIC CkImapW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *LoginAsync(const wchar_t *loginName, const wchar_t *password);
 
+	// The same as Login, except the login name and password are passed as secure
+	// strings.
+	bool LoginSecure(CkSecureStringW &loginName, CkSecureStringW &password);
+
+	// Creates an asynchronous task to call the LoginSecure method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *LoginSecureAsync(CkSecureStringW &loginName, CkSecureStringW &password);
+
 	// Logs out of the IMAP server.
 	bool Logout(void);
 
@@ -1983,10 +1993,11 @@ class CK_VISIBLE_PUBLIC CkImapW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *RenameMailboxAsync(const wchar_t *fromMailbox, const wchar_t *toMailbox);
 
-	// Searches the selected mailbox for messages that meet a given criteria and
-	// returns a message set of all matching messages. If bUid is true, then UIDs are
-	// returned in the message set, otherwise sequence numbers are returned. The
-	// criteria is passed through to the low-level IMAP protocol unmodified, so the
+	// Searches the already selected mailbox for messages that match criteria and returns a
+	// message set of all matching messages. If bUid is true, then UIDs are returned
+	// in the message set, otherwise sequence numbers are returned.
+	// 
+	// The criteria is passed through to the low-level IMAP protocol unmodified, so the
 	// rules for the IMAP SEARCH command (RFC 3501) apply and are reproduced here:
 	// FROM RFC 3501 (IMAP Protocol)
 	// 
@@ -2331,6 +2342,39 @@ class CK_VISIBLE_PUBLIC CkImapW  : public CkClassWithCallbacksW
 	// client-side certificate is typically used in high-security situations where the
 	// certificate is an additional means to indentify the client to the server.
 	bool SetSslClientCertPfx(const wchar_t *pfxFilename, const wchar_t *pfxPassword);
+
+	// Searches the already selected mailbox for messages that match searchCriteria and returns a
+	// message set of all matching messages in the order specified by sortCriteria. If bUid is
+	// true, then UIDs are returned in the message set, otherwise sequence numbers
+	// are returned.
+	// 
+	// The sortCriteria is a string of SPACE separated keywords to indicate sort order (default
+	// is ascending). The keyword "REVERSE" can precede a keyword to reverse the sort
+	// order (i.e. make it descending). Possible sort keywords are:
+	//     ARRIVAL
+	//     CC
+	//     DATE
+	//     FROM
+	//     SIZE
+	//     SUBJECT
+	//     TO
+	// 
+	// Some examples of sortCriteria are:
+	//     "SUBJECT REVERSE DATE"
+	//     "REVERSE SIZE"
+	//     "ARRIVAL"
+	// 
+	// The searchCriteria is passed through to the low-level IMAP protocol unmodified, and
+	// therefore the rules for the IMAP SEARCH command (RFC 3501) apply. See the
+	// documentation for the Search method for more details (and also see RFC 3501).
+	// 
+	// The caller is responsible for deleting the object returned by this method.
+	CkMessageSetW *Sort(const wchar_t *sortCriteria, const wchar_t *charset, const wchar_t *searchCriteria, bool bUid);
+
+	// Creates an asynchronous task to call the Sort method with the arguments
+	// provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *SortAsync(const wchar_t *sortCriteria, const wchar_t *charset, const wchar_t *searchCriteria, bool bUid);
 
 	// Authenticates with the SSH server using public-key authentication. The
 	// corresponding public key must have been installed on the SSH server for the

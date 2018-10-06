@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkFtp2_H
 #define _C_CkFtp2_H
 #include "chilkatDefs.h"
@@ -6,10 +6,19 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkFtp2_setAbortCheck(HCkFtp2 cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkFtp2_setAbortCheck(HCkFtp2 cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkFtp2_setPercentDone(HCkFtp2 cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkFtp2_setProgressInfo(HCkFtp2 cHandle, void (*fnProgressInfo)(const char *name, const char *value));
 CK_VISIBLE_PUBLIC void CkFtp2_setTaskCompleted(HCkFtp2 cHandle, void (*fnTaskCompleted)(HCkTask hTask));
+
+CK_VISIBLE_PUBLIC void CkFtp2_setAbortCheck2(HCkFtp2 cHandle, BOOL (*fnAbortCheck2)(void *pContext));
+CK_VISIBLE_PUBLIC void CkFtp2_setPercentDone2(HCkFtp2 cHandle, BOOL (*fnPercentDone2)(int pctDone, void *pContext));
+CK_VISIBLE_PUBLIC void CkFtp2_setProgressInfo2(HCkFtp2 cHandle, void (*fnProgressInfo2)(const char *name, const char *value, void *pContext));
+CK_VISIBLE_PUBLIC void CkFtp2_setTaskCompleted2(HCkFtp2 cHandle, void (*fnTaskCompleted2)(HCkTask hTask, void *pContext));
+
+// setExternalProgress is for C callback functions defined in the external programming language (such as Go)
+CK_VISIBLE_PUBLIC void CkFtp2_setExternalProgress(HCkFtp2 cHandle, BOOL on);
+CK_VISIBLE_PUBLIC void CkFtp2_setCallbackContext(HCkFtp2 cHandle, void *pContext);
 
 CK_VISIBLE_PUBLIC HCkFtp2 CkFtp2_Create(void);
 CK_VISIBLE_PUBLIC void CkFtp2_Dispose(HCkFtp2 handle);
@@ -422,11 +431,13 @@ CK_VISIBLE_PUBLIC HCkTask CkFtp2_SetModeZAsync(HCkFtp2 cHandle);
 CK_VISIBLE_PUBLIC void CkFtp2_SetOldestDate(HCkFtp2 cHandle, SYSTEMTIME * oldestDateTime);
 CK_VISIBLE_PUBLIC void CkFtp2_SetOldestDateStr(HCkFtp2 cHandle, const char *oldestDateTimeStr);
 CK_VISIBLE_PUBLIC BOOL CkFtp2_SetOption(HCkFtp2 cHandle, const char *option);
+CK_VISIBLE_PUBLIC BOOL CkFtp2_SetPassword(HCkFtp2 cHandle, HCkSecureString password);
 CK_VISIBLE_PUBLIC BOOL CkFtp2_SetRemoteFileDateTime(HCkFtp2 cHandle, SYSTEMTIME * dt, const char *remoteFilename);
 CK_VISIBLE_PUBLIC BOOL CkFtp2_SetRemoteFileDateTimeStr(HCkFtp2 cHandle, const char *dateTimeStr, const char *remoteFilename);
 CK_VISIBLE_PUBLIC HCkTask CkFtp2_SetRemoteFileDateTimeStrAsync(HCkFtp2 cHandle, const char *dateTimeStr, const char *remoteFilename);
 CK_VISIBLE_PUBLIC BOOL CkFtp2_SetRemoteFileDt(HCkFtp2 cHandle, HCkDateTime dt, const char *remoteFilename);
 CK_VISIBLE_PUBLIC HCkTask CkFtp2_SetRemoteFileDtAsync(HCkFtp2 cHandle, HCkDateTime dt, const char *remoteFilename);
+CK_VISIBLE_PUBLIC BOOL CkFtp2_SetSecurePassword(HCkFtp2 cHandle, HCkSecureString password);
 CK_VISIBLE_PUBLIC void CkFtp2_SetSslCertRequirement(HCkFtp2 cHandle, const char *reqName, const char *reqValue);
 CK_VISIBLE_PUBLIC BOOL CkFtp2_SetSslClientCert(HCkFtp2 cHandle, HCkCert cert);
 CK_VISIBLE_PUBLIC BOOL CkFtp2_SetSslClientCertPem(HCkFtp2 cHandle, const char *pemDataOrFilename, const char *pemPassword);

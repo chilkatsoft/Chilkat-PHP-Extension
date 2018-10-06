@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkCrypt2_H
 #define _CkCrypt2_H
@@ -17,6 +17,7 @@ class CkCert;
 class CkTask;
 class CkBinData;
 class CkStringBuilder;
+class CkSecureString;
 class CkStream;
 class CkCertChain;
 class CkJsonObject;
@@ -173,6 +174,10 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// compressed. This property is relevant wherever strings are used as inputs or
 	// outputs.
 	// 
+	// This property defaults to the ANSI charset of the computer. For example, the
+	// default ANSI code page on Windows computers in the USA and Western Europe would
+	// be "windows-1252".
+	// 
 	// When working with strings, it is important to know the exact bytes that are
 	// being encrypted/hashed/signed/compressed. This is critical when interoperating
 	// with other systems. If your application is sending an encrypted string to
@@ -273,6 +278,10 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// compressed. This property is relevant wherever strings are used as inputs or
 	// outputs.
 	// 
+	// This property defaults to the ANSI charset of the computer. For example, the
+	// default ANSI code page on Windows computers in the USA and Western Europe would
+	// be "windows-1252".
+	// 
 	// When working with strings, it is important to know the exact bytes that are
 	// being encrypted/hashed/signed/compressed. This is critical when interoperating
 	// with other systems. If your application is sending an encrypted string to
@@ -372,6 +381,10 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// Controls the character encoding of the text encrypted, signed, hashed or
 	// compressed. This property is relevant wherever strings are used as inputs or
 	// outputs.
+	// 
+	// This property defaults to the ANSI charset of the computer. For example, the
+	// default ANSI code page on Windows computers in the USA and Western Europe would
+	// be "windows-1252".
 	// 
 	// When working with strings, it is important to know the exact bytes that are
 	// being encrypted/hashed/signed/compressed. This is critical when interoperating
@@ -564,6 +577,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// encryption algorithms that do not involve digital certificates and
 	// public/private keys.
 	// 
+	// The default value is "aes"
+	// 
 	// The original Chilkat implementation of Blowfish has a 4321 byte-swapping issue
 	// (the results are 4321 byte-swapped). The new implementation ("blowfish2") does
 	// not byte swap. This should be used for compatibility with other Blowfish
@@ -586,6 +601,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// public-key encryption with digital certificates. The other choices are symmetric
 	// encryption algorithms that do not involve digital certificates and
 	// public/private keys.
+	// 
+	// The default value is "aes"
 	// 
 	// The original Chilkat implementation of Blowfish has a 4321 byte-swapping issue
 	// (the results are 4321 byte-swapped). The new implementation ("blowfish2") does
@@ -610,6 +627,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// encryption algorithms that do not involve digital certificates and
 	// public/private keys.
 	// 
+	// The default value is "aes"
+	// 
 	// The original Chilkat implementation of Blowfish has a 4321 byte-swapping issue
 	// (the results are 4321 byte-swapped). The new implementation ("blowfish2") does
 	// not byte swap. This should be used for compatibility with other Blowfish
@@ -632,6 +651,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// "url_oauth", "url_rfc1738", "url_rfc2396", "url_rfc3986", "fingerprint", or
 	// "decimal".
 	// 
+	// The default value is "base64"
+	// 
 	// The "fingerprint" and"decimal" encodings are introduced in Chilkat v9.5.0.55.
 	// 
 	// The "fingerprint" encoding is a lowercase hex encoding where each hex digit is
@@ -650,6 +671,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// "url_oauth", "url_rfc1738", "url_rfc2396", "url_rfc3986", "fingerprint", or
 	// "decimal".
 	// 
+	// The default value is "base64"
+	// 
 	// The "fingerprint" and"decimal" encodings are introduced in Chilkat v9.5.0.55.
 	// 
 	// The "fingerprint" encoding is a lowercase hex encoding where each hex digit is
@@ -667,6 +690,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// "QP" (for quoted-printable), "URL" (for url-encoding), "Hex", "Q", "B",
 	// "url_oauth", "url_rfc1738", "url_rfc2396", "url_rfc3986", "fingerprint", or
 	// "decimal".
+	// 
+	// The default value is "base64"
 	// 
 	// The "fingerprint" and"decimal" encodings are introduced in Chilkat v9.5.0.55.
 	// 
@@ -738,11 +763,13 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// SHA-256, SHA-384, and SHA-512. Chilkat by definition supports "SHA-2" because it
 	// supports these algorithms.
 	// 
+	// The default value is "sha1".
+	// 
 	// Note: The HAVAL hash algorithm is affected by two other properties: HavalRounds
 	// and KeyLength.
+	// 
 	//     The HavalRounds may have values of 3, 4, or 5.
 	//     The KeyLength may have values of 128, 160, 192, 224, or 256.
-	// 
 	void get_HashAlgorithm(CkString &str);
 	// Selects the hash algorithm used by methods that create hashes. The valid choices
 	// are "sha1", "sha256", "sha384", "sha512", "md2", "md5", "haval", "ripemd128",
@@ -752,11 +779,13 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// SHA-256, SHA-384, and SHA-512. Chilkat by definition supports "SHA-2" because it
 	// supports these algorithms.
 	// 
+	// The default value is "sha1".
+	// 
 	// Note: The HAVAL hash algorithm is affected by two other properties: HavalRounds
 	// and KeyLength.
+	// 
 	//     The HavalRounds may have values of 3, 4, or 5.
 	//     The KeyLength may have values of 128, 160, 192, 224, or 256.
-	// 
 	const char *hashAlgorithm(void);
 	// Selects the hash algorithm used by methods that create hashes. The valid choices
 	// are "sha1", "sha256", "sha384", "sha512", "md2", "md5", "haval", "ripemd128",
@@ -766,11 +795,13 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// SHA-256, SHA-384, and SHA-512. Chilkat by definition supports "SHA-2" because it
 	// supports these algorithms.
 	// 
+	// The default value is "sha1".
+	// 
 	// Note: The HAVAL hash algorithm is affected by two other properties: HavalRounds
 	// and KeyLength.
+	// 
 	//     The HavalRounds may have values of 3, 4, or 5.
 	//     The KeyLength may have values of 128, 160, 192, 224, or 256.
-	// 
 	void put_HashAlgorithm(const char *newVal);
 
 	// Applies to the HAVAL hash algorithm only and must be set to the integer value 3,
@@ -874,15 +905,37 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// Selects the hash algorithm for use within OAEP padding when encrypting using
 	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
 	// "sha512",
+	// 
+	// The default value is "sha256"
+	// 
 	void get_OaepHash(CkString &str);
 	// Selects the hash algorithm for use within OAEP padding when encrypting using
 	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
 	// "sha512",
+	// 
+	// The default value is "sha256"
+	// 
 	const char *oaepHash(void);
 	// Selects the hash algorithm for use within OAEP padding when encrypting using
 	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
 	// "sha512",
+	// 
+	// The default value is "sha256"
+	// 
 	void put_OaepHash(const char *newVal);
+
+	// Selects the MGF hash algorithm for use within OAEP padding when encrypting using
+	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
+	// "sha512", The default is "sha1".
+	void get_OaepMgfHash(CkString &str);
+	// Selects the MGF hash algorithm for use within OAEP padding when encrypting using
+	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
+	// "sha512", The default is "sha1".
+	const char *oaepMgfHash(void);
+	// Selects the MGF hash algorithm for use within OAEP padding when encrypting using
+	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
+	// "sha512", The default is "sha1".
+	void put_OaepMgfHash(const char *newVal);
 
 	// Selects the RSA encryption scheme when encrypting using "pki" (with a
 	// certificate and private key). The default value is false, which selects
@@ -1000,10 +1053,16 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// The effective key length (in bits) for the RC2 encryption algorithm. When RC2 is
 	// used, both the KeyLength and Rc2EffectiveKeyLength properties should be set. For
 	// RC2, both should be between 8 and 1024 (inclusive).
+	// 
+	// The default value is 128
+	// 
 	int get_Rc2EffectiveKeyLength(void);
 	// The effective key length (in bits) for the RC2 encryption algorithm. When RC2 is
 	// used, both the KeyLength and Rc2EffectiveKeyLength properties should be set. For
 	// RC2, both should be between 8 and 1024 (inclusive).
+	// 
+	// The default value is 128
+	// 
 	void put_Rc2EffectiveKeyLength(int newVal);
 
 	// The salt to be used with password-based encryption (PBE). Password-based
@@ -1063,6 +1122,49 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// does not apply for ECC or DSA private keys.
 	// 
 	void put_SigningAlg(const char *newVal);
+
+	// Contains JSON to specify the authenticated (signed) attributes that are to be
+	// included in PKCS7 signatures. The default value is:
+	// {
+	//     "contentType": 1,
+	//     "signingTime": 1,
+	//     "messageDigest": 1,
+	//     "sMIMECapabilities": 1,
+	//     "microsoftRecipientInfo": 1,
+	//     "encrypKeyPref": 1
+	//     ] 
+	// }
+	// Contact Chilkat (support@chilkatsoft.com) about other signed attributes that may
+	// be needed for CAdes signatures.
+	void get_SigningAttributes(CkString &str);
+	// Contains JSON to specify the authenticated (signed) attributes that are to be
+	// included in PKCS7 signatures. The default value is:
+	// {
+	//     "contentType": 1,
+	//     "signingTime": 1,
+	//     "messageDigest": 1,
+	//     "sMIMECapabilities": 1,
+	//     "microsoftRecipientInfo": 1,
+	//     "encrypKeyPref": 1
+	//     ] 
+	// }
+	// Contact Chilkat (support@chilkatsoft.com) about other signed attributes that may
+	// be needed for CAdes signatures.
+	const char *signingAttributes(void);
+	// Contains JSON to specify the authenticated (signed) attributes that are to be
+	// included in PKCS7 signatures. The default value is:
+	// {
+	//     "contentType": 1,
+	//     "signingTime": 1,
+	//     "messageDigest": 1,
+	//     "sMIMECapabilities": 1,
+	//     "microsoftRecipientInfo": 1,
+	//     "encrypKeyPref": 1
+	//     ] 
+	// }
+	// Contact Chilkat (support@chilkatsoft.com) about other signed attributes that may
+	// be needed for CAdes signatures.
+	void put_SigningAttributes(const char *newVal);
 
 	// When UU encoding, this is the filename to be embedded in UU encoded output. The
 	// default is "file.dat". When UU decoding, this is the filename found in the UU
@@ -1336,6 +1438,10 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// hash algorithms for signing are "sha256", "sha1", "sha384", "sha512", "md5", and
 	// "md2".
 	// 
+	// Note: The CreateP7M method creates an opaque signature. To do the same thing
+	// entirely in memory, your application would call any of the OpaqueSign* methods,
+	// such as OpaqueSignBd, OpaqueSignString, OpaqueSignStringENC, etc.
+	// 
 	bool CreateP7M(const char *inFilename, const char *p7mPath);
 
 
@@ -1347,6 +1453,10 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// To sign with a particular hash algorithm, set the HashAlgorithm property. Valid
 	// hash algorithms for signing are "sha256", "sha1", "sha384", "sha512", "md5", and
 	// "md2".
+	// 
+	// Note: The CreateP7S method creates a detached signature. To do the same thing
+	// entirely in memory, your application would call any of the Sign* methods, such
+	// as SignBdENC, SignString, SignStringENC, SignSbENC, etc.
 	// 
 	bool CreateP7S(const char *inFilename, const char *p7sPath);
 
@@ -1408,6 +1518,11 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// CryptAlgorithm, SecretKey. Other properties that control encryption are:
 	// CipherMode, PaddingScheme, KeyLength, IV.
 	bool DecryptSb(CkBinData &bdIn, CkStringBuilder &sbOut);
+
+
+	// Identical to DecryptStringENC, except the decrypts the cipherText and appends the
+	// decrypted string to the secureStr.
+	bool DecryptSecureENC(const char *cipherText, CkSecureString &secureStr);
 
 
 	// Decrypts a stream. Internally, the strm's source is read, decrypted, and the
@@ -1561,6 +1676,14 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// control encryption are: CipherMode, PaddingScheme, KeyLength, IV.
 	bool EncryptSb(CkStringBuilder &sbIn, CkBinData &bdOut);
 
+
+	// Identical to EncryptStringENC, except the clear-text contained within the secureStr
+	// is encrypted and returned.
+	bool EncryptSecureENC(CkSecureString &secureStr, CkString &outStr);
+
+	// Identical to EncryptStringENC, except the clear-text contained within the secureStr
+	// is encrypted and returned.
+	const char *encryptSecureENC(CkSecureString &secureStr);
 
 	// Encrypts a stream. Internally, the strm's source is read, encrypted, and the
 	// encrypted data written to the strm's sink. It does this in streaming fashion.
@@ -1907,6 +2030,38 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// The same as GetSignatureSigningTime, except the date/time is returned in RFC822
 	// string format.
 	const char *signatureSigningTimeStr(int index);
+
+
+	// Extracts the signed (authenticated) attributes for the Nth signer. In most
+	// cases, a signature has only one signer, and the signerIndex should equal 0 to specify
+	// the 1st (and only) signer.
+	// 
+	// The binary PKCS7 is passed in pkcs7Der. On success, the sbJson will contain the signed
+	// attributes in JSON format.
+	// 
+	// Sample JSON output:
+	// {
+	//   "signedAttributes": [
+	//     {
+	//       "oid": "1.2.840.113549.1.9.3",
+	//       "name": "Content Type"
+	//     },
+	//     {
+	//       "oid": "1.2.840.113549.1.9.5",
+	//       "name": "Signing Time"
+	//     },
+	//     {
+	//       "oid": "1.2.840.113549.1.9.4",
+	//       "name": "Message Digest"
+	//     },
+	//     {
+	//       "oid": "1.2.840.113549.1.9.16.2.47",
+	//       "name": "Signing Certificate V2"
+	//     }
+	//   ]
+	// }
+	// 
+	bool GetSignedAttributes(int signerIndex, CkBinData &pkcs7Der, CkStringBuilder &sbJson);
 
 
 	// Gets the Nth certificate used for signing. This method can be called after

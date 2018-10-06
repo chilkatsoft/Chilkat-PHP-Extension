@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkStreamWH
 #define _C_CkStreamWH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkStreamW_setAbortCheck(HCkStreamW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkStreamW_setAbortCheck(HCkStreamW cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkStreamW_setPercentDone(HCkStreamW cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkStreamW_setProgressInfo(HCkStreamW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkStreamW_setTaskCompleted(HCkStreamW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));

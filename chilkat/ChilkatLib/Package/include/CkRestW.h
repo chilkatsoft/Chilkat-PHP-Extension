@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkRestW_H
 #define _CkRestW_H
@@ -22,6 +22,7 @@ class CkAuthAwsW;
 class CkAuthAzureADW;
 class CkAuthAzureSASW;
 class CkAuthAzureStorageW;
+class CkSecureStringW;
 class CkAuthGoogleW;
 class CkOAuth1W;
 class CkOAuth2W;
@@ -146,6 +147,21 @@ class CK_VISIBLE_PUBLIC CkRestW  : public CkClassWithCallbacksW
 	// 116 = Server's Finished message is invalid.
 	// 
 	int get_ConnectFailReason(void);
+
+	// The maximum amount of time to wait for the connection to be accepted by the HTTP
+	// server.
+	// 
+	// Note: Suprisingly, this property was forgotten and not added until Chilkat
+	// v9.5.0.71.
+	// 
+	int get_ConnectTimeoutMs(void);
+	// The maximum amount of time to wait for the connection to be accepted by the HTTP
+	// server.
+	// 
+	// Note: Suprisingly, this property was forgotten and not added until Chilkat
+	// v9.5.0.71.
+	// 
+	void put_ConnectTimeoutMs(int newVal);
 
 	// This property is only valid in programming environment and languages that allow
 	// for event callbacks.
@@ -322,6 +338,11 @@ class CK_VISIBLE_PUBLIC CkRestW  : public CkClassWithCallbacksW
 	// parameter to the request. This method should be called for all Amazon
 	// Marketplace Web Service (Amazon MWS) HTTP requests. It should be called after
 	// all request parameters have been added.
+	// 
+	// Important: The Chilkat v9.5.0.75 release accidentally breaks Amazon MWS (not
+	// AWS) authentication. If you need MWS with 9.5.0.75, send email to
+	// support@chilkatsoft.com for a hotfix, or revert back to v9.5.0.73, or update to
+	// a version after 9.5.0.75.
 	// 
 	// The domain should be the domain of the request, such as one of the following:
 	//     mws.amazonservices.com
@@ -793,6 +814,10 @@ class CK_VISIBLE_PUBLIC CkRestW  : public CkClassWithCallbacksW
 	// account ID, and the password is a client secret or token.
 	bool SetAuthBasic(const wchar_t *username, const wchar_t *password);
 
+	// The same as SetAuthBasic, but provides a more secure means for passing the
+	// arguments as secure string objects.
+	bool SetAuthBasicSecure(CkSecureStringW &username, CkSecureStringW &password);
+
 	// Sets the authorization service provider for Google API requests.
 	bool SetAuthGoogle(CkAuthGoogleW &authProvider);
 
@@ -841,6 +866,13 @@ class CK_VISIBLE_PUBLIC CkRestW  : public CkClassWithCallbacksW
 	// If autoSetStreamCharset is true, then the expectedStatus's StringCharset property will automatically get
 	// set based on the charset, if any, indicated in the response header. If the
 	// response is binary, then autoSetStreamCharset is ignored.
+	// 
+	// Starting in v9.5.0.75, the expectedStatus may be passed as a negative number to specify a
+	// range of expected (success) status codes. For example:
+	//     -200: Allow status codes 200 - 299
+	//     -210: Allow status codes 210 - 219
+	//     -220: Allow status codes 220 - 229
+	//     etc.
 	// 
 	bool SetResponseBodyStream(int expectedStatus, bool autoSetStreamCharset, CkStreamW &responseStream);
 

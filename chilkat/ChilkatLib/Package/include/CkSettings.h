@@ -1,3 +1,4 @@
+// This C++ header is for Chilkat v9.5.0.76
 // This source file is not generated.
 
 #if !defined(_CKSETTINGS_H_INCLUDED_)
@@ -63,6 +64,10 @@ public:
 	// Set via ClsGlobal.put_PreferIpv6
 	// Default is false.
 	static bool m_preferIpv6;
+
+	// Can be set to false to prevent Chilkat from using Windows registry-based cert stores.
+	// (so that the Chilkat library performs as it might on a non-Windows system.)
+	static bool m_autoSearchWinCertStores;
 
 #if defined(CK_SIM_OUT_OF_MEMORY)
 

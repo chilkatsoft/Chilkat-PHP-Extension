@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkOAuth2WH
 #define _C_CkOAuth2WH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkOAuth2W_setAbortCheck(HCkOAuth2W cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkOAuth2W_setAbortCheck(HCkOAuth2W cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkOAuth2W_setPercentDone(HCkOAuth2W cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkOAuth2W_setProgressInfo(HCkOAuth2W cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkOAuth2W_setTaskCompleted(HCkOAuth2W cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
@@ -18,6 +18,9 @@ CK_VISIBLE_PUBLIC void  CkOAuth2W_putAccessToken(HCkOAuth2W cHandle, const wchar
 CK_VISIBLE_PUBLIC const wchar_t *CkOAuth2W_accessToken(HCkOAuth2W cHandle);
 CK_VISIBLE_PUBLIC void CkOAuth2W_getAccessTokenResponse(HCkOAuth2W cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkOAuth2W_accessTokenResponse(HCkOAuth2W cHandle);
+CK_VISIBLE_PUBLIC void CkOAuth2W_getAppCallbackUrl(HCkOAuth2W cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkOAuth2W_putAppCallbackUrl(HCkOAuth2W cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkOAuth2W_appCallbackUrl(HCkOAuth2W cHandle);
 CK_VISIBLE_PUBLIC int CkOAuth2W_getAuthFlowState(HCkOAuth2W cHandle);
 CK_VISIBLE_PUBLIC void CkOAuth2W_getAuthorizationEndpoint(HCkOAuth2W cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkOAuth2W_putAuthorizationEndpoint(HCkOAuth2W cHandle, const wchar_t *newVal);
@@ -74,6 +77,8 @@ CK_VISIBLE_PUBLIC const wchar_t *CkOAuth2W_tokenEndpoint(HCkOAuth2W cHandle);
 CK_VISIBLE_PUBLIC void CkOAuth2W_getTokenType(HCkOAuth2W cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkOAuth2W_putTokenType(HCkOAuth2W cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkOAuth2W_tokenType(HCkOAuth2W cHandle);
+CK_VISIBLE_PUBLIC BOOL CkOAuth2W_getUseBasicAuth(HCkOAuth2W cHandle);
+CK_VISIBLE_PUBLIC void  CkOAuth2W_putUseBasicAuth(HCkOAuth2W cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC BOOL CkOAuth2W_getVerboseLogging(HCkOAuth2W cHandle);
 CK_VISIBLE_PUBLIC void  CkOAuth2W_putVerboseLogging(HCkOAuth2W cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkOAuth2W_getVersion(HCkOAuth2W cHandle, HCkString retval);

@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkMimeWH
 #define _C_CkMimeWH
 #include "chilkatDefs.h"
@@ -52,6 +52,9 @@ CK_VISIBLE_PUBLIC int CkMimeW_getNumSignerCerts(HCkMimeW cHandle);
 CK_VISIBLE_PUBLIC void CkMimeW_getOaepHash(HCkMimeW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkMimeW_putOaepHash(HCkMimeW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkMimeW_oaepHash(HCkMimeW cHandle);
+CK_VISIBLE_PUBLIC void CkMimeW_getOaepMgfHash(HCkMimeW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkMimeW_putOaepMgfHash(HCkMimeW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkMimeW_oaepMgfHash(HCkMimeW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMimeW_getOaepPadding(HCkMimeW cHandle);
 CK_VISIBLE_PUBLIC void  CkMimeW_putOaepPadding(HCkMimeW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkMimeW_getPkcs7CryptAlg(HCkMimeW cHandle, HCkString retval);

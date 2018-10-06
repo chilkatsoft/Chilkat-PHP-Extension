@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkSshTunnelWH
 #define _C_CkSshTunnelWH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkSshTunnelW_setAbortCheck(HCkSshTunnelW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkSshTunnelW_setAbortCheck(HCkSshTunnelW cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkSshTunnelW_setPercentDone(HCkSshTunnelW cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkSshTunnelW_setProgressInfo(HCkSshTunnelW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkSshTunnelW_setTaskCompleted(HCkSshTunnelW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
@@ -109,6 +109,9 @@ CK_VISIBLE_PUBLIC const wchar_t *CkSshTunnelW_tunnelLog(HCkSshTunnelW cHandle);
 CK_VISIBLE_PUBLIC void CkSshTunnelW_getTunnelLogPath(HCkSshTunnelW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkSshTunnelW_putTunnelLogPath(HCkSshTunnelW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkSshTunnelW_tunnelLogPath(HCkSshTunnelW cHandle);
+CK_VISIBLE_PUBLIC void CkSshTunnelW_getUncommonOptions(HCkSshTunnelW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkSshTunnelW_putUncommonOptions(HCkSshTunnelW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkSshTunnelW_uncommonOptions(HCkSshTunnelW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkSshTunnelW_getVerboseLogging(HCkSshTunnelW cHandle);
 CK_VISIBLE_PUBLIC void  CkSshTunnelW_putVerboseLogging(HCkSshTunnelW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkSshTunnelW_getVersion(HCkSshTunnelW cHandle, HCkString retval);
@@ -119,6 +122,10 @@ CK_VISIBLE_PUBLIC BOOL CkSshTunnelW_AuthenticatePw(HCkSshTunnelW cHandle, const 
 CK_VISIBLE_PUBLIC HCkTaskW CkSshTunnelW_AuthenticatePwAsync(HCkSshTunnelW cHandle, const wchar_t *login, const wchar_t *password);
 CK_VISIBLE_PUBLIC BOOL CkSshTunnelW_AuthenticatePwPk(HCkSshTunnelW cHandle, const wchar_t *username, const wchar_t *password, HCkSshKeyW privateKey);
 CK_VISIBLE_PUBLIC HCkTaskW CkSshTunnelW_AuthenticatePwPkAsync(HCkSshTunnelW cHandle, const wchar_t *username, const wchar_t *password, HCkSshKeyW privateKey);
+CK_VISIBLE_PUBLIC BOOL CkSshTunnelW_AuthenticateSecPw(HCkSshTunnelW cHandle, HCkSecureStringW login, HCkSecureStringW password);
+CK_VISIBLE_PUBLIC HCkTaskW CkSshTunnelW_AuthenticateSecPwAsync(HCkSshTunnelW cHandle, HCkSecureStringW login, HCkSecureStringW password);
+CK_VISIBLE_PUBLIC BOOL CkSshTunnelW_AuthenticateSecPwPk(HCkSshTunnelW cHandle, HCkSecureStringW username, HCkSecureStringW password, HCkSshKeyW privateKey);
+CK_VISIBLE_PUBLIC HCkTaskW CkSshTunnelW_AuthenticateSecPwPkAsync(HCkSshTunnelW cHandle, HCkSecureStringW username, HCkSecureStringW password, HCkSshKeyW privateKey);
 CK_VISIBLE_PUBLIC BOOL CkSshTunnelW_BeginAccepting(HCkSshTunnelW cHandle, int listenPort);
 CK_VISIBLE_PUBLIC HCkTaskW CkSshTunnelW_BeginAcceptingAsync(HCkSshTunnelW cHandle, int listenPort);
 CK_VISIBLE_PUBLIC BOOL CkSshTunnelW_CloseTunnel(HCkSshTunnelW cHandle, BOOL waitForThreads);

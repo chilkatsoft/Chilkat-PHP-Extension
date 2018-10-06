@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkPrivateKeyWH
 #define _C_CkPrivateKeyWH
 #include "chilkatDefs.h"
@@ -54,6 +54,7 @@ CK_VISIBLE_PUBLIC BOOL CkPrivateKeyW_GetRsaPem(HCkPrivateKeyW cHandle, HCkString
 CK_VISIBLE_PUBLIC const wchar_t *CkPrivateKeyW_getRsaPem(HCkPrivateKeyW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkPrivateKeyW_GetXml(HCkPrivateKeyW cHandle, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkPrivateKeyW_getXml(HCkPrivateKeyW cHandle);
+CK_VISIBLE_PUBLIC BOOL CkPrivateKeyW_LoadAnyFormat(HCkPrivateKeyW cHandle, HCkBinDataW privKeyData, const wchar_t *password);
 CK_VISIBLE_PUBLIC BOOL CkPrivateKeyW_LoadEncryptedPem(HCkPrivateKeyW cHandle, const wchar_t *pemStr, const wchar_t *password);
 CK_VISIBLE_PUBLIC BOOL CkPrivateKeyW_LoadEncryptedPemFile(HCkPrivateKeyW cHandle, const wchar_t *path, const wchar_t *password);
 CK_VISIBLE_PUBLIC BOOL CkPrivateKeyW_LoadJwk(HCkPrivateKeyW cHandle, const wchar_t *jsonStr);

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.70
+// This header is generated for Chilkat 9.5.0.76
 
 #ifndef _CkSFtp_H
 #define _CkSFtp_H
@@ -15,6 +15,7 @@
 class CkByteData;
 class CkTask;
 class CkSshKey;
+class CkSecureString;
 class CkSsh;
 class CkBinData;
 class CkStringBuilder;
@@ -298,11 +299,11 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 
 	// If set to true, forces the client to choose version 3 of the SFTP protocol,
 	// even if the server supports a higher version. The default value of this property
-	// is false.
+	// is true.
 	bool get_ForceV3(void);
 	// If set to true, forces the client to choose version 3 of the SFTP protocol,
 	// even if the server supports a higher version. The default value of this property
-	// is false.
+	// is true.
 	void put_ForceV3(bool newVal);
 
 	// This is the number of milliseconds between each AbortCheck event callback. The
@@ -437,6 +438,37 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	// Returns true if connected to the SSH server. Note: This does not mean
 	// authentication has happened or InitializeSftp has already succeeded. It only
 	// means that the connection has been established by calling Connect.
+	// 
+	// Understanding the IsConnected property: The IsConnected property is the last
+	// known state of the TCP connection (either connected or disconnected). This
+	// requires some explanation because most developer have incorrect assumptions
+	// about TCP connections.
+	//     If a TCP connection is established, and neither side is reading or writing
+	//     the socket (i.e. both sides are doing nothing), then you can disconnect the
+	//     network cable from the computer for any length of time, and then re-connect, and
+	//     the TCP connection is not affected.
+	//     A TCP connection only becomes disconnected when an attempt is made to
+	//     read/write while a network problem exists. If no attempts to read/write occur, a
+	//     network problem may arise and then become resolved without affecting the TCP
+	//     connection.
+	//     If the peer chooses to close its side of the TCP connection, your
+	//     application won't magically know about it until you try to do something with the
+	//     TCP socket (such as read or write).
+	//     A Chilkat API property (as opposed to a method) CANNOT and should not do
+	//     something that would cause an application to timeout, hang, etc. Therefore, it
+	//     is not appropriate for the IsConnected property to attempt any kind of socket
+	//     operation (read/write/peek) on the socket. It simply returns the last known
+	//     state of the connection. It may very well be that your network cable is
+	//     unplugged and IsConnected returns true because technically, if neither peer is
+	//     trying to read/write, the network cable could be plugged back in without
+	//     affecting the connection. IsConnected could also return true if the peer has
+	//     already closed its side of the connection, because the state of the connection
+	//     is only updated after trying to read/write/peek.
+	//     To truly know the current connected state (as opposed to the last known
+	//     connection state), your application should attempt a network operation that is
+	//     appropriate to the protocol. For SFTP, an application could call SendIgnore, and
+	//     then check IsConnected.
+	// 
 	bool get_IsConnected(void);
 
 	// Controls whether communications to/from the SFTP server are saved to the
@@ -565,6 +597,15 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	// example, "*.xml; *.txt; *.csv". If set, the ReadDir method will only return
 	// files that do not match any of these patterns.
 	void put_ReadDirMustNotMatch(const char *newVal);
+
+	// The server-identifier string received from the server during connection
+	// establishment. For example, a typical value would be similar to
+	// "SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.2".
+	void get_ServerIdentifier(CkString &str);
+	// The server-identifier string received from the server during connection
+	// establishment. For example, a typical value would be similar to
+	// "SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.2".
+	const char *serverIdentifier(void);
 
 	// Contains a log of the messages sent to/from the SFTP server. To enable session
 	// logging, set the KeepSessionLog property = true. Note: This property is not a
@@ -757,6 +798,34 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	// packets on the network.
 	void put_TcpNoDelay(bool newVal);
 
+	// This is a catch-all property to be used for uncommon needs. This property
+	// defaults to the empty string, and should typically remain empty.
+	// 
+	// As of v9.5.0.73, the only possible value is:
+	//     "KEX_DH_GEX_REQUEST_OLD" - Force the old Group Exchange message to be used.
+	//     This would be used for very old SSH server implementations that do not use the
+	//     RFC standard for diffie-hellman-group-exchange.
+	// 
+	void get_UncommonOptions(CkString &str);
+	// This is a catch-all property to be used for uncommon needs. This property
+	// defaults to the empty string, and should typically remain empty.
+	// 
+	// As of v9.5.0.73, the only possible value is:
+	//     "KEX_DH_GEX_REQUEST_OLD" - Force the old Group Exchange message to be used.
+	//     This would be used for very old SSH server implementations that do not use the
+	//     RFC standard for diffie-hellman-group-exchange.
+	// 
+	const char *uncommonOptions(void);
+	// This is a catch-all property to be used for uncommon needs. This property
+	// defaults to the empty string, and should typically remain empty.
+	// 
+	// As of v9.5.0.73, the only possible value is:
+	//     "KEX_DH_GEX_REQUEST_OLD" - Force the old Group Exchange message to be used.
+	//     This would be used for very old SSH server implementations that do not use the
+	//     RFC standard for diffie-hellman-group-exchange.
+	// 
+	void put_UncommonOptions(const char *newVal);
+
 	// The chunk size to use when uploading files via the UploadFile or
 	// UploadFileByName methods. The default value is 32000. If an upload fails because
 	// "WSAECONNABORTED An established connection was aborted by the software in your
@@ -778,6 +847,18 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	// If true, then date/times are returned as UTC times. If false (the default)
 	// then date/times are returned as local times.
 	void put_UtcMode(bool newVal);
+
+	// The current transfer byte count for an ongoing upload or download. Programs
+	// doing asynchronous uploads or downloads can read this property in real time
+	// during the upload. For SyncTreeUpload and SyncTreeDownload operations, this is
+	// the real-time cumulative number of bytes for all files uploaded or downloaded.
+	unsigned long get_XferByteCount(void);
+
+	// The current transfer byte count for an ongoing upload or download. Programs
+	// doing asynchronous uploads or downloads can read this property in real time
+	// during the upload. For SyncTreeUpload and SyncTreeDownload operations, this is
+	// the real-time cumulative number of bytes for all files uploaded or downloaded.
+	__int64 get_XferByteCount64(void);
 
 
 
@@ -876,6 +957,24 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	// LastErrorText property to support@chilkatsoft.com.
 	// 
 	CkTask *AuthenticatePwPkAsync(const char *username, const char *password, CkSshKey &privateKey);
+
+
+	// The same as AuthenticatePw, but the login and password are passed in secure
+	// string objects.
+	bool AuthenticateSecPw(CkSecureString &login, CkSecureString &password);
+
+	// The same as AuthenticatePw, but the login and password are passed in secure
+	// string objects.
+	CkTask *AuthenticateSecPwAsync(CkSecureString &login, CkSecureString &password);
+
+
+	// The same as AuthenticatePwPk, but the login and password are passed in secure
+	// string objects.
+	bool AuthenticateSecPwPk(CkSecureString &username, CkSecureString &password, CkSshKey &privateKey);
+
+	// The same as AuthenticatePwPk, but the login and password are passed in secure
+	// string objects.
+	CkTask *AuthenticateSecPwPkAsync(CkSecureString &username, CkSecureString &password, CkSshKey &privateKey);
 
 
 	// Clears the contents of the AccumulateBuffer property.
@@ -1149,6 +1248,25 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	CkTask *FileExistsAsync(const char *remotePath, bool followLinks);
 
 
+	// Causes the SFTP server to do an fsync on the open file. Specifically, this is
+	// directing the SFTP server to call fsync (https://linux.die.net/man/2/fsync) on
+	// the open file.
+	// 
+	// This method uses the fsync@openssh.com and only works for servers supporting the
+	// fsync@openssh.com extension.
+	// 
+	bool Fsync(const char *handle);
+
+	// Causes the SFTP server to do an fsync on the open file. Specifically, this is
+	// directing the SFTP server to call fsync (https://linux.die.net/man/2/fsync) on
+	// the open file.
+	// 
+	// This method uses the fsync@openssh.com and only works for servers supporting the
+	// fsync@openssh.com extension.
+	// 
+	CkTask *FsyncAsync(const char *handle);
+
+
 	// Returns the create date/time for a file. pathOrHandle may be a remote filepath or an
 	// open handle string as returned by OpenFile. If pathOrHandle is a handle, then bIsHandle must
 	// be set to true, otherwise it should be false. If bFollowLinks is true, then
@@ -1412,6 +1530,15 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	// such as ReadFileBytes64s allow for 64-bit values to be passed as strings.
 	// 
 	const char *fileSizeStr(const char *pathOrHandle, bool bFollowLinks, bool bIsHandle);
+
+
+	// Creates a hard link on the server using the hardlink@openssh.com extension. This
+	// only works for SFTP servers that support the hardlink@openssh.com extension.
+	bool HardLink(const char *oldPath, const char *newPath);
+
+	// Creates a hard link on the server using the hardlink@openssh.com extension. This
+	// only works for SFTP servers that support the hardlink@openssh.com extension.
+	CkTask *HardLinkAsync(const char *oldPath, const char *newPath);
 
 
 	// Intializes the SFTP subsystem. This should be called after connecting and
@@ -2068,6 +2195,18 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	// 
 	const char *readFileText64s(const char *handle, const char *offset, int numBytes, const char *charset);
 
+	// Returns the target of a symbolic link on the server. The path is the path of the
+	// symbolic link on the server.
+	bool ReadLink(const char *path, CkString &outStr);
+
+	// Returns the target of a symbolic link on the server. The path is the path of the
+	// symbolic link on the server.
+	const char *readLink(const char *path);
+	// Returns the target of a symbolic link on the server. The path is the path of the
+	// symbolic link on the server.
+	CkTask *ReadLinkAsync(const char *path);
+
+
 	// This method can be used to have the server canonicalize any given path name to
 	// an absolute path. This is useful for converting path names containing ".."
 	// components or relative pathnames without a leading slash into absolute paths.
@@ -2314,6 +2453,13 @@ class CK_VISIBLE_PUBLIC CkSFtp  : public CkClassWithCallbacks
 	// handle of a currently open file. isHandle should be set to true if the pathOrHandle is a
 	// handle, otherwise set isHandle to false.
 	CkTask *SetPermissionsAsync(const char *pathOrHandle, bool isHandle, int permissions);
+
+
+	// Create a symbolic link from oldpath to newpath on the server filesystem.
+	bool SymLink(const char *oldPath, const char *newPath);
+
+	// Create a symbolic link from oldpath to newpath on the server filesystem.
+	CkTask *SymLinkAsync(const char *oldPath, const char *newPath);
 
 
 	// Downloads files from the SFTP server to a local directory tree. Synchronization

@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkScp_H
 #define _C_CkScp_H
 #include "chilkatDefs.h"
@@ -6,10 +6,19 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkScp_setAbortCheck(HCkScp cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkScp_setAbortCheck(HCkScp cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkScp_setPercentDone(HCkScp cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkScp_setProgressInfo(HCkScp cHandle, void (*fnProgressInfo)(const char *name, const char *value));
 CK_VISIBLE_PUBLIC void CkScp_setTaskCompleted(HCkScp cHandle, void (*fnTaskCompleted)(HCkTask hTask));
+
+CK_VISIBLE_PUBLIC void CkScp_setAbortCheck2(HCkScp cHandle, BOOL (*fnAbortCheck2)(void *pContext));
+CK_VISIBLE_PUBLIC void CkScp_setPercentDone2(HCkScp cHandle, BOOL (*fnPercentDone2)(int pctDone, void *pContext));
+CK_VISIBLE_PUBLIC void CkScp_setProgressInfo2(HCkScp cHandle, void (*fnProgressInfo2)(const char *name, const char *value, void *pContext));
+CK_VISIBLE_PUBLIC void CkScp_setTaskCompleted2(HCkScp cHandle, void (*fnTaskCompleted2)(HCkTask hTask, void *pContext));
+
+// setExternalProgress is for C callback functions defined in the external programming language (such as Go)
+CK_VISIBLE_PUBLIC void CkScp_setExternalProgress(HCkScp cHandle, BOOL on);
+CK_VISIBLE_PUBLIC void CkScp_setCallbackContext(HCkScp cHandle, void *pContext);
 
 CK_VISIBLE_PUBLIC HCkScp CkScp_Create(void);
 CK_VISIBLE_PUBLIC void CkScp_Dispose(HCkScp handle);

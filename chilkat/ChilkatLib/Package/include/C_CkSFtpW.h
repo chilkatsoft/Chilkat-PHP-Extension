@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkSFtpWH
 #define _C_CkSFtpWH
 #include "chilkatDefs.h"
@@ -6,7 +6,7 @@
 #include "Chilkat_C.h"
 
 
-CK_VISIBLE_PUBLIC void CkSFtpW_setAbortCheck(HCkSFtpW cHandle, BOOL (*fnAbortCheck)());
+CK_VISIBLE_PUBLIC void CkSFtpW_setAbortCheck(HCkSFtpW cHandle, BOOL (*fnAbortCheck)(void));
 CK_VISIBLE_PUBLIC void CkSFtpW_setPercentDone(HCkSFtpW cHandle, BOOL (*fnPercentDone)(int pctDone));
 CK_VISIBLE_PUBLIC void CkSFtpW_setProgressInfo(HCkSFtpW cHandle, void (*fnProgressInfo)(const wchar_t *name, const wchar_t *value));
 CK_VISIBLE_PUBLIC void CkSFtpW_setTaskCompleted(HCkSFtpW cHandle, void (*fnTaskCompleted)(HCkTaskW hTask));
@@ -105,6 +105,8 @@ CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_readDirMustMatch(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void CkSFtpW_getReadDirMustNotMatch(HCkSFtpW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkSFtpW_putReadDirMustNotMatch(HCkSFtpW cHandle, const wchar_t *newVal);
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_readDirMustNotMatch(HCkSFtpW cHandle);
+CK_VISIBLE_PUBLIC void CkSFtpW_getServerIdentifier(HCkSFtpW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_serverIdentifier(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void CkSFtpW_getSessionLog(HCkSFtpW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_sessionLog(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void CkSFtpW_getSocksHostname(HCkSFtpW cHandle, HCkString retval);
@@ -138,6 +140,9 @@ CK_VISIBLE_PUBLIC void  CkSFtpW_putSyncMustNotMatch(HCkSFtpW cHandle, const wcha
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_syncMustNotMatch(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_getTcpNoDelay(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void  CkSFtpW_putTcpNoDelay(HCkSFtpW cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC void CkSFtpW_getUncommonOptions(HCkSFtpW cHandle, HCkString retval);
+CK_VISIBLE_PUBLIC void  CkSFtpW_putUncommonOptions(HCkSFtpW cHandle, const wchar_t *newVal);
+CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_uncommonOptions(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC int CkSFtpW_getUploadChunkSize(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void  CkSFtpW_putUploadChunkSize(HCkSFtpW cHandle, int newVal);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_getUtcMode(HCkSFtpW cHandle);
@@ -146,6 +151,8 @@ CK_VISIBLE_PUBLIC BOOL CkSFtpW_getVerboseLogging(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void  CkSFtpW_putVerboseLogging(HCkSFtpW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkSFtpW_getVersion(HCkSFtpW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_version(HCkSFtpW cHandle);
+CK_VISIBLE_PUBLIC unsigned long CkSFtpW_getXferByteCount(HCkSFtpW cHandle);
+CK_VISIBLE_PUBLIC __int64 CkSFtpW_getXferByteCount64(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC int CkSFtpW_AccumulateBytes(HCkSFtpW cHandle, const wchar_t *handle, int maxBytes);
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_AccumulateBytesAsync(HCkSFtpW cHandle, const wchar_t *handle, int maxBytes);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_Add64(HCkSFtpW cHandle, const wchar_t *n1, const wchar_t *n2, HCkString outStr);
@@ -156,6 +163,10 @@ CK_VISIBLE_PUBLIC BOOL CkSFtpW_AuthenticatePw(HCkSFtpW cHandle, const wchar_t *l
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_AuthenticatePwAsync(HCkSFtpW cHandle, const wchar_t *login, const wchar_t *password);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_AuthenticatePwPk(HCkSFtpW cHandle, const wchar_t *username, const wchar_t *password, HCkSshKeyW privateKey);
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_AuthenticatePwPkAsync(HCkSFtpW cHandle, const wchar_t *username, const wchar_t *password, HCkSshKeyW privateKey);
+CK_VISIBLE_PUBLIC BOOL CkSFtpW_AuthenticateSecPw(HCkSFtpW cHandle, HCkSecureStringW login, HCkSecureStringW password);
+CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_AuthenticateSecPwAsync(HCkSFtpW cHandle, HCkSecureStringW login, HCkSecureStringW password);
+CK_VISIBLE_PUBLIC BOOL CkSFtpW_AuthenticateSecPwPk(HCkSFtpW cHandle, HCkSecureStringW username, HCkSecureStringW password, HCkSshKeyW privateKey);
+CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_AuthenticateSecPwPkAsync(HCkSFtpW cHandle, HCkSecureStringW username, HCkSecureStringW password, HCkSshKeyW privateKey);
 CK_VISIBLE_PUBLIC void CkSFtpW_ClearAccumulateBuffer(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void CkSFtpW_ClearCache(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC void CkSFtpW_ClearSessionLog(HCkSFtpW cHandle);
@@ -181,6 +192,8 @@ CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_DownloadSbAsync(HCkSFtpW cHandle, const wchar
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_Eof(HCkSFtpW cHandle, const wchar_t *handle);
 CK_VISIBLE_PUBLIC int CkSFtpW_FileExists(HCkSFtpW cHandle, const wchar_t *remotePath, BOOL followLinks);
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_FileExistsAsync(HCkSFtpW cHandle, const wchar_t *remotePath, BOOL followLinks);
+CK_VISIBLE_PUBLIC BOOL CkSFtpW_Fsync(HCkSFtpW cHandle, const wchar_t *handle);
+CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_FsyncAsync(HCkSFtpW cHandle, const wchar_t *handle);
 CK_VISIBLE_PUBLIC HCkDateTimeW CkSFtpW_GetFileCreateDt(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL bFollowLinks, BOOL bIsHandle);
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_GetFileCreateDtAsync(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL bFollowLinks, BOOL bIsHandle);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_GetFileCreateTime(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL bFollowLinks, BOOL bIsHandle, SYSTEMTIME *outSysTime);
@@ -211,6 +224,8 @@ CK_VISIBLE_PUBLIC int CkSFtpW_GetFileSize32(HCkSFtpW cHandle, const wchar_t *pat
 CK_VISIBLE_PUBLIC __int64 CkSFtpW_GetFileSize64(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL bFollowLinks, BOOL bIsHandle);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_GetFileSizeStr(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL bFollowLinks, BOOL bIsHandle, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_getFileSizeStr(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL bFollowLinks, BOOL bIsHandle);
+CK_VISIBLE_PUBLIC BOOL CkSFtpW_HardLink(HCkSFtpW cHandle, const wchar_t *oldPath, const wchar_t *newPath);
+CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_HardLinkAsync(HCkSFtpW cHandle, const wchar_t *oldPath, const wchar_t *newPath);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_InitializeSftp(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_InitializeSftpAsync(HCkSFtpW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_LastReadFailed(HCkSFtpW cHandle, const wchar_t *handle);
@@ -237,6 +252,9 @@ CK_VISIBLE_PUBLIC BOOL CkSFtpW_ReadFileText64(HCkSFtpW cHandle, const wchar_t *h
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_readFileText64(HCkSFtpW cHandle, const wchar_t *handle, __int64 offset, int numBytes, const wchar_t *charset);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_ReadFileText64s(HCkSFtpW cHandle, const wchar_t *handle, const wchar_t *offset, int numBytes, const wchar_t *charset, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_readFileText64s(HCkSFtpW cHandle, const wchar_t *handle, const wchar_t *offset, int numBytes, const wchar_t *charset);
+CK_VISIBLE_PUBLIC BOOL CkSFtpW_ReadLink(HCkSFtpW cHandle, const wchar_t *path, HCkString outStr);
+CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_readLink(HCkSFtpW cHandle, const wchar_t *path);
+CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_ReadLinkAsync(HCkSFtpW cHandle, const wchar_t *path);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_RealPath(HCkSFtpW cHandle, const wchar_t *originalPath, const wchar_t *composePath, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkSFtpW_realPath(HCkSFtpW cHandle, const wchar_t *originalPath, const wchar_t *composePath);
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_RealPathAsync(HCkSFtpW cHandle, const wchar_t *originalPath, const wchar_t *composePath);
@@ -272,6 +290,8 @@ CK_VISIBLE_PUBLIC BOOL CkSFtpW_SetOwnerAndGroup(HCkSFtpW cHandle, const wchar_t 
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_SetOwnerAndGroupAsync(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL isHandle, const wchar_t *owner, const wchar_t *group);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_SetPermissions(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL isHandle, int permissions);
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_SetPermissionsAsync(HCkSFtpW cHandle, const wchar_t *pathOrHandle, BOOL isHandle, int permissions);
+CK_VISIBLE_PUBLIC BOOL CkSFtpW_SymLink(HCkSFtpW cHandle, const wchar_t *oldPath, const wchar_t *newPath);
+CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_SymLinkAsync(HCkSFtpW cHandle, const wchar_t *oldPath, const wchar_t *newPath);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_SyncTreeDownload(HCkSFtpW cHandle, const wchar_t *remoteRoot, const wchar_t *localRoot, int mode, BOOL recurse);
 CK_VISIBLE_PUBLIC HCkTaskW CkSFtpW_SyncTreeDownloadAsync(HCkSFtpW cHandle, const wchar_t *remoteRoot, const wchar_t *localRoot, int mode, BOOL recurse);
 CK_VISIBLE_PUBLIC BOOL CkSFtpW_SyncTreeUpload(HCkSFtpW cHandle, const wchar_t *localBaseDir, const wchar_t *remoteBaseDir, int mode, BOOL bRecurse);

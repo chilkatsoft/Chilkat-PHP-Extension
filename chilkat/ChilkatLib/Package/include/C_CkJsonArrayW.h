@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.70
+// This is a generated source file for Chilkat version 9.5.0.76
 #ifndef _C_CkJsonArrayWH
 #define _C_CkJsonArrayWH
 #include "chilkatDefs.h"
@@ -37,10 +37,14 @@ CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_AddObjectAt(HCkJsonArrayW cHandle, int index
 CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_AddStringAt(HCkJsonArrayW cHandle, int index, const wchar_t *value);
 CK_VISIBLE_PUBLIC HCkJsonArrayW CkJsonArrayW_ArrayAt(HCkJsonArrayW cHandle, int index);
 CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_BoolAt(HCkJsonArrayW cHandle, int index);
+CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_DateAt(HCkJsonArrayW cHandle, int index, HCkDateTimeW dateTime);
 CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_DeleteAt(HCkJsonArrayW cHandle, int index);
+CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_DtAt(HCkJsonArrayW cHandle, int index, BOOL bLocal, HCkDtObjW dt);
 CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_Emit(HCkJsonArrayW cHandle, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkJsonArrayW_emit(HCkJsonArrayW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_EmitSb(HCkJsonArrayW cHandle, HCkStringBuilderW sb);
+CK_VISIBLE_PUBLIC int CkJsonArrayW_FindObject(HCkJsonArrayW cHandle, const wchar_t *name, const wchar_t *value, BOOL caseSensitive);
+CK_VISIBLE_PUBLIC int CkJsonArrayW_FindString(HCkJsonArrayW cHandle, const wchar_t *value, BOOL caseSensitive);
 CK_VISIBLE_PUBLIC int CkJsonArrayW_IntAt(HCkJsonArrayW cHandle, int index);
 CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_IsNullAt(HCkJsonArrayW cHandle, int index);
 CK_VISIBLE_PUBLIC BOOL CkJsonArrayW_Load(HCkJsonArrayW cHandle, const wchar_t *jsonArray);
